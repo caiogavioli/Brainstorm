@@ -111,21 +111,6 @@ export function PainelGestaoOcorrencia({
         />
       </div>
 
-      <div>
-        <label className="rotulo" htmlFor="fotos">
-          Anexar fotos
-        </label>
-        <input
-          id="fotos"
-          name="fotos"
-          type="file"
-          accept="image/jpeg,image/png,image/webp,image/heic"
-          multiple
-          capture="environment"
-          className="campo"
-        />
-      </div>
-
       {estado ? (
         <p
           role="status"

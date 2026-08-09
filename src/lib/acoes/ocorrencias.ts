@@ -10,7 +10,6 @@ import {
   primeiraMensagem,
 } from "@/lib/validacao";
 import { CRITICIDADE_LABEL, STATUS_OCORRENCIA_LABEL } from "@/lib/labels";
-import { salvarImagens } from "@/lib/armazenamento";
 import type { ResultadoAcao } from "@/lib/acoes/boletim";
 
 /** Garante que a sessão pode mexer na ocorrência informada. */
@@ -51,8 +50,6 @@ export async function criarOcorrenciaAction(
     return { ok: false, erro: "Informe o setor/equipamento da ocorrência." };
   }
 
-  const fotos = await salvarImagens(formData.getAll("fotos") as File[]);
-
   const ocorrencia = await prisma.ocorrencia.create({
     data: {
       condominioId: dados.condominioId,
@@ -68,7 +65,6 @@ export async function criarOcorrenciaAction(
       dataConclusao: dados.status === "CONCLUIDO" ? new Date() : null,
       origem: "AVULSA",
       abertaPorId: sessao.usuarioId,
-      fotos: { create: fotos },
       historico: {
         create: {
           usuarioId: sessao.usuarioId,
@@ -148,8 +144,6 @@ export async function atualizarOcorrenciaAction(
     });
   }
 
-  const fotos = await salvarImagens(formData.getAll("fotos") as File[]);
-
   await prisma.$transaction(async (tx) => {
     await tx.ocorrencia.update({
       where: { id: dados.id },
@@ -187,19 +181,6 @@ export async function atualizarOcorrenciaAction(
           ocorrenciaId: dados.id,
           usuarioId: sessao.usuarioId,
           mensagem: dados.comentario,
-        },
-      });
-    }
-
-    if (fotos.length > 0) {
-      await tx.ocorrenciaFoto.createMany({
-        data: fotos.map((f) => ({ ...f, ocorrenciaId: dados.id })),
-      });
-      await tx.ocorrenciaLog.create({
-        data: {
-          ocorrenciaId: dados.id,
-          usuarioId: sessao.usuarioId,
-          mensagem: `${fotos.length} foto(s) anexada(s).`,
         },
       });
     }

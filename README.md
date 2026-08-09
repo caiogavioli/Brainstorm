@@ -16,19 +16,26 @@ multi-condomínio, um **painel administrativo** para o síndico profissional e u
 | Validação | Zod (no servidor, em toda Server Action) |
 | Sessão | JWT assinado (`jose`) em cookie httpOnly + bcrypt |
 
-## Publicar na Vercel
+## Colocar no ar
 
-**→ [GUIA-DEPLOY.md](GUIA-DEPLOY.md)** — passo a passo completo, sem terminal.
-Ao final, o primeiro administrador é criado pela tela `/configuracao-inicial`.
+**→ [GUIA-DEPLOY.md](GUIA-DEPLOY.md)** — três caminhos: Render.com, Docker num
+computador próprio, ou Node direto. Escolha um.
+
+O mais rápido, se você tem Docker: sobe aplicação **e** banco de uma vez.
+
+```bash
+cp .env.example .env      # preencha AUTH_SECRET, POSTGRES_PASSWORD e ADMIN_*
+docker compose up -d      # http://localhost:3000
+```
 
 ## Rodando localmente
 
-Precisa de um PostgreSQL. O mais simples é apontar para o mesmo banco gratuito
-(Neon) que você usará no deploy — nada para instalar.
+Precisa de um PostgreSQL — ou use o `docker compose` acima, que já traz um.
+Sem Docker, crie um banco gratuito no [Neon](https://neon.tech) e cole a URL.
 
 ```bash
 npm install
-cp .env.example .env      # cole DATABASE_URL, DIRECT_URL e um AUTH_SECRET
+cp .env.example .env      # cole DATABASE_URL e um AUTH_SECRET
 npm run setup             # migra o banco + popula dados de demonstração
 npm run dev               # http://localhost:3000
 ```
@@ -119,8 +126,13 @@ criticidade aparecem no mesmo cartão. Alvos de toque de 44px, campos de 16px
 (evita o zoom automático do iOS) e barra de navegação inferior fixa.
 
 **Painel administrativo** — `/ocorrencias` (fila com filtros de condomínio, mês,
-status, criticidade e faixa de SLA), `/ocorrencias/[id]` (gestão + histórico +
-fotos), `/planos` e `/condominios`.
+status, criticidade e faixa de SLA), `/ocorrencias/[id]` (gestão + histórico),
+`/planos`, `/condominios` e `/usuarios`.
+
+> **Fotos das ocorrências estão desativadas.** O envio foi removido para que o
+> sistema não dependa de nenhum serviço externo de armazenamento. O modelo
+> `OcorrenciaFoto` e a galeria na tela de detalhe continuam no lugar, então
+> reativar é acrescentar o upload — sem migração nem perda de dados.
 
 ## Dashboard (`/dashboard`)
 
@@ -163,10 +175,13 @@ Os tokens estão em `src/app/globals.css`; os gráficos os leem em runtime
 - **Migrações** — o build roda `prisma migrate deploy`, então publicar já aplica
   o que estiver pendente. Ao mudar o schema, gere a migração com
   `npm run db:migrate` e faça commit da pasta `prisma/migrations/`.
-- **Fotos** — `src/lib/armazenamento.ts` grava no **Vercel Blob** sempre que
-  `BLOB_READ_WRITE_TOKEN` existe, e em `public/uploads/` caso contrário. O disco
-  da Vercel é efêmero, então em produção o Blob não é opcional. Só a URL é
-  persistida, então trocar por S3 é mexer em um arquivo.
+- **Docker** — `Dockerfile` em três estágios com saída `standalone`. As
+  dependências de produção são instaladas com `npm ci --omit=dev` e copiadas
+  inteiras: escolher pacotes a dedo esquece dependências transitivas do Prisma
+  (os *engines*), e a falha só apareceria ao subir o container.
+- **Entrypoint** — `docker/entrypoint.sh` espera o banco responder, aplica as
+  migrações, cria o administrador quando `ADMIN_EMAIL`/`ADMIN_SENHA` existem e
+  então larga o root.
 - **Credenciais de demonstração** — a dica na tela de login some sozinha em
   produção (`MOSTRAR_CREDENCIAIS_DEMO` reativa, se for uma vitrine).
 - **`SETUP_TOKEN`** — habilita `/configuracao-inicial`. A tela também exige que
@@ -201,8 +216,9 @@ src/
     checklist.ts           # catálogo dos 27 itens
     validacao.ts           # schemas Zod
     datas.ts               # fuso, mês de referência e cálculo de SLA
-    armazenamento.ts       # fotos: Vercel Blob em produção, disco em dev
     acoes/                 # Server Actions (escrita)
     consultas/dashboard.ts # agregações do BI
 scripts/init-producao.ts   # catálogo + admin, sem dados de demonstração
+Dockerfile                 # imagem de produção (standalone)
+docker-compose.yml         # aplicação + PostgreSQL em um comando
 ```

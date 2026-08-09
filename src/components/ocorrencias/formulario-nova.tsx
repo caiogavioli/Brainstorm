@@ -34,7 +34,6 @@ export function FormularioNovaOcorrencia({
     null,
   );
   const [setorFora, setSetorFora] = useState(false);
-  const [previas, setPrevias] = useState<string[]>([]);
 
   useEffect(() => {
     if (estado?.ok && estado.id) {
@@ -111,39 +110,6 @@ export function FormularioNovaOcorrencia({
             minLength={5}
             placeholder="O que aconteceu, onde e desde quando."
           />
-        </div>
-
-        <div>
-          <label className="rotulo" htmlFor="fotos">
-            Fotos (até 6, 8 MB cada)
-          </label>
-          <input
-            id="fotos"
-            name="fotos"
-            type="file"
-            accept="image/jpeg,image/png,image/webp,image/heic"
-            multiple
-            capture="environment"
-            className="campo"
-            onChange={(e) => {
-              const arquivos = Array.from(e.target.files ?? []);
-              setPrevias(arquivos.map((a) => URL.createObjectURL(a)));
-            }}
-          />
-          {previas.length > 0 ? (
-            <div className="mt-2 flex flex-wrap gap-2">
-              {previas.map((src) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  key={src}
-                  src={src}
-                  alt=""
-                  className="h-16 w-16 rounded-lg object-cover"
-                  style={{ border: "1px solid var(--borda)" }}
-                />
-              ))}
-            </div>
-          ) : null}
         </div>
 
         <div className="grid grid-cols-2 gap-3">

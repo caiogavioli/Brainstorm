@@ -2,21 +2,19 @@
 //
 // Banco relacional multi-condomínio (multi-tenant por `condominioId`).
 //
-// Provider: PostgreSQL, o mesmo em desenvolvimento e em produção — assim não
-// existe diferença de comportamento entre a sua máquina e a Vercel.
+// Provider: PostgreSQL, o mesmo em desenvolvimento e em produção.
 //
-// DATABASE_URL  → conexão da aplicação (pode ser a URL "pooled" do provedor).
-// DIRECT_URL    → conexão direta, usada só pelas migrações. Quando o provedor
-//                 não separa as duas, aponte ambas para a mesma URL.
+// Uma única variável de conexão, de propósito: com poucos condomínios não há
+// volume que justifique um pooler, e cada variável a mais é um passo a mais
+// para errar na instalação. Use a URL direta do provedor.
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 // ---------------------------------------------------------------------------

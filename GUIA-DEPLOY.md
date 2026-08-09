@@ -1,252 +1,270 @@
-# Guia de publicação na Vercel
+# Como colocar o sistema no ar
 
-Passo a passo para colocar o sistema no ar, do zero, sem usar terminal.
-Ao final você terá um endereço `https://...` que abre no celular de qualquer
-zelador.
+O sistema precisa de duas coisas para funcionar: **um lugar onde rodar** e **um
+banco de dados**. Abaixo estão três caminhos, do mais simples ao mais autônomo.
+Escolha **um**.
 
-**Tempo estimado:** 30 a 40 minutos.
-**Custo:** R$ 0 nos planos gratuitos da Vercel e do banco de dados.
+| | Caminho | Bom quando | Dificuldade |
+|---|---|---|---|
+| **A** | [Render.com](#caminho-a--rendercom) | Você quer um endereço na internet, como seria na Vercel | Baixa |
+| **B** | [Docker num computador](#caminho-b--docker) | Você tem um PC ou servidor que fica ligado | Média |
+| **C** | [Node direto num PC](#caminho-c--node-direto) | Você quer testar antes de decidir | Baixa |
 
-Você vai precisar de: sua conta do GitHub e um cartão **não** é necessário.
-
----
-
-## Antes de começar: o que é cada peça
-
-O sistema tem três partes, e cada uma vive num lugar:
-
-| Peça | Onde fica | Para que serve |
-|---|---|---|
-| **O código** | GitHub (já está lá) | As telas e as regras |
-| **O banco de dados** | Neon (PostgreSQL) | Guarda boletins, ocorrências, usuários |
-| **As fotos** | Vercel Blob | Guarda as imagens das ocorrências |
-
-A Vercel junta as três e publica o endereço.
-
-> **Por que não dá para ser só um arquivo HTML?** Porque o sistema precisa
-> *guardar* o que o zelador enviou e *devolver* isso para o síndico depois. Um
-> arquivo HTML sozinho não tem onde guardar nada.
+> **As fotos das ocorrências foram removidas.** O sistema não depende mais de
+> nenhum serviço de armazenamento de imagens. Descrição, plano de ação,
+> criticidade, prazo e histórico continuam iguais. Dá para reativar as fotos
+> depois — a tabela continua no banco.
 
 ---
 
-## Passo 1 — Criar a conta na Vercel
+## O banco de dados (vale para os caminhos A e C)
 
-1. Acesse **[vercel.com/signup](https://vercel.com/signup)**.
-2. Clique em **Continue with GitHub** e autorize.
-3. Quando perguntar o tipo de conta, escolha **Hobby** (é o plano gratuito) e
-   informe seu nome.
+Os dois precisam de um PostgreSQL. O gratuito mais simples é o **Neon**, criado
+direto no site deles — **não** pelo painel de outra plataforma:
 
----
-
-## Passo 2 — Importar o projeto
-
-1. No painel da Vercel, clique em **Add New… → Project**.
-2. Na lista de repositórios, encontre **Brainstorm** e clique em **Import**.
-   - Se ele não aparecer, clique em **Adjust GitHub App Permissions** e libere
-     o acesso ao repositório.
-3. Na tela de configuração, **atenção a um campo**:
-   - Em **Git Branch**, selecione `claude/condominio-boletim-gestao-ougoqd`
-     (é a branch onde o sistema está).
-4. **Ainda não clique em Deploy.** Vamos criar o banco antes — sem ele, a
-   primeira publicação falha. Deixe esta aba aberta.
-
----
-
-## Passo 3 — Criar o banco de dados
-
-1. Abra outra aba no painel da Vercel e vá em **Storage**.
-2. Clique em **Create Database → Neon (Serverless Postgres) → Continue**.
-3. Dê o nome `condominios`, escolha a região mais próxima
-   (**AWS São Paulo / sa-east-1**, se disponível) e confirme.
-4. Quando o banco for criado, abra a aba **Quickstart** ou **Connect** e
-   localize as duas strings de conexão. Elas se parecem com:
+1. Acesse **[neon.tech](https://neon.tech)** e entre com sua conta do GitHub ou
+   Google. Não pede cartão.
+2. Clique em **Create project**. Nome: `condominios`. Região: a mais próxima.
+3. Na tela seguinte aparece a **connection string**, algo como:
 
    ```
-   postgresql://usuario:senha@ep-algo-pooler.sa-east-1.aws.neon.tech/condominios?sslmode=require
    postgresql://usuario:senha@ep-algo.sa-east-1.aws.neon.tech/condominios?sslmode=require
    ```
 
-   A primeira (com **`-pooler`** no endereço) é a *pooled*.
-   A segunda (sem `-pooler`) é a *direta* / *unpooled*.
+4. **Copie e guarde.** É o valor de `DATABASE_URL` nos passos seguintes.
 
-5. **Copie as duas** para um bloco de notas. Você vai colar no passo 5.
+> Se a página oferecer duas versões (*pooled* e *direct*), pegue a **direct**
+> (a que **não** tem `-pooler` no endereço).
 
-> Se o seu provedor mostrar só uma string, use a mesma nas duas variáveis.
-> Funciona igual.
-
----
-
-## Passo 4 — Criar o armazenamento das fotos
-
-1. Ainda em **Storage**, clique em **Create Database → Blob → Continue**.
-2. Nome: `fotos-ocorrencias`. Confirme.
-3. Conecte-o ao projeto **Brainstorm** quando a Vercel perguntar.
-
-A Vercel cria sozinha a variável `BLOB_READ_WRITE_TOKEN` — você **não** precisa
-copiar nada.
-
-> **Por que isso é necessário:** na Vercel, o disco do servidor é apagado a cada
-> publicação. Uma foto salva "na pasta do site" sumiria. O Blob é um lugar
-> permanente para elas.
+Alternativas equivalentes, caso o Neon não funcione para você:
+[Supabase](https://supabase.com) e [Aiven](https://aiven.io) também têm
+PostgreSQL gratuito sem cartão.
 
 ---
 
-## Passo 5 — Preencher as variáveis de ambiente
+## Caminho A — Render.com
 
-Volte para a aba do **Passo 2** (a tela de importação) e abra a seção
-**Environment Variables**. Adicione **quatro** variáveis, uma por vez —
-digite o nome à esquerda e cole o valor à direita:
+Mesma ideia da Vercel: conecta no GitHub e publica sozinho. Plano gratuito, sem
+cartão.
+
+**1. Criar a conta**
+Acesse [render.com](https://render.com) → **Get Started** → entre com o GitHub.
+
+**2. Criar o serviço**
+No painel: **New + → Web Service** → **Build and deploy from a Git repository**
+→ conecte e escolha **Brainstorm**.
+
+**3. Preencher a configuração**
+
+| Campo | Valor |
+|---|---|
+| Name | `boletim-diario` |
+| Branch | `claude/condominio-boletim-gestao-ougoqd` |
+| Runtime | `Node` |
+| Build Command | `npm ci && npm run build` |
+| Start Command | `npm start` |
+| Instance Type | `Free` |
+
+**4. Variáveis de ambiente**
+Ainda nessa tela, em **Environment Variables**, adicione:
 
 | Nome | Valor |
 |---|---|
-| `DATABASE_URL` | a string **com `-pooler`** do Passo 3 |
-| `DIRECT_URL` | a string **sem `-pooler`** do Passo 3 |
-| `AUTH_SECRET` | um texto aleatório longo — veja abaixo |
-| `SETUP_TOKEN` | uma senha temporária que só você conhece |
+| `DATABASE_URL` | a connection string do Neon |
+| `AUTH_SECRET` | um texto aleatório de 40+ caracteres |
+| `ADMIN_EMAIL` | seu e-mail (será o login) |
+| `ADMIN_SENHA` | uma senha de 10+ caracteres |
+| `ADMIN_NOME` | seu nome |
 
-**Como gerar o `AUTH_SECRET`:** precisa ser um texto aleatório de pelo menos 40
-caracteres. Use o gerador de senhas do seu navegador ou do seu gerenciador de
-senhas, ou simplesmente digite muitas letras e números sem sentido. Exemplo do
-formato (**não use este**): `7Kq2mZ...` — invente o seu.
+**5. Publicar**
+Clique em **Create Web Service** e aguarde de 3 a 6 minutos. O build aplica as
+migrações do banco automaticamente.
 
-**O `SETUP_TOKEN`** é usado uma única vez, no Passo 7, para você criar o primeiro
-administrador. Pode ser algo como `configuracao-inicial-2026`. Vamos removê-lo
-depois.
+**6. Criar seu usuário**
+Abra a aba **Shell** do serviço no painel do Render e rode:
 
-> ⚠️ Nunca compartilhe o `AUTH_SECRET`. Quem o tiver consegue forjar um login.
+```bash
+npm run producao:init
+```
 
----
+Ele usa as variáveis `ADMIN_*` que você já preencheu. Se a aba Shell não estiver
+disponível no plano gratuito, use a alternativa sem terminal: adicione a
+variável `SETUP_TOKEN` com uma senha temporária, republique e acesse
+`SEU-ENDERECO.onrender.com/configuracao-inicial`.
 
-## Passo 6 — Publicar
-
-1. Clique em **Deploy**.
-2. Aguarde de 2 a 4 minutos. A Vercel vai instalar tudo, **criar as tabelas do
-   banco automaticamente** e compilar o sistema.
-3. Quando terminar, você verá "Congratulations" e o endereço do site, algo como
-   `https://brainstorm-abc123.vercel.app`.
-
-**Se falhar:** clique em **View Build Logs** e procure a mensagem em vermelho.
-As causas mais comuns são:
-
-| Mensagem contém | Causa | Solução |
-|---|---|---|
-| `Can't reach database server` | `DATABASE_URL` errada | Confira se copiou a string inteira, sem espaços |
-| `P1000` / `authentication failed` | senha do banco incorreta | Copie a string de conexão de novo |
-| `Environment variable not found: DIRECT_URL` | faltou a variável | Adicione em Settings → Environment Variables e republique |
-
-Depois de corrigir, vá em **Deployments → ⋯ → Redeploy**.
+> **Sobre o plano gratuito do Render:** o serviço hiberna após 15 minutos sem
+> acesso. O primeiro acesso depois disso demora ~40 segundos para responder;
+> os seguintes são normais. Para um boletim preenchido uma vez por dia, é
+> tolerável — mas avise os zeladores para não acharem que travou.
 
 ---
 
-## Passo 7 — Criar seu usuário administrador
+## Caminho B — Docker
 
-1. Abra `SEU-ENDERECO.vercel.app/configuracao-inicial`
-   (por exemplo: `https://brainstorm-abc123.vercel.app/configuracao-inicial`).
-2. Preencha:
-   - **Token de configuração**: o `SETUP_TOKEN` que você definiu no Passo 5;
-   - seu nome, seu e-mail e uma senha de no mínimo 10 caracteres.
-3. Clique em **Criar administrador**.
+Um comando sobe **tudo**: aplicação e banco de dados. Não precisa de Neon, nem
+de Node, nem de PostgreSQL instalado — só do Docker.
 
-Você será levado à tela de login. Entre com o e-mail e a senha que acabou de
-criar.
+Serve para um PC que fique ligado na administração, ou para qualquer servidor
+que você alugue depois.
 
-> Essa tela **se fecha sozinha** depois de criar o primeiro administrador —
-> ninguém consegue usá-la de novo, mesmo sabendo o endereço.
+**1. Instalar o Docker**
+[Docker Desktop](https://www.docker.com/products/docker-desktop/) (Windows ou
+Mac) ou `docker` e `docker compose` no Linux.
 
----
+**2. Baixar o projeto**
 
-## Passo 8 — Remover o token de configuração
+```bash
+git clone https://github.com/caiogavioli/Brainstorm.git
+cd Brainstorm
+git checkout claude/condominio-boletim-gestao-ougoqd
+```
 
-Já que a configuração terminou, tire o `SETUP_TOKEN` do ar:
+**3. Criar o arquivo de configuração**
 
-1. Na Vercel: **Settings → Environment Variables**.
-2. Encontre `SETUP_TOKEN`, clique nos três pontinhos e em **Remove**.
-3. Vá em **Deployments → ⋯ → Redeploy** para aplicar.
+```bash
+cp .env.example .env
+```
 
----
+Abra o `.env` num editor de texto e preencha:
 
-## Passo 9 — Cadastrar seus condomínios e sua equipe
+```dotenv
+AUTH_SECRET="um-texto-aleatorio-longo-e-secreto-de-40-caracteres"
+POSTGRES_PASSWORD="uma-senha-para-o-banco"
+ADMIN_EMAIL="voce@suaempresa.com.br"
+ADMIN_SENHA="umaSenhaForteDe10OuMais"
+ADMIN_NOME="Seu Nome"
+```
 
-Já logado no sistema:
+**4. Subir**
 
-1. **Condomínios** → preencha nome, endereço, responsável e telefone.
-   Cadastre todos os prédios que você administra.
-2. **Usuários** → crie uma conta para cada zelador:
-   - **Perfil: Gestor local** — ele só vê os condomínios que você marcar e não
-     enxerga o dashboard gerencial;
-   - **Perfil: Administrador** — vê tudo, como você.
-   - Defina uma senha inicial, combine com a pessoa por telefone e peça que
-     você a troque depois (você pode redefinir a qualquer momento nessa tela).
+```bash
+docker compose up -d
+```
 
-3. Mande para cada zelador o endereço do sistema. No celular, ele pode tocar em
-   **Compartilhar → Adicionar à Tela de Início** para ficar com um ícone igual
-   ao de um aplicativo.
+A primeira vez demora alguns minutos (ele compila o sistema). Depois:
+**http://localhost:3000** — entre com o `ADMIN_EMAIL` e a `ADMIN_SENHA`.
 
----
+**Comandos do dia a dia**
 
-## Como fica o dia a dia
+```bash
+docker compose logs -f app     # ver o que está acontecendo
+docker compose down            # desligar (os dados ficam salvos)
+docker compose up -d           # ligar de novo
+docker compose up -d --build   # atualizar depois de mudar o código
+```
 
-- **Zelador**, todo dia: abre o link, toca em **Novo boletim**, passa pelas 6
-  etapas (todos os itens já vêm marcados como *Conforme*, ele só toca onde há
-  falha) e envia. Leva cerca de 2 minutos.
-- **Você**: abre o **Dashboard**, vê os KPIs do mês, a matriz de risco de prazos
-  e a fila de prioridade; entra em cada ocorrência para atualizar status, plano
-  de ação e prazo.
+Os dados vivem num volume do Docker chamado `dados-postgres`. Desligar,
+atualizar ou recriar o container **não** apaga nada. Só `docker compose down -v`
+apaga — não use esse `-v` sem querer.
 
-Cada item marcado como **Não Conforme** abre uma ocorrência automaticamente —
-ninguém precisa lançar duas vezes.
+**5. Deixar acessível fora da rede local**
 
----
+Sozinho, o `localhost:3000` só abre no próprio computador. Para os zeladores
+acessarem do celular, a opção gratuita mais simples é o
+[Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/):
+ele cria um endereço `https://...` público apontando para essa máquina, sem
+mexer no roteador.
 
-## Publicando mudanças depois
-
-Toda vez que o código da branch mudar no GitHub, a Vercel republica sozinha em
-poucos minutos. Você não precisa fazer nada.
-
----
-
-## Perguntas frequentes
-
-**Vai custar alguma coisa?**
-Nos volumes de um punhado de condomínios, não. O plano Hobby da Vercel e o plano
-gratuito do Neon dão conta com folga. Fique de olho apenas se o número de fotos
-crescer muito — o Blob gratuito tem limite de armazenamento.
-
-**Os dados ficam seguros?**
-As senhas são guardadas com *hash* (bcrypt), nunca em texto puro. A sessão fica
-num cookie assinado. Cada gestor só enxerga os condomínios vinculados a ele,
-inclusive se tentar mexer no endereço do navegador.
-
-**Posso usar meu próprio domínio?**
-Sim. Na Vercel: **Settings → Domains → Add**, e siga as instruções para apontar
-o DNS.
-
-**Como faço backup?**
-O Neon mantém histórico automático (*point-in-time restore*). No painel do Neon,
-veja **Branches** e **Restore**.
-
-**E se eu esquecer minha senha de administrador?**
-Se houver outro administrador, ele redefine em **Usuários**. Se você for o único,
-será preciso rodar o comando `npm run producao:init` apontando para o banco de
-produção — nesse caso, peça ajuda a alguém técnico.
+> ⚠️ Enquanto o computador estiver desligado, o sistema fica fora do ar.
 
 ---
 
-## Rodando na sua máquina (opcional)
+## Caminho C — Node direto
 
-Só se você quiser mexer no código. Precisa do
-[Node.js 20+](https://nodejs.org):
+Sem Docker. Bom para ver o sistema funcionando antes de decidir onde hospedar.
+
+**1.** Instale o [Node.js 20 ou superior](https://nodejs.org) (versão LTS).
+**2.** Crie o banco no Neon (seção acima).
+**3.** No terminal:
 
 ```bash
 git clone https://github.com/caiogavioli/Brainstorm.git
 cd Brainstorm
 git checkout claude/condominio-boletim-gestao-ougoqd
 npm install
-cp .env.example .env      # cole a DATABASE_URL e a DIRECT_URL do Neon
-npm run setup             # cria as tabelas e popula dados de demonstração
-npm run dev               # abre em http://localhost:3000
+cp .env.example .env
 ```
 
-⚠️ O `npm run setup` inclui **dados de demonstração** (condomínios e boletins
-fictícios). Aponte-o para um banco de testes, **nunca** para o de produção. Para
-um banco de produção, use `npm run producao:init`.
+**4.** Abra o `.env` e preencha `DATABASE_URL` (a do Neon) e `AUTH_SECRET`.
+
+**5.** Escolha como quer começar:
+
+```bash
+# Opção 1 — com dados de demonstração, para explorar o sistema
+npm run setup
+
+# Opção 2 — banco limpo, para uso real
+npx prisma migrate deploy
+ADMIN_EMAIL=voce@empresa.com ADMIN_SENHA=umaSenhaForte123 npm run producao:init
+```
+
+**6.** Rode:
+
+```bash
+npm run dev
+```
+
+Abra **http://localhost:3000**.
+
+> Se usou a opção 1, entre com `sindico@condominios.com.br` / `condominio123`.
+
+---
+
+## Depois de entrar, em qualquer caminho
+
+1. **Condomínios** — cadastre cada prédio: nome, endereço, responsável, telefone.
+2. **Usuários** — crie a conta de cada zelador.
+   - *Gestor local* só vê os condomínios que você marcar e não enxerga o
+     dashboard gerencial.
+   - *Administrador* vê tudo, como você.
+   - Defina a senha inicial e combine com a pessoa. Você pode redefinir a
+     qualquer momento nessa tela.
+3. Mande o endereço para a equipe. No celular, **Compartilhar → Adicionar à Tela
+   de Início** deixa um ícone como o de um aplicativo.
+
+**O dia a dia:** o zelador abre o link, toca em *Novo boletim* e passa pelas 6
+etapas — tudo já vem marcado como *Conforme*, ele só toca onde há falha. Leva
+cerca de 2 minutos. Cada item *Não Conforme* abre uma ocorrência
+automaticamente, que aparece no seu dashboard.
+
+---
+
+## Se der erro
+
+| Mensagem | Causa | Solução |
+|---|---|---|
+| `Can't reach database server` | `DATABASE_URL` errada ou banco fora do ar | Confira se colou a string inteira, sem espaços |
+| `P1000` / `authentication failed` | senha do banco incorreta | Copie a connection string de novo |
+| `Environment variable not found: DATABASE_URL` | faltou a variável | Confira o `.env` ou as variáveis do serviço |
+| `AUTH_SECRET ausente ou muito curto` | segredo não definido | Defina um texto de 40+ caracteres |
+| `defina AUTH_SECRET no arquivo .env` | Docker sem o `.env` preenchido | Rode `cp .env.example .env` e preencha |
+
+---
+
+## Perguntas frequentes
+
+**Vai custar alguma coisa?**
+Não, nos três caminhos. Neon e Render têm planos gratuitos sem cartão, e o
+Docker roda numa máquina que você já tem.
+
+**Os dados ficam seguros?**
+As senhas são guardadas com *hash* (bcrypt), nunca em texto puro. A sessão fica
+num cookie assinado. Cada gestor só enxerga os condomínios vinculados a ele,
+inclusive se tentar mexer no endereço do navegador.
+
+**Como faço backup?**
+No Neon, há restauração automática por ponto no tempo (*Branches → Restore*).
+No Docker: `docker compose exec banco pg_dump -U condominios condominios > backup.sql`.
+
+**Esqueci a senha de administrador.**
+Se houver outro administrador, ele redefine em **Usuários**. Se você for o
+único, rode `npm run producao:init` com as variáveis `ADMIN_*` apontando para o
+mesmo banco — ele redefine a senha do e-mail informado.
+
+**Posso voltar a usar as fotos?**
+Sim. A tabela `OcorrenciaFoto` continua no banco e a galeria continua na tela de
+detalhe. Falta apenas o envio, que depende de um lugar para guardar os arquivos.
+
+**Quero usar meu próprio domínio.**
+No Render: *Settings → Custom Domains*. No Docker com Cloudflare Tunnel: o
+domínio é configurado no painel da Cloudflare.
