@@ -9,6 +9,7 @@ const NAV_ADMIN: ItemNav[] = [
   { href: "/ocorrencias", rotulo: "Ocorrências", icone: "⚑" },
   { href: "/planos", rotulo: "Planos", icone: "◷" },
   { href: "/condominios", rotulo: "Condomínios", icone: "⌂" },
+  { href: "/usuarios", rotulo: "Usuários", icone: "☺" },
 ];
 
 const NAV_GESTOR: ItemNav[] = [

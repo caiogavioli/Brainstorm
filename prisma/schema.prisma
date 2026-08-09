@@ -2,18 +2,21 @@
 //
 // Banco relacional multi-condomínio (multi-tenant por `condominioId`).
 //
-// Provider: SQLite por padrão para facilitar o desenvolvimento local.
-// Para produção (PostgreSQL), troque o bloco `datasource` para:
-//   provider = "postgresql"
-// e ajuste DATABASE_URL no .env. O schema é compatível com ambos.
+// Provider: PostgreSQL, o mesmo em desenvolvimento e em produção — assim não
+// existe diferença de comportamento entre a sua máquina e a Vercel.
+//
+// DATABASE_URL  → conexão da aplicação (pode ser a URL "pooled" do provedor).
+// DIRECT_URL    → conexão direta, usada só pelas migrações. Quando o provedor
+//                 não separa as duas, aponte ambas para a mesma URL.
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 // ---------------------------------------------------------------------------

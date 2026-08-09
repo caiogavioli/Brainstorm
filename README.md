@@ -10,20 +10,32 @@ multi-condomínio, um **painel administrativo** para o síndico profissional e u
 | Camada | Tecnologia |
 |---|---|
 | Framework | Next.js 15 (App Router) + React 19 + TypeScript |
-| Banco | Prisma ORM — SQLite em dev, PostgreSQL em produção |
+| Banco | Prisma ORM + PostgreSQL (mesmo provider em dev e produção) |
 | Estilos | Tailwind CSS v4 + design tokens próprios (claro/escuro) |
 | Gráficos | Recharts |
 | Validação | Zod (no servidor, em toda Server Action) |
 | Sessão | JWT assinado (`jose`) em cookie httpOnly + bcrypt |
 
+## Publicar na Vercel
+
+**→ [GUIA-DEPLOY.md](GUIA-DEPLOY.md)** — passo a passo completo, sem terminal.
+Ao final, o primeiro administrador é criado pela tela `/configuracao-inicial`.
+
 ## Rodando localmente
+
+Precisa de um PostgreSQL. O mais simples é apontar para o mesmo banco gratuito
+(Neon) que você usará no deploy — nada para instalar.
 
 ```bash
 npm install
-cp .env.example .env      # ajuste AUTH_SECRET
-npm run setup             # prisma generate + db push + seed
+cp .env.example .env      # cole DATABASE_URL, DIRECT_URL e um AUTH_SECRET
+npm run setup             # migra o banco + popula dados de demonstração
 npm run dev               # http://localhost:3000
 ```
+
+⚠️ `npm run setup` cria **dados de demonstração**. Para um banco de produção use
+`npm run producao:init` (só catálogo + administrador), ou a tela
+`/configuracao-inicial`.
 
 O seed cria 3 condomínios, os 27 itens de checklist, ~90 dias de boletins e
 ocorrências sintéticas, e os usuários de demonstração:
@@ -35,8 +47,8 @@ ocorrências sintéticas, e os usuários de demonstração:
 | Gestor local (Centenário) | `gestor.centenario@condominios.com.br` | `condominio123` |
 | Gestor local (Passeio Paulista) | `gestor.paulista@condominios.com.br` | `condominio123` |
 
-Comandos úteis: `npm run db:studio` (inspecionar o banco), `npm run db:seed`
-(repopular), `npm run typecheck`, `npm run build`.
+Comandos úteis: `npm run db:studio` (inspecionar o banco), `npm run db:migrate`
+(criar migração após mudar o schema), `npm run typecheck`, `npm run build`.
 
 ## Modelo de dados
 
@@ -89,6 +101,10 @@ e rode `npm run db:seed` (o seed faz *upsert* por `codigo`, não duplica).
 | Ocorrências e planos | ✅ (só nos seus condomínios) | ✅ (todos) |
 | Dashboard gerencial | — | ✅ |
 | Cadastro de condomínios | — | ✅ |
+| Gestão de usuários | — | ✅ |
+
+O administrador cria as contas dos zeladores em **/usuarios**, definindo quais
+condomínios cada um enxerga e podendo redefinir senhas e bloquear acessos.
 
 O vínculo gestor↔condomínio fica em `UsuarioCondominio`. **Todo filtro por
 condomínio é intersectado com o escopo do usuário** (`filtroCondominio` em
@@ -142,19 +158,22 @@ separação sob daltonismo e contraste contra a superfície, **em claro e escuro
 Os tokens estão em `src/app/globals.css`; os gráficos os leem em runtime
 (`src/components/dashboard/tokens.ts`) e reagem à troca de tema do sistema.
 
-## Ir para produção
+## Notas de produção
 
-1. **Banco** — troque `provider` para `postgresql` em `prisma/schema.prisma`,
-   aponte `DATABASE_URL` e rode `npx prisma migrate deploy`.
-2. **`AUTH_SECRET`** — gere um valor real: `openssl rand -base64 32`.
-3. **Senhas do seed** — o seed é de demonstração. Em produção, cadastre usuários
-   com senhas próprias e remova os de exemplo.
-4. **Fotos** — hoje gravam em `public/uploads/` (disco local). Em ambiente
-   serverless, troque `persistirFotos` em `src/lib/acoes/ocorrencias.ts` por um
-   upload para S3/Cloud Storage; só a URL em `caminho` é persistida, o resto do
-   código não muda.
-5. **Fuso** — a apuração usa `America/Sao_Paulo` (`TZ_OPERACAO` em
-   `src/lib/datas.ts`).
+- **Migrações** — o build roda `prisma migrate deploy`, então publicar já aplica
+  o que estiver pendente. Ao mudar o schema, gere a migração com
+  `npm run db:migrate` e faça commit da pasta `prisma/migrations/`.
+- **Fotos** — `src/lib/armazenamento.ts` grava no **Vercel Blob** sempre que
+  `BLOB_READ_WRITE_TOKEN` existe, e em `public/uploads/` caso contrário. O disco
+  da Vercel é efêmero, então em produção o Blob não é opcional. Só a URL é
+  persistida, então trocar por S3 é mexer em um arquivo.
+- **Credenciais de demonstração** — a dica na tela de login some sozinha em
+  produção (`MOSTRAR_CREDENCIAIS_DEMO` reativa, se for uma vitrine).
+- **`SETUP_TOKEN`** — habilita `/configuracao-inicial`. A tela também exige que
+  não exista nenhum admin ativo, então a janela fecha sozinha após o primeiro
+  cadastro. Remova a variável depois.
+- **Fuso** — a apuração usa `America/Sao_Paulo` (`TZ_OPERACAO` em
+  `src/lib/datas.ts`).
 
 ## Estrutura
 
@@ -170,7 +189,9 @@ src/
       ocorrencias/         # fila, criação avulsa e gestão
       planos/              # planos de ação
       condominios/         # cadastro base (admin)
+      usuarios/            # contas e escopo de acesso (admin)
       dashboard/           # BI
+    configuracao-inicial/  # criação do primeiro admin, após o deploy
   components/
     boletim/wizard.tsx     # formulário mobile em etapas
     dashboard/             # KPIs, gráficos e tokens de cor
@@ -180,6 +201,8 @@ src/
     checklist.ts           # catálogo dos 27 itens
     validacao.ts           # schemas Zod
     datas.ts               # fuso, mês de referência e cálculo de SLA
+    armazenamento.ts       # fotos: Vercel Blob em produção, disco em dev
     acoes/                 # Server Actions (escrita)
     consultas/dashboard.ts # agregações do BI
+scripts/init-producao.ts   # catálogo + admin, sem dados de demonstração
 ```

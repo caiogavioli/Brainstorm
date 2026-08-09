@@ -1,9 +1,5 @@
 "use server";
 
-import { randomUUID } from "node:crypto";
-import { mkdir, writeFile } from "node:fs/promises";
-import path from "node:path";
-
 import { revalidatePath } from "next/cache";
 
 import { prisma } from "@/lib/db";
@@ -14,11 +10,8 @@ import {
   primeiraMensagem,
 } from "@/lib/validacao";
 import { CRITICIDADE_LABEL, STATUS_OCORRENCIA_LABEL } from "@/lib/labels";
+import { salvarImagens } from "@/lib/armazenamento";
 import type { ResultadoAcao } from "@/lib/acoes/boletim";
-
-const DIRETORIO_UPLOAD = path.join(process.cwd(), "public", "uploads", "ocorrencias");
-const TIPOS_IMAGEM = ["image/jpeg", "image/png", "image/webp", "image/heic"];
-const TAMANHO_MAXIMO = 8 * 1024 * 1024; // 8 MB por foto
 
 /** Garante que a sessão pode mexer na ocorrência informada. */
 async function carregarOcorrenciaComPermissao(sessao: Sessao, id: number) {
@@ -29,45 +22,6 @@ async function carregarOcorrenciaComPermissao(sessao: Sessao, id: number) {
   if (!ocorrencia) return null;
   if (!podeAcessarCondominio(sessao, ocorrencia.condominioId)) return null;
   return ocorrencia;
-}
-
-/**
- * Salva as fotos enviadas em `public/uploads/ocorrencias` e devolve os
- * registros a persistir.
- *
- * Observação para produção: gravar em disco local só funciona com armazenamento
- * persistente. Em ambiente serverless (Vercel, Lambda), troque este bloco por
- * um upload para S3/Cloud Storage — o restante do código não muda, pois apenas
- * a URL em `caminho` é persistida.
- */
-async function persistirFotos(
-  arquivos: File[],
-): Promise<{ caminho: string; nomeOriginal: string; mime: string; tamanho: number }[]> {
-  const validos = arquivos.filter(
-    (a) => a && a.size > 0 && a.size <= TAMANHO_MAXIMO && TIPOS_IMAGEM.includes(a.type),
-  );
-  if (validos.length === 0) return [];
-
-  await mkdir(DIRETORIO_UPLOAD, { recursive: true });
-
-  const salvos = [];
-  for (const arquivo of validos.slice(0, 6)) {
-    // Nome gerado no servidor: o nome original do cliente nunca toca o disco.
-    const extensao =
-      { "image/jpeg": ".jpg", "image/png": ".png", "image/webp": ".webp", "image/heic": ".heic" }[
-        arquivo.type
-      ] ?? ".bin";
-    const nomeArquivo = `${randomUUID()}${extensao}`;
-    const destino = path.join(DIRETORIO_UPLOAD, nomeArquivo);
-    await writeFile(destino, Buffer.from(await arquivo.arrayBuffer()));
-    salvos.push({
-      caminho: `/uploads/ocorrencias/${nomeArquivo}`,
-      nomeOriginal: arquivo.name.slice(0, 120),
-      mime: arquivo.type,
-      tamanho: arquivo.size,
-    });
-  }
-  return salvos;
 }
 
 /** Cria uma ocorrência avulsa (não originada de boletim). */
@@ -97,7 +51,7 @@ export async function criarOcorrenciaAction(
     return { ok: false, erro: "Informe o setor/equipamento da ocorrência." };
   }
 
-  const fotos = await persistirFotos(formData.getAll("fotos") as File[]);
+  const fotos = await salvarImagens(formData.getAll("fotos") as File[]);
 
   const ocorrencia = await prisma.ocorrencia.create({
     data: {
@@ -194,7 +148,7 @@ export async function atualizarOcorrenciaAction(
     });
   }
 
-  const fotos = await persistirFotos(formData.getAll("fotos") as File[]);
+  const fotos = await salvarImagens(formData.getAll("fotos") as File[]);
 
   await prisma.$transaction(async (tx) => {
     await tx.ocorrencia.update({
