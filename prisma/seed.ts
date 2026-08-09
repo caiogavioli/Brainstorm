@@ -99,11 +99,11 @@ async function seedUsuarios(condominioIds: number[]) {
     },
   });
 
-  // Um gestor local por condomínio, com acesso restrito ao seu prédio.
+  // Um gerente predial por condomínio, com acesso restrito ao seu prédio.
   const gestores = [
-    { nome: "Zelador — Atrium Office", email: "gestor.atrium@condominios.com.br" },
-    { nome: "Zelador — Edifício Centenário", email: "gestor.centenario@condominios.com.br" },
-    { nome: "Zelador — Passeio Paulista", email: "gestor.paulista@condominios.com.br" },
+    { nome: "Gerente — Atrium Office", email: "gestor.atrium@condominios.com.br" },
+    { nome: "Gerente — Edifício Centenário", email: "gestor.centenario@condominios.com.br" },
+    { nome: "Gerente — Passeio Paulista", email: "gestor.paulista@condominios.com.br" },
   ];
 
   for (const [i, g] of gestores.entries()) {
@@ -121,7 +121,7 @@ async function seedUsuarios(condominioIds: number[]) {
     });
   }
 
-  console.log(`✔ Usuários: 1 admin + ${gestores.length} gestores (senha: ${SENHA_PADRAO})`);
+  console.log(`✔ Usuários: 1 admin + ${gestores.length} gerentes (senha: ${SENHA_PADRAO})`);
   return admin;
 }
 
@@ -414,7 +414,7 @@ async function main() {
 
   console.log("\nAcesso de demonstração:");
   console.log(`  Admin  → sindico@condominios.com.br / ${SENHA_PADRAO}`);
-  console.log(`  Gestor → gestor.atrium@condominios.com.br / ${SENHA_PADRAO}`);
+  console.log(`  Gerente → gestor.atrium@condominios.com.br / ${SENHA_PADRAO}`);
 }
 
 main()

@@ -34,8 +34,8 @@ export default async function PaginaUsuarios() {
       <div className="mb-4">
         <h1 className="text-xl font-bold">Usuários</h1>
         <p className="text-sm" style={{ color: "var(--tinta-2)" }}>
-          Crie o acesso dos zeladores e gerentes prediais e defina quais
-          condomínios cada um enxerga.
+          Crie o acesso dos gerentes prediais e defina quais condomínios cada
+          um enxerga.
         </p>
       </div>
 

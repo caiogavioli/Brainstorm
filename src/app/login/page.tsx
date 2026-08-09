@@ -67,7 +67,7 @@ export default async function PaginaLogin({
             <br />
             <strong>sindico@condominios.com.br</strong> (administrador)
             <br />
-            <strong>gestor.atrium@condominios.com.br</strong> (gestor local)
+            <strong>gestor.atrium@condominios.com.br</strong> (gerente predial)
             <br />
             senha: <strong>condominio123</strong>
           </p>

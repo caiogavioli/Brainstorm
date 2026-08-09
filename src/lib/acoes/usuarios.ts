@@ -47,11 +47,11 @@ export async function criarUsuarioAction(
   if (!parse.success) return { ok: false, erro: primeiraMensagem(parse.error) };
   const dados = parse.data;
 
-  // Um gestor sem condomínio vinculado entraria em um sistema vazio.
+  // Um gerente sem condomínio vinculado entraria em um sistema vazio.
   if (dados.papel === "GESTOR" && dados.condominios.length === 0) {
     return {
       ok: false,
-      erro: "Selecione ao menos um condomínio para o gestor local.",
+      erro: "Selecione ao menos um condomínio para o gerente predial.",
     };
   }
 
@@ -97,7 +97,7 @@ export async function atualizarUsuarioAction(
   if (!alvo) return { ok: false, erro: "Usuário não encontrado." };
 
   if (papel === "GESTOR" && condominios.length === 0) {
-    return { ok: false, erro: "Selecione ao menos um condomínio para o gestor local." };
+    return { ok: false, erro: "Selecione ao menos um condomínio para o gerente predial." };
   }
 
   // Trava de segurança: impede que o último admin ativo se rebaixe ou se

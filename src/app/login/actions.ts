@@ -23,7 +23,7 @@ export async function entrarAction(
   }
 
   const sessao = await sessaoAtual();
-  // Gestor local cai direto no boletim; admin, no dashboard.
+  // Gerente predial cai direto no boletim; admin, no dashboard.
   redirect(sessao?.papel === "ADMIN" ? "/dashboard" : "/boletim");
 }
 

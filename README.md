@@ -1,7 +1,7 @@
 # Sistema de Gestão e Boletim Diário de Operações — Condomínios
 
 Substitui o preenchimento por WhatsApp e planilhas de Excel por: um **formulário
-mobile em etapas** para o zelador/gerente predial, um **banco relacional**
+mobile em etapas** para o gerente predial, um **banco relacional**
 multi-condomínio, um **painel administrativo** para o síndico profissional e um
 **dashboard gerencial** com KPIs, gráficos e matriz de risco de SLA.
 
@@ -50,9 +50,9 @@ ocorrências sintéticas, e os usuários de demonstração:
 | Papel | E-mail | Senha |
 |---|---|---|
 | Administrador (síndico) | `sindico@condominios.com.br` | `condominio123` |
-| Gestor local (Atrium Office) | `gestor.atrium@condominios.com.br` | `condominio123` |
-| Gestor local (Centenário) | `gestor.centenario@condominios.com.br` | `condominio123` |
-| Gestor local (Passeio Paulista) | `gestor.paulista@condominios.com.br` | `condominio123` |
+| Gerente predial (Atrium Office) | `gestor.atrium@condominios.com.br` | `condominio123` |
+| Gerente predial (Centenário) | `gestor.centenario@condominios.com.br` | `condominio123` |
+| Gerente predial (Passeio Paulista) | `gestor.paulista@condominios.com.br` | `condominio123` |
 
 Comandos úteis: `npm run db:studio` (inspecionar o banco), `npm run db:migrate`
 (criar migração após mudar o schema), `npm run typecheck`, `npm run build`.
@@ -102,7 +102,7 @@ e rode `npm run db:seed` (o seed faz *upsert* por `codigo`, não duplica).
 
 ## Perfis de acesso
 
-| | Gestor local | Administrador |
+| | Gerente predial | Administrador |
 |---|---|---|
 | Lançar boletim | ✅ (só nos seus condomínios) | ✅ |
 | Ocorrências e planos | ✅ (só nos seus condomínios) | ✅ (todos) |
@@ -110,10 +110,10 @@ e rode `npm run db:seed` (o seed faz *upsert* por `codigo`, não duplica).
 | Cadastro de condomínios | — | ✅ |
 | Gestão de usuários | — | ✅ |
 
-O administrador cria as contas dos zeladores em **/usuarios**, definindo quais
+O administrador cria as contas dos gerentes em **/usuarios**, definindo quais
 condomínios cada um enxerga e podendo redefinir senhas e bloquear acessos.
 
-O vínculo gestor↔condomínio fica em `UsuarioCondominio`. **Todo filtro por
+O vínculo gerente↔condomínio fica em `UsuarioCondominio`. **Todo filtro por
 condomínio é intersectado com o escopo do usuário** (`filtroCondominio` em
 `src/lib/auth.ts`) — trocar `?condominio=` na URL não expõe outro prédio.
 
@@ -121,7 +121,7 @@ condomínio é intersectado com o escopo do usuário** (`filtroCondominio` em
 
 **Wizard mobile** (`/boletim/novo`) — 6 etapas: identificação, os 4 grupos do
 checklist e equipe/envio. Todos os itens já vêm marcados como **Conforme**, então
-o zelador só toca onde há falha; ao marcar uma falha, o campo de descrição e a
+o gerente só toca onde há falha; ao marcar uma falha, o campo de descrição e a
 criticidade aparecem no mesmo cartão. Alvos de toque de 44px, campos de 16px
 (evita o zoom automático do iOS) e barra de navegação inferior fixa.
 

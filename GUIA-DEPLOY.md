@@ -95,7 +95,7 @@ variável `SETUP_TOKEN` com uma senha temporária, republique e acesse
 > **Sobre o plano gratuito do Render:** o serviço hiberna após 15 minutos sem
 > acesso. O primeiro acesso depois disso demora ~40 segundos para responder;
 > os seguintes são normais. Para um boletim preenchido uma vez por dia, é
-> tolerável — mas avise os zeladores para não acharem que travou.
+> tolerável — mas avise os gerentes para não acharem que travou.
 
 ---
 
@@ -159,7 +159,7 @@ apaga — não use esse `-v` sem querer.
 
 **5. Deixar acessível fora da rede local**
 
-Sozinho, o `localhost:3000` só abre no próprio computador. Para os zeladores
+Sozinho, o `localhost:3000` só abre no próprio computador. Para os gerentes
 acessarem do celular, a opção gratuita mais simples é o
 [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/):
 ele cria um endereço `https://...` público apontando para essa máquina, sem
@@ -213,8 +213,8 @@ Abra **http://localhost:3000**.
 ## Depois de entrar, em qualquer caminho
 
 1. **Condomínios** — cadastre cada prédio: nome, endereço, responsável, telefone.
-2. **Usuários** — crie a conta de cada zelador.
-   - *Gestor local* só vê os condomínios que você marcar e não enxerga o
+2. **Usuários** — crie a conta de cada gerente predial.
+   - *Gerente predial* só vê os condomínios que você marcar e não enxerga o
      dashboard gerencial.
    - *Administrador* vê tudo, como você.
    - Defina a senha inicial e combine com a pessoa. Você pode redefinir a
@@ -222,7 +222,7 @@ Abra **http://localhost:3000**.
 3. Mande o endereço para a equipe. No celular, **Compartilhar → Adicionar à Tela
    de Início** deixa um ícone como o de um aplicativo.
 
-**O dia a dia:** o zelador abre o link, toca em *Novo boletim* e passa pelas 6
+**O dia a dia:** o gerente abre o link, toca em *Novo boletim* e passa pelas 6
 etapas — tudo já vem marcado como *Conforme*, ele só toca onde há falha. Leva
 cerca de 2 minutos. Cada item *Não Conforme* abre uma ocorrência
 automaticamente, que aparece no seu dashboard.
