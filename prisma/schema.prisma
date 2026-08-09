@@ -1,0 +1,279 @@
+// Sistema de Gestão e Boletim Diário de Operações para Condomínios
+//
+// Banco relacional multi-condomínio (multi-tenant por `condominioId`).
+//
+// Provider: SQLite por padrão para facilitar o desenvolvimento local.
+// Para produção (PostgreSQL), troque o bloco `datasource` para:
+//   provider = "postgresql"
+// e ajuste DATABASE_URL no .env. O schema é compatível com ambos.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Enums
+// ---------------------------------------------------------------------------
+
+// Papéis de acesso. GESTOR = zelador / gerente predial (preenche o boletim).
+// ADMIN = síndico profissional / gestor da administradora (vê tudo).
+enum Papel {
+  ADMIN
+  GESTOR
+}
+
+enum GrupoChecklist {
+  QUADRO_OPERACIONAL
+  ELETRICA_HIDRAULICA_REFRIGERACAO
+  SISTEMAS
+  SEGURANCA
+}
+
+enum StatusGeralDia {
+  EM_CONFORMIDADE
+  OCORRENCIA_PONTUAL
+  OCORRENCIA_CRITICA
+}
+
+// Estado de cada item do checklist no boletim do dia.
+enum SituacaoItem {
+  CONFORME
+  NAO_CONFORME
+  NAO_APLICAVEL
+}
+
+enum Criticidade {
+  BAIXA
+  MEDIA
+  ALTA
+}
+
+enum StatusOcorrencia {
+  PENDENTE
+  EM_ANDAMENTO
+  CONCLUIDO
+}
+
+// ---------------------------------------------------------------------------
+// Tabela 1: Condomínios (cadastro base)
+// ---------------------------------------------------------------------------
+
+model Condominio {
+  id                 Int      @id @default(autoincrement())
+  nome               String
+  endereco           String?
+  gerenteResponsavel String?
+  telefone           String?
+  email              String?
+  ativo              Boolean  @default(true)
+  criadoEm           DateTime @default(now())
+  atualizadoEm       DateTime @updatedAt
+
+  boletins    Boletim[]
+  ocorrencias Ocorrencia[]
+  planos      PlanoAcao[]
+  acessos     UsuarioCondominio[]
+
+  @@index([ativo])
+}
+
+// ---------------------------------------------------------------------------
+// Usuários e escopo de acesso por condomínio
+// ---------------------------------------------------------------------------
+
+model Usuario {
+  id           Int      @id @default(autoincrement())
+  nome         String
+  email        String   @unique
+  senhaHash    String
+  papel        Papel    @default(GESTOR)
+  ativo        Boolean  @default(true)
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  acessos            UsuarioCondominio[]
+  boletinsCriados    Boletim[]           @relation("BoletimCriadoPor")
+  ocorrenciasAbertas Ocorrencia[]        @relation("OcorrenciaAbertaPor")
+  logs               OcorrenciaLog[]
+}
+
+// Liga um usuário GESTOR aos condomínios que ele pode operar.
+// ADMIN enxerga todos os condomínios independentemente desta tabela.
+model UsuarioCondominio {
+  usuarioId    Int
+  condominioId Int
+
+  usuario    Usuario    @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  condominio Condominio @relation(fields: [condominioId], references: [id], onDelete: Cascade)
+
+  @@id([usuarioId, condominioId])
+  @@index([condominioId])
+}
+
+// ---------------------------------------------------------------------------
+// Catálogo de itens do checklist
+//
+// Os ~27 itens do boletim são linhas desta tabela (e não colunas booleanas).
+// Isso permite: (a) incluir/desativar itens sem migração de schema,
+// (b) cruzar "Ocorrências por Setor" direto com o item de origem,
+// (c) manter histórico consistente mesmo quando o catálogo evolui.
+// ---------------------------------------------------------------------------
+
+model ChecklistItem {
+  id     Int            @id @default(autoincrement())
+  codigo String         @unique // slug estável, ex.: "elevadores"
+  nome   String
+  grupo  GrupoChecklist
+  ordem  Int            @default(0)
+  ativo  Boolean        @default(true)
+
+  boletimItens BoletimItem[]
+  ocorrencias  Ocorrencia[]
+
+  @@index([grupo, ordem])
+}
+
+// ---------------------------------------------------------------------------
+// Tabela 2: Boletim Diário
+// ---------------------------------------------------------------------------
+
+model Boletim {
+  id             Int            @id @default(autoincrement())
+  dataRegistro   DateTime       @default(now()) // data e hora do lançamento
+  dataReferencia String // dia de referência "YYYY-MM-DD" (1 boletim por condomínio/dia)
+  condominioId   Int
+  statusGeral    StatusGeralDia @default(EM_CONFORMIDADE)
+
+  houveFaltas   Boolean @default(false)
+  setoresFaltas String? // setores afetados quando houveFaltas = true
+  qtdeFaltas    Int     @default(0)
+
+  observacoes  String?
+  criadoPorId  Int?
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  condominio Condominio    @relation(fields: [condominioId], references: [id], onDelete: Cascade)
+  criadoPor  Usuario?      @relation("BoletimCriadoPor", fields: [criadoPorId], references: [id], onDelete: SetNull)
+  itens      BoletimItem[]
+  ocorrencias Ocorrencia[]
+
+  @@unique([condominioId, dataReferencia])
+  @@index([condominioId, dataRegistro])
+  @@index([dataReferencia])
+}
+
+// Resposta de um item do checklist dentro de um boletim.
+model BoletimItem {
+  id              Int          @id @default(autoincrement())
+  boletimId       Int
+  checklistItemId Int
+  situacao        SituacaoItem @default(CONFORME)
+  observacao      String?
+
+  boletim       Boletim       @relation(fields: [boletimId], references: [id], onDelete: Cascade)
+  checklistItem ChecklistItem @relation(fields: [checklistItemId], references: [id])
+  ocorrencia    Ocorrencia? // ocorrência gerada automaticamente por este item
+
+  @@unique([boletimId, checklistItemId])
+  @@index([checklistItemId, situacao])
+}
+
+// ---------------------------------------------------------------------------
+// Tabela 3: Ocorrências
+// Criadas automaticamente a partir de itens NAO_CONFORME do boletim,
+// ou lançadas avulsas pelo painel administrativo.
+// ---------------------------------------------------------------------------
+
+model Ocorrencia {
+  id                  Int              @id @default(autoincrement())
+  dataAbertura        DateTime         @default(now())
+  condominioId        Int
+  checklistItemId     Int? // setor/equipamento vindo do catálogo
+  setorLivre          String? // setor digitado quando fora do catálogo
+  descricao           String
+  planoAcao           String?
+  criticidade         Criticidade      @default(MEDIA)
+  status              StatusOcorrencia @default(PENDENTE)
+  previsaoFinalizacao DateTime? // SLA
+  dataConclusao       DateTime?
+  origem              String           @default("BOLETIM") // BOLETIM | AVULSA
+  boletimId           Int?
+  boletimItemId       Int?             @unique
+  abertaPorId         Int?
+  criadoEm            DateTime         @default(now())
+  atualizadoEm        DateTime         @updatedAt
+
+  condominio    Condominio      @relation(fields: [condominioId], references: [id], onDelete: Cascade)
+  checklistItem ChecklistItem?  @relation(fields: [checklistItemId], references: [id])
+  boletim       Boletim?        @relation(fields: [boletimId], references: [id], onDelete: SetNull)
+  boletimItem   BoletimItem?    @relation(fields: [boletimItemId], references: [id], onDelete: SetNull)
+  abertaPor     Usuario?        @relation("OcorrenciaAbertaPor", fields: [abertaPorId], references: [id], onDelete: SetNull)
+  fotos         OcorrenciaFoto[]
+  historico     OcorrenciaLog[]
+
+  @@index([condominioId, status])
+  @@index([condominioId, dataAbertura])
+  @@index([status, criticidade, previsaoFinalizacao])
+}
+
+model OcorrenciaFoto {
+  id           Int      @id @default(autoincrement())
+  ocorrenciaId Int
+  caminho      String // URL pública, ex.: /uploads/ocorrencias/xxx.jpg
+  nomeOriginal String?
+  mime         String?
+  tamanho      Int?
+  criadoEm     DateTime @default(now())
+
+  ocorrencia Ocorrencia @relation(fields: [ocorrenciaId], references: [id], onDelete: Cascade)
+
+  @@index([ocorrenciaId])
+}
+
+// Log de atualizações (campo "Observações/Histórico").
+model OcorrenciaLog {
+  id           Int      @id @default(autoincrement())
+  ocorrenciaId Int
+  usuarioId    Int?
+  mensagem     String
+  campo        String?
+  valorAntes   String?
+  valorDepois  String?
+  criadoEm     DateTime @default(now())
+
+  ocorrencia Ocorrencia @relation(fields: [ocorrenciaId], references: [id], onDelete: Cascade)
+  usuario    Usuario?   @relation(fields: [usuarioId], references: [id], onDelete: SetNull)
+
+  @@index([ocorrenciaId, criadoEm])
+}
+
+// ---------------------------------------------------------------------------
+// Tabela 4: Plano de Ação (projetos de longo prazo e visitas operacionais)
+// ---------------------------------------------------------------------------
+
+model PlanoAcao {
+  id                  Int              @id @default(autoincrement())
+  dataCriacao         DateTime         @default(now())
+  condominioId        Int
+  local               String
+  descricao           String
+  criticidade         Criticidade      @default(MEDIA)
+  status              StatusOcorrencia @default(PENDENTE)
+  previsaoFinalizacao DateTime?
+  dataConclusao       DateTime?
+  responsavel         String?
+  observacoes         String?
+  criadoEm            DateTime         @default(now())
+  atualizadoEm        DateTime         @updatedAt
+
+  condominio Condominio @relation(fields: [condominioId], references: [id], onDelete: Cascade)
+
+  @@index([condominioId, status])
+  @@index([status, previsaoFinalizacao])
+}

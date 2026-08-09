@@ -1,0 +1,29 @@
+node_modules/
+.next/
+out/
+build/
+dist/
+
+# Ambiente
+.env
+.env.local
+.env*.local
+
+# Banco de dados local (SQLite)
+prisma/dev.db
+prisma/dev.db-journal
+*.db
+*.db-journal
+
+# Uploads enviados em runtime
+public/uploads/*
+!public/uploads/.gitkeep
+
+# Sistema / editores
+.DS_Store
+*.log
+npm-debug.log*
+.vscode/
+.idea/
+tsconfig.tsbuildinfo
+next-env.d.ts
