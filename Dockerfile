@@ -35,6 +35,8 @@ COPY . .
 # quando o banco realmente existe.
 RUN npx prisma generate
 ENV NEXT_TELEMETRY_DISABLED=1
+# Liga a saída "standalone" (ver next.config.ts) — só o build do Docker a usa.
+ENV DOCKER_BUILD=1
 # DATABASE_URL de fachada: `next build` importa módulos que instanciam o
 # PrismaClient, mas nenhuma consulta é executada nesta etapa.
 RUN DATABASE_URL="postgresql://build:build@localhost:5432/build" npx next build

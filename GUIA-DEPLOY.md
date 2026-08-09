@@ -6,9 +6,20 @@ Escolha **um**.
 
 | | Caminho | Bom quando | Dificuldade |
 |---|---|---|---|
-| **A** | [Render.com](#caminho-a--rendercom) | Você quer um endereço na internet, como seria na Vercel | Baixa |
+| **A** | [Hospedagem conectada ao GitHub](#caminho-a--hospedagem-conectada-ao-github) | Você quer um endereço na internet, como seria na Vercel | Baixa |
 | **B** | [Docker num computador](#caminho-b--docker) | Você tem um PC ou servidor que fica ligado | Média |
 | **C** | [Node direto num PC](#caminho-c--node-direto) | Você quer testar antes de decidir | Baixa |
+
+### Qual escolher, na prática
+
+A pergunta que decide é: **você consegue criar conta em mais uma plataforma?**
+
+- **Se sim** → caminho **A**. São várias opções equivalentes (Render, Koyeb,
+  Netlify, Railway…), e a seção mostra como configurar qualquer uma delas.
+- **Se as plataformas continuam barrando você** → caminho **B**. Ele é o único
+  que **não exige nenhuma conta nova**: roda numa máquina sua, com o banco
+  incluso.
+- **Só quer ver funcionando primeiro** → caminho **C**, em 10 minutos.
 
 > **As fotos das ocorrências foram removidas.** O sistema não depende mais de
 > nenhum serviço de armazenamento de imagens. Descrição, plano de ação,
@@ -42,17 +53,33 @@ PostgreSQL gratuito sem cartão.
 
 ---
 
-## Caminho A — Render.com
+## Caminho A — Hospedagem conectada ao GitHub
 
-Mesma ideia da Vercel: conecta no GitHub e publica sozinho. Plano gratuito, sem
-cartão.
+Todas funcionam do mesmo jeito: você conecta o repositório, informa dois
+comandos e cinco variáveis, e a plataforma publica sozinha a cada mudança.
 
-**1. Criar a conta**
-Acesse [render.com](https://render.com) → **Get Started** → entre com o GitHub.
+### Onde hospedar
 
-**2. Criar o serviço**
-No painel: **New + → Web Service** → **Build and deploy from a Git repository**
-→ conecte e escolha **Brainstorm**.
+| Plataforma | Observações |
+|---|---|
+| **[Render](https://render.com)** | O mais próximo da Vercel. No plano gratuito o serviço hiberna após 15 min sem acesso, e o primeiro acesso seguinte demora ~40 s. |
+| **[Koyeb](https://koyeb.com)** | Free tier sem hibernação. Aceita tanto repositório quanto imagem Docker. |
+| **[Netlify](https://netlify.com)** | Suporte a Next.js nativo. Detecta o projeto sozinho — normalmente basta confirmar o que ele sugerir. |
+| **[Railway](https://railway.app)** | Muito simples de usar e oferece PostgreSQL junto, mas costuma pedir cartão mesmo no plano de avaliação. |
+
+> ⚠️ **Não consigo verificar daqui** as condições atuais de cadastro de cada
+> uma — planos gratuitos e exigência de cartão ou telefone mudam com
+> frequência. Se a primeira barrar você, tente a seguinte: a configuração
+> abaixo é idêntica em todas. Se todas barrarem, vá para o **caminho B**, que
+> não exige conta nenhuma.
+
+### A configuração, em qualquer uma delas
+
+**1. Criar a conta** e conectar o GitHub.
+
+**2. Criar o serviço** apontando para o repositório **Brainstorm**, tipo
+*Web Service* (ou *Web Application* / *Site*, conforme o nome que a plataforma
+usar).
 
 **3. Preencher a configuração**
 
@@ -60,10 +87,14 @@ No painel: **New + → Web Service** → **Build and deploy from a Git repositor
 |---|---|
 | Name | `boletim-diario` |
 | Branch | `claude/condominio-boletim-gestao-ougoqd` |
-| Runtime | `Node` |
+| Runtime / Language | `Node` (versão 20 ou superior) |
 | Build Command | `npm ci && npm run build` |
 | Start Command | `npm start` |
-| Instance Type | `Free` |
+| Port | `3000` |
+| Instance / Plan | o gratuito |
+
+> O `npm run build` já aplica as migrações do banco. Você não precisa rodar
+> nada à mão para criar as tabelas.
 
 **4. Variáveis de ambiente**
 Ainda nessa tela, em **Environment Variables**, adicione:
@@ -81,21 +112,24 @@ Clique em **Create Web Service** e aguarde de 3 a 6 minutos. O build aplica as
 migrações do banco automaticamente.
 
 **6. Criar seu usuário**
-Abra a aba **Shell** do serviço no painel do Render e rode:
+
+Se a plataforma tiver um terminal embutido (no Render é a aba **Shell**), rode:
 
 ```bash
 npm run producao:init
 ```
 
-Ele usa as variáveis `ADMIN_*` que você já preencheu. Se a aba Shell não estiver
-disponível no plano gratuito, use a alternativa sem terminal: adicione a
-variável `SETUP_TOKEN` com uma senha temporária, republique e acesse
-`SEU-ENDERECO.onrender.com/configuracao-inicial`.
+Ele usa as variáveis `ADMIN_*` que você já preencheu.
 
-> **Sobre o plano gratuito do Render:** o serviço hiberna após 15 minutos sem
-> acesso. O primeiro acesso depois disso demora ~40 segundos para responder;
-> os seguintes são normais. Para um boletim preenchido uma vez por dia, é
-> tolerável — mas avise os gerentes para não acharem que travou.
+**Sem terminal** — funciona em qualquer plataforma: adicione a variável
+`SETUP_TOKEN` com uma senha temporária, republique e acesse
+`SEU-ENDERECO/configuracao-inicial`. Preencha o token e seus dados. Depois
+remova a variável.
+
+> **Sobre planos gratuitos que hibernam** (o do Render é assim): o serviço
+> dorme após ~15 minutos sem acesso e o primeiro acesso seguinte demora uns 40
+> segundos. Para um boletim por dia é tolerável — mas avise os gerentes, senão
+> vão achar que travou. Se isso incomodar, o Koyeb não hiberna.
 
 ---
 
