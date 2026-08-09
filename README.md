@@ -18,8 +18,13 @@ multi-condomínio, um **painel administrativo** para o síndico profissional e u
 
 ## Colocar no ar
 
-**→ [GUIA-DEPLOY.md](GUIA-DEPLOY.md)** — três caminhos: Render.com, Docker num
-computador próprio, ou Node direto. Escolha um.
+**→ [GUIA-DEPLOY.md](GUIA-DEPLOY.md)** — passo a passo. O caminho principal é a
+**Vercel**; Docker num computador próprio e Node direto ficam como alternativas,
+junto com Koyeb, Netlify e Render.
+
+Na Vercel: crie o banco no [Neon](https://neon.tech) (não pela aba *Storage*,
+que passa pelo marketplace), informe `DATABASE_URL`, `AUTH_SECRET` e
+`SETUP_TOKEN`, publique, e crie seu usuário em `/configuracao-inicial`.
 
 O mais rápido, se você tem Docker: sobe aplicação **e** banco de uma vez.
 
@@ -175,6 +180,13 @@ Os tokens estão em `src/app/globals.css`; os gráficos os leem em runtime
 - **Migrações** — o build roda `prisma migrate deploy`, então publicar já aplica
   o que estiver pendente. Ao mudar o schema, gere a migração com
   `npm run db:migrate` e faça commit da pasta `prisma/migrations/`.
+- **Serverless** — em plataformas que rodam o app em funções (Vercel), cada
+  instância abre a própria conexão. Acrescente `&connection_limit=1` à
+  `DATABASE_URL` para não esgotar o limite do banco.
+- **`output: "standalone"`** — ligado apenas quando `DOCKER_BUILD=1`, definido
+  no Dockerfile. As plataformas de hospedagem montam o próprio empacotamento a
+  partir do build padrão, e forçá-lo ali só acrescenta uma variável a mais para
+  dar errado.
 - **Docker** — `Dockerfile` em três estágios com saída `standalone`. As
   dependências de produção são instaladas com `npm ci --omit=dev` e copiadas
   inteiras: escolher pacotes a dedo esquece dependências transitivas do Prisma
@@ -221,4 +233,5 @@ src/
 scripts/init-producao.ts   # catálogo + admin, sem dados de demonstração
 Dockerfile                 # imagem de produção (standalone)
 docker-compose.yml         # aplicação + PostgreSQL em um comando
+vercel.json                # build e install explícitos para a Vercel
 ```

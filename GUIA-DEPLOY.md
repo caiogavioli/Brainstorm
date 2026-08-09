@@ -6,20 +6,13 @@ Escolha **um**.
 
 | | Caminho | Bom quando | Dificuldade |
 |---|---|---|---|
-| **A** | [Hospedagem conectada ao GitHub](#caminho-a--hospedagem-conectada-ao-github) | Você quer um endereço na internet, como seria na Vercel | Baixa |
-| **B** | [Docker num computador](#caminho-b--docker) | Você tem um PC ou servidor que fica ligado | Média |
+| **A** | [Vercel](#caminho-a--vercel) | O caminho principal: um endereço na internet, publicado a partir do GitHub | Baixa |
+| **B** | [Docker num computador](#caminho-b--docker) | Você tem um PC ou servidor que fica ligado, e não quer criar conta nenhuma | Média |
 | **C** | [Node direto num PC](#caminho-c--node-direto) | Você quer testar antes de decidir | Baixa |
 
-### Qual escolher, na prática
-
-A pergunta que decide é: **você consegue criar conta em mais uma plataforma?**
-
-- **Se sim** → caminho **A**. São várias opções equivalentes (Render, Koyeb,
-  Netlify, Railway…), e a seção mostra como configurar qualquer uma delas.
-- **Se as plataformas continuam barrando você** → caminho **B**. Ele é o único
-  que **não exige nenhuma conta nova**: roda numa máquina sua, com o banco
-  incluso.
-- **Só quer ver funcionando primeiro** → caminho **C**, em 10 minutos.
+Se a Vercel barrar de novo, veja as
+[alternativas equivalentes](#alternativas-a-vercel) — Koyeb, Netlify, Render —
+que usam exatamente a mesma configuração.
 
 > **As fotos das ocorrências foram removidas.** O sistema não depende mais de
 > nenhum serviço de armazenamento de imagens. Descrição, plano de ação,
@@ -30,8 +23,13 @@ A pergunta que decide é: **você consegue criar conta em mais uma plataforma?**
 
 ## O banco de dados (vale para os caminhos A e C)
 
-Os dois precisam de um PostgreSQL. O gratuito mais simples é o **Neon**, criado
-direto no site deles — **não** pelo painel de outra plataforma:
+Os dois precisam de um PostgreSQL. Crie o banco **direto no site do Neon** —
+não pela aba *Storage* da Vercel.
+
+> **Por que não pela Vercel:** a aba Storage passa pelo marketplace, que é onde
+> costuma aparecer o pedido de cartão ou de verificação. Criando no Neon e
+> colando a URL como variável de ambiente, o resultado é idêntico e a Vercel
+> nem precisa saber de onde veio o banco.
 
 1. Acesse **[neon.tech](https://neon.tech)** e entre com sua conta do GitHub ou
    Google. Não pede cartão.
@@ -53,83 +51,86 @@ PostgreSQL gratuito sem cartão.
 
 ---
 
-## Caminho A — Hospedagem conectada ao GitHub
+## Caminho A — Vercel
 
-Todas funcionam do mesmo jeito: você conecta o repositório, informa dois
-comandos e cinco variáveis, e a plataforma publica sozinha a cada mudança.
+**1. Criar a conta**
+[vercel.com/signup](https://vercel.com/signup) → **Continue with GitHub** →
+autorize. Escolha o plano **Hobby** (gratuito).
 
-### Onde hospedar
+**2. Criar o banco antes de publicar**
+Siga a seção [O banco de dados](#o-banco-de-dados-vale-para-os-caminhos-a-e-c)
+acima e deixe a *connection string* copiada. Sem o banco, a primeira publicação
+falha.
+
+**3. Importar o projeto**
+No painel: **Add New… → Project** → encontre **Brainstorm** → **Import**.
+
+- Se o repositório não aparecer, clique em **Adjust GitHub App Permissions** e
+  libere o acesso a ele.
+- Em **Git Branch**, selecione `claude/condominio-boletim-gestao-ougoqd`.
+
+**4. Variáveis de ambiente**
+Ainda na tela de importação, abra **Environment Variables** e adicione:
+
+| Nome | Valor |
+|---|---|
+| `DATABASE_URL` | a connection string do Neon, com `&connection_limit=1` no final |
+| `AUTH_SECRET` | um texto aleatório de 40+ caracteres |
+| `SETUP_TOKEN` | uma senha temporária, só sua |
+
+Sobre o `connection_limit=1`: a Vercel roda o sistema em funções que sobem e
+descem sozinhas, e cada uma abre sua própria conexão com o banco. Esse
+parâmetro limita cada função a uma conexão e evita o erro
+*too many connections*. A URL fica assim:
+
+```
+postgresql://usuario:senha@ep-algo.sa-east-1.aws.neon.tech/condominios?sslmode=require&connection_limit=1
+```
+
+**Como gerar o `AUTH_SECRET`:** use o gerador de senhas do navegador ou do seu
+gerenciador de senhas. Não reaproveite uma senha que você já usa — quem tiver
+esse valor consegue forjar um login.
+
+**5. Publicar**
+Clique em **Deploy** e aguarde de 2 a 4 minutos. O build cria as tabelas do
+banco automaticamente.
+
+**6. Criar seu usuário**
+Abra `SEU-ENDERECO.vercel.app/configuracao-inicial`, informe o `SETUP_TOKEN`,
+seu nome, e-mail e uma senha de 10+ caracteres. Você cai na tela de login já
+com a conta criada.
+
+**7. Fechar a porta**
+Em **Settings → Environment Variables**, remova o `SETUP_TOKEN` e republique em
+**Deployments → ⋯ → Redeploy**. A tela de configuração também se tranca sozinha
+assim que existe um administrador — a remoção é só higiene.
+
+---
+
+## Alternativas à Vercel
+
+Se o cadastro barrar de novo, estas usam **exatamente a mesma configuração** do
+caminho A — mesmo build, mesmas variáveis, mesma tela de configuração inicial:
 
 | Plataforma | Observações |
 |---|---|
-| **[Render](https://render.com)** | O mais próximo da Vercel. No plano gratuito o serviço hiberna após 15 min sem acesso, e o primeiro acesso seguinte demora ~40 s. |
-| **[Koyeb](https://koyeb.com)** | Free tier sem hibernação. Aceita tanto repositório quanto imagem Docker. |
-| **[Netlify](https://netlify.com)** | Suporte a Next.js nativo. Detecta o projeto sozinho — normalmente basta confirmar o que ele sugerir. |
-| **[Railway](https://railway.app)** | Muito simples de usar e oferece PostgreSQL junto, mas costuma pedir cartão mesmo no plano de avaliação. |
+| **[Koyeb](https://koyeb.com)** | Free tier sem hibernação. Aceita repositório ou imagem Docker. |
+| **[Netlify](https://netlify.com)** | Suporte a Next.js nativo; detecta o projeto sozinho. |
+| **[Render](https://render.com)** | No plano gratuito o serviço hiberna após 15 min sem acesso, e o primeiro acesso seguinte demora uns 40 s. |
+| **[Railway](https://railway.app)** | Simples e já traz PostgreSQL junto, mas costuma pedir cartão. |
 
-> ⚠️ **Não consigo verificar daqui** as condições atuais de cadastro de cada
-> uma — planos gratuitos e exigência de cartão ou telefone mudam com
-> frequência. Se a primeira barrar você, tente a seguinte: a configuração
-> abaixo é idêntica em todas. Se todas barrarem, vá para o **caminho B**, que
-> não exige conta nenhuma.
-
-### A configuração, em qualquer uma delas
-
-**1. Criar a conta** e conectar o GitHub.
-
-**2. Criar o serviço** apontando para o repositório **Brainstorm**, tipo
-*Web Service* (ou *Web Application* / *Site*, conforme o nome que a plataforma
-usar).
-
-**3. Preencher a configuração**
+Nelas, informe manualmente o que a Vercel detecta sozinha:
 
 | Campo | Valor |
 |---|---|
-| Name | `boletim-diario` |
-| Branch | `claude/condominio-boletim-gestao-ougoqd` |
 | Runtime / Language | `Node` (versão 20 ou superior) |
 | Build Command | `npm ci && npm run build` |
 | Start Command | `npm start` |
 | Port | `3000` |
-| Instance / Plan | o gratuito |
 
-> O `npm run build` já aplica as migrações do banco. Você não precisa rodar
-> nada à mão para criar as tabelas.
-
-**4. Variáveis de ambiente**
-Ainda nessa tela, em **Environment Variables**, adicione:
-
-| Nome | Valor |
-|---|---|
-| `DATABASE_URL` | a connection string do Neon |
-| `AUTH_SECRET` | um texto aleatório de 40+ caracteres |
-| `ADMIN_EMAIL` | seu e-mail (será o login) |
-| `ADMIN_SENHA` | uma senha de 10+ caracteres |
-| `ADMIN_NOME` | seu nome |
-
-**5. Publicar**
-Clique em **Create Web Service** e aguarde de 3 a 6 minutos. O build aplica as
-migrações do banco automaticamente.
-
-**6. Criar seu usuário**
-
-Se a plataforma tiver um terminal embutido (no Render é a aba **Shell**), rode:
-
-```bash
-npm run producao:init
-```
-
-Ele usa as variáveis `ADMIN_*` que você já preencheu.
-
-**Sem terminal** — funciona em qualquer plataforma: adicione a variável
-`SETUP_TOKEN` com uma senha temporária, republique e acesse
-`SEU-ENDERECO/configuracao-inicial`. Preencha o token e seus dados. Depois
-remova a variável.
-
-> **Sobre planos gratuitos que hibernam** (o do Render é assim): o serviço
-> dorme após ~15 minutos sem acesso e o primeiro acesso seguinte demora uns 40
-> segundos. Para um boletim por dia é tolerável — mas avise os gerentes, senão
-> vão achar que travou. Se isso incomodar, o Koyeb não hiberna.
+> ⚠️ **Não consigo verificar daqui** as condições atuais de cadastro de nenhuma
+> delas — plano gratuito, exigência de cartão ou telefone mudam com frequência.
+> Se todas barrarem, o **caminho B** não exige conta nenhuma.
 
 ---
 
@@ -272,14 +273,16 @@ automaticamente, que aparece no seu dashboard.
 | `Environment variable not found: DATABASE_URL` | faltou a variável | Confira o `.env` ou as variáveis do serviço |
 | `AUTH_SECRET ausente ou muito curto` | segredo não definido | Defina um texto de 40+ caracteres |
 | `defina AUTH_SECRET no arquivo .env` | Docker sem o `.env` preenchido | Rode `cp .env.example .env` e preencha |
+| `too many connections` | muitas funções abrindo conexão ao mesmo tempo | Acrescente `&connection_limit=1` ao fim da `DATABASE_URL` |
 
 ---
 
 ## Perguntas frequentes
 
 **Vai custar alguma coisa?**
-Não, nos três caminhos. Neon e Render têm planos gratuitos sem cartão, e o
-Docker roda numa máquina que você já tem.
+Não deveria, nos três caminhos: Vercel e Neon têm plano gratuito e o Docker roda
+numa máquina que você já tem. Confira as condições no ato do cadastro — elas
+mudam, e eu não consigo verificá-las daqui.
 
 **Os dados ficam seguros?**
 As senhas são guardadas com *hash* (bcrypt), nunca em texto puro. A sessão fica
