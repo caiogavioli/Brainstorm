@@ -26,7 +26,22 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
 
 | Projeto | Origem | Repositório | Data |
 |---|---|---|---|
-| `triagem-contratante` | P-001 | _não criado — aguardando pedido explícito_ | 2026-08-10 |
+| `triagem-contratante` | P-001 | ⚠️ _pedido pelo usuário, **bloqueado por permissão** — ver abaixo_ | 2026-08-10 |
+
+### Bloqueio na criação do repositório (2026-08-10)
+
+O usuário pediu explicitamente a criação, privada. A chamada falhou:
+
+```
+POST https://api.github.com/user/repos → 403 Resource not accessible by integration
+```
+
+A integração autentica como `caiogavioli` e enxerga `caiogavioli/Brainstorm`, mas **não tem permissão de criar repositórios** (falta `Administration: write`). Não é contornável de dentro da sessão.
+
+**Esqueleto pronto e completo**, 8 arquivos, aguardando só o repositório existir:
+`README.md`, `CLAUDE.md`, `.gitignore`, `docs/spec.md`, `rotina/criterios-classificacao.md`, `rotina/formato-mensagem.md`, `estado/pedidos.exemplo.json`, `testes/caso-referencia.md`.
+
+**Desbloqueio:** o usuário cria o repositório vazio e privado à mão (`triagem-contratante`, **sem** inicializar com README), avisa, e a sessão sobe tudo via `add_repo` + push.
 
 ## Decisões sobre o processo
 
