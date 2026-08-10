@@ -10,6 +10,8 @@ Estado vivo do brainstorming. Ler no início de cada sessão, atualizar ao fim d
 
 **P-001 encerrado.** Virou o projeto `triagem-contratante`, com repositório privado criado e esqueleto no ar: <https://github.com/caiogavioli/triagem-contratante>. O desenvolvimento acontece **lá**, em outra sessão — aqui fica só o histórico da decisão.
 
+Última decisão tomada (2026-08-10): **entrega por email**, do usuário para ele mesmo, assunto `[Triagem] …`. Ele responde o próprio email para fechar pedidos, e o loop se fecha dentro da caixa dele. Foi avisado do risco de a rotina cair sem aviso e **aceitou explicitamente**.
+
 Nada em aberto neste repositório. Pronto para o próximo problema.
 
 Caminho até aqui: Rodada 1 (`S-001`) → Rodada 2 (`S-002`) → decisão (`S-003`) → **medição da caixa anulou a premissa** (`S-004`) → Rodada 3 com o problema corrigido (`S-005`) → decisões E1/E2/E3 fechadas.

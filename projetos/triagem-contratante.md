@@ -106,6 +106,7 @@ O status `aguardando terceiro` existe porque parte relevante do trabalho dele n�
 | Execução | Rotina agendada, sem servidor | Zero infra para manter. Um usuário só não justifica host |
 | Estado | Arquivo único no OneDrive do usuário | Já pago, já sincronizado, ele mesmo consegue abrir e corrigir na mão |
 | Interface | Uma mensagem de texto por dia | Ele abre no celular. Painel seria peça a mais sem uso |
+| Entrega | **Email do usuário para o usuário**, assunto `[Triagem] …` | Ele já vive no Outlook do Android. O loop fecha dentro da própria caixa — ele responde o email para fechar pedidos, sem serviço externo no caminho |
 
 ## Decisões e trade-offs
 
@@ -118,6 +119,7 @@ O status `aguardando terceiro` existe porque parte relevante do trabalho dele n�
 | **Histórico de pedidos anteriores na lista** (E3) | Só as últimas 24h | Pedido do exigido pelo usuário e defendido por Marina: um prazo de sexta desaparece do resumo de quinta se a rotina só olha 24h. |
 | **Estado em arquivo no OneDrive** | Estado derivado da caixa (respondeu × não respondeu) | Derivar seria mais elegante e sem estado, mas não representa "aguardando terceiro" nem "resolvi por telefone". |
 | **Estado em arquivo no OneDrive** | Estado versionado no repositório do projeto | Git daria histórico grátis, mas o usuário não consegue abrir e corrigir na mão com a mesma facilidade. |
+| **Entrega por email do usuário para ele mesmo** | Mensagem em app próprio | Formataria melhor, mas exige hábito novo — e o problema que originou o projeto é exatamente coisa que não é olhada. O Outlook do Android já é onde ele passa o dia. Bônus: a resposta dele volta para a própria caixa, então o loop de fechar pedidos não precisa de serviço externo. |
 | **Categorias do Outlook fora de escopo** | Reaproveitar o esquema `1:`/`2: FYI`/… que ele já usa | Orientação explícita do usuário. |
 | **WhatsApp fora da v1** | Integrar como segunda fonte | Rafael queria fora inteiramente; Marina queria como medição. Ficou como medição manual: cada cobrança por WhatsApp é um pedido que escapou, e é a única métrica honesta de sucesso. |
 | **Um projeto, não dois** | Separar "triagem" de "acompanhamento de pendências" | O acompanhamento sem a triagem não tem o que acompanhar. |
@@ -127,7 +129,7 @@ O status `aguardando terceiro` existe porque parte relevante do trabalho dele n�
 - **Falso negativo é o risco caro.** Um pedido classificado como informativo vira outro dia 05. A lista de informativos precisa continuar visível e curta o bastante para ele bater o olho — não pode virar um "arquivado" invisível.
 - **Falso positivo cansa.** Se a lista de demandas encher de coisa que não é demanda, ele para de confiar e volta a ignorar.
 - **Deriva de domínio.** A Brookfield está migrando de `brookfieldproperties.com` para `bgre.com`, com os dois ativos ao mesmo tempo. Se surgir um terceiro domínio, a rotina fica cega sem avisar. Vale um alerta quando aparecer domínio novo com assinatura Brookfield.
-- **Dependência de serviço externo.** A rotina roda fora do controle do usuário. Objeção levantada pelo próprio Tomás contra a própria proposta. Mitigação: se cair, ele volta a triar na mão — que é exatamente a situação de hoje, então o pior caso é o presente.
+- **Dependência de serviço externo.** A rotina roda fora do controle do usuário. Objeção levantada pelo próprio Tomás contra a própria proposta. Mitigação: se cair, ele volta a triar na mão — que é exatamente a situação de hoje, então o pior caso é o presente. **O usuário foi avisado explicitamente de que pode deixar de receber a mensagem sem ninguém avisar, e aceitou o risco (2026-08-10).** Por isso a rotina envia mensagem **também nos dias sem pedido**: silêncio total seria ambíguo entre "não teve pedido" e "quebrou".
 - **O usuário subestimou o próprio volume em 20×** na Rodada 1. Outros números auto-relatados neste projeto devem ser medidos antes de virarem premissa.
 - **Prazo implícito não é capturado.** "Urgente" e "assim que possível" não viram data. Ficam como demanda sem prazo.
 
@@ -138,7 +140,11 @@ O status `aguardando terceiro` existe porque parte relevante do trabalho dele n�
 - [ ] Prazo declarado no texto vira data na lista
 - [ ] A mensagem diária chega de manhã, com as três seções: demandas, informativos, em aberto de antes
 - [ ] Pedidos de dias anteriores continuam aparecendo até serem fechados
-- [ ] O usuário consegue fechar um pedido respondendo em linguagem natural
+- [ ] A mensagem chega **por email**, com assunto no padrão `[Triagem] <Dia> <DD/MM> — <n> pedido(s)`
+- [ ] Em dia sem pedido nenhum, a mensagem **é enviada mesmo assim**, curta
+- [ ] O usuário fecha um pedido **respondendo o próprio email**, em linguagem natural
+- [ ] A rotina confirma no dia seguinte o que entendeu de cada resposta dele
+- [ ] A rotina **não** classifica as próprias mensagens (filtro pelo remetente e pelo prefixo `[Triagem]`)
 - [ ] Rodando o teste contra a semana de 03 a 09/08/2026, o email "Automatização de energia elétrica" aparece como **demanda com prazo 07/08**
 
 O último item é o teste de aceitação de verdade: se a v1 não pega o caso que originou o projeto, ela não está pronta.
