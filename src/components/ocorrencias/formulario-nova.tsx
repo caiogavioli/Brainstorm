@@ -3,14 +3,12 @@
 import { useActionState, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { useRouter } from "next/navigation";
-import type { GrupoChecklist } from "@prisma/client";
-
-import { GRUPO_LABEL } from "@/lib/checklist";
+import { GRUPO_LABEL, GRUPOS } from "@/lib/checklist";
 import { CRITICIDADE_LABEL, STATUS_OCORRENCIA_LABEL } from "@/lib/labels";
 import { criarOcorrenciaAction } from "@/lib/acoes/ocorrencias";
 import type { ResultadoAcao } from "@/lib/acoes/boletim";
 
-type Item = { id: number; nome: string; grupo: GrupoChecklist };
+type Item = { id: number; nome: string; grupo: string };
 
 function BotaoSalvar() {
   const { pending } = useFormStatus();
@@ -42,8 +40,10 @@ export function FormularioNovaOcorrencia({
     }
   }, [estado, router]);
 
-  // Agrupa o seletor de setor pelos mesmos grupos do boletim.
-  const grupos = Array.from(new Set(itens.map((i) => i.grupo)));
+  // Agrupa o seletor de setor pelos mesmos grupos do boletim, na ordem do catálogo.
+  const grupos = GRUPOS.map((g) => g.codigo).filter((codigo) =>
+    itens.some((i) => i.grupo === codigo),
+  );
 
   return (
     <form action={acao} className="space-y-4">
@@ -76,7 +76,7 @@ export function FormularioNovaOcorrencia({
             <select id="checklistItemId" name="checklistItemId" className="campo" required>
               <option value="">Selecione…</option>
               {grupos.map((g) => (
-                <optgroup key={g} label={GRUPO_LABEL[g]}>
+                <optgroup key={g} label={GRUPO_LABEL[g] ?? g}>
                   {itens
                     .filter((i) => i.grupo === g)
                     .map((i) => (

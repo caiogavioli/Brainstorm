@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { exigirSessao, podeAcessarCondominio } from "@/lib/auth";
 import { GRUPOS } from "@/lib/checklist";
-import { formatarDataHora, formatarDataReferencia } from "@/lib/datas";
+import { formatarData, formatarDataHora, formatarDataReferencia } from "@/lib/datas";
 import {
   CRITICIDADE_CLASSE,
   CRITICIDADE_LABEL,
@@ -39,12 +39,27 @@ export default async function PaginaBoletim({
         include: { checklistItem: { select: { nome: true } } },
         orderBy: { criticidade: "desc" },
       },
+      // Não conformidades deste boletim que caíram em ocorrências já abertas.
+      recorrencias: {
+        include: {
+          ocorrencia: {
+            select: {
+              id: true,
+              criticidade: true,
+              status: true,
+              dataAbertura: true,
+              checklistItem: { select: { nome: true } },
+            },
+          },
+        },
+      },
     },
   });
 
   if (!boletim || !podeAcessarCondominio(sessao, boletim.condominioId)) notFound();
 
   const naoConformes = boletim.itens.filter((i) => i.situacao === "NAO_CONFORME");
+  const reincidentes = boletim.recorrencias;
 
   return (
     <div className="mx-auto max-w-3xl">
@@ -59,9 +74,16 @@ export default async function PaginaBoletim({
           }}
         >
           <strong>Boletim registrado.</strong>{" "}
-          {boletim.ocorrencias.length > 0
-            ? `${boletim.ocorrencias.length} ocorrência(s) foram abertas automaticamente.`
-            : "Nenhuma não conformidade registrada."}
+          {[
+            boletim.ocorrencias.length > 0
+              ? `${boletim.ocorrencias.length} ocorrência(s) aberta(s)`
+              : null,
+            reincidentes.length > 0
+              ? `${reincidentes.length} problema(s) já em aberto — nada foi duplicado`
+              : null,
+          ]
+            .filter(Boolean)
+            .join(" · ") || "Nenhuma não conformidade registrada."}
         </div>
       ) : null}
 
@@ -97,6 +119,11 @@ export default async function PaginaBoletim({
           <div>
             <div className="titulo-secao mb-1">Ocorrências</div>
             <div className="text-2xl font-bold num">{boletim.ocorrencias.length}</div>
+            {reincidentes.length > 0 ? (
+              <div className="text-xs num" style={{ color: "var(--tinta-3)" }}>
+                +{reincidentes.length} já em aberto
+              </div>
+            ) : null}
           </div>
           <div>
             <div className="titulo-secao mb-1">Faltas</div>
@@ -158,15 +185,59 @@ export default async function PaginaBoletim({
         </div>
       ) : null}
 
+      {/* Não conformidades que já tinham ocorrência aberta */}
+      {reincidentes.length > 0 ? (
+        <div className="card card-pad mb-4">
+          <h2 className="font-semibold mb-1">Problemas que continuam</h2>
+          <p className="text-xs mb-3" style={{ color: "var(--tinta-3)" }}>
+            Já existia ocorrência aberta para estes itens, então o boletim de hoje
+            foi anexado a ela em vez de abrir uma nova.
+          </p>
+          <ul className="space-y-2">
+            {reincidentes.map((r) => (
+              <li
+                key={r.id}
+                className="rounded-lg p-3"
+                style={{ border: "1px solid var(--grade)" }}
+              >
+                <div className="flex flex-wrap items-center gap-2 mb-1">
+                  <Link
+                    href={`/ocorrencias/${r.ocorrencia.id}`}
+                    className="font-semibold text-sm"
+                    style={{ color: "var(--serie-1)" }}
+                  >
+                    {r.ocorrencia.checklistItem?.nome ?? "Ocorrência"}
+                  </Link>
+                  <span className={CRITICIDADE_CLASSE[r.ocorrencia.criticidade]}>
+                    {CRITICIDADE_LABEL[r.ocorrencia.criticidade]}
+                  </span>
+                  <span className={STATUS_OCORRENCIA_CLASSE[r.ocorrencia.status]}>
+                    {STATUS_OCORRENCIA_LABEL[r.ocorrencia.status]}
+                  </span>
+                  <span className="text-xs num" style={{ color: "var(--tinta-3)" }}>
+                    aberta em {formatarData(r.ocorrencia.dataAbertura)}
+                  </span>
+                </div>
+                {r.observacao ? (
+                  <p className="text-sm" style={{ color: "var(--tinta-2)" }}>
+                    {r.observacao}
+                  </p>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
       {/* Checklist completo por grupo */}
       {GRUPOS.map((grupo) => {
         const doGrupo = boletim.itens
-          .filter((i) => i.checklistItem.grupo === grupo.chave)
+          .filter((i) => i.checklistItem.grupo === grupo.codigo)
           .sort((a, b) => a.checklistItem.ordem - b.checklistItem.ordem);
         if (doGrupo.length === 0) return null;
 
         return (
-          <div key={grupo.chave} className="card card-pad mb-4">
+          <div key={grupo.codigo} className="card card-pad mb-4">
             <h2 className="font-semibold mb-3">{grupo.titulo}</h2>
             <ul className="space-y-1">
               {doGrupo.map((item) => (

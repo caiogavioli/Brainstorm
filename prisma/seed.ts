@@ -12,7 +12,8 @@
 import { PrismaClient, type Criticidade, type StatusOcorrencia } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
-import { CATALOGO_CHECKLIST } from "../src/lib/checklist";
+import { GRUPO_EQUIPES, PRAZO_POR_CRITICIDADE } from "../src/lib/checklist";
+import { sincronizarCatalogo } from "../scripts/sincronizar-catalogo";
 
 const prisma = new PrismaClient();
 
@@ -37,14 +38,10 @@ function referenciaDe(data: Date): string {
 }
 
 async function seedChecklist() {
-  for (const item of CATALOGO_CHECKLIST) {
-    await prisma.checklistItem.upsert({
-      where: { codigo: item.codigo },
-      update: { nome: item.nome, grupo: item.grupo, ordem: item.ordem, ativo: true },
-      create: item,
-    });
-  }
-  console.log(`✔ Catálogo de checklist: ${CATALOGO_CHECKLIST.length} itens`);
+  const r = await sincronizarCatalogo(prisma);
+  console.log(
+    `✔ Catálogo de checklist: ${r.total} itens (${r.desativados} item(ns) fora do catálogo desativado(s))`,
+  );
 }
 
 async function seedCondominios() {
@@ -143,15 +140,16 @@ async function seedMovimento(condominioIds: number[], adminId: number, dias = 90
   // mostrar concentração realista em vez de ruído uniforme.
   const pesoPorCodigo: Record<string, number> = {
     elevadores: 5,
-    "portas-acesso": 4,
-    climatizacao: 3.5,
+    "portas-portoes": 4,
+    refrigeracao: 3.5,
     "controle-acesso": 3,
-    bombas: 2.5,
-    "sistema-refrigeracao": 2.5,
-    internet: 2,
+    "bombas-recalque": 2.5,
+    vazamentos: 2.5,
+    "rede-internet": 2,
     "iluminacao-emergencia": 2,
+    "equipe-limpeza": 2,
     nobreak: 1.5,
-    obras: 1.5,
+    "obras-reformas": 1.5,
   };
 
   const descricoes: Record<string, string[]> = {
@@ -160,12 +158,12 @@ async function seedMovimento(condominioIds: number[], adminId: number, dias = 90
       "Ruído anormal na casa de máquinas do elevador de serviço; porta do 3º andar não fecha completamente.",
       "Botoeira do elevador panorâmico sem resposta nos andares 12 a 15.",
     ],
-    "portas-acesso": [
+    "portas-portoes": [
       "Porta automática do hall principal travando ao abrir; sensor de presença intermitente.",
       "Fechadura eletromagnética da entrada de serviço não energiza — acesso liberado manualmente.",
       "Mola hidráulica da porta corta-fogo do subsolo com vazamento.",
     ],
-    climatizacao: [
+    refrigeracao: [
       "Fancoil do 9º pavimento com vazamento de água na bandeja de condensado.",
       "Ar-condicionado do salão de festas sem refrigerar; suspeita de falta de gás.",
       "Compressor da unidade condensadora 03 desarmando por sobrecarga térmica.",
@@ -175,16 +173,20 @@ async function seedMovimento(condominioIds: number[], adminId: number, dias = 90
       "Software de controle de acesso fora do ar; liberação manual registrada em livro.",
       "Leitor biométrico da garagem com falha de reconhecimento recorrente.",
     ],
-    bombas: [
+    "bombas-recalque": [
       "Bomba de recalque 01 desarmando o disjuntor; operação mantida com a bomba reserva.",
       "Vazamento na conexão de saída da bomba de reuso.",
       "Bomba do sistema de sprinklers sem pressurização automática.",
     ],
-    "sistema-refrigeracao": [
-      "Chiller 02 com alarme de baixa pressão; empresa especializada acionada.",
-      "Torre de resfriamento com nível de água abaixo do mínimo.",
+    vazamentos: [
+      "Infiltração no teto da garagem G2, abaixo da área da piscina.",
+      "Vazamento na prumada hidráulica entre o 8º e o 9º pavimento.",
     ],
-    internet: [
+    "equipe-limpeza": [
+      "Dois auxiliares de limpeza faltaram; áreas comuns cobertas em regime reduzido.",
+      "Falta da encarregada de limpeza; escala remanejada com a equipe da manhã.",
+    ],
+    "rede-internet": [
       "Queda do link principal de internet; operação em link secundário.",
       "Wi-Fi das áreas comuns instável no período da tarde.",
     ],
@@ -196,7 +198,7 @@ async function seedMovimento(condominioIds: number[], adminId: number, dias = 90
       "Nobreak da sala de CFTV sinalizando bateria em fim de vida.",
       "Nobreak do rack de automação desligou durante a queda de energia.",
     ],
-    obras: [
+    "obras-reformas": [
       "Obra da unidade 142 gerando ruído fora do horário permitido.",
       "Entulho da reforma do 5º andar depositado em área comum.",
     ],
@@ -207,10 +209,6 @@ async function seedMovimento(condominioIds: number[], adminId: number, dias = 90
     "Equipe de manutenção predial executou reparo provisório. Peça definitiva solicitada ao fornecedor.",
     "Orçamento encaminhado ao síndico para aprovação; execução prevista após liberação.",
     "Item isolado e sinalizado. Correção programada para a próxima janela de manutenção.",
-  ];
-
-  const setoresFalta = [
-    "Limpeza", "Portaria", "Manutenção", "Jardinagem", "Segurança", "Copa",
   ];
 
   const hoje = new Date();
@@ -249,11 +247,13 @@ async function seedMovimento(condominioIds: number[], adminId: number, dias = 90
         return { checklistItemId: item.id, situacao: "CONFORME" as const };
       });
 
-      const houveFaltas = rand() < 0.16;
-      const qtdeFaltas = houveFaltas ? 1 + Math.floor(rand() * 2) : 0;
+      // Faltas são derivadas: item do grupo EQUIPES marcado como não conforme.
+      const equipesComFalta = naoConformes.filter(
+        (n) => itens.find((i) => i.id === n.itemId)?.grupo === GRUPO_EQUIPES,
+      );
 
-      const temCritico = naoConformes.some((n) =>
-        ["elevadores", "deteccao-incendio", "bombas", "distribuicao-eletrica"].includes(n.codigo),
+      const temCritico = naoConformes.some(
+        (n) => itens.find((i) => i.id === n.itemId)?.criticidadePadrao === "ALTA",
       );
       const statusGeral =
         naoConformes.length === 0
@@ -268,11 +268,14 @@ async function seedMovimento(condominioIds: number[], adminId: number, dias = 90
           dataRegistro: data,
           dataReferencia: referencia,
           statusGeral,
-          houveFaltas,
-          qtdeFaltas,
-          setoresFaltas: houveFaltas
-            ? Array.from({ length: qtdeFaltas }, () => escolher(setoresFalta)).join(", ")
-            : null,
+          houveFaltas: equipesComFalta.length > 0,
+          qtdeFaltas: equipesComFalta.length,
+          setoresFaltas:
+            equipesComFalta.length > 0
+              ? equipesComFalta
+                  .map((n) => itens.find((i) => i.id === n.itemId)?.nome ?? "")
+                  .join(", ")
+              : null,
           criadoPorId: adminId,
           itens: { create: criacoesItens },
         },
@@ -283,7 +286,8 @@ async function seedMovimento(condominioIds: number[], adminId: number, dias = 90
       for (const nc of naoConformes) {
         const boletimItem = boletim.itens.find((i) => i.checklistItemId === nc.itemId)!;
 
-        const criticidade: Criticidade = temCritico && rand() < 0.5 ? "ALTA" : escolher(["BAIXA", "MEDIA", "MEDIA", "ALTA"] as const);
+        const catalogoItem = itens.find((i) => i.id === nc.itemId)!;
+        const criticidade: Criticidade = catalogoItem.criticidadePadrao;
 
         // Ocorrências antigas têm mais chance de já estarem concluídas.
         const idade = d;
@@ -293,7 +297,7 @@ async function seedMovimento(condominioIds: number[], adminId: number, dias = 90
         else if (idade > 10) status = sorteioStatus < 0.6 ? "CONCLUIDO" : sorteioStatus < 0.85 ? "EM_ANDAMENTO" : "PENDENTE";
         else status = sorteioStatus < 0.3 ? "CONCLUIDO" : sorteioStatus < 0.7 ? "EM_ANDAMENTO" : "PENDENTE";
 
-        const prazoDias = criticidade === "ALTA" ? 3 : criticidade === "MEDIA" ? 7 : 15;
+        const prazoDias = PRAZO_POR_CRITICIDADE[criticidade];
         const previsao = new Date(data);
         previsao.setUTCDate(previsao.getUTCDate() + prazoDias);
 
@@ -301,6 +305,37 @@ async function seedMovimento(condominioIds: number[], adminId: number, dias = 90
           status === "CONCLUIDO"
             ? new Date(data.getTime() + (1 + Math.floor(rand() * (prazoDias + 3))) * 86_400_000)
             : null;
+
+        // Mesma regra da aplicação: um problema já em aberto não vira uma nova
+        // ocorrência — vira recorrência da existente.
+        const emAberto = await prisma.ocorrencia.findFirst({
+          where: {
+            condominioId,
+            checklistItemId: nc.itemId,
+            status: { in: ["PENDENTE", "EM_ANDAMENTO"] },
+          },
+          orderBy: { dataAbertura: "asc" },
+          select: { id: true },
+        });
+
+        if (emAberto) {
+          await prisma.ocorrenciaRecorrencia.create({
+            data: {
+              ocorrenciaId: emAberto.id,
+              boletimId: boletim.id,
+              dataReferencia: referencia,
+              observacao: nc.observacao,
+            },
+          });
+          await prisma.ocorrencia.update({
+            where: { id: emAberto.id },
+            data: {
+              ultimaRecorrenciaEm: data,
+              totalRecorrencias: { increment: 1 },
+            },
+          });
+          continue;
+        }
 
         const ocorrencia = await prisma.ocorrencia.create({
           data: {

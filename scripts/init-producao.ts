@@ -19,7 +19,7 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
-import { CATALOGO_CHECKLIST } from "../src/lib/checklist";
+import { sincronizarCatalogo } from "./sincronizar-catalogo";
 
 const prisma = new PrismaClient();
 
@@ -53,14 +53,8 @@ async function main() {
 
   console.log("Inicializando banco de produção...\n");
 
-  for (const item of CATALOGO_CHECKLIST) {
-    await prisma.checklistItem.upsert({
-      where: { codigo: item.codigo },
-      update: { nome: item.nome, grupo: item.grupo, ordem: item.ordem, ativo: true },
-      create: item,
-    });
-  }
-  console.log(`✔ Catálogo de checklist: ${CATALOGO_CHECKLIST.length} itens`);
+  const catalogo = await sincronizarCatalogo(prisma);
+  console.log(`✔ Catálogo de checklist: ${catalogo.total} itens`);
 
   const senhaHash = await bcrypt.hash(senha, 10);
   const existente = await prisma.usuario.findUnique({ where: { email } });

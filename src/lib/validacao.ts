@@ -30,17 +30,15 @@ export const boletimSchema = z.object({
     "OCORRENCIA_PONTUAL",
     "OCORRENCIA_CRITICA",
   ]),
-  houveFaltas: z.boolean(),
-  setoresFaltas: textoOpcional,
-  qtdeFaltas: z.coerce.number().int().min(0).max(200).default(0),
   observacoes: textoOpcional,
+  // Sem criticidade: ela é atributo do item no catálogo, resolvida no servidor.
+  // Sem faltas: elas saem dos itens do grupo de equipes.
   itens: z
     .array(
       z.object({
         checklistItemId: z.coerce.number().int().positive(),
         situacao,
         observacao: textoOpcional,
-        criticidade: criticidade.default("MEDIA"),
       }),
     )
     .min(1, "O boletim precisa de ao menos um item."),

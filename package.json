@@ -5,7 +5,7 @@
   "description": "Sistema de Gestão e Boletim Diário de Operações para Condomínios",
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && prisma migrate deploy && next build",
+    "build": "prisma generate && prisma migrate deploy && tsx scripts/sincronizar-catalogo.ts && next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
@@ -14,7 +14,8 @@
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
     "setup": "prisma generate && prisma migrate deploy && prisma db seed",
-    "producao:init": "tsx scripts/init-producao.ts"
+    "producao:init": "tsx scripts/init-producao.ts",
+    "catalogo:sync": "tsx scripts/sincronizar-catalogo.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

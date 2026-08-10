@@ -2,10 +2,10 @@
 
 import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import type { GrupoChecklist, SituacaoItem, StatusGeralDia } from "@prisma/client";
+import type { SituacaoItem, StatusGeralDia } from "@prisma/client";
 
 import { GRUPOS } from "@/lib/checklist";
-import { CRITICIDADE_LABEL, STATUS_DIA_LABEL } from "@/lib/labels";
+import { STATUS_DIA_LABEL } from "@/lib/labels";
 import { formatarDataReferencia } from "@/lib/datas";
 import { salvarBoletimAction } from "@/lib/acoes/boletim";
 
@@ -13,7 +13,7 @@ type ItemChecklist = {
   id: number;
   codigo: string;
   nome: string;
-  grupo: GrupoChecklist;
+  grupo: string;
 };
 
 type Condominio = { id: number; nome: string };
@@ -21,7 +21,6 @@ type Condominio = { id: number; nome: string };
 type Resposta = {
   situacao: SituacaoItem;
   observacao: string;
-  criticidade: "BAIXA" | "MEDIA" | "ALTA";
 };
 
 const SITUACOES: { valor: SituacaoItem; rotulo: string; curto: string }[] = [
@@ -52,9 +51,6 @@ export function WizardBoletim({
     condominioInicial ?? condominios[0]?.id ?? 0,
   );
   const [dataReferencia, setDataReferencia] = useState(dataInicial);
-  const [houveFaltas, setHouveFaltas] = useState(false);
-  const [setoresFaltas, setSetoresFaltas] = useState("");
-  const [qtdeFaltas, setQtdeFaltas] = useState(1);
   const [observacoes, setObservacoes] = useState("");
   const [erro, setErro] = useState<string | null>(null);
 
@@ -63,14 +59,14 @@ export function WizardBoletim({
     Object.fromEntries(
       itens.map((i) => [
         i.id,
-        { situacao: "CONFORME" as SituacaoItem, observacao: "", criticidade: "MEDIA" as const },
+        { situacao: "CONFORME" as SituacaoItem, observacao: "" },
       ]),
     ),
   );
 
   const itensPorGrupo = useMemo(() => {
-    const mapa = new Map<GrupoChecklist, ItemChecklist[]>();
-    for (const grupo of GRUPOS) mapa.set(grupo.chave, []);
+    const mapa = new Map<string, ItemChecklist[]>();
+    for (const grupo of GRUPOS) mapa.set(grupo.codigo, []);
     for (const item of itens) mapa.get(item.grupo)?.push(item);
     return mapa;
   }, [itens]);
@@ -101,7 +97,7 @@ export function WizardBoletim({
     setRespostas((atual) => ({ ...atual, [itemId]: { ...atual[itemId], ...mudanca } }));
   }
 
-  function marcarGrupoConforme(grupo: GrupoChecklist) {
+  function marcarGrupoConforme(grupo: string) {
     const doGrupo = itensPorGrupo.get(grupo) ?? [];
     setRespostas((atual) => {
       const copia = { ...atual };
@@ -141,25 +137,16 @@ export function WizardBoletim({
       );
       return;
     }
-    if (houveFaltas && !setoresFaltas.trim()) {
-      setErro("Informe o setor onde houve falta.");
-      return;
-    }
-
     iniciarEnvio(async () => {
       const resultado = await salvarBoletimAction({
         condominioId,
         dataReferencia,
         statusGeral,
-        houveFaltas,
-        setoresFaltas: houveFaltas ? setoresFaltas : "",
-        qtdeFaltas: houveFaltas ? qtdeFaltas : 0,
         observacoes,
         itens: itens.map((i) => ({
           checklistItemId: i.id,
           situacao: respostas[i.id].situacao,
           observacao: respostas[i.id].observacao,
-          criticidade: respostas[i.id].criticidade,
         })),
       });
 
@@ -184,7 +171,7 @@ export function WizardBoletim({
               ? "Identificação"
               : grupoAtual
                 ? grupoAtual.titulo
-                : "Equipe e envio"}
+                : "Fechamento"}
           </span>
           <span className="text-xs num" style={{ color: "var(--tinta-3)" }}>
             Etapa {etapa + 1} de {TOTAL_ETAPAS}
@@ -282,7 +269,7 @@ export function WizardBoletim({
             </p>
             <button
               type="button"
-              onClick={() => marcarGrupoConforme(grupoAtual.chave)}
+              onClick={() => marcarGrupoConforme(grupoAtual.codigo)}
               className="botao botao-secundario w-full mb-3"
               style={{ minHeight: "2.5rem" }}
             >
@@ -290,7 +277,7 @@ export function WizardBoletim({
             </button>
 
             <ul className="space-y-2">
-              {(itensPorGrupo.get(grupoAtual.chave) ?? []).map((item) => {
+              {(itensPorGrupo.get(grupoAtual.codigo) ?? []).map((item) => {
                 const resposta = respostas[item.id];
                 const falha = resposta.situacao === "NAO_CONFORME";
                 return (
@@ -368,47 +355,13 @@ export function WizardBoletim({
                           />
                         </div>
 
-                        <div>
-                          <span className="rotulo" style={{ marginBottom: "0.25rem" }}>
-                            Criticidade
-                          </span>
-                          <div className="grid grid-cols-3 gap-1">
-                            {(["BAIXA", "MEDIA", "ALTA"] as const).map((c, indice) => {
-                              const selecionado = resposta.criticidade === c;
-                              // Rampa ordinal: baixa → alta em um único matiz.
-                              const cor = [
-                                "var(--ordinal-1)",
-                                "var(--ordinal-2)",
-                                "var(--ordinal-3)",
-                              ][indice];
-                              return (
-                                <button
-                                  key={c}
-                                  type="button"
-                                  aria-pressed={selecionado}
-                                  onClick={() =>
-                                    alterarResposta(item.id, { criticidade: c })
-                                  }
-                                  className="rounded-lg px-2 py-2 text-xs font-semibold"
-                                  style={{
-                                    minHeight: "2.5rem",
-                                    border: `1px solid ${
-                                      selecionado ? "transparent" : "var(--borda-forte)"
-                                    }`,
-                                    background: selecionado ? cor : "var(--superficie)",
-                                    color: selecionado
-                                      ? indice === 0
-                                        ? "#0b0b0b"
-                                        : "#ffffff"
-                                      : "var(--tinta-2)",
-                                  }}
-                                >
-                                  {CRITICIDADE_LABEL[c]}
-                                </button>
-                              );
-                            })}
-                          </div>
-                        </div>
+                        <p
+                          className="text-xs"
+                          style={{ color: "var(--tinta-3)" }}
+                        >
+                          A criticidade e o prazo são definidos automaticamente
+                          pela natureza do item.
+                        </p>
                       </div>
                     ) : null}
                   </li>
@@ -421,70 +374,6 @@ export function WizardBoletim({
         {/* Última etapa — equipe, status e revisão */}
         {ultimaEtapa ? (
           <div className="space-y-5">
-            <div>
-              <span className="rotulo">Houve faltas na equipe?</span>
-              <div className="grid grid-cols-2 gap-2">
-                {[
-                  { valor: false, rotulo: "Não" },
-                  { valor: true, rotulo: "Sim" },
-                ].map((opcao) => {
-                  const selecionado = houveFaltas === opcao.valor;
-                  return (
-                    <button
-                      key={String(opcao.valor)}
-                      type="button"
-                      aria-pressed={selecionado}
-                      onClick={() => setHouveFaltas(opcao.valor)}
-                      className="botao"
-                      style={{
-                        border: `1px solid ${selecionado ? "transparent" : "var(--borda-forte)"}`,
-                        background: selecionado
-                          ? opcao.valor
-                            ? "var(--status-critico)"
-                            : "var(--status-bom)"
-                          : "var(--superficie)",
-                        color: selecionado ? "#ffffff" : "var(--tinta-2)",
-                      }}
-                    >
-                      {opcao.rotulo}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {houveFaltas ? (
-              <div className="space-y-3">
-                <div>
-                  <label className="rotulo" htmlFor="setores">
-                    Setor(es) com falta
-                  </label>
-                  <input
-                    id="setores"
-                    className="campo"
-                    placeholder="Ex.: Limpeza, Portaria"
-                    value={setoresFaltas}
-                    onChange={(e) => setSetoresFaltas(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label className="rotulo" htmlFor="qtde">
-                    Quantas pessoas faltaram?
-                  </label>
-                  <input
-                    id="qtde"
-                    type="number"
-                    min={1}
-                    max={200}
-                    inputMode="numeric"
-                    className="campo"
-                    value={qtdeFaltas}
-                    onChange={(e) => setQtdeFaltas(Number(e.target.value))}
-                  />
-                </div>
-              </div>
-            ) : null}
-
             <div>
               <span className="rotulo">Status geral do dia</span>
               <div className="space-y-2">
@@ -593,10 +482,7 @@ export function WizardBoletim({
                         style={{ background: "var(--status-critico)" }}
                       />
                       <span>
-                        <strong>{i.nome}</strong>{" "}
-                        <span style={{ color: "var(--tinta-3)" }}>
-                          ({CRITICIDADE_LABEL[respostas[i.id].criticidade]})
-                        </span>
+                        <strong>{i.nome}</strong>
                       </span>
                     </li>
                   ))}

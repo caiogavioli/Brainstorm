@@ -77,7 +77,31 @@ Condominio ─┬─< Boletim ─────< BoletimItem >── ChecklistItem
 As quatro tabelas pedidas na especificação estão em `prisma/schema.prisma`:
 **Condominios**, **Boletim Diário**, **Ocorrências** e **Plano de Ação**.
 
-### Decisão: checklist normalizado em vez de ~27 colunas booleanas
+### O checklist
+
+47 itens em 10 grupos, na ordem de uma ronda: quem está trabalhando → o que
+alimenta o prédio (energia, água, ar) → como se circula → o que protege → o que
+conecta → como está conservado → o que está em obra.
+
+Três regras o organizam:
+
+- **Um assunto, um item.** O efetivo das equipes é o grupo 1 e só ali (os itens
+  se chamam "Equipe de …"); o estado físico das áreas é o grupo 9. Nada é
+  perguntado duas vezes.
+- **Falta de pessoal é item do checklist**, não pergunta separada. Marcar
+  "Equipe de Limpeza" como não conforme já registra a falta — `houveFaltas`,
+  `qtdeFaltas` e `setoresFaltas` do boletim são derivados disso.
+- **A criticidade é do item, não de quem preenche.** Cada item carrega
+  `criticidadePadrao` (incêndio é sempre Alta; jardinagem é sempre Baixa), e é
+  ela que define a criticidade e o SLA da ocorrência. Dois gerentes relatando a
+  mesma falha produzem a mesma prioridade.
+
+O catálogo vive em `src/lib/checklist.ts` e é sincronizado com o banco a cada
+build (`scripts/sincronizar-catalogo.ts`): itens novos entram, os existentes são
+atualizados e os que saíram do catálogo são **desativados** — nunca apagados,
+para que boletins antigos continuem legíveis.
+
+### Decisão: checklist normalizado em vez de colunas booleanas
 
 A especificação descrevia os itens do checklist como campos do boletim. Aqui
 eles são **linhas** da tabela `ChecklistItem`, e cada resposta do dia é uma linha
@@ -89,8 +113,8 @@ o mesmo na tela, mas:
   colunas;
 - boletins antigos continuam íntegros quando o catálogo evolui.
 
-O catálogo vive em `src/lib/checklist.ts`; para adicionar um item, acrescente ali
-e rode `npm run db:seed` (o seed faz *upsert* por `codigo`, não duplica).
+Para mudar o checklist, edite `src/lib/checklist.ts`. O próximo build sincroniza
+o banco sozinho; localmente, `npm run catalogo:sync`.
 
 ### Regras de negócio implementadas
 
@@ -98,8 +122,14 @@ e rode `npm run db:seed` (o seed faz *upsert* por `codigo`, não duplica).
   `(condominioId, dataReferencia)`. Reenviar o mesmo dia substitui o boletim e
   as ocorrências que ele havia gerado — ocorrências avulsas não são tocadas.
 - **Ocorrência automática**: todo item `NAO_CONFORME` abre uma ocorrência
-  vinculada ao item de origem, dentro da mesma transação do boletim. O SLA
-  inicial vem da criticidade (Alta 3d · Média 7d · Baixa 15d).
+  vinculada ao item de origem, dentro da mesma transação do boletim. Criticidade
+  e SLA vêm do catálogo (Alta 3d · Média 7d · Baixa 15d).
+- **Um problema, uma ocorrência.** Se já existe ocorrência em aberto para o
+  mesmo condomínio e item, o boletim do dia **não** abre outra: registra uma
+  linha em `OcorrenciaRecorrencia` e anota no histórico. Sem isso, uma
+  infiltração que dura duas semanas viraria catorze ocorrências e catorze planos
+  de ação para o mesmo problema. A unicidade por (ocorrência, boletim) mantém o
+  reenvio do mesmo dia idempotente.
 - **Descrição obrigatória** ao marcar uma falha — sem ela a ocorrência nasceria
   sem contexto, e o wizard bloqueia o envio.
 - **Histórico**: toda mudança de status, criticidade, SLA ou plano de ação vira
@@ -230,6 +260,7 @@ src/
     datas.ts               # fuso, mês de referência e cálculo de SLA
     acoes/                 # Server Actions (escrita)
     consultas/dashboard.ts # agregações do BI
+scripts/sincronizar-catalogo.ts # aplica src/lib/checklist.ts no banco (roda no build)
 scripts/init-producao.ts   # catálogo + admin, sem dados de demonstração
 Dockerfile                 # imagem de produção (standalone)
 docker-compose.yml         # aplicação + PostgreSQL em um comando

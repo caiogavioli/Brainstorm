@@ -28,13 +28,6 @@ enum Papel {
   GESTOR
 }
 
-enum GrupoChecklist {
-  QUADRO_OPERACIONAL
-  ELETRICA_HIDRAULICA_REFRIGERACAO
-  SISTEMAS
-  SEGURANCA
-}
-
 enum StatusGeralDia {
   EM_CONFORMIDADE
   OCORRENCIA_PONTUAL
@@ -126,12 +119,20 @@ model UsuarioCondominio {
 // ---------------------------------------------------------------------------
 
 model ChecklistItem {
-  id     Int            @id @default(autoincrement())
-  codigo String         @unique // slug estável, ex.: "elevadores"
+  id     Int    @id @default(autoincrement())
+  codigo String @unique // slug estável, ex.: "elevadores"
   nome   String
-  grupo  GrupoChecklist
-  ordem  Int            @default(0)
-  ativo  Boolean        @default(true)
+  // Código do grupo ("EQUIPES", "ELETRICA"…). Texto e não enum de propósito:
+  // reorganizar o checklist é rotina de negócio, e um enum exigiria migração
+  // de banco a cada ajuste.
+  grupo      String
+  grupoOrdem Int     @default(0)
+  ordem      Int     @default(0)
+  ativo      Boolean @default(true)
+
+  // Gravidade intrínseca do assunto. É ela que define a criticidade e o prazo
+  // da ocorrência — quem preenche o boletim relata o fato, não arbitra o peso.
+  criticidadePadrao Criticidade @default(MEDIA)
 
   boletimItens BoletimItem[]
   ocorrencias  Ocorrencia[]
@@ -150,9 +151,11 @@ model Boletim {
   condominioId   Int
   statusGeral    StatusGeralDia @default(EM_CONFORMIDADE)
 
+  // Derivados do checklist: um item do grupo EQUIPES marcado como não conforme
+  // É o registro da falta. Não existe pergunta separada de faltas no formulário.
   houveFaltas   Boolean @default(false)
-  setoresFaltas String? // setores afetados quando houveFaltas = true
-  qtdeFaltas    Int     @default(0)
+  setoresFaltas String? // equipes com desfalque, separadas por vírgula
+  qtdeFaltas    Int     @default(0) // quantas equipes ficaram desfalcadas
 
   observacoes  String?
   criadoPorId  Int?
@@ -161,8 +164,9 @@ model Boletim {
 
   condominio Condominio    @relation(fields: [condominioId], references: [id], onDelete: Cascade)
   criadoPor  Usuario?      @relation("BoletimCriadoPor", fields: [criadoPorId], references: [id], onDelete: SetNull)
-  itens      BoletimItem[]
-  ocorrencias Ocorrencia[]
+  itens        BoletimItem[]
+  ocorrencias  Ocorrencia[]
+  recorrencias OcorrenciaRecorrencia[]
 
   @@unique([condominioId, dataReferencia])
   @@index([condominioId, dataRegistro])
@@ -207,6 +211,11 @@ model Ocorrencia {
   boletimId           Int?
   boletimItemId       Int?             @unique
   abertaPorId         Int?
+
+  // Um problema que se arrasta continua sendo UMA ocorrência: cada boletim que
+  // o reencontra vira uma linha em `recorrencias`, não uma ocorrência nova.
+  ultimaRecorrenciaEm DateTime?
+  totalRecorrencias   Int              @default(0)
   criadoEm            DateTime         @default(now())
   atualizadoEm        DateTime         @updatedAt
 
@@ -217,10 +226,28 @@ model Ocorrencia {
   abertaPor     Usuario?        @relation("OcorrenciaAbertaPor", fields: [abertaPorId], references: [id], onDelete: SetNull)
   fotos         OcorrenciaFoto[]
   historico     OcorrenciaLog[]
+  recorrencias  OcorrenciaRecorrencia[]
 
   @@index([condominioId, status])
   @@index([condominioId, dataAbertura])
   @@index([status, criticidade, previsaoFinalizacao])
+}
+
+// Registro de que um boletim reencontrou um problema que já estava aberto.
+// A unicidade por (ocorrência, boletim) torna o reenvio do mesmo dia idempotente.
+model OcorrenciaRecorrencia {
+  id             Int      @id @default(autoincrement())
+  ocorrenciaId   Int
+  boletimId      Int
+  dataReferencia String // dia do boletim que reencontrou o problema
+  observacao     String?
+  criadoEm       DateTime @default(now())
+
+  ocorrencia Ocorrencia @relation(fields: [ocorrenciaId], references: [id], onDelete: Cascade)
+  boletim    Boletim    @relation(fields: [boletimId], references: [id], onDelete: Cascade)
+
+  @@unique([ocorrenciaId, boletimId])
+  @@index([boletimId])
 }
 
 model OcorrenciaFoto {

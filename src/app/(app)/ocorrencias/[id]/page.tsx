@@ -35,6 +35,10 @@ export default async function PaginaOcorrencia({
       checklistItem: { select: { nome: true } },
       abertaPor: { select: { nome: true } },
       boletim: { select: { id: true, dataReferencia: true } },
+      recorrencias: {
+        orderBy: { dataReferencia: "desc" },
+        select: { id: true, dataReferencia: true, observacao: true, boletimId: true },
+      },
       fotos: true,
       historico: {
         orderBy: { criadoEm: "desc" },
@@ -97,6 +101,41 @@ export default async function PaginaOcorrencia({
               </p>
             )}
           </div>
+
+          {ocorrencia.recorrencias.length > 0 ? (
+            <div
+              className="card card-pad"
+              style={{
+                borderColor:
+                  "color-mix(in srgb, var(--status-critico) 40%, transparent)",
+              }}
+            >
+              <div className="titulo-secao mb-2">
+                Problema recorrente — {ocorrencia.recorrencias.length + 1} boletins
+              </div>
+              <p className="text-sm mb-3" style={{ color: "var(--tinta-2)" }}>
+                Este mesmo problema foi reencontrado em boletins posteriores. Em
+                vez de abrir uma ocorrência nova a cada dia, os registros ficam
+                todos aqui — <strong>um problema, um plano de ação</strong>.
+              </p>
+              <ul className="space-y-1.5">
+                {ocorrencia.recorrencias.map((r) => (
+                  <li key={r.id} className="flex gap-3 text-sm">
+                    <Link
+                      href={`/boletim/${r.boletimId}`}
+                      className="num font-semibold flex-none"
+                      style={{ color: "var(--serie-1)" }}
+                    >
+                      {formatarData(r.dataReferencia)}
+                    </Link>
+                    <span style={{ color: "var(--tinta-2)" }}>
+                      {r.observacao ?? "Registrado novamente, sem novo detalhe."}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
 
           {ocorrencia.fotos.length > 0 ? (
             <div className="card card-pad">
@@ -173,6 +212,12 @@ export default async function PaginaOcorrencia({
               dias={diasAteSLA(ocorrencia.previsaoFinalizacao)}
               concluida={ocorrencia.status === "CONCLUIDO"}
             />
+            {ocorrencia.totalRecorrencias > 0 ? (
+              <p className="mt-2 text-xs num" style={{ color: "var(--status-critico-texto)" }}>
+                ▲ Reapareceu em {ocorrencia.totalRecorrencias}{" "}
+                {ocorrencia.totalRecorrencias > 1 ? "boletins" : "boletim"} depois
+              </p>
+            ) : null}
             {ocorrencia.dataConclusao ? (
               <p className="mt-2 text-xs num" style={{ color: "var(--tinta-3)" }}>
                 Concluída em {formatarData(ocorrencia.dataConclusao)}
