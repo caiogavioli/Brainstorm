@@ -2,19 +2,19 @@
 
 Estado vivo do brainstorming. Ler no início de cada sessão, atualizar ao fim de cada rodada ou decisão.
 
-**Última atualização:** 2026-08-09
+**Última atualização:** 2026-08-10
 
 ---
 
 ## Situação atual
 
-Estrutura e processo definidos. Time apresentado. **Aguardando a apresentação dos primeiros problemas** — nenhuma Rodada 1 iniciada ainda.
+**P-001 em Rodada 1.** O usuário apresentou o primeiro problema: controle dos pedidos, respostas pendentes e prazos que chegam por email de um contratante. As 14 perguntas de entendimento estão em `sessoes/S-001-controle-pedidos-email-rodada-1.md`, aguardando resposta. Rodada 2 só depois.
 
 ## Problemas
 
 | ID | Título | Fase | Desfecho |
 |---|---|---|---|
-| — | _nenhum registrado_ | — | — |
+| P-001 | Controle de pedidos e prazos vindos por email do contratante | rodada 1 | — |
 
 Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` / `virou script`
 
@@ -42,4 +42,5 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
 ## Em aberto
 
 - Repositórios novos devem nascer **públicos ou privados**? Confirmar no primeiro fechamento.
-- Stack de preferência do usuário ainda desconhecida (linguagens, nuvem, o que ele já roda hoje). Levantar na Rodada 1 do primeiro problema.
+- Stack de preferência do usuário ainda desconhecida (linguagens, nuvem, o que ele já roda hoje). Perguntado na Rodada 1 de P-001 (perguntas 11–13).
+- Provedor de email de trabalho não confirmado: a sessão tem conector Microsoft 365/Outlook disponível, mas o email de cadastro é Gmail. Confirmar em P-001 (pergunta 1).
