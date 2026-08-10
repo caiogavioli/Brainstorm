@@ -274,6 +274,28 @@ automaticamente, que aparece no seu dashboard.
 | `AUTH_SECRET ausente ou muito curto` | segredo não definido | Defina um texto de 40+ caracteres |
 | `defina AUTH_SECRET no arquivo .env` | Docker sem o `.env` preenchido | Rode `cp .env.example .env` e preencha |
 | `too many connections` | muitas funções abrindo conexão ao mesmo tempo | Acrescente `&connection_limit=1` ao fim da `DATABASE_URL` |
+| `P3009` / `failed migrations in the target database` | uma migração anterior abortou no meio e travou as seguintes | Veja abaixo |
+
+### Destravar uma migração que falhou (P3009)
+
+Quando uma migração aborta, o Prisma a marca como falha e **se recusa a aplicar
+as próximas** — o build passa a falhar sempre, e a Vercel mantém no ar a versão
+anterior. É por isso que uma correção pode "não aparecer" mesmo depois de
+publicada.
+
+Para destravar, abra o **SQL Editor do Neon** (painel do banco → *SQL Editor*) e
+rode:
+
+```sql
+DELETE FROM "_prisma_migrations" WHERE finished_at IS NULL;
+```
+
+Isso apaga só o registro da tentativa que não terminou — nenhum dado seu é
+tocado, porque a migração que falhou foi revertida pelo próprio Postgres. Depois
+vá em **Deployments → ⋯ → Redeploy** na Vercel.
+
+> Se você tiver terminal com a `DATABASE_URL` de produção, o equivalente é
+> `npx prisma migrate resolve --rolled-back <nome-da-migração>`.
 
 ---
 
