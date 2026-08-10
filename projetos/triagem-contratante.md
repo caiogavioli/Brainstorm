@@ -1,8 +1,8 @@
 # Triagem Contratante
 
 **Origem:** P-001
-**Status:** spec fechada — aguardando pedido explícito para criar o repositório
-**Repositório:** _não criado_
+**Status:** fechado — repositório criado, desenvolvimento acontece lá
+**Repositório:** <https://github.com/caiogavioli/triagem-contratante> (privado)
 
 ## Problema que resolve
 

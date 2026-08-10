@@ -8,7 +8,9 @@ Estado vivo do brainstorming. Ler no início de cada sessão, atualizar ao fim d
 
 ## Situação atual
 
-**P-001 com spec fechada em `projetos/triagem-contratante.md`.** Aguardando o usuário dizer se quer criar o repositório — **não criar sem pedido explícito**.
+**P-001 encerrado.** Virou o projeto `triagem-contratante`, com repositório privado criado e esqueleto no ar: <https://github.com/caiogavioli/triagem-contratante>. O desenvolvimento acontece **lá**, em outra sessão — aqui fica só o histórico da decisão.
+
+Nada em aberto neste repositório. Pronto para o próximo problema.
 
 Caminho até aqui: Rodada 1 (`S-001`) → Rodada 2 (`S-002`) → decisão (`S-003`) → **medição da caixa anulou a premissa** (`S-004`) → Rodada 3 com o problema corrigido (`S-005`) → decisões E1/E2/E3 fechadas.
 
@@ -18,7 +20,7 @@ Decisões finais: a máquina **classifica** e o humano confere (E1 = a); rotina 
 
 | ID | Título | Fase | Desfecho |
 |---|---|---|---|
-| P-001 | Controle de pedidos e prazos vindos por email do contratante | **fechado** | projeto `triagem-contratante` — spec pronta, repo não criado |
+| P-001 | Controle de pedidos e prazos vindos por email do contratante | **fechado** | virou o repo [`triagem-contratante`](https://github.com/caiogavioli/triagem-contratante) |
 
 Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` / `virou script`
 
@@ -26,22 +28,15 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
 
 | Projeto | Origem | Repositório | Data |
 |---|---|---|---|
-| `triagem-contratante` | P-001 | ⚠️ _pedido pelo usuário, **bloqueado por permissão** — ver abaixo_ | 2026-08-10 |
+| `triagem-contratante` | P-001 | **[caiogavioli/triagem-contratante](https://github.com/caiogavioli/triagem-contratante)** (privado) | 2026-08-10 |
 
-### Bloqueio na criação do repositório (2026-08-10)
+### Nota de permissão do GitHub (2026-08-10)
 
-O usuário pediu explicitamente a criação, privada. A chamada falhou:
+A integração **não consegue criar repositórios** — `POST /user/repos` volta `403 Resource not accessible by integration` (falta `Administration: write`). Ela autentica como `caiogavioli` e opera normalmente em repositórios que já existem.
 
-```
-POST https://api.github.com/user/repos → 403 Resource not accessible by integration
-```
+**Nos próximos fechamentos:** pedir ao usuário que crie o repositório vazio à mão (privado, sem inicializar com README), e então usar `add_repo` + clone + push. O caminho funcionou sem atrito.
 
-A integração autentica como `caiogavioli` e enxerga `caiogavioli/Brainstorm`, mas **não tem permissão de criar repositórios** (falta `Administration: write`). Não é contornável de dentro da sessão.
-
-**Esqueleto pronto e completo**, 8 arquivos, aguardando só o repositório existir:
-`README.md`, `CLAUDE.md`, `.gitignore`, `docs/spec.md`, `rotina/criterios-classificacao.md`, `rotina/formato-mensagem.md`, `estado/pedidos.exemplo.json`, `testes/caso-referencia.md`.
-
-**Desbloqueio:** o usuário cria o repositório vazio e privado à mão (`triagem-contratante`, **sem** inicializar com README), avisa, e a sessão sobe tudo via `add_repo` + push.
+Esqueleto subido: `README.md`, `CLAUDE.md`, `.gitignore`, `docs/spec.md`, `rotina/criterios-classificacao.md`, `rotina/formato-mensagem.md`, `estado/pedidos.exemplo.json`, `testes/caso-referencia.md`.
 
 ## Decisões sobre o processo
 
@@ -81,8 +76,8 @@ A integração autentica como `caiogavioli` e enxerga `caiogavioli/Brainstorm`, 
 ## Em aberto
 
 - Repositórios novos devem nascer **públicos ou privados**? Confirmar no primeiro fechamento.
-- **Criar ou não o repositório de `triagem-contratante`** — depende de pedido explícito do usuário. Confirmar também se nasce público ou privado.
-- Preferência de linguagem/stack de implementação do usuário ainda não levantada — a spec fecha arquitetura, não linguagem.
+- Nada em aberto. Próximo problema quando o usuário trouxer.
+- Pendência que viaja para a sessão de desenvolvimento de `triagem-contratante`: a **linguagem de implementação** não foi decidida — a spec fecha arquitetura, não stack de código.
 
 ## Preferências de comunicação observadas
 

@@ -39,4 +39,4 @@ templates/      modelos usados acima
 
 | # | Problema | Fase | Projeto / repo |
 |---|---|---|---|
-| P-001 | Controle de pedidos e prazos vindos por email do contratante | **spec fechada** | [`triagem-contratante`](projetos/triagem-contratante.md) — repo ainda não criado |
+| P-001 | Controle de pedidos e prazos vindos por email do contratante | **fechado** ✅ | [`triagem-contratante`](projetos/triagem-contratante.md) → [repo](https://github.com/caiogavioli/triagem-contratante) |
