@@ -1,9 +1,17 @@
 # P-001 — Controle de pedidos e prazos vindos por email do contratante
 
-**Fase:** rodada 2 reaberta — premissa de volume caiu na medição (ver `sessoes/S-004-*.md`)
+**Fase:** rodada 3 — aguardando decisão do usuário (E1, E2, E3 em `sessoes/S-005-*.md`)
 **Apresentado em:** 2026-08-10
 
-> ⚠️ **As respostas da Rodada 1 sobre volume não sobreviveram à medição.** O relato era de 2–3 emails/semana do contratante; a caixa tem ~65. E o email perdido do dia 05 estava **lido e categorizado como `2: FYI`**, não invisível. O diagnóstico correto é **erro de triagem**, não falta de notificação. Números e evidência em `S-004`.
+> ⚠️ **As respostas da Rodada 1 sobre volume não sobreviveram à medição.** O relato era de 2–3 emails/semana do contratante; a caixa tem ~65. E o email perdido do dia 05 estava **lido e categorizado como `2: FYI`** pelo próprio usuário, não invisível. O diagnóstico correto é **erro de triagem**, não falta de notificação. Números e evidência em `S-004`.
+
+## Enunciado correto do problema (Rodada 3)
+
+Separar **~2–3 pedidos por semana** de **~62 mensagens informativas**, dentro do fluxo dos domínios `@bgre.com` e `@brookfieldproperties.com`, e **capturar o prazo quando houver**.
+
+Não é lista de tarefas. Não é notificação. É **classificação**.
+
+**Fora de escopo por decisão do usuário:** o esquema de categorias que ele já usa no Outlook (`2: FYI` etc.) não entra, não é usado e não é alterado.
 
 ## Em uma frase
 Perder o controle do que o contratante pediu por email — o que já foi respondido, o que ainda deve resposta e o que tem prazo correndo.

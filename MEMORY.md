@@ -8,15 +8,17 @@ Estado vivo do brainstorming. Ler no início de cada sessão, atualizar ao fim d
 
 ## Situação atual
 
-**P-001 com a Rodada 2 reaberta.** O usuário decidiu D1+D2+D3 (`S-003`) e autorizou montar a camada 1. Ao medir a caixa para descobrir os remetentes, **a premissa caiu** (`S-004`): não são 2–3 emails/semana do contratante, são ~65; a Inbox recebe 352/semana. E o email perdido do dia 05 foi identificado — estava **lido e categorizado `2: FYI`**, com o usuário no campo *para* e prazo explícito no corpo. Diagnóstico correto: **erro de triagem**, não falta de notificação.
+**P-001 em Rodada 3, aguardando E1/E2/E3.** A Rodada 2 foi anulada pela medição da caixa (`S-004`): não são 2–3 emails/semana do contratante, são ~65, e o email perdido do dia 05 estava lido e categorizado à mão como `2: FYI` pelo próprio usuário. Diagnóstico correto: **erro de triagem**.
 
-Decisão suspensa, camada 1 não executada, nada alterado na caixa. Três perguntas bloqueiam o próximo passo (taxonomia de categorias, quem aplica, confirmação do volume).
+O usuário corrigiu o escopo: monitorar **todos** os emails de `@bgre.com` e `@brookfieldproperties.com`, dividindo-os entre **demanda com prazo** e **informativo**. Categorias existentes ficam **fora de escopo** por decisão dele.
+
+Rodada 3 (`S-005`) entregue com três propostas (A regra nativa / B resumo por LLM / C híbrido) e três decisões abertas: E1 (a máquina classifica × só condensa), E2 (onde a rotina roda), E3 (frequência e se a lista inclui pendências antigas). **O recorte mudou: agora é projeto**, nome provisório `triagem-contratante`. Repositório não criado — sem pedido explícito.
 
 ## Problemas
 
 | ID | Título | Fase | Desfecho |
 |---|---|---|---|
-| P-001 | Controle de pedidos e prazos vindos por email do contratante | rodada 2 (reaberta) | em aberto — recorte provável mudou para triagem |
+| P-001 | Controle de pedidos e prazos vindos por email do contratante | rodada 3 | é projeto — `triagem-contratante` (não fechado) |
 
 Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` / `virou script`
 
