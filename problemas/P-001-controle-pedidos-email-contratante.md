@@ -1,7 +1,9 @@
 # P-001 — Controle de pedidos e prazos vindos por email do contratante
 
-**Fase:** rodada 2 — aguardando decisão do usuário (D1, D2, D3 em `sessoes/S-002-*.md`)
+**Fase:** rodada 2 reaberta — premissa de volume caiu na medição (ver `sessoes/S-004-*.md`)
 **Apresentado em:** 2026-08-10
+
+> ⚠️ **As respostas da Rodada 1 sobre volume não sobreviveram à medição.** O relato era de 2–3 emails/semana do contratante; a caixa tem ~65. E o email perdido do dia 05 estava **lido e categorizado como `2: FYI`**, não invisível. O diagnóstico correto é **erro de triagem**, não falta de notificação. Números e evidência em `S-004`.
 
 ## Em uma frase
 Perder o controle do que o contratante pediu por email — o que já foi respondido, o que ainda deve resposta e o que tem prazo correndo.

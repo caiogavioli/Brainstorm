@@ -8,13 +8,15 @@ Estado vivo do brainstorming. Ler no início de cada sessão, atualizar ao fim d
 
 ## Situação atual
 
-**P-001 em Rodada 2, aguardando decisão do usuário.** Rodada 1 respondida (`S-001`), Rodada 2 entregue (`S-002`). O time convergiu: com 2–3 emails/semana **isto não é projeto de software**, é configuração + rotina. Três decisões abertas com o usuário: D1 (basta notificar × precisa varredura diária), D2 (lista no Microsoft To Do × Monday), D3 (WhatsApp entra ou fica fora da v1). Nenhum repositório criado — sem gatilho.
+**P-001 com a Rodada 2 reaberta.** O usuário decidiu D1+D2+D3 (`S-003`) e autorizou montar a camada 1. Ao medir a caixa para descobrir os remetentes, **a premissa caiu** (`S-004`): não são 2–3 emails/semana do contratante, são ~65; a Inbox recebe 352/semana. E o email perdido do dia 05 foi identificado — estava **lido e categorizado `2: FYI`**, com o usuário no campo *para* e prazo explícito no corpo. Diagnóstico correto: **erro de triagem**, não falta de notificação.
+
+Decisão suspensa, camada 1 não executada, nada alterado na caixa. Três perguntas bloqueiam o próximo passo (taxonomia de categorias, quem aplica, confirmação do volume).
 
 ## Problemas
 
 | ID | Título | Fase | Desfecho |
 |---|---|---|---|
-| P-001 | Controle de pedidos e prazos vindos por email do contratante | rodada 2 | provável "não é projeto" — configuração + rotina |
+| P-001 | Controle de pedidos e prazos vindos por email do contratante | rodada 2 (reaberta) | em aberto — recorte provável mudou para triagem |
 
 Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` / `virou script`
 
@@ -47,6 +49,17 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
 - **Automação:** quer ser **perguntado antes**, não aceita criação silenciosa de tarefas.
 - **Sem restrições de compliance** sobre onde armazenar conteúdo dos emails do contratante.
 - Tem um contratante que também o aciona por **WhatsApp**, majoritariamente para cobrar respostas de email.
+
+### Contexto real do trabalho (medido na caixa, 2026-08-10)
+
+- Conta `caio@dfsindicos.com.br` — **DF Síndicos**, síndico profissional de vários ativos corporativos e logísticos.
+- Colegas: `denise@dfsindicos.com.br`, `amanda@dfsindicos.com.br`.
+- **Contratante = Brookfield**, em dois domínios ativos ao mesmo tempo: `@bgre.com` (novo) e `@brookfieldproperties.com` (antigo). Qualquer regra precisa cobrir os dois.
+- Administradoras no fluxo: CBRE, Cushman & Wakefield, Innova, Hines.
+- Volume real em 7 dias: **352** na Inbox, **~65** do contratante, **90** da CBRE.
+- **O usuário já usa categorias numeradas no Outlook** (`2: FYI` observada). Taxonomia completa ainda desconhecida.
+
+> Lição de processo: **auto-relato de volume não é dado confiável.** Medir a fonte antes de desenhar em cima do número.
 
 ## Em aberto
 
