@@ -8,17 +8,17 @@ Estado vivo do brainstorming. Ler no início de cada sessão, atualizar ao fim d
 
 ## Situação atual
 
-**P-001 em Rodada 3, aguardando E1/E2/E3.** A Rodada 2 foi anulada pela medição da caixa (`S-004`): não são 2–3 emails/semana do contratante, são ~65, e o email perdido do dia 05 estava lido e categorizado à mão como `2: FYI` pelo próprio usuário. Diagnóstico correto: **erro de triagem**.
+**P-001 com spec fechada em `projetos/triagem-contratante.md`.** Aguardando o usuário dizer se quer criar o repositório — **não criar sem pedido explícito**.
 
-O usuário corrigiu o escopo: monitorar **todos** os emails de `@bgre.com` e `@brookfieldproperties.com`, dividindo-os entre **demanda com prazo** e **informativo**. Categorias existentes ficam **fora de escopo** por decisão dele.
+Caminho até aqui: Rodada 1 (`S-001`) → Rodada 2 (`S-002`) → decisão (`S-003`) → **medição da caixa anulou a premissa** (`S-004`) → Rodada 3 com o problema corrigido (`S-005`) → decisões E1/E2/E3 fechadas.
 
-Rodada 3 (`S-005`) entregue com três propostas (A regra nativa / B resumo por LLM / C híbrido) e três decisões abertas: E1 (a máquina classifica × só condensa), E2 (onde a rotina roda), E3 (frequência e se a lista inclui pendências antigas). **O recorte mudou: agora é projeto**, nome provisório `triagem-contratante`. Repositório não criado — sem pedido explícito.
+Decisões finais: a máquina **classifica** e o humano confere (E1 = a); rotina agendada sem servidor (E2); **1x/dia de manhã, com histórico dos pedidos anteriores em aberto** (E3, histórico exigido pelo usuário).
 
 ## Problemas
 
 | ID | Título | Fase | Desfecho |
 |---|---|---|---|
-| P-001 | Controle de pedidos e prazos vindos por email do contratante | rodada 3 | é projeto — `triagem-contratante` (não fechado) |
+| P-001 | Controle de pedidos e prazos vindos por email do contratante | **fechado** | projeto `triagem-contratante` — spec pronta, repo não criado |
 
 Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` / `virou script`
 
@@ -26,7 +26,7 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
 
 | Projeto | Origem | Repositório | Data |
 |---|---|---|---|
-| — | — | — | — |
+| `triagem-contratante` | P-001 | _não criado — aguardando pedido explícito_ | 2026-08-10 |
 
 ## Decisões sobre o processo
 
@@ -66,4 +66,11 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
 ## Em aberto
 
 - Repositórios novos devem nascer **públicos ou privados**? Confirmar no primeiro fechamento.
-- **D1/D2/D3 de P-001** aguardando o usuário (ver `sessoes/S-002-*.md`).
+- **Criar ou não o repositório de `triagem-contratante`** — depende de pedido explícito do usuário. Confirmar também se nasce público ou privado.
+- Preferência de linguagem/stack de implementação do usuário ainda não levantada — a spec fecha arquitetura, não linguagem.
+
+## Preferências de comunicação observadas
+
+- **Prefere explicação simples e direta.** Pediu explicitamente para reduzir a complexidade quando as três decisões técnicas foram apresentadas juntas com o debate das personas. Apresentar exemplo concreto do produto final funciona muito melhor do que tabela de trade-off.
+- Decide rápido quando a pergunta é uma só e binária. Trava quando são três decisões simultâneas com jargão.
+- **Tomar as decisões técnicas por ele** e informar em uma linha o que foi decidido e por quê, deixando espaço para discordar.
