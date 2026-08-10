@@ -8,13 +8,13 @@ Estado vivo do brainstorming. Ler no início de cada sessão, atualizar ao fim d
 
 ## Situação atual
 
-**P-001 em Rodada 1.** O usuário apresentou o primeiro problema: controle dos pedidos, respostas pendentes e prazos que chegam por email de um contratante. As 14 perguntas de entendimento estão em `sessoes/S-001-controle-pedidos-email-rodada-1.md`, aguardando resposta. Rodada 2 só depois.
+**P-001 em Rodada 2, aguardando decisão do usuário.** Rodada 1 respondida (`S-001`), Rodada 2 entregue (`S-002`). O time convergiu: com 2–3 emails/semana **isto não é projeto de software**, é configuração + rotina. Três decisões abertas com o usuário: D1 (basta notificar × precisa varredura diária), D2 (lista no Microsoft To Do × Monday), D3 (WhatsApp entra ou fica fora da v1). Nenhum repositório criado — sem gatilho.
 
 ## Problemas
 
 | ID | Título | Fase | Desfecho |
 |---|---|---|---|
-| P-001 | Controle de pedidos e prazos vindos por email do contratante | rodada 1 | — |
+| P-001 | Controle de pedidos e prazos vindos por email do contratante | rodada 2 | provável "não é projeto" — configuração + rotina |
 
 Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` / `virou script`
 
@@ -39,8 +39,16 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
 - Quer clareza sobre **quando** cada artefato é criado — não gosta de passo implícito. Ser explícito sobre gatilhos.
 - GitHub: conta `caiogavioli`. Repositório de brainstorming: `caiogavioli/Brainstorm`, branch de trabalho `claude/project-brainstorming-t0jeoe`.
 
+### Ambiente e ferramentas (levantado em P-001, Rodada 1)
+
+- **Email de trabalho: Outlook / Microsoft 365**, caixa pessoal não compartilhada.
+- **Dispositivos:** Windows no computador, **Android** no celular. Solução precisa funcionar no celular.
+- **Já paga e usa:** Microsoft 365 e **Monday**. Preferir encaixar no que já existe a subir peça nova.
+- **Automação:** quer ser **perguntado antes**, não aceita criação silenciosa de tarefas.
+- **Sem restrições de compliance** sobre onde armazenar conteúdo dos emails do contratante.
+- Tem um contratante que também o aciona por **WhatsApp**, majoritariamente para cobrar respostas de email.
+
 ## Em aberto
 
 - Repositórios novos devem nascer **públicos ou privados**? Confirmar no primeiro fechamento.
-- Stack de preferência do usuário ainda desconhecida (linguagens, nuvem, o que ele já roda hoje). Perguntado na Rodada 1 de P-001 (perguntas 11–13).
-- Provedor de email de trabalho não confirmado: a sessão tem conector Microsoft 365/Outlook disponível, mas o email de cadastro é Gmail. Confirmar em P-001 (pergunta 1).
+- **D1/D2/D3 de P-001** aguardando o usuário (ver `sessoes/S-002-*.md`).
