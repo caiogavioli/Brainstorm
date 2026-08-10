@@ -157,8 +157,14 @@ model Boletim {
   setoresFaltas String? // equipes com desfalque, separadas por vírgula
   qtdeFaltas    Int     @default(0) // quantas equipes ficaram desfalcadas
 
-  observacoes  String?
-  criadoPorId  Int?
+  observacoes String?
+
+  // Quem preencheu. O formulário é público (sem login), então o nome é digitado
+  // por quem responde. `criadoPorId` só existe quando um usuário logado lança
+  // pelo painel — os dois convivem.
+  preenchidoPor String?
+  criadoPorId   Int?
+
   criadoEm     DateTime @default(now())
   atualizadoEm DateTime @updatedAt
 

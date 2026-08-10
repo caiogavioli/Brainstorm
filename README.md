@@ -135,6 +135,31 @@ o banco sozinho; localmente, `npm run catalogo:sync`.
 - **Histórico**: toda mudança de status, criticidade, SLA ou plano de ação vira
   uma linha em `OcorrenciaLog`, com valor anterior e posterior.
 
+## Como se entra
+
+| Endereço | Quem usa | Login |
+|---|---|---|
+| `/` | Gerente predial — preenche o boletim | **Não** |
+| `/login` e o painel | Administradora | Sim |
+
+O **formulário do boletim é público**: o gerente abre o link e cai direto nas
+perguntas. Ele se identifica digitando o nome (gravado em `Boletim.preenchidoPor`)
+e escolhe o condomínio num menu que o administrador mantém em `/condominios`.
+
+Duas travas compensam a ausência de sessão nesse fluxo:
+
+- o `condominioId` recebido é conferido contra o banco — só condomínio
+  **existente e ativo** é aceito;
+- um dia que já tem boletim **não é substituído** pelo formulário público. Sem
+  login, permitir sobrescrever deixaria um envio acidental (ou de má-fé) apagar
+  o registro legítimo do dia. Pelo painel, quem tem login continua podendo
+  corrigir o próprio lançamento.
+
+> ⚠️ Um formulário aberto aceita envios de qualquer pessoa que tenha o link.
+> Para um boletim operacional isso costuma ser proporcional, mas se um dia
+> aparecer registro indevido, o caminho é publicar o sistema atrás de uma rede
+> fechada ou reativar o login para o preenchimento.
+
 ## Perfis de acesso
 
 | | Gerente predial | Administrador |
@@ -154,8 +179,8 @@ condomínio é intersectado com o escopo do usuário** (`filtroCondominio` em
 
 ## Interface
 
-**Wizard mobile** (`/boletim/novo`) — 6 etapas: identificação, os 4 grupos do
-checklist e equipe/envio. Todos os itens já vêm marcados como **Conforme**, então
+**Wizard mobile** (`/` público, `/boletim/novo` no painel) — 12 etapas:
+identificação, os 10 grupos do checklist e o fechamento. Todos os itens já vêm marcados como **Conforme**, então
 o gerente só toca onde há falha; ao marcar uma falha, o campo de descrição e a
 criticidade aparecem no mesmo cartão. Alvos de toque de 44px, campos de 16px
 (evita o zoom automático do iOS) e barra de navegação inferior fixa.

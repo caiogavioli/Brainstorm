@@ -254,8 +254,13 @@ Abra **http://localhost:3000**.
    - *Administrador* vê tudo, como você.
    - Defina a senha inicial e combine com a pessoa. Você pode redefinir a
      qualquer momento nessa tela.
-3. Mande o endereço para a equipe. No celular, **Compartilhar → Adicionar à Tela
-   de Início** deixa um ícone como o de um aplicativo.
+3. Mande **o endereço raiz** do sistema para a equipe (`https://SEU-ENDERECO/`).
+   O boletim abre sem login: o gerente digita o nome, escolhe o condomínio na
+   lista e responde. No celular, **Compartilhar → Adicionar à Tela de Início**
+   deixa um ícone como o de um aplicativo.
+
+> O painel (dashboard, ocorrências, planos, cadastros) continua exigindo login,
+> em `/login`. Só o preenchimento do boletim é aberto.
 
 **O dia a dia:** o gerente abre o link, toca em *Novo boletim* e passa pelas 6
 etapas — tudo já vem marcado como *Conforme*, ele só toca onde há falha. Leva

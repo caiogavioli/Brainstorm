@@ -7,7 +7,7 @@ import type { SituacaoItem, StatusGeralDia } from "@prisma/client";
 import { GRUPOS } from "@/lib/checklist";
 import { STATUS_DIA_LABEL } from "@/lib/labels";
 import { formatarDataReferencia } from "@/lib/datas";
-import { salvarBoletimAction } from "@/lib/acoes/boletim";
+import { enviarBoletimPublicoAction, salvarBoletimAction } from "@/lib/acoes/boletim";
 
 type ItemChecklist = {
   id: number;
@@ -35,6 +35,7 @@ export function WizardBoletim({
   dataInicial,
   condominioInicial,
   boletimExistente,
+  modoPublico = false,
 }: {
   condominios: Condominio[];
   itens: ItemChecklist[];
@@ -42,6 +43,8 @@ export function WizardBoletim({
   condominioInicial: number | null;
   /** Datas que já possuem boletim, por condomínio — para avisar de substituição. */
   boletimExistente: Record<number, string[]>;
+  /** Formulário aberto, sem login: pede o nome e não sobrescreve o dia. */
+  modoPublico?: boolean;
 }) {
   const router = useRouter();
   const [enviando, iniciarEnvio] = useTransition();
@@ -51,8 +54,10 @@ export function WizardBoletim({
     condominioInicial ?? condominios[0]?.id ?? 0,
   );
   const [dataReferencia, setDataReferencia] = useState(dataInicial);
+  const [preenchidoPor, setPreenchidoPor] = useState("");
   const [observacoes, setObservacoes] = useState("");
   const [erro, setErro] = useState<string | null>(null);
+  const [enviado, setEnviado] = useState<string | null>(null);
 
   // Todos os itens começam "Conforme": o gestor só interage onde há falha.
   const [respostas, setRespostas] = useState<Record<number, Resposta>>(() =>
@@ -110,9 +115,15 @@ export function WizardBoletim({
 
   function avancar() {
     setErro(null);
-    if (etapa === 0 && !condominioId) {
-      setErro("Selecione o condomínio.");
-      return;
+    if (etapa === 0) {
+      if (modoPublico && preenchidoPor.trim().length < 3) {
+        setErro("Informe seu nome para identificar quem está preenchendo.");
+        return;
+      }
+      if (!condominioId) {
+        setErro("Selecione o condomínio.");
+        return;
+      }
     }
     setEtapa((e) => Math.min(e + 1, TOTAL_ETAPAS - 1));
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -138,20 +149,32 @@ export function WizardBoletim({
       return;
     }
     iniciarEnvio(async () => {
-      const resultado = await salvarBoletimAction({
+      const payload = {
         condominioId,
         dataReferencia,
         statusGeral,
         observacoes,
+        preenchidoPor: preenchidoPor.trim(),
         itens: itens.map((i) => ({
           checklistItemId: i.id,
           situacao: respostas[i.id].situacao,
           observacao: respostas[i.id].observacao,
         })),
-      });
+      };
+
+      const resultado = modoPublico
+        ? await enviarBoletimPublicoAction(payload)
+        : await salvarBoletimAction(payload);
 
       if (!resultado.ok) {
         setErro(resultado.erro);
+        return;
+      }
+
+      if (modoPublico) {
+        // Sem login não há painel para onde levar: a confirmação acontece aqui.
+        setEnviado(resultado.mensagem ?? "Boletim registrado.");
+        window.scrollTo({ top: 0, behavior: "smooth" });
         return;
       }
       router.push(`/boletim/${resultado.id}?criado=1`);
@@ -160,6 +183,56 @@ export function WizardBoletim({
   }
 
   const grupoAtual = etapa >= 1 && etapa <= GRUPOS.length ? GRUPOS[etapa - 1] : null;
+
+  if (enviado) {
+    return (
+      <div className="mx-auto max-w-2xl">
+        <div className="card card-pad text-center">
+          <div
+            className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full text-2xl"
+            style={{
+              background: "color-mix(in srgb, var(--status-bom) 15%, var(--superficie))",
+              color: "var(--status-bom-texto)",
+            }}
+            aria-hidden
+          >
+            ✓
+          </div>
+          <h2 className="text-xl font-bold mb-2">Boletim enviado</h2>
+          <p className="text-sm mb-1" style={{ color: "var(--tinta-2)" }}>
+            {enviado}
+          </p>
+          <p className="text-sm mb-5 num" style={{ color: "var(--tinta-3)" }}>
+            {condominios.find((c) => c.id === condominioId)?.nome} ·{" "}
+            {formatarDataReferencia(dataReferencia)} · {preenchidoPor}
+          </p>
+          <button
+            type="button"
+            className="botao botao-primario w-full"
+            onClick={() => {
+              // Novo boletim mantendo o nome de quem preenche — o mesmo gerente
+              // costuma lançar vários prédios em sequência.
+              setRespostas(
+                Object.fromEntries(
+                  itens.map((i) => [
+                    i.id,
+                    { situacao: "CONFORME" as SituacaoItem, observacao: "" },
+                  ]),
+                ),
+              );
+              setObservacoes("");
+              setStatusManual(null);
+              setEnviado(null);
+              setEtapa(0);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          >
+            Lançar outro boletim
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-2xl">
@@ -201,6 +274,26 @@ export function WizardBoletim({
         {/* Etapa 0 — identificação */}
         {etapa === 0 ? (
           <div className="space-y-4">
+            {modoPublico ? (
+              <div>
+                <label className="rotulo" htmlFor="preenchidoPor">
+                  Seu nome
+                </label>
+                <input
+                  id="preenchidoPor"
+                  className="campo"
+                  value={preenchidoPor}
+                  onChange={(e) => setPreenchidoPor(e.target.value)}
+                  placeholder="Nome de quem está preenchendo"
+                  autoComplete="name"
+                  autoCapitalize="words"
+                />
+                <p className="mt-1 text-xs" style={{ color: "var(--tinta-3)" }}>
+                  Fica registrado no boletim para identificar quem lançou.
+                </p>
+              </div>
+            ) : null}
+
             <div>
               <label className="rotulo" htmlFor="condominio">
                 Condomínio
@@ -217,6 +310,12 @@ export function WizardBoletim({
                   </option>
                 ))}
               </select>
+              {modoPublico ? (
+                <p className="mt-1 text-xs" style={{ color: "var(--tinta-3)" }}>
+                  Não achou o seu? O administrador cadastra novos condomínios no
+                  painel.
+                </p>
+              ) : null}
             </div>
 
             <div>
@@ -243,9 +342,21 @@ export function WizardBoletim({
                     "1px solid color-mix(in srgb, var(--status-atencao) 35%, transparent)",
                 }}
               >
-                <strong>Atenção:</strong> já existe boletim para{" "}
-                {formatarDataReferencia(dataReferencia)} neste condomínio. Enviar
-                novamente substitui o registro e as ocorrências geradas por ele.
+                {modoPublico ? (
+                  <>
+                    <strong>Já existe boletim</strong> para{" "}
+                    {formatarDataReferencia(dataReferencia)} neste condomínio. O
+                    envio será recusado — escolha outra data ou peça ao
+                    administrador para corrigir o registro do dia.
+                  </>
+                ) : (
+                  <>
+                    <strong>Atenção:</strong> já existe boletim para{" "}
+                    {formatarDataReferencia(dataReferencia)} neste condomínio.
+                    Enviar novamente substitui o registro e as ocorrências
+                    geradas por ele.
+                  </>
+                )}
               </p>
             ) : null}
 

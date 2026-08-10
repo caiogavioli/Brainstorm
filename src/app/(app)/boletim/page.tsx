@@ -145,7 +145,7 @@ export default async function PaginaBoletins({
                           <span style={{ color: "var(--tinta-3)" }}>Não</span>
                         )}
                       </td>
-                      <td>{b.criadoPor?.nome ?? "—"}</td>
+                      <td>{b.preenchidoPor ?? b.criadoPor?.nome ?? "—"}</td>
                       <td className="num">{formatarDataHora(b.dataRegistro)}</td>
                     </tr>
                   ))}

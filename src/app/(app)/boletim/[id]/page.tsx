@@ -93,7 +93,20 @@ export default async function PaginaBoletim({
           <p className="text-sm num" style={{ color: "var(--tinta-2)" }}>
             Boletim de {formatarDataReferencia(boletim.dataReferencia)} · enviado em{" "}
             {formatarDataHora(boletim.dataRegistro)}
-            {boletim.criadoPor ? ` por ${boletim.criadoPor.nome}` : ""}
+            {boletim.preenchidoPor
+              ? ` por ${boletim.preenchidoPor}`
+              : boletim.criadoPor
+                ? ` por ${boletim.criadoPor.nome}`
+                : ""}
+            {boletim.preenchidoPor && !boletim.criadoPorId ? (
+              <span
+                className="ml-2 text-xs"
+                style={{ color: "var(--tinta-3)" }}
+                title="Enviado pelo formulário público, sem login"
+              >
+                (formulário aberto)
+              </span>
+            ) : null}
           </p>
         </div>
         <div className="flex gap-2 sem-impressao">

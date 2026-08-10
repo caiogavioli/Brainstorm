@@ -39,7 +39,7 @@ export function Navegacao({
       >
         <div className="mx-auto max-w-7xl px-4">
           <div className="flex h-14 items-center justify-between gap-3">
-            <Link href="/" className="flex items-center gap-2 min-w-0">
+            <Link href={itens[0]?.href ?? "/boletim"} className="flex items-center gap-2 min-w-0">
               <span
                 className="flex h-8 w-8 flex-none items-center justify-center rounded-lg text-white text-xs font-bold"
                 style={{ background: "var(--serie-1)" }}
