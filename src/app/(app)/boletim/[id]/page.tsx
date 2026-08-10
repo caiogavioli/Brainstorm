@@ -15,6 +15,7 @@ import {
   STATUS_OCORRENCIA_CLASSE,
   STATUS_OCORRENCIA_LABEL,
 } from "@/lib/labels";
+import { ExcluirBoletim } from "@/components/boletim/acoes-admin";
 
 export const metadata = { title: "Boletim — Gestão de Condomínios" };
 
@@ -23,11 +24,11 @@ export default async function PaginaBoletim({
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ criado?: string }>;
+  searchParams: Promise<{ criado?: string; corrigido?: string }>;
 }) {
   const sessao = await exigirSessao();
   const { id } = await params;
-  const { criado } = await searchParams;
+  const { criado, corrigido } = await searchParams;
 
   const boletim = await prisma.boletim.findUnique({
     where: { id: Number(id) },
@@ -63,7 +64,7 @@ export default async function PaginaBoletim({
 
   return (
     <div className="mx-auto max-w-3xl">
-      {criado ? (
+      {criado || corrigido ? (
         <div
           className="mb-4 rounded-xl px-4 py-3 text-sm sem-impressao"
           role="status"
@@ -73,7 +74,7 @@ export default async function PaginaBoletim({
             border: "1px solid color-mix(in srgb, var(--status-bom) 32%, transparent)",
           }}
         >
-          <strong>Boletim registrado.</strong>{" "}
+          <strong>{corrigido ? "Boletim corrigido." : "Boletim registrado."}</strong>{" "}
           {[
             boletim.ocorrencias.length > 0
               ? `${boletim.ocorrencias.length} ocorrência(s) aberta(s)`
@@ -107,12 +108,34 @@ export default async function PaginaBoletim({
                 (formulário aberto)
               </span>
             ) : null}
+            {boletim.preenchidoPor &&
+            boletim.criadoPor &&
+            boletim.criadoPor.nome !== boletim.preenchidoPor ? (
+              <span className="ml-2 text-xs" style={{ color: "var(--tinta-3)" }}>
+                (corrigido por {boletim.criadoPor.nome})
+              </span>
+            ) : null}
           </p>
         </div>
-        <div className="flex gap-2 sem-impressao">
+        <div className="flex flex-wrap items-start gap-2 sem-impressao">
           <Link href="/boletim" className="botao botao-secundario">
             Voltar
           </Link>
+          {sessao.papel === "ADMIN" ? (
+            <>
+              <Link
+                href={`/boletim/${boletim.id}/editar`}
+                className="botao botao-secundario"
+              >
+                Corrigir
+              </Link>
+              <ExcluirBoletim
+                id={boletim.id}
+                ocorrencias={boletim.ocorrencias.length}
+                reincidencias={reincidentes.length}
+              />
+            </>
+          ) : null}
         </div>
       </div>
 

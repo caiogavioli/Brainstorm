@@ -116,6 +116,44 @@ export async function salvarBoletimAction(payload: unknown): Promise<ResultadoAc
   }
 }
 
+/**
+ * Correção de um boletim já enviado. Somente ADMIN.
+ *
+ * Difere de `salvarBoletimAction` em um ponto que importa: o nome de quem
+ * preencheu é preservado. Quem corrige uma resposta errada não assume a autoria
+ * da ronda — fica registrado como quem editou, em `criadoPorId`.
+ */
+export async function corrigirBoletimAction(payload: unknown): Promise<ResultadoAcao> {
+  const sessao = await sessaoAtual();
+  if (sessao?.papel !== "ADMIN") {
+    return { ok: false, erro: "Apenas administradores podem corrigir boletins." };
+  }
+
+  const parse = boletimSchema.safeParse(payload);
+  if (!parse.success) {
+    return { ok: false, erro: primeiraMensagem(parse.error) };
+  }
+  const dados = parse.data;
+
+  if (!podeAcessarCondominio(sessao, dados.condominioId)) {
+    return { ok: false, erro: "Sem permissão para corrigir boletim neste condomínio." };
+  }
+
+  try {
+    const resultado = await registrarBoletim({
+      dados,
+      preenchidoPor: sessao.nome,
+      usuarioId: sessao.usuarioId,
+      permitirSubstituir: true,
+      manterAutoria: true,
+    });
+    revalidarTudo(resultado.id);
+    return { ok: true, id: resultado.id, mensagem: resumoDoRegistro(resultado) };
+  } catch (erro) {
+    return tratarErro(erro);
+  }
+}
+
 /** Remove um boletim e o que ele originou. Somente ADMIN. */
 export async function excluirBoletimAction(id: number): Promise<ResultadoAcao> {
   const sessao = await sessaoAtual();

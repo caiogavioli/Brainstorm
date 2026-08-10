@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 
 import { sessaoAtual } from "@/lib/auth";
 import { FormularioLogin } from "./formulario";
+import { LogoCompleta } from "@/components/logo";
 
 export const metadata = { title: "Entrar — Gestão de Condomínios" };
 
@@ -22,14 +23,10 @@ export default async function PaginaLogin({
     <main className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-6">
-          <div
-            className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl text-white text-lg font-bold"
-            style={{ background: "var(--serie-1)" }}
-            aria-hidden
-          >
-            BD
+          <div className="mb-4 flex justify-center">
+            <LogoCompleta tamanho={72} />
           </div>
-          <h1 className="text-xl font-bold">Boletim Diário de Operações</h1>
+          <h1 className="text-xl font-bold">Boletim Informativo Diário</h1>
           <p className="text-sm mt-1" style={{ color: "var(--tinta-2)" }}>
             Gestão operacional de condomínios
           </p>

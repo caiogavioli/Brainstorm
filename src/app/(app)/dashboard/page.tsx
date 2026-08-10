@@ -13,6 +13,7 @@ import { CartaoKPI } from "@/components/dashboard/kpi";
 import { MarcadorSLA } from "@/components/marcador-sla";
 import {
   BarraConformidade,
+  GraficoCondominios,
   GraficoHistoricoMensal,
   GraficoLinhaTempo,
   GraficoPlanos,
@@ -166,6 +167,110 @@ export default async function PaginaDashboard({
           <GraficoHistoricoMensal dados={dados.historicoMensal} />
         </section>
       </div>
+
+      {/* ------------------------------------------- Condomínio x boletim/ocor. */}
+      <section className="card card-pad mb-4">
+        <h2 className="font-semibold mb-1">Condomínios · boletins e ocorrências</h2>
+        <p className="text-xs mb-3" style={{ color: "var(--tinta-3)" }}>
+          Quanto cada prédio preencheu e quanto gerou em {dados.periodo.rotulo}. Um
+          condomínio com poucos boletins e poucas ocorrências não está calmo — está
+          sem reportar.
+        </p>
+
+        <GraficoCondominios dados={dados.porCondominio} />
+
+        <div className="tabela-rolagem mt-4">
+          <table className="tabela">
+            <thead>
+              <tr>
+                <th>Condomínio</th>
+                <th className="text-right">Boletins</th>
+                <th className="text-right">Cobertura</th>
+                <th className="text-right">Dias conformes</th>
+                <th className="text-right">Ocorrências</th>
+                <th className="text-right">Críticas</th>
+                <th className="text-right">Em aberto</th>
+                <th className="text-right">Atrasadas</th>
+              </tr>
+            </thead>
+            <tbody>
+              {dados.porCondominio.length === 0 ? (
+                <tr>
+                  <td colSpan={8} style={{ color: "var(--tinta-3)" }}>
+                    Nenhum condomínio no filtro atual.
+                  </td>
+                </tr>
+              ) : (
+                dados.porCondominio.map((c) => (
+                  <tr key={c.id}>
+                    <td>
+                      <Link
+                        href={`/dashboard?condominio=${c.id}&mes=${mes}`}
+                        className="font-semibold"
+                        style={{ color: "var(--serie-1)" }}
+                      >
+                        {c.nome}
+                      </Link>
+                      {!c.ativo ? (
+                        <span className="badge badge-neutral ml-2">Inativo</span>
+                      ) : null}
+                    </td>
+                    <td className="text-right num">
+                      {c.boletins}
+                      {c.boletinsEsperados > 0 ? (
+                        <span style={{ color: "var(--tinta-3)" }}>
+                          {" "}
+                          / {c.boletinsEsperados}
+                        </span>
+                      ) : null}
+                    </td>
+                    <td className="text-right num">
+                      {c.cobertura === null ? (
+                        <span style={{ color: "var(--tinta-3)" }}>—</span>
+                      ) : (
+                        <span
+                          className="font-semibold"
+                          style={
+                            c.cobertura < 70
+                              ? { color: "var(--status-critico-texto)" }
+                              : undefined
+                          }
+                        >
+                          {c.cobertura < 70 ? "▲ " : ""}
+                          {pct(c.cobertura)}%
+                        </span>
+                      )}
+                    </td>
+                    <td className="text-right num">{c.diasConformes}</td>
+                    <td className="text-right num">
+                      <Link
+                        href={`/ocorrencias?condominio=${c.id}`}
+                        style={{ color: "var(--serie-1)" }}
+                      >
+                        {c.ocorrencias}
+                      </Link>
+                    </td>
+                    <td className="text-right num">{c.criticas}</td>
+                    <td className="text-right num">{c.emAberto}</td>
+                    <td className="text-right num">
+                      {c.atrasadas > 0 ? (
+                        <span
+                          className="font-semibold"
+                          style={{ color: "var(--status-critico-texto)" }}
+                        >
+                          ▲ {c.atrasadas}
+                        </span>
+                      ) : (
+                        <span style={{ color: "var(--tinta-3)" }}>0</span>
+                      )}
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
 
       {/* ---------------------------------------------------- Matriz de risco */}
       <section className="card card-pad mb-4">

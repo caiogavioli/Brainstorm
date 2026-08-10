@@ -384,6 +384,87 @@ export function GraficoPlanos({
   );
 }
 
+/* -------------------------------------------------------------------------
+   6. Condomínio x boletins x ocorrências — duas séries categóricas no mesmo
+      par validado (azul + aqua). Barras horizontais porque o rótulo é o nome
+      do condomínio, que é longo e não cabe girado no eixo X.
+   ------------------------------------------------------------------------- */
+
+export type LinhaCondominio = {
+  id: number;
+  nome: string;
+  ativo: boolean;
+  boletins: number;
+  boletinsEsperados: number;
+  cobertura: number | null;
+  diasConformes: number;
+  ocorrencias: number;
+  criticas: number;
+  emAberto: number;
+  atrasadas: number;
+};
+
+export function GraficoCondominios({ dados }: { dados: LinhaCondominio[] }) {
+  const t = useTokensViz();
+
+  if (dados.length === 0) {
+    return <VazioGrafico texto="Nenhum condomínio no filtro atual." />;
+  }
+
+  return (
+    <ResponsiveContainer width="100%" height={Math.max(dados.length * 46 + 40, 200)}>
+      <BarChart
+        data={dados}
+        layout="vertical"
+        margin={{ top: 4, right: 36, bottom: 4, left: 4 }}
+        barCategoryGap="26%"
+      >
+        <CartesianGrid horizontal={false} stroke={t.grade} />
+        <XAxis
+          type="number"
+          tick={{ fill: t["tinta-3"], fontSize: 10 }}
+          axisLine={{ stroke: t.eixo }}
+          tickLine={false}
+          allowDecimals={false}
+        />
+        <YAxis
+          type="category"
+          dataKey="nome"
+          width={140}
+          tick={{ fill: t["tinta-2"], fontSize: 11 }}
+          axisLine={false}
+          tickLine={false}
+        />
+        <Tooltip content={<Tooltipzinho />} cursor={{ fill: t["superficie-2"] }} />
+        <Legend
+          verticalAlign="top"
+          align="left"
+          height={28}
+          iconType="circle"
+          iconSize={8}
+          wrapperStyle={{ fontSize: 12, color: t["tinta-2"] }}
+        />
+        <Bar
+          dataKey="boletins"
+          name="Boletins preenchidos"
+          fill={t["serie-1"]}
+          radius={[0, 4, 4, 0]}
+          maxBarSize={14}
+          label={{ position: "right", fill: t["tinta-2"], fontSize: 10, fontWeight: 600 }}
+        />
+        <Bar
+          dataKey="ocorrencias"
+          name="Ocorrências abertas"
+          fill={t["serie-2"]}
+          radius={[0, 4, 4, 0]}
+          maxBarSize={14}
+          label={{ position: "right", fill: t["tinta-2"], fontSize: 10, fontWeight: 600 }}
+        />
+      </BarChart>
+    </ResponsiveContainer>
+  );
+}
+
 function VazioGrafico({ texto }: { texto: string }) {
   return (
     <div

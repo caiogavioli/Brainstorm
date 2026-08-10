@@ -1,5 +1,5 @@
 /**
- * Catálogo do Boletim Diário.
+ * Catálogo do Boletim Informativo Diário.
  *
  * Três regras que moldam esta lista:
  *

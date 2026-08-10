@@ -32,6 +32,12 @@ export type OpcoesRegistro = {
    * boletim legítimo do dia.
    */
   permitirSubstituir: boolean;
+  /**
+   * Correção pelo admin: mantém no registro o nome de quem preencheu de fato.
+   * Sem isso, arrumar um erro de digitação apagaria a autoria da ronda e
+   * carimbaria o administrador no lugar do gerente que esteve no prédio.
+   */
+  manterAutoria?: boolean;
 };
 
 export class BoletimJaExisteError extends Error {
@@ -48,6 +54,7 @@ export async function registrarBoletim({
   preenchidoPor,
   usuarioId,
   permitirSubstituir,
+  manterAutoria = false,
 }: OpcoesRegistro): Promise<ResultadoRegistro> {
   // O catálogo é a fonte da criticidade — o cliente não tem voz nisso.
   const catalogo = await prisma.checklistItem.findMany({
@@ -77,8 +84,12 @@ export async function registrarBoletim({
           dataReferencia: dados.dataReferencia,
         },
       },
-      select: { id: true },
+      select: { id: true, preenchidoPor: true },
     });
+
+    // Na correção, a autoria é a do boletim original, não a de quem corrige.
+    const autoria =
+      manterAutoria && existente?.preenchidoPor ? existente.preenchidoPor : preenchidoPor;
 
     if (existente) {
       if (!permitirSubstituir) throw new BoletimJaExisteError(dados.dataReferencia);
@@ -115,7 +126,7 @@ export async function registrarBoletim({
             ? equipesComFalta.map((c) => c.nome).join(", ")
             : null,
         observacoes: dados.observacoes,
-        preenchidoPor,
+        preenchidoPor: autoria,
         criadoPorId: usuarioId,
         itens: {
           create: itens.map((i) => ({
@@ -130,7 +141,7 @@ export async function registrarBoletim({
 
     let abertas = 0;
     let reincidentes = 0;
-    const autor = preenchidoPor ?? "painel administrativo";
+    const autor = autoria ?? "painel administrativo";
 
     for (const item of naoConformes) {
       const catalogoItem = porId.get(item.checklistItemId)!;

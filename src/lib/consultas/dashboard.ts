@@ -39,6 +39,14 @@ function whereCondominio(filtro: FiltroDashboard) {
   return {};
 }
 
+/** O mesmo recorte, aplicado à tabela de condomínios (onde a coluna é `id`). */
+function whereCondominioEntidade(filtro: FiltroDashboard): Prisma.CondominioWhereInput {
+  const recorte = whereCondominio(filtro) as {
+    condominioId?: number | { in: number[] };
+  };
+  return recorte.condominioId === undefined ? {} : { id: recorte.condominioId };
+}
+
 export async function carregarDashboard(filtro: FiltroDashboard) {
   const { inicio, fim } = intervaloDoMes(filtro.mes);
   const base = whereCondominio(filtro);
@@ -59,6 +67,7 @@ export async function carregarDashboard(filtro: FiltroDashboard) {
     ocorrenciasEmAberto,
     porSetorBruto,
     planos,
+    condominiosDoFiltro,
   ] = await Promise.all([
     prisma.boletim.findMany({
       where: whereBoletim,
@@ -79,6 +88,7 @@ export async function carregarDashboard(filtro: FiltroDashboard) {
         criticidade: true,
         status: true,
         checklistItemId: true,
+        condominioId: true,
       },
     }),
 
@@ -108,6 +118,12 @@ export async function carregarDashboard(filtro: FiltroDashboard) {
     prisma.planoAcao.findMany({
       where: base,
       select: { status: true, criticidade: true, previsaoFinalizacao: true },
+    }),
+
+    prisma.condominio.findMany({
+      where: whereCondominioEntidade(filtro),
+      orderBy: { nome: "asc" },
+      select: { id: true, nome: true, ativo: true },
     }),
   ]);
 
@@ -272,6 +288,82 @@ export async function carregarDashboard(filtro: FiltroDashboard) {
       previsaoFinalizacao: o.previsaoFinalizacao,
     }));
 
+  // ------------------------------------------ Condomínio x boletim/ocorrência
+
+  // Os números do mês quebrados por prédio. É o que responde "quem não está
+  // mandando boletim" e "quem está consumindo a operação", perguntas que os
+  // totais agregados escondem: um condomínio silencioso parece saudável.
+  const boletinsPorCondominio = new Map<number, number>();
+  const conformesPorCondominio = new Map<number, number>();
+  for (const b of boletins) {
+    boletinsPorCondominio.set(
+      b.condominioId,
+      (boletinsPorCondominio.get(b.condominioId) ?? 0) + 1,
+    );
+    if (b.statusGeral === "EM_CONFORMIDADE") {
+      conformesPorCondominio.set(
+        b.condominioId,
+        (conformesPorCondominio.get(b.condominioId) ?? 0) + 1,
+      );
+    }
+  }
+
+  const ocorrenciasPorCondominio = new Map<number, number>();
+  const criticasPorCondominio = new Map<number, number>();
+  for (const o of ocorrenciasDoMes) {
+    ocorrenciasPorCondominio.set(
+      o.condominioId,
+      (ocorrenciasPorCondominio.get(o.condominioId) ?? 0) + 1,
+    );
+    if (o.criticidade === "ALTA") {
+      criticasPorCondominio.set(
+        o.condominioId,
+        (criticasPorCondominio.get(o.condominioId) ?? 0) + 1,
+      );
+    }
+  }
+
+  const abertoPorCondominio = new Map<number, number>();
+  const atrasadasPorCondominio = new Map<number, number>();
+  for (const o of ocorrenciasEmAberto) {
+    abertoPorCondominio.set(
+      o.condominioId,
+      (abertoPorCondominio.get(o.condominioId) ?? 0) + 1,
+    );
+    if (faixaSLA(o.previsaoFinalizacao) === "ATRASADA") {
+      atrasadasPorCondominio.set(
+        o.condominioId,
+        (atrasadasPorCondominio.get(o.condominioId) ?? 0) + 1,
+      );
+    }
+  }
+
+  // Um condomínio desativado no meio do mês não "deve" boletins, mas o histórico
+  // que ele já gerou continua contando.
+  const esperadosPorCondominio = diasDoPeriodo.length;
+
+  const porCondominio = condominiosDoFiltro
+    .map((c) => {
+      const enviados = boletinsPorCondominio.get(c.id) ?? 0;
+      const esperados = c.ativo ? esperadosPorCondominio : 0;
+      return {
+        id: c.id,
+        nome: c.nome,
+        ativo: c.ativo,
+        boletins: enviados,
+        boletinsEsperados: esperados,
+        cobertura: esperados > 0 ? Math.min((enviados / esperados) * 100, 100) : null,
+        diasConformes: conformesPorCondominio.get(c.id) ?? 0,
+        ocorrencias: ocorrenciasPorCondominio.get(c.id) ?? 0,
+        criticas: criticasPorCondominio.get(c.id) ?? 0,
+        emAberto: abertoPorCondominio.get(c.id) ?? 0,
+        atrasadas: atrasadasPorCondominio.get(c.id) ?? 0,
+      };
+    })
+    // Some da lista quem está inativo e não deixou nada no período.
+    .filter((c) => c.ativo || c.boletins > 0 || c.ocorrencias > 0 || c.emAberto > 0)
+    .sort((a, b) => b.ocorrencias - a.ocorrencias || a.nome.localeCompare(b.nome, "pt-BR"));
+
   // ------------------------------------------------------------- Planos -----
 
   const planosPorStatus = (["PENDENTE", "EM_ANDAMENTO", "CONCLUIDO"] as StatusOcorrencia[]).map(
@@ -305,6 +397,7 @@ export async function carregarDashboard(filtro: FiltroDashboard) {
     distribuicaoStatusDia,
     historicoMensal,
     matrizRisco,
+    porCondominio,
     filaPrioridade,
     planosPorStatus,
     totalPlanos: planos.length,

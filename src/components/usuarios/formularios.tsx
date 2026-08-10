@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useState, useTransition } from "react";
 import { useFormStatus } from "react-dom";
 import { useRouter } from "next/navigation";
 import type { Papel } from "@prisma/client";
@@ -8,6 +8,7 @@ import type { Papel } from "@prisma/client";
 import {
   atualizarUsuarioAction,
   criarUsuarioAction,
+  excluirUsuarioAction,
   redefinirSenhaAction,
 } from "@/lib/acoes/usuarios";
 import type { ResultadoAcao } from "@/lib/acoes/boletim";
@@ -219,6 +220,33 @@ export function EditarUsuario({
           <form action={acaoEdicao} className="space-y-3">
             <input type="hidden" name="id" value={usuario.id} />
             <div>
+              <label className="rotulo" htmlFor={`nome-${usuario.id}`}>
+                Nome
+              </label>
+              <input
+                id={`nome-${usuario.id}`}
+                name="nome"
+                className="campo"
+                defaultValue={usuario.nome}
+                required
+              />
+            </div>
+            <div>
+              <label className="rotulo" htmlFor={`email-${usuario.id}`}>
+                E-mail (login)
+              </label>
+              <input
+                id={`email-${usuario.id}`}
+                name="email"
+                type="email"
+                inputMode="email"
+                autoCapitalize="none"
+                className="campo"
+                defaultValue={usuario.email}
+                required
+              />
+            </div>
+            <div>
               <label className="rotulo" htmlFor={`papel-${usuario.id}`}>
                 Perfil
               </label>
@@ -274,6 +302,88 @@ export function EditarUsuario({
             <Aviso estado={estadoSenha} />
             <Botao rotulo="Redefinir senha" />
           </form>
+
+          <div className="pt-3" style={{ borderTop: "1px solid var(--borda)" }}>
+            <ExcluirUsuario id={usuario.id} nome={usuario.nome} ativo={usuario.ativo} />
+          </div>
+        </div>
+      ) : null}
+    </>
+  );
+}
+
+/**
+ * Exclusão de usuário. Desativar já resolve a maior parte dos casos (a pessoa
+ * saiu da empresa e não deve mais entrar), então a exclusão fica atrás de uma
+ * confirmação e o texto aponta o caminho reversível.
+ */
+function ExcluirUsuario({
+  id,
+  nome,
+  ativo,
+}: {
+  id: number;
+  nome: string;
+  ativo: boolean;
+}) {
+  const router = useRouter();
+  const [aberto, setAberto] = useState(false);
+  const [estado, setEstado] = useState<ResultadoAcao | null>(null);
+  const [processando, iniciar] = useTransition();
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => {
+          setAberto((v) => !v);
+          setEstado(null);
+        }}
+        className="text-xs font-semibold underline"
+        style={{ color: "var(--status-critico-texto)" }}
+        aria-expanded={aberto}
+      >
+        {aberto ? "Cancelar exclusão" : "Excluir usuário"}
+      </button>
+
+      {aberto ? (
+        <div
+          className="mt-3 rounded-xl p-3"
+          style={{
+            background: "color-mix(in srgb, var(--status-critico) 6%, var(--superficie))",
+            border: "1px solid color-mix(in srgb, var(--status-critico) 35%, transparent)",
+          }}
+        >
+          <p className="text-sm mb-1">
+            Excluir <strong>{nome}</strong> apaga o acesso definitivamente.
+          </p>
+          <p className="text-xs mb-3" style={{ color: "var(--tinta-2)" }}>
+            Os boletins e ocorrências que ele lançou continuam no histórico.
+            {ativo ? (
+              <>
+                {" "}
+                Se a ideia é só bloquear a entrada, desmarque{" "}
+                <strong>Usuário ativo</strong> acima — dá para reverter depois.
+              </>
+            ) : null}
+          </p>
+
+          <Aviso estado={estado} />
+
+          <button
+            type="button"
+            disabled={processando}
+            onClick={() =>
+              iniciar(async () => {
+                const r = await excluirUsuarioAction(id);
+                setEstado(r);
+                if (r.ok) router.refresh();
+              })
+            }
+            className="botao botao-perigo w-full mt-2"
+          >
+            {processando ? "Excluindo…" : "Excluir definitivamente"}
+          </button>
         </div>
       ) : null}
     </>

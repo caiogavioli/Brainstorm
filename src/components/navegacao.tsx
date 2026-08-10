@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
+import { Logo } from "@/components/logo";
+
 export type ItemNav = { href: string; rotulo: string; icone: string };
 
 /**
@@ -40,14 +42,19 @@ export function Navegacao({
         <div className="mx-auto max-w-7xl px-4">
           <div className="flex h-14 items-center justify-between gap-3">
             <Link href={itens[0]?.href ?? "/boletim"} className="flex items-center gap-2 min-w-0">
-              <span
-                className="flex h-8 w-8 flex-none items-center justify-center rounded-lg text-white text-xs font-bold"
-                style={{ background: "var(--serie-1)" }}
-                aria-hidden
-              >
-                BD
+              <Logo tamanho={30} />
+              {/* No celular o nome inteiro roubaria a linha da navegação; a
+                  sigla BID cobre o mesmo significado. */}
+              <span className="font-semibold truncate">
+                <abbr
+                  title="Boletim Informativo Diário"
+                  className="sm:hidden no-underline"
+                  style={{ textDecoration: "none" }}
+                >
+                  BID
+                </abbr>
+                <span className="hidden sm:inline">Boletim Informativo Diário</span>
               </span>
-              <span className="font-semibold truncate">Boletim Diário</span>
             </Link>
 
             {/* Navegação desktop */}

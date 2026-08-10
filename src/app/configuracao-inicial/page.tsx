@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { configuracaoDisponivel } from "./acoes";
 import { FormularioSetup } from "./formulario";
+import { LogoCompleta } from "@/components/logo";
 
 export const metadata = { title: "Configuração inicial — Gestão de Condomínios" };
 
@@ -19,12 +20,8 @@ export default async function PaginaConfiguracaoInicial() {
     <main className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-6">
-          <div
-            className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl text-white text-lg font-bold"
-            style={{ background: "var(--serie-1)" }}
-            aria-hidden
-          >
-            BD
+          <div className="mb-4 flex justify-center">
+            <LogoCompleta tamanho={72} />
           </div>
           <h1 className="text-xl font-bold">Configuração inicial</h1>
           <p className="text-sm mt-1" style={{ color: "var(--tinta-2)" }}>

@@ -7,7 +7,11 @@ import type { SituacaoItem, StatusGeralDia } from "@prisma/client";
 import { GRUPOS } from "@/lib/checklist";
 import { STATUS_DIA_LABEL } from "@/lib/labels";
 import { formatarDataReferencia } from "@/lib/datas";
-import { enviarBoletimPublicoAction, salvarBoletimAction } from "@/lib/acoes/boletim";
+import {
+  corrigirBoletimAction,
+  enviarBoletimPublicoAction,
+  salvarBoletimAction,
+} from "@/lib/acoes/boletim";
 
 type ItemChecklist = {
   id: number;
@@ -29,6 +33,13 @@ const SITUACOES: { valor: SituacaoItem; rotulo: string; curto: string }[] = [
   { valor: "NAO_APLICAVEL", rotulo: "N/A", curto: "N/A" },
 ];
 
+/** Respostas já gravadas, quando o admin abre um boletim para corrigir. */
+export type ValoresIniciais = {
+  respostas: Record<number, Resposta>;
+  observacoes: string;
+  statusGeral: StatusGeralDia;
+};
+
 export function WizardBoletim({
   condominios,
   itens,
@@ -36,6 +47,8 @@ export function WizardBoletim({
   condominioInicial,
   boletimExistente,
   modoPublico = false,
+  modoEdicao = false,
+  valoresIniciais,
 }: {
   condominios: Condominio[];
   itens: ItemChecklist[];
@@ -45,6 +58,12 @@ export function WizardBoletim({
   boletimExistente: Record<number, string[]>;
   /** Formulário aberto, sem login: pede o nome e não sobrescreve o dia. */
   modoPublico?: boolean;
+  /**
+   * Correção de um boletim existente pelo admin. Condomínio e data ficam
+   * travados: mudá-los criaria um segundo boletim em vez de corrigir este.
+   */
+  modoEdicao?: boolean;
+  valoresIniciais?: ValoresIniciais;
 }) {
   const router = useRouter();
   const [enviando, iniciarEnvio] = useTransition();
@@ -55,16 +74,20 @@ export function WizardBoletim({
   );
   const [dataReferencia, setDataReferencia] = useState(dataInicial);
   const [preenchidoPor, setPreenchidoPor] = useState("");
-  const [observacoes, setObservacoes] = useState("");
+  const [observacoes, setObservacoes] = useState(valoresIniciais?.observacoes ?? "");
   const [erro, setErro] = useState<string | null>(null);
   const [enviado, setEnviado] = useState<string | null>(null);
 
   // Todos os itens começam "Conforme": o gestor só interage onde há falha.
+  // Na edição, começam como foram gravados.
   const [respostas, setRespostas] = useState<Record<number, Resposta>>(() =>
     Object.fromEntries(
       itens.map((i) => [
         i.id,
-        { situacao: "CONFORME" as SituacaoItem, observacao: "" },
+        valoresIniciais?.respostas[i.id] ?? {
+          situacao: "CONFORME" as SituacaoItem,
+          observacao: "",
+        },
       ]),
     ),
   );
@@ -89,10 +112,15 @@ export function WizardBoletim({
       : naoConformes.length >= 3
         ? "OCORRENCIA_CRITICA"
         : "OCORRENCIA_PONTUAL";
-  const [statusManual, setStatusManual] = useState<StatusGeralDia | null>(null);
+  const [statusManual, setStatusManual] = useState<StatusGeralDia | null>(
+    valoresIniciais?.statusGeral ?? null,
+  );
   const statusGeral = statusManual ?? statusSugerido;
 
-  const jaExiste = (boletimExistente[condominioId] ?? []).includes(dataReferencia);
+  // Na edição o boletim do dia é justamente este — avisar que "já existe" só
+  // confundiria quem veio corrigi-lo.
+  const jaExiste =
+    !modoEdicao && (boletimExistente[condominioId] ?? []).includes(dataReferencia);
 
   // Etapas: 0 = identificação, 1..4 = grupos, 5 = equipe/resumo.
   const TOTAL_ETAPAS = GRUPOS.length + 2;
@@ -164,7 +192,9 @@ export function WizardBoletim({
 
       const resultado = modoPublico
         ? await enviarBoletimPublicoAction(payload)
-        : await salvarBoletimAction(payload);
+        : modoEdicao
+          ? await corrigirBoletimAction(payload)
+          : await salvarBoletimAction(payload);
 
       if (!resultado.ok) {
         setErro(resultado.erro);
@@ -177,7 +207,7 @@ export function WizardBoletim({
         window.scrollTo({ top: 0, behavior: "smooth" });
         return;
       }
-      router.push(`/boletim/${resultado.id}?criado=1`);
+      router.push(`/boletim/${resultado.id}?${modoEdicao ? "corrigido" : "criado"}=1`);
       router.refresh();
     });
   }
@@ -302,6 +332,7 @@ export function WizardBoletim({
                 id="condominio"
                 className="campo"
                 value={condominioId}
+                disabled={modoEdicao}
                 onChange={(e) => setCondominioId(Number(e.target.value))}
               >
                 {condominios.map((c) => (
@@ -327,8 +358,15 @@ export function WizardBoletim({
                 type="date"
                 className="campo"
                 value={dataReferencia}
+                disabled={modoEdicao}
                 onChange={(e) => setDataReferencia(e.target.value)}
               />
+              {modoEdicao ? (
+                <p className="mt-1 text-xs" style={{ color: "var(--tinta-3)" }}>
+                  Condomínio e data não mudam na correção — alterá-los criaria um
+                  segundo boletim em vez de corrigir este.
+                </p>
+              ) : null}
             </div>
 
             {jaExiste ? (
@@ -364,10 +402,21 @@ export function WizardBoletim({
               className="rounded-lg px-3 py-3 text-sm leading-relaxed"
               style={{ background: "var(--superficie-2)", color: "var(--tinta-2)" }}
             >
-              Todos os {itens.length} itens já vêm marcados como{" "}
-              <strong>Conforme</strong>. Toque apenas onde houver falha — cada item
-              marcado como <strong>Não Conforme</strong> abre uma ocorrência
-              automaticamente.
+              {modoEdicao ? (
+                <>
+                  As respostas abaixo são as que foram enviadas. Ao salvar, as
+                  ocorrências que <strong>este</strong> boletim havia aberto são
+                  refeitas a partir das novas respostas — ocorrências de outros dias
+                  não são tocadas.
+                </>
+              ) : (
+                <>
+                  Todos os {itens.length} itens já vêm marcados como{" "}
+                  <strong>Conforme</strong>. Toque apenas onde houver falha — cada
+                  item marcado como <strong>Não Conforme</strong> abre uma ocorrência
+                  automaticamente.
+                </>
+              )}
             </div>
           </div>
         ) : null}
@@ -632,7 +681,11 @@ export function WizardBoletim({
             disabled={enviando}
             className="botao botao-primario flex-[2]"
           >
-            {enviando ? "Enviando…" : "Enviar boletim"}
+            {enviando
+              ? "Salvando…"
+              : modoEdicao
+                ? "Salvar correção"
+                : "Enviar boletim"}
           </button>
         ) : (
           <button type="button" onClick={avancar} className="botao botao-primario flex-[2]">

@@ -79,7 +79,7 @@ export async function criarUsuarioAction(
   return { ok: true, id: usuario.id, mensagem: `Usuário ${dados.email} criado.` };
 }
 
-/** Atualiza papel e condomínios de um usuário existente. */
+/** Atualiza nome, e-mail, papel e condomínios de um usuário existente. */
 export async function atualizarUsuarioAction(
   _anterior: ResultadoAcao | null,
   formData: FormData,
@@ -89,12 +89,32 @@ export async function atualizarUsuarioAction(
   const id = Number(formData.get("id"));
   if (!Number.isInteger(id) || id <= 0) return { ok: false, erro: "Usuário inválido." };
 
+  const identidade = usuarioSchema
+    .pick({ nome: true, email: true })
+    .safeParse({
+      nome: formData.get("nome") ?? "",
+      email: formData.get("email") ?? "",
+    });
+  if (!identidade.success) {
+    return { ok: false, erro: primeiraMensagem(identidade.error) };
+  }
+
   const papel = formData.get("papel") === "ADMIN" ? "ADMIN" : "GESTOR";
   const condominios = lerCondominios(formData);
   const ativo = formData.get("ativo") !== null;
 
   const alvo = await prisma.usuario.findUnique({ where: { id }, select: { papel: true } });
   if (!alvo) return { ok: false, erro: "Usuário não encontrado." };
+
+  // O e-mail é o login: um duplicado deixaria dois usuários disputando a mesma
+  // credencial, então barra antes de tentar o update.
+  const jaUsado = await prisma.usuario.findUnique({
+    where: { email: identidade.data.email },
+    select: { id: true },
+  });
+  if (jaUsado && jaUsado.id !== id) {
+    return { ok: false, erro: "Já existe outro usuário com este e-mail." };
+  }
 
   if (papel === "GESTOR" && condominios.length === 0) {
     return { ok: false, erro: "Selecione ao menos um condomínio para o gerente predial." };
@@ -124,7 +144,15 @@ export async function atualizarUsuarioAction(
   });
 
   await prisma.$transaction([
-    prisma.usuario.update({ where: { id }, data: { papel, ativo } }),
+    prisma.usuario.update({
+      where: { id },
+      data: {
+        nome: identidade.data.nome,
+        email: identidade.data.email,
+        papel,
+        ativo,
+      },
+    }),
     prisma.usuarioCondominio.deleteMany({ where: { usuarioId: id } }),
     prisma.usuarioCondominio.createMany({
       data: validos.map((c) => ({ usuarioId: id, condominioId: c.id })),
@@ -163,4 +191,43 @@ export async function redefinirSenhaAction(
 
   revalidatePath("/usuarios");
   return { ok: true, mensagem: `Senha de ${usuario.email} redefinida.` };
+}
+
+/**
+ * Exclui um usuário. As travas existem para que ninguém consiga se trancar
+ * para fora do próprio sistema: não dá para apagar a si mesmo, nem o último
+ * administrador ativo.
+ *
+ * Boletins e ocorrências lançados por ele permanecem — as chaves são
+ * `SetNull`, então o histórico não some junto com a conta.
+ */
+export async function excluirUsuarioAction(id: number): Promise<ResultadoAcao> {
+  const sessao = await exigirAdmin();
+
+  if (id === sessao.usuarioId) {
+    return { ok: false, erro: "Você não pode excluir o próprio usuário." };
+  }
+
+  const alvo = await prisma.usuario.findUnique({
+    where: { id },
+    select: { email: true, papel: true, ativo: true },
+  });
+  if (!alvo) return { ok: false, erro: "Usuário não encontrado." };
+
+  if (alvo.papel === "ADMIN" && alvo.ativo) {
+    const outrosAdmins = await prisma.usuario.count({
+      where: { papel: "ADMIN", ativo: true, id: { not: id } },
+    });
+    if (outrosAdmins === 0) {
+      return {
+        ok: false,
+        erro: "Este é o único administrador ativo. Promova outro antes de excluí-lo.",
+      };
+    }
+  }
+
+  await prisma.usuario.delete({ where: { id } });
+
+  revalidatePath("/usuarios");
+  return { ok: true, mensagem: `Usuário ${alvo.email} excluído.` };
 }

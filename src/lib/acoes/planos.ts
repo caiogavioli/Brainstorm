@@ -132,6 +132,78 @@ function lerCondominio(formData: FormData) {
   });
 }
 
+/**
+ * Contagem do que seria perdido ao excluir um condomínio. A exclusão cascateia
+ * para boletins, ocorrências e planos, então a interface mostra o tamanho do
+ * estrago antes de perguntar.
+ */
+export async function resumoExclusaoCondominioAction(id: number) {
+  await exigirAdmin();
+  const [boletins, ocorrencias, planos, acessos] = await Promise.all([
+    prisma.boletim.count({ where: { condominioId: id } }),
+    prisma.ocorrencia.count({ where: { condominioId: id } }),
+    prisma.planoAcao.count({ where: { condominioId: id } }),
+    prisma.usuarioCondominio.count({ where: { condominioId: id } }),
+  ]);
+  return { boletins, ocorrencias, planos, acessos };
+}
+
+/** Exclui o condomínio e tudo que depende dele. Irreversível. */
+export async function excluirCondominioAction(
+  id: number,
+  confirmacao: string,
+): Promise<ResultadoAcao> {
+  await exigirAdmin();
+
+  const condominio = await prisma.condominio.findUnique({
+    where: { id },
+    select: { nome: true },
+  });
+  if (!condominio) return { ok: false, erro: "Condomínio não encontrado." };
+
+  // Digitar o nome é a trava: impede exclusão por clique errado numa lista.
+  if (confirmacao.trim().toLowerCase() !== condominio.nome.trim().toLowerCase()) {
+    return {
+      ok: false,
+      erro: `Para excluir, digite exatamente o nome do condomínio: ${condominio.nome}`,
+    };
+  }
+
+  await prisma.condominio.delete({ where: { id } });
+
+  revalidatePath("/condominios");
+  revalidatePath("/boletim");
+  revalidatePath("/ocorrencias");
+  revalidatePath("/dashboard");
+  revalidatePath("/");
+  return { ok: true, mensagem: `Condomínio "${condominio.nome}" excluído.` };
+}
+
+/** Liga/desliga o condomínio sem apagar histórico. */
+export async function alternarCondominioAction(
+  id: number,
+  ativo: boolean,
+): Promise<ResultadoAcao> {
+  await exigirAdmin();
+  const condominio = await prisma.condominio.findUnique({
+    where: { id },
+    select: { nome: true },
+  });
+  if (!condominio) return { ok: false, erro: "Condomínio não encontrado." };
+
+  await prisma.condominio.update({ where: { id }, data: { ativo } });
+
+  revalidatePath("/condominios");
+  revalidatePath("/dashboard");
+  revalidatePath("/");
+  return {
+    ok: true,
+    mensagem: ativo
+      ? `"${condominio.nome}" reativado — volta a aparecer no formulário.`
+      : `"${condominio.nome}" desativado — some do formulário, histórico preservado.`,
+  };
+}
+
 export async function salvarCondominioAction(
   _anterior: ResultadoAcao | null,
   formData: FormData,

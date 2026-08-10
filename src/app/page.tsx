@@ -3,9 +3,10 @@ import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { dataReferenciaDe } from "@/lib/datas";
 import { WizardBoletim } from "@/components/boletim/wizard";
+import { Logo } from "@/components/logo";
 
 export const metadata = {
-  title: "Boletim Diário de Operações",
+  title: "Boletim Informativo Diário",
   description: "Preenchimento do boletim diário de operações do condomínio.",
 };
 
@@ -60,14 +61,17 @@ export default async function PaginaBoletimPublico() {
       >
         <div className="mx-auto max-w-2xl px-4">
           <div className="flex h-14 items-center gap-2">
-            <span
-              className="flex h-8 w-8 flex-none items-center justify-center rounded-lg text-white text-xs font-bold"
-              style={{ background: "var(--serie-1)" }}
-              aria-hidden
-            >
-              BD
+            <Logo tamanho={30} />
+            <span className="font-semibold">
+              <abbr
+                title="Boletim Informativo Diário"
+                className="sm:hidden"
+                style={{ textDecoration: "none" }}
+              >
+                BID
+              </abbr>
+              <span className="hidden sm:inline">Boletim Informativo Diário</span>
             </span>
-            <span className="font-semibold">Boletim Diário</span>
           </div>
         </div>
       </header>
@@ -87,7 +91,7 @@ export default async function PaginaBoletimPublico() {
         ) : (
           <>
             <div className="mb-4">
-              <h1 className="text-xl font-bold">Boletim Diário de Operações</h1>
+              <h1 className="text-xl font-bold">Boletim Informativo Diário</h1>
               <p className="text-sm" style={{ color: "var(--tinta-2)" }}>
                 Preencha ao final da ronda — leva cerca de 2 minutos. Tudo já vem
                 marcado como <strong>Conforme</strong>: toque apenas onde houver

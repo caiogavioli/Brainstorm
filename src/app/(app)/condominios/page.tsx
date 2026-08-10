@@ -2,6 +2,7 @@ import { prisma } from "@/lib/db";
 import { exigirAdmin } from "@/lib/auth";
 import { formatarData } from "@/lib/datas";
 import { FormularioCondominio } from "@/components/condominios/formulario";
+import { AcoesCondominio } from "@/components/condominios/painel";
 
 export const metadata = { title: "Condomínios — Gestão de Condomínios" };
 
@@ -68,6 +69,18 @@ export default async function PaginaCondominios() {
                 <span>{c._count.ocorrencias} ocorrências</span>
                 <span>{c._count.planos} planos</span>
               </div>
+
+              <AcoesCondominio
+                condominio={{
+                  id: c.id,
+                  nome: c.nome,
+                  endereco: c.endereco,
+                  gerenteResponsavel: c.gerenteResponsavel,
+                  telefone: c.telefone,
+                  email: c.email,
+                  ativo: c.ativo,
+                }}
+              />
             </div>
           ))}
         </div>

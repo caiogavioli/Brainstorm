@@ -3,7 +3,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Gestão de Condomínios — Boletim Diário de Operações",
+  title: "Gestão de Condomínios — Boletim Informativo Diário",
   description:
     "Boletim diário, gestão de ocorrências, planos de ação e dashboard gerencial para múltiplos condomínios.",
 };

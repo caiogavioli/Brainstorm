@@ -61,7 +61,7 @@ export default async function PaginaNovoBoletim({
     <div>
       <div className="mb-4 flex items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl font-bold">Boletim Diário</h1>
+          <h1 className="text-xl font-bold">Boletim Informativo Diário</h1>
           <p className="text-sm" style={{ color: "var(--tinta-2)" }}>
             Preencha por etapas — leva cerca de 2 minutos.
           </p>
