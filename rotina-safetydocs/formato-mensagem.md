@@ -33,8 +33,6 @@ necessidade de plano de ação para regularizar sua unidade com brevidade.
 🟡 DOCUMENTOS A VENCER (<n>)
 [tabela: Documento | Responsável | Vencimento | Importância | Prazo]
 
-Qualquer dúvida sobre um item específico, é só responder este email.
-
 Atenciosamente,
 Caio Gavioli
 ```
