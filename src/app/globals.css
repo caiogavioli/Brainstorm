@@ -3,17 +3,18 @@
 /* ===========================================================================
    Design tokens
    ---------------------------------------------------------------------------
+   Tema claro único: o sistema não acompanha o modo escuro do aparelho, para
+   que a tela seja a mesma no celular do gerente e no monitor do síndico.
+
    Paleta de dados validada com o validador de acessibilidade cromática
    (bandas de luminosidade, piso de croma, separação para daltonismo e
-   contraste contra a superfície), em claro e escuro:
+   contraste contra a superfície):
 
    - Séries categóricas (máx. 2 no sistema): azul + aqua
-       claro  #2a78d6 / #1baf7a  — pior par ΔE 23.1 (protan), 24.0 (normal)
-       escuro #3987e5 / #199e70  — pior par ΔE 19.6 (deutan), 20.9 (normal)
+       #2a78d6 / #1baf7a  — pior par ΔE 23.1 (protan), 24.0 (normal)
    - Criticidade e conformidade são ORDINAIS (baixa→alta), não identidades:
      usam rampa de um único matiz, L monotônica.
-       claro  #86b6ef → #2a78d6 → #104281
-       escuro #9ec5f4 → #3987e5 → #184f95
+       #86b6ef → #2a78d6 → #104281
      (o palette de status verde/amarelo/vermelho reprova como escala
       categórica — verde↔vermelho ΔE 4.1 em deuteranopia — por isso fica
       restrito a badges, onde sempre vem acompanhado de rótulo em texto.)
@@ -55,65 +56,11 @@
   --sombra: 0 1px 2px rgba(11, 11, 11, 0.05), 0 1px 3px rgba(11, 11, 11, 0.04);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-tema="claro"]) {
-    color-scheme: dark;
-
-    --plano: #0d0d0d;
-    --superficie: #1a1a19;
-    --superficie-2: #232322;
-
-    --tinta: #ffffff;
-    --tinta-2: #c3c2b7;
-    --tinta-3: #898781;
-
-    --grade: #2c2c2a;
-    --eixo: #383835;
-    --borda: rgba(255, 255, 255, 0.1);
-    --borda-forte: rgba(255, 255, 255, 0.18);
-
-    --serie-1: #3987e5;
-    --serie-2: #199e70;
-
-    --ordinal-1: #9ec5f4;
-    --ordinal-2: #3987e5;
-    --ordinal-3: #184f95;
-
-    --status-bom-texto: #0ca30c;
-    --status-critico-texto: #e88b8b;
-
-    --sombra: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
-  }
-}
-
-:root[data-tema="escuro"] {
-  color-scheme: dark;
-
-  --plano: #0d0d0d;
-  --superficie: #1a1a19;
-  --superficie-2: #232322;
-
-  --tinta: #ffffff;
-  --tinta-2: #c3c2b7;
-  --tinta-3: #898781;
-
-  --grade: #2c2c2a;
-  --eixo: #383835;
-  --borda: rgba(255, 255, 255, 0.1);
-  --borda-forte: rgba(255, 255, 255, 0.18);
-
-  --serie-1: #3987e5;
-  --serie-2: #199e70;
-
-  --ordinal-1: #9ec5f4;
-  --ordinal-2: #3987e5;
-  --ordinal-3: #184f95;
-
-  --status-bom-texto: #0ca30c;
-  --status-critico-texto: #e88b8b;
-
-  --sombra: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
-}
+/* O sistema é claro, sempre — não acompanha o tema do aparelho.
+   O `color-scheme: light` acima não é decoração: é ele que faz o navegador
+   desenhar os controles nativos (dropdown de condomínio, seletor de data,
+   barras de rolagem) em claro mesmo com o celular em modo escuro. Sem ele, o
+   calendário do campo de data abriria preto no meio de uma tela branca. */
 
 @theme inline {
   --color-plano: var(--plano);

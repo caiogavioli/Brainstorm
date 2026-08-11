@@ -12,10 +12,9 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f9f9f7" },
-    { media: "(prefers-color-scheme: dark)", color: "#0d0d0d" },
-  ],
+  // Cor única: a barra do navegador acompanha o fundo claro do sistema mesmo
+  // quando o aparelho está em modo escuro.
+  themeColor: "#f9f9f7",
 };
 
 export default function RootLayout({

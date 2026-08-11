@@ -4,8 +4,12 @@ import { useEffect, useState } from "react";
 
 /**
  * Recharts precisa de cores concretas (não aceita `var(--x)` em todos os
- * pontos), então resolvemos os tokens do design system no cliente e
- * reavaliamos quando o tema do sistema muda.
+ * pontos), então resolvemos os tokens do design system no cliente.
+ *
+ * A leitura acontece uma vez: o sistema é claro sempre, então os valores não
+ * mudam depois da montagem. Continua lendo do CSS, e não de constantes
+ * duplicadas, para que mexer em `globals.css` continue sendo o único lugar
+ * onde se muda uma cor.
  */
 const TOKENS = [
   "superficie",
@@ -45,20 +49,13 @@ export function useTokensViz(): TokensViz {
   const [tokens, setTokens] = useState<TokensViz>(PADRAO);
 
   useEffect(() => {
-    const ler = () => {
-      const estilo = getComputedStyle(document.documentElement);
-      const lidos = { ...PADRAO };
-      for (const nome of TOKENS) {
-        const valor = estilo.getPropertyValue(`--${nome}`).trim();
-        if (valor) lidos[nome] = valor;
-      }
-      setTokens(lidos);
-    };
-
-    ler();
-    const consulta = window.matchMedia("(prefers-color-scheme: dark)");
-    consulta.addEventListener("change", ler);
-    return () => consulta.removeEventListener("change", ler);
+    const estilo = getComputedStyle(document.documentElement);
+    const lidos = { ...PADRAO };
+    for (const nome of TOKENS) {
+      const valor = estilo.getPropertyValue(`--${nome}`).trim();
+      if (valor) lidos[nome] = valor;
+    }
+    setTokens(lidos);
   }, []);
 
   return tokens;
