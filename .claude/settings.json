@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "permissions": {
+    "allow": [
+      "mcp__Microsoft_365__outlook_email_search",
+      "mcp__Microsoft_365__read_resource",
+      "mcp__Microsoft_365__outlook_send_mail",
+      "mcp__monday_com__get_board_items_page",
+      "mcp__monday_com__get_board_info",
+      "mcp__monday_com__create_items",
+      "mcp__monday_com__update_items",
+      "mcp__monday_com__change_item_column_values",
+      "mcp__Claude_Code_Remote__add_repo",
+      "mcp__Claude_Code_Remote__register_repo_root",
+      "mcp__Claude_Code_Remote__create_trigger",
+      "mcp__Claude_Code_Remote__delete_trigger",
+      "mcp__Claude_Code_Remote__list_triggers",
+      "mcp__Claude_Code_Remote__get_session"
+    ],
+    "deny": [
+      "mcp__Microsoft_365__outlook_modify_labels",
+      "mcp__Microsoft_365__outlook_batch_modify_labels",
+      "mcp__Microsoft_365__outlook_modify_thread_labels",
+      "mcp__Microsoft_365__outlook_create_label",
+      "mcp__Microsoft_365__outlook_update_label",
+      "mcp__Microsoft_365__outlook_delete_label",
+      "mcp__Microsoft_365__outlook_create_filter",
+      "mcp__Microsoft_365__outlook_delete_filter",
+      "mcp__Microsoft_365__outlook_forward_mail",
+      "mcp__Microsoft_365__outlook_create_reply_draft",
+      "mcp__Microsoft_365__outlook_create_reply_all_draft",
+      "mcp__Microsoft_365__outlook_trash_thread",
+      "mcp__Microsoft_365__outlook_batch_delete_messages",
+      "mcp__Microsoft_365__outlook_set_vacation",
+      "mcp__monday_com__create_board",
+      "mcp__monday_com__vibe_delete"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__Microsoft_365__outlook_send_mail",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/user/Brainstorm/.claude/hooks/guard-destinatario.sh",
+            "timeout": 10,
+            "statusMessage": "Conferindo destinatário..."
+          }
+        ]
+      }
+    ]
+  }
+}
