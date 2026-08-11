@@ -42,6 +42,26 @@ Colunas usadas: as mesmas do informativo da SafetyDocs, exceto **Status**,
 precisa saber o quê, quem e até quando. Se um documento não tiver
 `Responsável`, mostrar `—`, nunca omitir a linha.
 
+## Prédios agrupados (Centenário, Panamerica)
+
+Quando o email cobre mais de um rótulo do informativo (ver
+`mapeamento-predios.md`, "Grupos de envio"), cada tabela — vencidos e a
+vencer — ganha uma subseção por rótulo original, para o gestor saber a que
+bloco/torre cada item pertence:
+
+```
+🔴 DOCUMENTOS VENCIDOS (<n total>)
+
+Centenário Plaza B1 - Flórida
+[tabela]
+
+Centenário Plaza B2 - Robocop
+[tabela]
+```
+
+O `<n>` no cabeçalho da seção é a soma dos dois; o assunto usa o nome do
+grupo ("Centenário", não "Centenário Plaza B1 - Flórida").
+
 ## Regras
 
 - **Nunca resumir a lista.** Cada documento pendente daquele condomínio entra

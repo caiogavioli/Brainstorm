@@ -65,6 +65,22 @@ Para cada prédio da lista, procurar o rótulo em `mapeamento-predios.md`:
 - **Existe, `status: ignorado`** → pular, sem contar como pendente.
 - **Existe, `status: confirmado`** → segue para o Passo 5.
 
+## Passo 4-B — Agrupar prédios que viram um único email
+
+Alguns pares de rótulos são torres/blocos diferentes do mesmo prédio e devem
+virar **uma cobrança só** — a lista exata está em `mapeamento-predios.md`,
+seção "Grupos de envio" (hoje: Centenário = B1 + B2; Panamerica = B2 + B5).
+
+Depois do Passo 4, para cada par do grupo: somar os documentos (`aVencer` +
+`vencido`) dos dois rótulos num único condomínio de destino, mantendo dentro
+de cada tabela (vencidos e a vencer) uma subseção por rótulo original — para
+o gestor saber se um item é do B1 ou do B2, por exemplo. Ver
+`formato-mensagem.md`. O nome usado no assunto e no corpo é o nome do grupo
+("Centenário", "Panamerica"), não o rótulo individual do informativo.
+
+Os demais prédios (sem par em "Grupos de envio") seguem 1 rótulo = 1 email,
+sem alteração.
+
 ## Passo 5 — Decidir se envia
 
 Para cada prédio confirmado: se `aVencer` e `vencido` estiverem **os dois
