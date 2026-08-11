@@ -1,17 +1,21 @@
 # Agendamento
 
-## Estado: **em configuração**
+## Estado: **criada em 11/08/2026 — aguardando primeira execução automática**
 
 ## Ficha
 
 | | |
 |---|---|
+| Routine | `trig_01TdEoP9RFiL1uADLHitmSWF` |
+| Nome | Cobrança SafetyDocs — rodada semanal |
 | Quando | segunda-feira, 08h00 (BRT) = `0 11 * * 1` (UTC) |
-| Modo | **Self-bind** — dispara nesta sessão (`claude/safetydocs-automation-4rq592`), que já tem o conector Microsoft 365 ativo. Mesmo motivo da Triagem Contratante: sessão nova nasce sem conector. |
+| Próxima execução agendada | 17/08/2026 |
+| Modo | **Self-bind** — dispara na sessão `session_014q8edMzmJjxUDcXQffkfBb` (`claude/safetydocs-automation-4rq592`), que já tem o conector Microsoft 365 ativo. Mesmo motivo da Triagem Contratante: sessão nova nasce sem conector. |
 
-Preenchido após a criação da Routine: ID, primeira execução confirmada, e
-qualquer ajuste de horário feito depois de observar a chegada real dos
-informativos da SafetyDocs.
+O aviso genérico "this trigger stores no MCP connectors" apareceu na criação
+— confirmado nos mesmos termos da Triagem Contratante: **não se aplica** ao
+modo self-bind, porque é a sessão-alvo (já conectada) que executa, não uma
+sessão nova.
 
 ## O risco que já é conhecido, declarado desde o início
 
