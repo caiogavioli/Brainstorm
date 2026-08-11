@@ -5,6 +5,10 @@ import type { Prisma, PrismaClient, SituacaoItem } from "@prisma/client";
 import { prisma } from "@/lib/db";
 import { dataReferenciaParaDate, formatarDataReferencia } from "@/lib/datas";
 import { GRUPO_EQUIPES, PRAZO_POR_CRITICIDADE } from "@/lib/checklist";
+import {
+  montarResumoWhatsApp,
+  type OcorrenciaResumo,
+} from "@/lib/resumo-whatsapp";
 import type { EntradaBoletim } from "@/lib/validacao";
 
 /**
@@ -17,6 +21,8 @@ export type ResultadoRegistro = {
   id: number;
   abertas: number;
   reincidentes: number;
+  /** Texto pronto para colar no grupo de WhatsApp. */
+  resumo: string;
 };
 
 export type OpcoesRegistro = {
@@ -57,10 +63,22 @@ export async function registrarBoletim({
   manterAutoria = false,
 }: OpcoesRegistro): Promise<ResultadoRegistro> {
   // O catálogo é a fonte da criticidade — o cliente não tem voz nisso.
-  const catalogo = await prisma.checklistItem.findMany({
-    where: { id: { in: dados.itens.map((i) => i.checklistItemId) }, ativo: true },
-    select: { id: true, nome: true, grupo: true, criticidadePadrao: true },
-  });
+  const [catalogo, condominio] = await Promise.all([
+    prisma.checklistItem.findMany({
+      where: { id: { in: dados.itens.map((i) => i.checklistItemId) }, ativo: true },
+      select: {
+        id: true,
+        nome: true,
+        grupo: true,
+        ordem: true,
+        criticidadePadrao: true,
+      },
+    }),
+    prisma.condominio.findUnique({
+      where: { id: dados.condominioId },
+      select: { nome: true },
+    }),
+  ]);
   const porId = new Map(catalogo.map((i) => [i.id, i]));
 
   const itens = dados.itens.filter((i) => porId.has(i.checklistItemId));
@@ -142,6 +160,8 @@ export async function registrarBoletim({
     let abertas = 0;
     let reincidentes = 0;
     const autor = autoria ?? "painel administrativo";
+    // Alimenta o resumo de WhatsApp com os mesmos dados que foram gravados.
+    const paraResumo: OcorrenciaResumo[] = [];
 
     for (const item of naoConformes) {
       const catalogoItem = porId.get(item.checklistItemId)!;
@@ -162,7 +182,14 @@ export async function registrarBoletim({
           status: { in: ["PENDENTE", "EM_ANDAMENTO"] },
         },
         orderBy: { dataAbertura: "asc" },
-        select: { id: true },
+        select: {
+          id: true,
+          descricao: true,
+          criticidade: true,
+          status: true,
+          previsaoFinalizacao: true,
+          dataAbertura: true,
+        },
       });
 
       if (emAberto) {
@@ -190,6 +217,15 @@ export async function registrarBoletim({
             }`,
           },
         });
+        paraResumo.push({
+          setor: catalogoItem.nome,
+          descricao: item.observacao?.trim() || emAberto.descricao,
+          criticidade: emAberto.criticidade,
+          status: emAberto.status,
+          previsaoFinalizacao: emAberto.previsaoFinalizacao,
+          reincidente: true,
+          desde: emAberto.dataAbertura,
+        });
         reincidentes++;
         continue;
       }
@@ -216,6 +252,14 @@ export async function registrarBoletim({
       });
       abertas++;
 
+      paraResumo.push({
+        setor: catalogoItem.nome,
+        descricao,
+        criticidade: ocorrencia.criticidade,
+        status: ocorrencia.status,
+        previsaoFinalizacao: ocorrencia.previsaoFinalizacao,
+      });
+
       await tx.ocorrenciaLog.create({
         data: {
           ocorrenciaId: ocorrencia.id,
@@ -225,9 +269,32 @@ export async function registrarBoletim({
       });
     }
 
-    return { id: boletim.id, abertas, reincidentes };
+    const resumo = montarResumoWhatsApp({
+      condominio: condominio?.nome ?? "Condomínio",
+      dataReferencia: dados.dataReferencia,
+      preenchidoPor: autoria,
+      observacoes: dados.observacoes,
+      itens: itens.map((i) => {
+        const c = porId.get(i.checklistItemId)!;
+        return {
+          nome: c.nome,
+          grupo: c.grupo,
+          ordem: c.ordem,
+          situacao: i.situacao as SituacaoItem,
+          observacao: i.observacao,
+        };
+      }),
+      // Críticas primeiro: é o que precisa ser lido antes de rolar a mensagem.
+      ocorrencias: paraResumo.sort((a, b) =>
+        ORDEM_CRITICIDADE[b.criticidade] - ORDEM_CRITICIDADE[a.criticidade],
+      ),
+    });
+
+    return { id: boletim.id, abertas, reincidentes, resumo };
   });
 }
+
+const ORDEM_CRITICIDADE = { ALTA: 3, MEDIA: 2, BAIXA: 1 } as const;
 
 /** Frase de confirmação, usada nos dois fluxos. */
 export function resumoDoRegistro(r: ResultadoRegistro): string {

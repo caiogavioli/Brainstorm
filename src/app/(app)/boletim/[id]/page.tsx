@@ -16,6 +16,8 @@ import {
   STATUS_OCORRENCIA_LABEL,
 } from "@/lib/labels";
 import { ExcluirBoletim } from "@/components/boletim/acoes-admin";
+import { ResumoWhatsApp } from "@/components/boletim/resumo";
+import { montarResumoWhatsApp } from "@/lib/resumo-whatsapp";
 
 export const metadata = { title: "Boletim — Gestão de Condomínios" };
 
@@ -46,9 +48,12 @@ export default async function PaginaBoletim({
           ocorrencia: {
             select: {
               id: true,
+              descricao: true,
+              planoAcao: true,
               criticidade: true,
               status: true,
               dataAbertura: true,
+              previsaoFinalizacao: true,
               checklistItem: { select: { nome: true } },
             },
           },
@@ -61,6 +66,42 @@ export default async function PaginaBoletim({
 
   const naoConformes = boletim.itens.filter((i) => i.situacao === "NAO_CONFORME");
   const reincidentes = boletim.recorrencias;
+
+  // O mesmo texto que saiu no envio, remontado a partir do que está gravado —
+  // assim ele continua disponível dias depois, e reflete qualquer correção.
+  const textoResumo = montarResumoWhatsApp({
+    condominio: boletim.condominio.nome,
+    dataReferencia: boletim.dataReferencia,
+    preenchidoPor: boletim.preenchidoPor ?? boletim.criadoPor?.nome ?? null,
+    observacoes: boletim.observacoes,
+    itens: boletim.itens.map((i) => ({
+      nome: i.checklistItem.nome,
+      grupo: i.checklistItem.grupo,
+      ordem: i.checklistItem.ordem,
+      situacao: i.situacao,
+      observacao: i.observacao,
+    })),
+    ocorrencias: [
+      ...boletim.ocorrencias.map((o) => ({
+        setor: o.checklistItem?.nome ?? o.setorLivre ?? "Ocorrência",
+        descricao: o.descricao,
+        criticidade: o.criticidade,
+        status: o.status,
+        planoAcao: o.planoAcao,
+        previsaoFinalizacao: o.previsaoFinalizacao,
+      })),
+      ...reincidentes.map((r) => ({
+        setor: r.ocorrencia.checklistItem?.nome ?? "Ocorrência",
+        descricao: r.observacao?.trim() || r.ocorrencia.descricao,
+        planoAcao: r.ocorrencia.planoAcao,
+        criticidade: r.ocorrencia.criticidade,
+        status: r.ocorrencia.status,
+        previsaoFinalizacao: r.ocorrencia.previsaoFinalizacao,
+        reincidente: true,
+        desde: r.ocorrencia.dataAbertura,
+      })),
+    ],
+  });
 
   return (
     <div className="mx-auto max-w-3xl">
@@ -137,6 +178,10 @@ export default async function PaginaBoletim({
             </>
           ) : null}
         </div>
+      </div>
+
+      <div className="mb-4">
+        <ResumoWhatsApp texto={textoResumo} />
       </div>
 
       {/* Resumo do dia */}

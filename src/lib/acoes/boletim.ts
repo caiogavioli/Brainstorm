@@ -14,7 +14,7 @@ import {
 } from "@/lib/acoes/registrar-boletim";
 
 export type ResultadoAcao =
-  | { ok: true; id?: number; mensagem?: string }
+  | { ok: true; id?: number; mensagem?: string; resumo?: string }
   | { ok: false; erro: string };
 
 function revalidarTudo(id?: number) {
@@ -79,7 +79,12 @@ export async function enviarBoletimPublicoAction(
       permitirSubstituir: false,
     });
     revalidarTudo(resultado.id);
-    return { ok: true, id: resultado.id, mensagem: resumoDoRegistro(resultado) };
+    return {
+      ok: true,
+      id: resultado.id,
+      mensagem: resumoDoRegistro(resultado),
+      resumo: resultado.resumo,
+    };
   } catch (erro) {
     return tratarErro(erro);
   }
@@ -110,7 +115,12 @@ export async function salvarBoletimAction(payload: unknown): Promise<ResultadoAc
       permitirSubstituir: true,
     });
     revalidarTudo(resultado.id);
-    return { ok: true, id: resultado.id, mensagem: resumoDoRegistro(resultado) };
+    return {
+      ok: true,
+      id: resultado.id,
+      mensagem: resumoDoRegistro(resultado),
+      resumo: resultado.resumo,
+    };
   } catch (erro) {
     return tratarErro(erro);
   }
@@ -148,7 +158,12 @@ export async function corrigirBoletimAction(payload: unknown): Promise<Resultado
       manterAutoria: true,
     });
     revalidarTudo(resultado.id);
-    return { ok: true, id: resultado.id, mensagem: resumoDoRegistro(resultado) };
+    return {
+      ok: true,
+      id: resultado.id,
+      mensagem: resumoDoRegistro(resultado),
+      resumo: resultado.resumo,
+    };
   } catch (erro) {
     return tratarErro(erro);
   }

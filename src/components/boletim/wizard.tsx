@@ -7,6 +7,7 @@ import type { SituacaoItem, StatusGeralDia } from "@prisma/client";
 import { GRUPOS } from "@/lib/checklist";
 import { STATUS_DIA_LABEL } from "@/lib/labels";
 import { formatarDataReferencia } from "@/lib/datas";
+import { ResumoWhatsApp } from "@/components/boletim/resumo";
 import {
   corrigirBoletimAction,
   enviarBoletimPublicoAction,
@@ -77,6 +78,7 @@ export function WizardBoletim({
   const [observacoes, setObservacoes] = useState(valoresIniciais?.observacoes ?? "");
   const [erro, setErro] = useState<string | null>(null);
   const [enviado, setEnviado] = useState<string | null>(null);
+  const [resumo, setResumo] = useState<string | null>(null);
 
   // Todos os itens começam "Conforme": o gestor só interage onde há falha.
   // Na edição, começam como foram gravados.
@@ -204,6 +206,7 @@ export function WizardBoletim({
       if (modoPublico) {
         // Sem login não há painel para onde levar: a confirmação acontece aqui.
         setEnviado(resultado.mensagem ?? "Boletim registrado.");
+        setResumo(resultado.resumo ?? null);
         window.scrollTo({ top: 0, behavior: "smooth" });
         return;
       }
@@ -216,7 +219,7 @@ export function WizardBoletim({
 
   if (enviado) {
     return (
-      <div className="mx-auto max-w-2xl">
+      <div className="mx-auto max-w-2xl space-y-4">
         <div className="card card-pad text-center">
           <div
             className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full text-2xl"
@@ -253,6 +256,7 @@ export function WizardBoletim({
               setObservacoes("");
               setStatusManual(null);
               setEnviado(null);
+              setResumo(null);
               setEtapa(0);
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
@@ -260,6 +264,8 @@ export function WizardBoletim({
             Lançar outro boletim
           </button>
         </div>
+
+        {resumo ? <ResumoWhatsApp texto={resumo} /> : null}
       </div>
     );
   }
