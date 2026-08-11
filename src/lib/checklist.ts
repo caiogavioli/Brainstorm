@@ -170,7 +170,7 @@ export const CATALOGO_CHECKLIST: ItemCatalogo[] = [
   // -------------------------------------------- 9. Áreas Comuns e Conservação
   { codigo: "hall-circulacoes", nome: "Hall, Recepção e Circulações", grupo: "AREAS", ordem: 1, criticidadePadrao: "BAIXA" },
   { codigo: "estacionamento", nome: "Estacionamento e Garagens", grupo: "AREAS", ordem: 2, criticidadePadrao: "MEDIA" },
-  { codigo: "areas-lazer", nome: "Áreas de Lazer, Salão e Auditório", grupo: "AREAS", ordem: 3, criticidadePadrao: "BAIXA" },
+  { codigo: "areas-lazer", nome: "Auditório", grupo: "AREAS", ordem: 3, criticidadePadrao: "BAIXA" },
   { codigo: "jardins-externas", nome: "Jardins e Áreas Externas", grupo: "AREAS", ordem: 4, criticidadePadrao: "BAIXA" },
   { codigo: "fachada-cobertura", nome: "Fachada e Cobertura", grupo: "AREAS", ordem: 5, criticidadePadrao: "MEDIA" },
   { codigo: "residuos", nome: "Resíduos e Coleta de Lixo", grupo: "AREAS", ordem: 6, criticidadePadrao: "MEDIA" },
