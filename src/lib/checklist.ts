@@ -119,7 +119,7 @@ export const CATALOGO_CHECKLIST: ItemCatalogo[] = [
   { codigo: "equipe-jardinagem", nome: "Equipe de Jardinagem", grupo: "EQUIPES", ordem: 4, criticidadePadrao: "BAIXA" },
   { codigo: "equipe-seguranca", nome: "Equipe de Segurança e Portaria", grupo: "EQUIPES", ordem: 5, criticidadePadrao: "ALTA" },
   { codigo: "equipe-bombeiro", nome: "Bombeiro Civil", grupo: "EQUIPES", ordem: 6, criticidadePadrao: "ALTA" },
-  { codigo: "equipe-administracao", nome: "Administração e Zeladoria", grupo: "EQUIPES", ordem: 7, criticidadePadrao: "MEDIA" },
+  { codigo: "equipe-administracao", nome: "Equipe de Administração", grupo: "EQUIPES", ordem: 7, criticidadePadrao: "MEDIA" },
 
   // --------------------------------------------------- 2. Elétrica e Energia
   { codigo: "distribuicao-eletrica", nome: "Quadros e Distribuição Elétrica", grupo: "ELETRICA", ordem: 1, criticidadePadrao: "ALTA" },
