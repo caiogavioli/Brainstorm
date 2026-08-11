@@ -2,7 +2,7 @@
 
 Estado vivo do brainstorming. Ler no início de cada sessão, atualizar ao fim de cada rodada ou decisão.
 
-**Última atualização:** 2026-08-10
+**Última atualização:** 2026-08-11
 
 ---
 
@@ -11,6 +11,8 @@ Estado vivo do brainstorming. Ler no início de cada sessão, atualizar ao fim d
 **P-001 encerrado.** Virou o projeto `triagem-contratante`, com repositório privado criado e esqueleto no ar: <https://github.com/caiogavioli/triagem-contratante>. O desenvolvimento acontece **lá**, em outra sessão — aqui fica só o histórico da decisão.
 
 Última decisão tomada (2026-08-10): **entrega por email**, do usuário para ele mesmo, assunto `[Triagem] …`. Ele responde o próprio email para fechar pedidos, e o loop se fecha dentro da caixa dele. Foi avisado do risco de a rotina cair sem aviso e **aceitou explicitamente**.
+
+**Em produção desde 11/08/2026.** A rotina diária rodou sozinha pela primeira vez às 07h30, disparada pelo agendamento, sem ninguém pedir — leu a caixa, leu e atualizou o quadro no Monday e entregou a mensagem. O projeto saiu do papel.
 
 Nada em aberto neste repositório. Pronto para o próximo problema.
 
