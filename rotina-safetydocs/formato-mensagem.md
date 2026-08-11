@@ -34,8 +34,24 @@ necessidade de plano de ação para regularizar sua unidade com brevidade.
 [tabela: Documento | Responsável | Vencimento | Importância | Prazo]
 
 Atenciosamente,
+
 Caio Gavioli
+DF Síndicos Profissionais — Compromisso com a Qualidade
+📱 (11) 98323-1173
+✉️ caio@dfsindicos.com.br
+🌐 www.dfsindicos.com.br
 ```
+
+### Sobre a assinatura em imagem
+
+O Caio pediu a assinatura real (cartão com logo, em imagem). **Não é possível
+pelo canal de envio desta rotina**: o `outlook_send_mail` do conector
+Microsoft 365 sanitiza o HTML antes de enviar e remove qualquer tag `<img>` —
+proteção do próprio conector, não uma escolha de implementação, e vale tanto
+para teste quanto para os envios reais de segunda. Decisão do Caio em
+11/08/2026: recriar as mesmas informações do cartão **em texto formatado**
+(acima), sem o logo. Se um dia a rotina passar a enviar por uma via que não
+sanitize HTML (ex. API própria em vez do conector), a imagem pode voltar.
 
 Colunas usadas: as mesmas do informativo da SafetyDocs, exceto **Status**,
 **Arquivo** e **Últ. Comentário** — cortadas porque são ruído para quem só
