@@ -17,13 +17,15 @@ que já mandou cobrança para aquele condomínio naquela semana (ver
 ## Corpo
 
 Tom profissional, direto, sem ser agressivo — é cobrança recorrente, não a
-primeira nem a última. Duas seções, só as que tiverem item:
+primeira nem a última. Texto de abertura **fixo**, decidido pelo Caio em
+11/08/2026 — não parafrasear, usar literalmente:
 
 ```
-Olá,
+Olá pessoal.
 
-Segue a atualização semanal de documentos do <Nome do condomínio> pendentes na
-plataforma SafetyDocs. Pedimos a regularização o quanto antes.
+Peço que me atualizem sobre o status de cada documento "A VENCER" e
+"VENCIDOS", conforme lista abaixo enviada pelo Safetydocs. Reforço a
+necessidade de plano de ação para regularizar sua unidade com brevidade.
 
 🔴 DOCUMENTOS VENCIDOS (<n>)
 [tabela: Documento | Responsável | Vencimento | Importância | Prazo]
