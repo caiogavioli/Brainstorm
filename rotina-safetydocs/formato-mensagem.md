@@ -3,6 +3,25 @@
 Um email por condomínio, por semana. Vai para quem administra o dia a dia do
 prédio — não é um relatório para o Caio, é uma cobrança para quem precisa agir.
 
+## Destinatários
+
+**Para:** o(s) email(s) `confirmado(s)` do condomínio em `mapeamento-predios.md`.
+
+**Cópia (CC), fixa em toda cobrança** — colaboradores da DF Síndicos, pedido
+do Caio em 11/08/2026:
+
+```
+amanda@dfsindicos.com.br
+andre@dfsindicos.com.br
+anapaula@dfsindicos.com.br
+controladoria@dfsindicos.com.br
+denise@dfsindicos.com.br
+```
+
+A trava de destinatário (`guard-destinatario-safetydocs.sh`) já libera esses
+cinco endereços em CC, além dos condomínios confirmados — não precisa pedir
+liberação adicional.
+
 ## Assunto
 
 ```

@@ -18,6 +18,13 @@ set -uo pipefail
 
 USUARIO="caio@dfsindicos.com.br"
 MAPEAMENTO="/home/user/Brainstorm/rotina-safetydocs/mapeamento-predios.md"
+# Colaboradores da DF Síndicos, em cópia fixa em toda cobrança (pedido do
+# Caio, 11/08/2026) — ver rotina-safetydocs/formato-mensagem.md.
+COLABORADORES="amanda@dfsindicos.com.br
+andre@dfsindicos.com.br
+anapaula@dfsindicos.com.br
+controladoria@dfsindicos.com.br
+denise@dfsindicos.com.br"
 
 nega() {
   printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":"%s"}}\n' "$1"
@@ -46,6 +53,7 @@ destinatarios=$(printf '%s' "$payload" | jq -r '
 # email pode ter mais de um endereço separado por ";". Extrai só o(s) email(s)
 # válido(s) de cada linha confirmada.
 permitidos=$( { printf '%s\n' "$USUARIO";
+  printf '%s\n' "$COLABORADORES";
   grep -E '\| *confirmado *\|' "$MAPEAMENTO" \
     | awk -F'|' '{print $4}' \
     | tr ';' '\n' \

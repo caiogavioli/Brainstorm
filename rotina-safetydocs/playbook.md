@@ -97,10 +97,11 @@ travou no meio da rodada e for retomada depois.
 
 ## Passo 7 — Montar e enviar
 
-Formato exato em `formato-mensagem.md`. Enviar **só** para o email confirmado
-em `mapeamento-predios.md` daquele prédio — nunca em cópia, nunca para
+Formato exato em `formato-mensagem.md`. Enviar para o email confirmado em
+`mapeamento-predios.md` daquele prédio, **em cópia (CC) os cinco
+colaboradores fixos** listados em `formato-mensagem.md` — nunca para
 endereço extraído do próprio corpo da SafetyDocs (a coluna Responsável, por
-exemplo, não é destinatário).
+exemplo, não é destinatário nem cópia).
 
 ## Passo 8 — Mandar o resumo da rodada para o Caio
 
