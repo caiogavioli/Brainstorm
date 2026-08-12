@@ -25,9 +25,9 @@ O conteúdo de um branch **não é puxado de volta** para `main` — evita mistu
 | `claude/client-email-task-tracking-0bcy0q` | Brainstorming completo | P-001 — Controle de pedidos e prazos vindos por email do contratante | **Fechado.** Virou [`caiogavioli/triagem-contratante`](https://github.com/caiogavioli/triagem-contratante) (privado), em produção desde 11/08/2026 |
 | `claude/energia-automatizacao-respostas-edhmit` | Brainstorming completo | P-001 (numeração local ao branch) — Controle de respostas dos condomínios sobre automação de energia elétrica | Não virou repositório — era o mesmo problema do `triagem-contratante` visto de outro ângulo. Conectado ao card "Automatização de energia elétrica" no Monday daquele projeto; a planilha no OneDrive criada no caminho foi descartada |
 | `claude/project-brainstorming-t0jeoe` | Brainstorming vazio | Genesis original, nunca usado para um problema real | Superado por `main` — candidato a arquivar |
-| `claude/condominio-boletim-gestao-ougoqd` | **Código de produto** (Next.js/Prisma) | App de boletim/gestão condominial — "quadro de preenchimento na escala de 50 prédios" | Fora do padrão deste repositório (`CLAUDE.md` proíbe código de produto aqui). Era, até esta reorganização, o branch **default** do GitHub — provável causa da fragmentação. Avaliar migrar para repositório próprio |
-| `claude/safetydocs-automation-4rq592` | **Código de produto** + rotina | O mesmo app acima, mais `rotina-safetydocs/` (playbook da rotina agendada "Cobrança SafetyDocs") | Mesma observação acima. A Routine `trig_01TdEoP9RFiL1uADLHitmSWF` lê `rotina-safetydocs/*.md` **deste branch** — cuidado ao mover ou apagar, quebra automação em produção |
-| `claude/python-sql-database-planning-k95885` | Vazio | Sem nenhum commit de conteúdo | Provavelmente abandonado — confirmar com o usuário antes de apagar |
+| `claude/condominio-boletim-gestao-ougoqd` | **Código de produto** (Next.js/Prisma) | App de boletim/gestão condominial — "quadro de preenchimento na escala de 50 prédios" | Fora do padrão geral deste repositório (`CLAUDE.md` proíbe código de produto aqui), mas o usuário decidiu conscientemente **manter aqui** (2026-08-12) — não migra para repositório próprio |
+| `claude/safetydocs-automation-4rq592` | **Código de produto** + rotina | O mesmo app acima, mais `rotina-safetydocs/` (playbook da rotina agendada "Cobrança SafetyDocs") | Mesma decisão acima — fica aqui. A Routine `trig_01TdEoP9RFiL1uADLHitmSWF` lê `rotina-safetydocs/*.md` **deste branch** — cuidado ao mover ou apagar, quebra automação em produção |
+| ~~`claude/python-sql-database-planning-k95885`~~ | Vazio | Sem nenhum commit de conteúdo útil (CLAUDE.md e roadmap.md foram adicionados e depois excluídos) | **Descarte aprovado pelo usuário (2026-08-12).** `git push --delete` voltou 403 — a integração não tem permissão pra apagar branch. Falta a exclusão manual no GitHub |
 
 ## Problemas
 
@@ -56,11 +56,11 @@ _Cada branch de brainstorming mantém sua própria tabela de problemas em detalh
 - GitHub: conta `caiogavioli`.
 - Email de trabalho: Outlook / Microsoft 365. Dispositivos: Windows no computador, Android no celular — soluções precisam funcionar no celular.
 - Já paga e usa Microsoft 365 e Monday — preferir encaixar no que já existe a subir peça nova.
-- A integração do GitHub **não tem permissão de admin** (`Administration: write`) — não consegue criar repositório nem trocar o branch default do repositório. As duas ações precisam ser feitas à mão pelo usuário.
+- A integração do GitHub **não tem permissão de admin** (`Administration: write`) — não consegue criar repositório, trocar o branch default, nem apagar branch (`git push --delete` e a ausência de ferramenta MCP para isso confirmam). Essas ações precisam ser feitas à mão pelo usuário.
+- Aceita ter código de produto neste repositório quando é uma decisão consciente (caso do app de boletim/gestão condominial e da automação SafetyDocs) — a regra do `CLAUDE.md` vale por padrão, não é absoluta.
 
 ## Em aberto
 
-- Definir com o usuário o destino dos branches de código de produto (`condominio-boletim-gestao-ougoqd`, `safetydocs-automation-4rq592`) — migrar para repositórios próprios ou manter aqui por decisão consciente.
-- Confirmar se `claude/python-sql-database-planning-k95885` pode ser apagado.
 - **Ação pendente do usuário:** trocar o branch default do repositório para `main` em Settings → Branches no GitHub — a integração não tem permissão para fazer isso via API.
+- **Ação pendente do usuário:** apagar o branch `claude/python-sql-database-planning-k95885` no GitHub (Settings → Branches, ou a lista de branches do repositório) — já aprovado, só falta a permissão que a integração não tem.
 - Repositórios novos devem nascer **públicos ou privados**? (Pergunta antiga, ainda não confirmada — o único fechamento até aqui, `triagem-contratante`, nasceu privado.)
