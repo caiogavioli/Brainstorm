@@ -83,3 +83,11 @@ Pendente de decisão do usuário: confirmar o recorte acima e o Eixo 2 (A puro, 
 2. Eixo 2: **B** — leitura automática do Outlook desde o início (via conector Microsoft 365), não manual.
 
 Resultado: P-001 vira rotina/script, não projeto fechado com repositório dedicado. A execução prática (ler o Outlook, montar o controle deste caso e dos próximos) segue nesta mesma sessão.
+
+## Execução do primeiro caso
+
+Planilha criada no OneDrive do usuário: `Acompanhamento Condomínios.xlsx`, pasta "Acompanhamento Condomínios", aba "Leia-me" (como reaproveitar o molde a cada tema novo) + aba "Energia elétrica" (o caso deste problema).
+
+Link: https://dfsindicos365-my.sharepoint.com/personal/caio_dfsindicos_com_br/_layouts/15/Doc.aspx?sourcedoc=%7BCA5A6171-C37F-4C07-9F4A-9E6B8ED6CB2D%7D&file=Acompanhamento%20Condom%C3%ADnios.xlsx&action=default&mobileredirect=true
+
+Status levantado lendo o Outlook (envio original de 05/08 até 12/08/2026): 8 de 9 condomínios responderam (falta PL Extrema). Falta encaminhar a resposta do Centenário (CTN) à Thassia; a do Arquipeo pode ter sido encaminhada em duplicidade (a Cushman mandou direto ao time da Thassia e o usuário também incluiu no lote que enviou).

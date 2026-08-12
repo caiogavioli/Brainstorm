@@ -8,7 +8,7 @@ Estado vivo do brainstorming. Ler no início de cada sessão, atualizar ao fim d
 
 ## Situação atual
 
-P-001 fechou como rotina/script — não vira repositório dedicado. Controle por planilha (Excel/OneDrive) por caso/tema, com leitura automática do Outlook via conector Microsoft 365 desde o início (usuário escolheu B no Eixo 2, contra a recomendação inicial da Marina de começar manual). Execução prática do primeiro caso (Automatização de energia elétrica) segue na mesma sessão.
+P-001 fechou como rotina/script — não vira repositório dedicado. Controle por planilha (Excel/OneDrive) por caso/tema, com leitura automática do Outlook via conector Microsoft 365 desde o início (usuário escolheu B no Eixo 2, contra a recomendação inicial da Marina de começar manual). Primeiro caso executado: planilha "Acompanhamento Condomínios.xlsx" criada no OneDrive do usuário (aba Leia-me + aba por tema), com o status do caso "Energia elétrica" já levantado direto do Outlook. Próximo tema novo: usuário avisa e a Claude cria uma aba nova na mesma planilha.
 
 ## Problemas
 
