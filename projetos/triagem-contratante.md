@@ -132,6 +132,7 @@ O status `aguardando terceiro` existe porque parte relevante do trabalho dele n�
 - **Dependência de serviço externo.** A rotina roda fora do controle do usuário. Objeção levantada pelo próprio Tomás contra a própria proposta. Mitigação: se cair, ele volta a triar na mão — que é exatamente a situação de hoje, então o pior caso é o presente. **O usuário foi avisado explicitamente de que pode deixar de receber a mensagem sem ninguém avisar, e aceitou o risco (2026-08-10).** Por isso a rotina envia mensagem **também nos dias sem pedido**: silêncio total seria ambíguo entre "não teve pedido" e "quebrou".
 - **O usuário subestimou o próprio volume em 20×** na Rodada 1. Outros números auto-relatados neste projeto devem ser medidos antes de virarem premissa.
 - **Prazo implícito não é capturado.** "Urgente" e "assim que possível" não viram data. Ficam como demanda sem prazo.
+- **`receivedDateTime` não é confiável nesta caixa.** O usuário edita a data de recebimento de alguns emails à mão, jogando para o futuro (2028), para fixá-los no topo do Outlook. Descoberto em 12/08/2026, quatro casos. A rotina precisa ordenar, filtrar a janela de 24h e contar dias parado por **`sentDateTime`** — por `receivedDateTime` esses emails nunca entrariam na varredura. Data futura é marcador de importância do usuário, não defeito: não avisar como erro e não propor correção.
 
 ## Critério de pronto (v1)
 

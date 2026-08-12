@@ -2,7 +2,7 @@
 
 Estado vivo do brainstorming. Ler no início de cada sessão, atualizar ao fim de cada rodada ou decisão.
 
-**Última atualização:** 2026-08-11
+**Última atualização:** 2026-08-12
 
 ---
 
@@ -76,6 +76,19 @@ Esqueleto subido: `README.md`, `CLAUDE.md`, `.gitignore`, `docs/spec.md`, `rotin
 - **O usuário já usa categorias numeradas no Outlook** (`2: FYI` observada). Taxonomia completa ainda desconhecida.
 
 > Lição de processo: **auto-relato de volume não é dado confiável.** Medir a fonte antes de desenhar em cima do número.
+
+### Datas de recebimento adulteradas de propósito (2026-08-12)
+
+Alguns emails do contratante aparecem com `receivedDateTime` **no futuro** (ano 2028) enquanto o `sentDateTime` continua correto. Quatro casos observados, todos de 2026: 24/07, 22/05, 31/03 e 30/03.
+
+**Não é corrupção de dados.** O usuário informou que **ele mesmo alterou** essas datas, deliberadamente, para fixar os emails no topo da caixa do Outlook. É o marcador manual de importância dele.
+
+Consequências para a rotina:
+- **Sempre usar `sentDateTime`** para ordenar, filtrar janela de 24h e calcular dias parado. `receivedDateTime` não é confiável nessa caixa.
+- Uma data futura é **sinal positivo de relevância**, não anomalia. Não tratar como erro, não avisar como defeito e nunca sugerir "consertar" — a rotina não escreve na caixa.
+- A janela de 24h por `receivedDateTime` deixaria esses emails invisíveis para sempre; por `sentDateTime` eles entram na varredura correta.
+
+> Lição de processo: antes de chamar um dado estranho de "corrompido", perguntar. Este ficou dois dias sendo relatado como defeito do Outlook, quando era o usuário trabalhando.
 
 ## Em aberto
 
