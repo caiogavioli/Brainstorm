@@ -8,13 +8,13 @@ Estado vivo do brainstorming. Ler no início de cada sessão, atualizar ao fim d
 
 ## Situação atual
 
-P-001 passou pela Rodada 1 e pela Rodada 2. Recorte proposto pelas três personas: não é projeto de software, é uma rotina recorrente ("caso" por tema) sustentada por planilha + atualização conversacional. Aguardando o usuário confirmar o recorte e decidir o Eixo 2 (automação via Outlook agora ou depois).
+P-001 fechou como rotina/script — não vira repositório dedicado. Controle por planilha (Excel/OneDrive) por caso/tema, com leitura automática do Outlook via conector Microsoft 365 desde o início (usuário escolheu B no Eixo 2, contra a recomendação inicial da Marina de começar manual). Execução prática do primeiro caso (Automatização de energia elétrica) segue na mesma sessão.
 
 ## Problemas
 
 | ID | Título | Fase | Desfecho |
 |---|---|---|---|
-| P-001 | Controle de respostas dos condomínios sobre automação de energia elétrica | rodada 2 | proposto: virou script/rotina (não repo) — aguardando confirmação |
+| P-001 | Controle de respostas dos condomínios sobre automação de energia elétrica | virou script | rotina reaproveitável: planilha por caso + leitura automática do Outlook via conector, sem repositório dedicado |
 
 Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` / `virou script`
 

@@ -76,3 +76,10 @@ Isto **não é um projeto de software** — não abre repositório novo. É uma 
 - Automação via conector do Outlook fica em aberto para uma iteração futura, se o volume crescer (ponto de discordância entre Marina e Tomás — decisão do usuário).
 
 Pendente de decisão do usuário: confirmar o recorte acima e o Eixo 2 (A puro, ou já deixar B configurado desde já).
+
+## Decisão final do usuário
+
+1. Recorte confirmado: não é projeto de software, não abre repositório novo.
+2. Eixo 2: **B** — leitura automática do Outlook desde o início (via conector Microsoft 365), não manual.
+
+Resultado: P-001 vira rotina/script, não projeto fechado com repositório dedicado. A execução prática (ler o Outlook, montar o controle deste caso e dos próximos) segue nesta mesma sessão.
