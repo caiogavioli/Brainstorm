@@ -91,3 +91,13 @@ Planilha criada no OneDrive do usuário: `Acompanhamento Condomínios.xlsx`, pas
 Link: https://dfsindicos365-my.sharepoint.com/personal/caio_dfsindicos_com_br/_layouts/15/Doc.aspx?sourcedoc=%7BCA5A6171-C37F-4C07-9F4A-9E6B8ED6CB2D%7D&file=Acompanhamento%20Condom%C3%ADnios.xlsx&action=default&mobileredirect=true
 
 Status levantado lendo o Outlook (envio original de 05/08 até 12/08/2026): 8 de 9 condomínios responderam (falta PL Extrema). Falta encaminhar a resposta do Centenário (CTN) à Thassia; a do Arquipeo pode ter sido encaminhada em duplicidade (a Cushman mandou direto ao time da Thassia e o usuário também incluiu no lote que enviou).
+
+## Conexão com o projeto "Triagem Contratante"
+
+O usuário já tem, fora deste repositório, um projeto em produção que faz a triagem diária dos emails da Brookfield/BGRE que pedem ação: repositório `caiogavioli/triagem-contratante`, rotina agendada (`Triagem Contratante — rodada diária`, trig_01XgjXnVg8oytX2yvTv5ZqTZ, dias úteis às 10:30 UTC), que lê a Inbox, classifica pedidos, mantém um board no Monday ("TAREFAS", id 18425132208, grupo `group_mm637vs0` — "Brookfield / BGRE — Pedidos do contratante") e manda o email diário "[Triagem]" para o próprio usuário.
+
+O item "Automatização de energia elétrica" (P-001) já existe nesse board como card (id 12767606013) — e a própria descrição do card registra: "Este é o caso que originou todo o projeto de triagem."
+
+Conexão feita nesta sessão: postei um update no card do Monday com o status condomínio a condomínio e o link da planilha; mudei o status do card de "Não Iniciada" para "Em Progresso" (reflete a realidade: 8/9 já responderam); e adicionei, na aba da planilha, um link de volta para o card do Monday.
+
+Conexão que fica em aberto (não fiz sozinho): ligar isso de forma durável — ex. o playbook da Triagem Contratante passar a criar/referenciar automaticamente uma aba desta planilha sempre que um pedido novo for do tipo "levantamento por condomínio" — exigiria mexer no repositório `caiogavioli/triagem-contratante`, que é código de produto de outro projeto, fora do escopo deste repositório de brainstorming. Perguntei ao usuário se quer abrir isso como trabalho separado.
