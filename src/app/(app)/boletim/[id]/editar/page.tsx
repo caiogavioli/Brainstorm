@@ -32,7 +32,15 @@ export default async function PaginaEditarBoletim({
       include: {
         condominio: { select: { id: true, nome: true } },
         itens: {
-          select: { checklistItemId: true, situacao: true, observacao: true },
+          select: { id: true, checklistItemId: true, situacao: true, observacao: true },
+        },
+        ocorrencias: {
+          select: {
+            boletimItemId: true,
+            criticidade: true,
+            planoAcao: true,
+            previsaoFinalizacao: true,
+          },
         },
       },
     }),
@@ -47,10 +55,23 @@ export default async function PaginaEditarBoletim({
 
   const valoresIniciais: ValoresIniciais = {
     respostas: Object.fromEntries(
-      boletim.itens.map((i) => [
-        i.checklistItemId,
-        { situacao: i.situacao, observacao: i.observacao ?? "" },
-      ]),
+      boletim.itens.map((i) => {
+        // A ocorrência que este item gerou traz o tratamento que foi dado a ele
+        // — risco, plano e prazo — para a correção começar do que já existe.
+        const o = boletim.ocorrencias.find((x) => x.boletimItemId === i.id);
+        return [
+          i.checklistItemId,
+          {
+            situacao: i.situacao,
+            observacao: i.observacao ?? "",
+            criticidade: o?.criticidade ?? ("" as const),
+            planoAcao: o?.planoAcao ?? "",
+            previsaoFinalizacao: o?.previsaoFinalizacao
+              ? o.previsaoFinalizacao.toISOString().slice(0, 10)
+              : "",
+          },
+        ];
+      }),
     ),
     observacoes: boletim.observacoes ?? "",
     statusGeral: boletim.statusGeral,

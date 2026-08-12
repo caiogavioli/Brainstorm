@@ -3,8 +3,12 @@ import "server-only";
 import type { Prisma, PrismaClient, SituacaoItem } from "@prisma/client";
 
 import { prisma } from "@/lib/db";
-import { dataReferenciaParaDate, formatarDataReferencia } from "@/lib/datas";
-import { GRUPO_EQUIPES, PRAZO_POR_CRITICIDADE } from "@/lib/checklist";
+import {
+  dataEscolhidaParaDate,
+  dataReferenciaParaDate,
+  formatarDataReferencia,
+} from "@/lib/datas";
+import { GRUPO_EQUIPES } from "@/lib/checklist";
 import {
   montarResumoWhatsApp,
   type OcorrenciaResumo,
@@ -201,28 +205,52 @@ export async function registrarBoletim({
             observacao: item.observacao,
           },
         });
+        /*
+         * A reincidência não descarta o que a pessoa escreveu agora.
+         *
+         * Continua sendo UMA ocorrência — a regra de não duplicar plano de ação
+         * vale. Mas quem preencheu classificou o risco e escreveu um plano
+         * olhando para o problema hoje, e essa leitura é mais recente que a de
+         * dias atrás. Ignorá-la seria pedir informação para jogar fora, o que
+         * ensina a equipe a preencher por preencher.
+         *
+         * Um campo deixado em branco não apaga o que já existia.
+         */
         await tx.ocorrencia.update({
           where: { id: emAberto.id },
           data: {
             ultimaRecorrenciaEm: abertura,
             totalRecorrencias: { increment: 1 },
+            ...(item.criticidade ? { criticidade: item.criticidade } : {}),
+            ...(item.planoAcao ? { planoAcao: item.planoAcao } : {}),
+            ...(item.previsaoFinalizacao
+              ? { previsaoFinalizacao: dataEscolhidaParaDate(item.previsaoFinalizacao) }
+              : {}),
           },
         });
         await tx.ocorrenciaLog.create({
           data: {
             ocorrenciaId: emAberto.id,
             usuarioId,
-            mensagem: `Problema ainda presente no boletim de ${formatarDataReferencia(dados.dataReferencia)}, enviado por ${autor}.${
-              item.observacao ? ` "${item.observacao}"` : ""
-            }`,
+            mensagem:
+              `Problema ainda presente no boletim de ${formatarDataReferencia(dados.dataReferencia)}, enviado por ${autor}.` +
+              (item.observacao ? ` "${item.observacao}"` : "") +
+              (item.criticidade ? ` Risco reavaliado como ${item.criticidade}.` : "") +
+              (item.planoAcao ? ` Plano de ação atualizado: "${item.planoAcao}"` : "") +
+              (item.previsaoFinalizacao
+                ? ` Conclusão estimada para ${formatarDataReferencia(item.previsaoFinalizacao)}.`
+                : ""),
           },
         });
         paraResumo.push({
           setor: catalogoItem.nome,
           descricao: item.observacao?.trim() || emAberto.descricao,
-          criticidade: emAberto.criticidade,
+          planoAcao: item.planoAcao,
+          criticidade: item.criticidade ?? emAberto.criticidade,
           status: emAberto.status,
-          previsaoFinalizacao: emAberto.previsaoFinalizacao,
+          previsaoFinalizacao: item.previsaoFinalizacao
+            ? dataEscolhidaParaDate(item.previsaoFinalizacao)
+            : emAberto.previsaoFinalizacao,
           reincidente: true,
           desde: emAberto.dataAbertura,
         });
@@ -230,17 +258,29 @@ export async function registrarBoletim({
         continue;
       }
 
-      const previsao = new Date(abertura);
-      previsao.setUTCDate(
-        previsao.getUTCDate() + PRAZO_POR_CRITICIDADE[catalogoItem.criticidadePadrao],
-      );
+      /*
+       * O prazo vem de quem preencheu — ou não vem.
+       *
+       * O sistema NÃO calcula data de conclusão. Um prazo gerado
+       * automaticamente parece compromisso sem que ninguém o tenha assumido:
+       * enche a matriz de risco de atrasos que não são de ninguém e treina
+       * todo mundo a ignorar o indicador. Campo vazio se lê como "ainda sem
+       * prazo", que é a verdade quando ninguém definiu um.
+       */
+      const previsao = item.previsaoFinalizacao
+        ? dataEscolhidaParaDate(item.previsaoFinalizacao)
+        : null;
+
+      // A criticidade do catálogo é sugestão; quem esteve no local decide.
+      const criticidade = item.criticidade ?? catalogoItem.criticidadePadrao;
 
       const ocorrencia = await tx.ocorrencia.create({
         data: {
           condominioId: dados.condominioId,
           checklistItemId: item.checklistItemId,
           descricao,
-          criticidade: catalogoItem.criticidadePadrao,
+          planoAcao: item.planoAcao ?? null,
+          criticidade,
           status: "PENDENTE",
           previsaoFinalizacao: previsao,
           dataAbertura: dataRegistro,
@@ -255,6 +295,7 @@ export async function registrarBoletim({
       paraResumo.push({
         setor: catalogoItem.nome,
         descricao,
+        planoAcao: item.planoAcao,
         criticidade: ocorrencia.criticidade,
         status: ocorrencia.status,
         previsaoFinalizacao: ocorrencia.previsaoFinalizacao,
@@ -264,7 +305,12 @@ export async function registrarBoletim({
         data: {
           ocorrenciaId: ocorrencia.id,
           usuarioId,
-          mensagem: `Ocorrência aberta pelo boletim de ${formatarDataReferencia(dados.dataReferencia)}, enviado por ${autor}. Criticidade ${catalogoItem.criticidadePadrao} definida pelo catálogo do item.`,
+          mensagem:
+            `Ocorrência aberta pelo boletim de ${formatarDataReferencia(dados.dataReferencia)}, enviado por ${autor}. ` +
+            `Criticidade ${criticidade}${item.criticidade ? " informada por quem preencheu" : " sugerida pelo catálogo"}. ` +
+            (previsao
+              ? `Conclusão estimada para ${formatarDataReferencia(item.previsaoFinalizacao!)}.`
+              : "Sem prazo definido."),
         },
       });
     }

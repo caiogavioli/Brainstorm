@@ -12,7 +12,7 @@
 import { PrismaClient, type Criticidade, type StatusOcorrencia } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
-import { GRUPO_EQUIPES, PRAZO_POR_CRITICIDADE } from "../src/lib/checklist";
+import { GRUPO_EQUIPES } from "../src/lib/checklist";
 import { sincronizarCatalogo } from "../scripts/sincronizar-catalogo";
 
 const prisma = new PrismaClient();
@@ -297,7 +297,17 @@ async function seedMovimento(condominioIds: number[], adminId: number, dias = 90
         else if (idade > 10) status = sorteioStatus < 0.6 ? "CONCLUIDO" : sorteioStatus < 0.85 ? "EM_ANDAMENTO" : "PENDENTE";
         else status = sorteioStatus < 0.3 ? "CONCLUIDO" : sorteioStatus < 0.7 ? "EM_ANDAMENTO" : "PENDENTE";
 
-        const prazoDias = PRAZO_POR_CRITICIDADE[criticidade];
+        /*
+         * Prazo dos dados de exemplo.
+         *
+         * Vive aqui, e não no código da aplicação, porque a aplicação NÃO
+         * calcula prazo: quem preenche informa, ou fica sem. O seed precisa de
+         * datas plausíveis para o dashboard ter o que mostrar, e uma parte
+         * fica deliberadamente sem previsão, que é o caso real de "ainda não
+         * combinamos quando".
+         */
+        const prazoDias = { ALTA: 3, MEDIA: 7, BAIXA: 15 }[criticidade];
+        const semPrazo = rand() < 0.2;
         const previsao = new Date(data);
         previsao.setUTCDate(previsao.getUTCDate() + prazoDias);
 
@@ -345,7 +355,7 @@ async function seedMovimento(condominioIds: number[], adminId: number, dias = 90
             planoAcao: rand() < 0.8 ? escolher(planosAcao) : null,
             criticidade,
             status,
-            previsaoFinalizacao: previsao,
+            previsaoFinalizacao: semPrazo ? null : previsao,
             dataConclusao: conclusao,
             dataAbertura: data,
             origem: "BOLETIM",

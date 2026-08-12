@@ -5,6 +5,8 @@ import type { Criticidade, Prisma, StatusOcorrencia } from "@prisma/client";
 import { prisma } from "@/lib/db";
 import {
   dataReferenciaDe,
+  formatarDataReferencia,
+  intervaloDoDia,
   diasDoMes,
   diasNoMes,
   intervaloDoMes,
@@ -18,6 +20,14 @@ export type FiltroDashboard = {
   condominioId: number | null;
   /** "YYYY-MM" */
   mes: string;
+  /**
+   * "YYYY-MM-DD" — quando presente, o período é esse único dia, e não o mês.
+   *
+   * A análise operacional é diária: a pergunta de toda manhã é "quem mandou o
+   * boletim ontem", não "como foi o mês". O mês continua existindo para a
+   * leitura de tendência.
+   */
+  dia?: string | null;
   /** Escopo do usuário (null = ADMIN, vê todos). */
   escopo: number[] | null;
 };
@@ -48,7 +58,9 @@ function whereCondominioEntidade(filtro: FiltroDashboard): Prisma.CondominioWher
 }
 
 export async function carregarDashboard(filtro: FiltroDashboard) {
-  const { inicio, fim } = intervaloDoMes(filtro.mes);
+  const { inicio, fim } = filtro.dia
+    ? intervaloDoDia(filtro.dia)
+    : intervaloDoMes(filtro.mes);
   const base = whereCondominio(filtro);
 
   const whereBoletim: Prisma.BoletimWhereInput = {
@@ -139,7 +151,11 @@ export async function carregarDashboard(filtro: FiltroDashboard) {
   // Cobertura: quantos dias do mês realmente receberam boletim. Sem isso, um mês
   // com 2 boletins e 2 dias conformes exibiria "100% de conformidade".
   const hoje = dataReferenciaDe();
-  const diasDoPeriodo = diasDoMes(filtro.mes).filter((d) => d <= hoje);
+  // Num único dia, o esperado é um boletim por condomínio — e não um por dia
+  // decorrido do mês.
+  const diasDoPeriodo = filtro.dia
+    ? [filtro.dia].filter((d) => d <= hoje)
+    : diasDoMes(filtro.mes).filter((d) => d <= hoje);
   const condominiosNoFiltro = filtro.condominioId
     ? 1
     : (filtro.escopo?.length ??
@@ -183,7 +199,7 @@ export async function carregarDashboard(filtro: FiltroDashboard) {
     const dia = dataReferenciaDe(o.dataAbertura);
     contagemPorDia.set(dia, (contagemPorDia.get(dia) ?? 0) + 1);
   }
-  const linhaDoTempo = diasDoMes(filtro.mes).map((dia) => ({
+  const linhaDoTempo = (filtro.dia ? [filtro.dia] : diasDoMes(filtro.mes)).map((dia) => ({
     dia,
     rotulo: rotuloDiaCurto(dia),
     ocorrencias: contagemPorDia.get(dia) ?? 0,
@@ -364,6 +380,78 @@ export async function carregarDashboard(filtro: FiltroDashboard) {
     .filter((c) => c.ativo || c.boletins > 0 || c.ocorrencias > 0 || c.emAberto > 0)
     .sort((a, b) => b.ocorrencias - a.ocorrencias || a.nome.localeCompare(b.nome, "pt-BR"));
 
+  // ------------------------------------------- Preenchimento do dia por prédio
+  //
+  // O quadro de luzes responde a pergunta operacional da manhã: quem mandou o
+  // boletim e quem não mandou. Só faz sentido para UM dia — num mês inteiro,
+  // "preencheu" não é sim ou não.
+  const diaDoQuadro = filtro.dia ?? hoje;
+
+  const boletinsDoDia = await prisma.boletim.findMany({
+    where: { ...base, dataReferencia: diaDoQuadro },
+    select: {
+      condominioId: true,
+      statusGeral: true,
+      dataRegistro: true,
+      preenchidoPor: true,
+      itens: { where: { situacao: "NAO_CONFORME" }, select: { id: true } },
+      ocorrencias: {
+        select: { id: true, planoAcao: true, previsaoFinalizacao: true },
+      },
+    },
+  });
+  const boletimPorCondominio = new Map(boletinsDoDia.map((b) => [b.condominioId, b]));
+
+  const quadroDoDia = condominiosDoFiltro
+    .filter((c) => c.ativo)
+    .map((c) => {
+      const b = boletimPorCondominio.get(c.id);
+
+      if (!b) {
+        return {
+          id: c.id,
+          nome: c.nome,
+          luz: "VERMELHA" as const,
+          detalhe: "Boletim não preenchido",
+          naoConformes: 0,
+          enviadoEm: null as Date | null,
+          preenchidoPor: null as string | null,
+        };
+      }
+
+      /*
+       * Amarelo = enviado, mas o tratamento não foi fechado.
+       *
+       * Uma não conformidade sem plano de ação é um problema que ninguém
+       * assumiu. Contar isso como "preenchido" esconderia exatamente o que a
+       * análise diária existe para encontrar. Prazo em branco NÃO conta como
+       * pendência: ele é legitimamente opcional.
+       */
+      const semPlano = b.ocorrencias.filter(
+        (o) => !o.planoAcao || o.planoAcao.trim().length === 0,
+      ).length;
+
+      return {
+        id: c.id,
+        nome: c.nome,
+        luz: semPlano > 0 ? ("AMARELA" as const) : ("VERDE" as const),
+        detalhe:
+          semPlano > 0
+            ? `${semPlano} não conformidade(s) sem plano de ação`
+            : b.itens.length > 0
+              ? `${b.itens.length} não conformidade(s), todas tratadas`
+              : "Dia em conformidade",
+        naoConformes: b.itens.length,
+        enviadoEm: b.dataRegistro,
+        preenchidoPor: b.preenchidoPor,
+      };
+    })
+    .sort((a, b) => {
+      // Vermelho primeiro: é o que exige ação hoje.
+      const peso = { VERMELHA: 0, AMARELA: 1, VERDE: 2 };
+      return peso[a.luz] - peso[b.luz] || a.nome.localeCompare(b.nome, "pt-BR");
+    });
+
   // ------------------------------------------------------------- Planos -----
 
   const planosPorStatus = (["PENDENTE", "EM_ANDAMENTO", "CONCLUIDO"] as StatusOcorrencia[]).map(
@@ -373,7 +461,8 @@ export async function carregarDashboard(filtro: FiltroDashboard) {
   return {
     periodo: {
       mes: filtro.mes,
-      rotulo: rotuloMes(filtro.mes),
+      dia: filtro.dia ?? null,
+      rotulo: filtro.dia ? formatarDataReferencia(filtro.dia) : rotuloMes(filtro.mes),
       diasNoMes: diasNoMes(filtro.mes),
       diasDecorridos: diasDoPeriodo.length,
     },
@@ -397,6 +486,8 @@ export async function carregarDashboard(filtro: FiltroDashboard) {
     distribuicaoStatusDia,
     historicoMensal,
     matrizRisco,
+    quadroDoDia,
+    diaDoQuadro,
     porCondominio,
     filaPrioridade,
     planosPorStatus,

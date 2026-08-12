@@ -32,6 +32,20 @@ export function dataReferenciaParaDate(referencia: string): Date {
   return new Date(`${referencia}T00:00:00.000Z`);
 }
 
+/**
+ * Data escolhida por uma pessoa num campo de calendário, gravada ao MEIO-DIA UTC.
+ *
+ * Meia-noite UTC parece o natural e está errado: exibida em Brasília (UTC−3),
+ * ela volta para o dia anterior. Quem digitou 28 lê 27 no relatório, e um prazo
+ * exibido com um dia de diferença do combinado destrói a confiança no número.
+ *
+ * Meio-dia deixa 12 horas de folga em cada direção, o que cobre qualquer fuso
+ * em que este sistema seja lido.
+ */
+export function dataEscolhidaParaDate(dia: string): Date {
+  return new Date(`${dia}T12:00:00.000Z`);
+}
+
 /** Primeiro e último instante de um mês "YYYY-MM", em UTC. */
 export function intervaloDoMes(mes: string): { inicio: Date; fim: Date } {
   const [ano, mesNum] = mes.split("-").map(Number);
@@ -47,6 +61,19 @@ export function diasNoMes(mes: string): number {
 }
 
 /** Lista de "YYYY-MM-DD" de todos os dias de um mês. */
+/**
+ * Início e fim de um único dia, em UTC.
+ *
+ * O `fim` é o começo do dia seguinte, para as consultas usarem `< fim` e não
+ * dependerem de precisão de milissegundo no limite.
+ */
+export function intervaloDoDia(dia: string): { inicio: Date; fim: Date } {
+  const inicio = new Date(`${dia}T00:00:00.000Z`);
+  const fim = new Date(inicio);
+  fim.setUTCDate(fim.getUTCDate() + 1);
+  return { inicio, fim };
+}
+
 export function diasDoMes(mes: string): string[] {
   const total = diasNoMes(mes);
   return Array.from(
@@ -138,4 +165,13 @@ export function diasAteSLA(
   const hoje = dataReferenciaParaDate(dataReferenciaDe(referencia));
   if (Number.isNaN(alvo.getTime())) return null;
   return Math.round((alvo.getTime() - hoje.getTime()) / 86_400_000);
+}
+
+/** Só a hora, para o quadro do dia — a data já está no título. */
+export function formatarHora(data: Date): string {
+  return new Intl.DateTimeFormat("pt-BR", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "America/Sao_Paulo",
+  }).format(data);
 }

@@ -2,7 +2,12 @@ import Link from "next/link";
 
 import { condominiosDaSessao, escopoCondominios, exigirAdmin } from "@/lib/auth";
 import { carregarDashboard } from "@/lib/consultas/dashboard";
-import { formatarData, diasAteSLA, mesReferenciaAtual } from "@/lib/datas";
+import {
+  formatarData,
+  diasAteSLA,
+  dataReferenciaDe,
+  mesReferenciaAtual,
+} from "@/lib/datas";
 import {
   CRITICIDADE_CLASSE,
   CRITICIDADE_LABEL,
@@ -10,6 +15,7 @@ import {
 } from "@/lib/labels";
 import { FiltrosGlobais } from "@/components/filtros";
 import { CartaoKPI } from "@/components/dashboard/kpi";
+import { QuadroDoDia } from "@/components/dashboard/quadro-dia";
 import { MarcadorSLA } from "@/components/marcador-sla";
 import {
   BarraConformidade,
@@ -36,7 +42,7 @@ function pct(valor: number): string {
 export default async function PaginaDashboard({
   searchParams,
 }: {
-  searchParams: Promise<{ condominio?: string; mes?: string }>;
+  searchParams: Promise<{ condominio?: string; mes?: string; dia?: string }>;
 }) {
   const sessao = await exigirAdmin();
   const params = await searchParams;
@@ -46,10 +52,12 @@ export default async function PaginaDashboard({
   const mes = /^\d{4}-\d{2}$/.test(params.mes ?? "")
     ? params.mes!
     : mesReferenciaAtual();
+  const dia = /^\d{4}-\d{2}-\d{2}$/.test(params.dia ?? "") ? params.dia! : null;
 
   const dados = await carregarDashboard({
     condominioId,
     mes,
+    dia,
     escopo: escopoCondominios(sessao),
   });
 
@@ -71,7 +79,12 @@ export default async function PaginaDashboard({
       <FiltrosGlobais
         condominios={condominios.map((c) => ({ id: c.id, nome: c.nome }))}
         mesPadrao={mes}
+        mostrarDia
+        diaPadrao={dataReferenciaDe()}
       />
+
+      {/* Quadro de luzes: a leitura de todo dia, antes de qualquer número. */}
+      <QuadroDoDia linhas={dados.quadroDoDia} dia={dados.diaDoQuadro} />
 
       {/* ------------------------------------------------------------ KPIs -- */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">

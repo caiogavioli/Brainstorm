@@ -31,14 +31,31 @@ export const boletimSchema = z.object({
     "OCORRENCIA_CRITICA",
   ]),
   observacoes: textoOpcional,
-  // Sem criticidade: ela é atributo do item no catálogo, resolvida no servidor.
   // Sem faltas: elas saem dos itens do grupo de equipes.
+  //
+  // Criticidade, plano de ação e prazo vêm de quem preenche, e só para os itens
+  // não conformes. O catálogo continua sugerindo a gravidade — mas quem esteve
+  // no local decide, porque é quem viu o tamanho do problema.
   itens: z
     .array(
       z.object({
         checklistItemId: z.coerce.number().int().positive(),
         situacao,
         observacao: textoOpcional,
+        criticidade: z.enum(["ALTA", "MEDIA", "BAIXA"]).optional(),
+        planoAcao: textoOpcional,
+        /**
+         * Data estimada de conclusão, sempre opcional e NUNCA preenchida pelo
+         * sistema. Um prazo que ninguém assumiu vira cobrança sem dono e
+         * contamina todo indicador de atraso; melhor um campo vazio, que se lê
+         * como "ainda sem prazo", do que uma data inventada que parece
+         * compromisso.
+         */
+        previsaoFinalizacao: z
+          .string()
+          .regex(/^\d{4}-\d{2}-\d{2}$/, "Data de conclusão inválida.")
+          .optional()
+          .or(z.literal("").transform(() => undefined)),
       }),
     )
     .min(1, "O boletim precisa de ao menos um item."),

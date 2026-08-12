@@ -184,9 +184,4 @@ export const CATALOGO_CHECKLIST: ItemCatalogo[] = [
 /** Grupo cujos itens representam efetivo de pessoal — origem das faltas. */
 export const GRUPO_EQUIPES = "EQUIPES";
 
-/** Prazo (SLA) em dias, derivado da criticidade do item. */
-export const PRAZO_POR_CRITICIDADE: Record<Criticidade, number> = {
-  ALTA: 3,
-  MEDIA: 7,
-  BAIXA: 15,
-};
+

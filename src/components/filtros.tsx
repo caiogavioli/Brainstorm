@@ -12,6 +12,8 @@ export function FiltrosGlobais({
   condominios,
   mostrarMes = true,
   mesPadrao,
+  mostrarDia = false,
+  diaPadrao,
   extras,
 }: {
   condominios: { id: number; nome: string }[];
@@ -19,6 +21,9 @@ export function FiltrosGlobais({
   /** Mês exibido quando a URL não traz `?mes=` — mantém o campo em sincronia
    *  com o período que a página está realmente mostrando. */
   mesPadrao?: string;
+  /** Habilita a escolha entre analisar um dia ou o mês inteiro. */
+  mostrarDia?: boolean;
+  diaPadrao?: string;
   extras?: {
     nome: string;
     rotulo: string;
@@ -29,11 +34,14 @@ export function FiltrosGlobais({
   const caminho = usePathname();
   const parametros = useSearchParams();
 
+  const porDia = parametros.get("dia") !== null && parametros.get("dia") !== "";
+
   const atualizar = useCallback(
-    (chave: string, valor: string) => {
+    (chave: string, valor: string, limpar?: string) => {
       const busca = new URLSearchParams(parametros.toString());
       if (valor) busca.set(chave, valor);
       else busca.delete(chave);
+      if (limpar !== undefined) busca.delete(limpar);
       router.push(`${caminho}?${busca.toString()}`);
     },
     [caminho, parametros, router],
@@ -61,7 +69,47 @@ export function FiltrosGlobais({
           </select>
         </div>
 
-        {mostrarMes ? (
+        {mostrarDia ? (
+          <>
+            <div className="min-w-[8rem]">
+              <label className="rotulo" htmlFor="filtro-periodo">
+                Período
+              </label>
+              <select
+                id="filtro-periodo"
+                className="campo"
+                value={porDia ? "dia" : "mes"}
+                onChange={(e) =>
+                  // Trocar de período limpa o outro campo: manter os dois na URL
+                  // deixaria ambíguo qual está valendo.
+                  e.target.value === "dia"
+                    ? atualizar("dia", diaPadrao ?? "", "mes")
+                    : atualizar("dia", "", "")
+                }
+              >
+                <option value="dia">Dia</option>
+                <option value="mes">Mês</option>
+              </select>
+            </div>
+
+            {porDia ? (
+              <div className="min-w-[9rem] flex-1">
+                <label className="rotulo" htmlFor="filtro-dia">
+                  Dia
+                </label>
+                <input
+                  id="filtro-dia"
+                  type="date"
+                  className="campo"
+                  value={parametros.get("dia") ?? diaPadrao ?? ""}
+                  onChange={(e) => atualizar("dia", e.target.value)}
+                />
+              </div>
+            ) : null}
+          </>
+        ) : null}
+
+        {mostrarMes && !porDia ? (
           <div className="min-w-[9rem] flex-1">
             <label className="rotulo" htmlFor="filtro-mes">
               Mês/Ano

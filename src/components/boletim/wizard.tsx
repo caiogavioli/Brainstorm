@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import type { SituacaoItem, StatusGeralDia } from "@prisma/client";
+import type { Criticidade, SituacaoItem, StatusGeralDia } from "@prisma/client";
 
 import { GRUPOS } from "@/lib/checklist";
 import { STATUS_DIA_LABEL } from "@/lib/labels";
@@ -26,7 +26,17 @@ type Condominio = { id: number; nome: string };
 type Resposta = {
   situacao: SituacaoItem;
   observacao: string;
+  /** Preenchidos só quando o item é não conforme, na etapa de revisão. */
+  criticidade: Criticidade | "";
+  planoAcao: string;
+  previsaoFinalizacao: string;
 };
+
+const CRITICIDADES: { valor: Criticidade; rotulo: string }[] = [
+  { valor: "BAIXA", rotulo: "Baixo" },
+  { valor: "MEDIA", rotulo: "Médio" },
+  { valor: "ALTA", rotulo: "Alto" },
+];
 
 const SITUACOES: { valor: SituacaoItem; rotulo: string; curto: string }[] = [
   { valor: "CONFORME", rotulo: "Conforme", curto: "OK" },
@@ -89,6 +99,9 @@ export function WizardBoletim({
         valoresIniciais?.respostas[i.id] ?? {
           situacao: "CONFORME" as SituacaoItem,
           observacao: "",
+          criticidade: "" as const,
+          planoAcao: "",
+          previsaoFinalizacao: "",
         },
       ]),
     ),
@@ -137,7 +150,14 @@ export function WizardBoletim({
     setRespostas((atual) => {
       const copia = { ...atual };
       for (const item of doGrupo) {
-        copia[item.id] = { ...copia[item.id], situacao: "CONFORME", observacao: "" };
+        copia[item.id] = {
+          ...copia[item.id],
+          situacao: "CONFORME",
+          observacao: "",
+          criticidade: "",
+          planoAcao: "",
+          previsaoFinalizacao: "",
+        };
       }
       return copia;
     });
@@ -178,6 +198,23 @@ export function WizardBoletim({
       );
       return;
     }
+
+    // Risco e plano são obrigatórios; o prazo, não. Uma ocorrência sem risco não
+    // entra na fila de prioridade, e sem plano ninguém sabe o que fazer com ela.
+    // Já o prazo pode legitimamente não existir ainda — e forçar um seria o
+    // mesmo que o sistema inventar a data.
+    const semRisco = naoConformes.find((i) => !respostas[i.id]?.criticidade);
+    if (semRisco) {
+      setErro(`Classifique o risco de "${semRisco.nome}" na revisão.`);
+      return;
+    }
+    const semPlano = naoConformes.find(
+      (i) => (respostas[i.id]?.planoAcao ?? "").trim().length < 5,
+    );
+    if (semPlano) {
+      setErro(`Informe o plano de ação de "${semPlano.nome}" na revisão.`);
+      return;
+    }
     iniciarEnvio(async () => {
       const payload = {
         condominioId,
@@ -185,11 +222,20 @@ export function WizardBoletim({
         statusGeral,
         observacoes,
         preenchidoPor: preenchidoPor.trim(),
-        itens: itens.map((i) => ({
-          checklistItemId: i.id,
-          situacao: respostas[i.id].situacao,
-          observacao: respostas[i.id].observacao,
-        })),
+        itens: itens.map((i) => {
+          const r = respostas[i.id];
+          const naoConforme = r.situacao === "NAO_CONFORME";
+          return {
+            checklistItemId: i.id,
+            situacao: r.situacao,
+            observacao: r.observacao,
+            // Risco, plano e prazo só fazem sentido onde houve falha.
+            criticidade: naoConforme && r.criticidade ? r.criticidade : undefined,
+            planoAcao: naoConforme ? r.planoAcao : "",
+            previsaoFinalizacao:
+              naoConforme && r.previsaoFinalizacao ? r.previsaoFinalizacao : undefined,
+          };
+        }),
       };
 
       const resultado = modoPublico
@@ -249,7 +295,13 @@ export function WizardBoletim({
                 Object.fromEntries(
                   itens.map((i) => [
                     i.id,
-                    { situacao: "CONFORME" as SituacaoItem, observacao: "" },
+                    {
+                      situacao: "CONFORME" as SituacaoItem,
+                      observacao: "",
+                      criticidade: "" as const,
+                      planoAcao: "",
+                      previsaoFinalizacao: "",
+                    },
                   ]),
                 ),
               );
@@ -638,23 +690,126 @@ export function WizardBoletim({
                 </div>
               </dl>
 
-              {naoConformes.length > 0 ? (
-                <ul className="mt-3 space-y-1 text-sm">
-                  {naoConformes.map((i) => (
-                    <li key={i.id} className="flex items-start gap-2">
-                      <span
-                        aria-hidden
-                        className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full"
-                        style={{ background: "var(--status-critico)" }}
-                      />
-                      <span>
-                        <strong>{i.nome}</strong>
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+              {naoConformes.length === 0 ? (
+                <p className="mt-3 text-sm" style={{ color: "var(--tinta-3)" }}>
+                  Nenhuma não conformidade. Nada a tratar.
+                </p>
               ) : null}
             </div>
+
+            {naoConformes.length > 0 ? (
+              <div>
+                <div className="titulo-secao mb-1">Tratamento das não conformidades</div>
+                <p className="text-xs mb-3" style={{ color: "var(--tinta-3)" }}>
+                  Cada item abaixo vira uma ocorrência. Classifique o risco e diga o
+                  que será feito — quem esteve no local é quem sabe o tamanho do
+                  problema.
+                </p>
+
+                <ul className="space-y-3">
+                  {naoConformes.map((item) => {
+                    const r = respostas[item.id];
+                    return (
+                      <li
+                        key={item.id}
+                        className="rounded-xl p-3"
+                        style={{
+                          border:
+                            "1px solid color-mix(in srgb, var(--status-critico) 40%, transparent)",
+                          background:
+                            "color-mix(in srgb, var(--status-critico) 5%, var(--superficie))",
+                        }}
+                      >
+                        <div className="font-semibold text-sm mb-1">{item.nome}</div>
+                        <p className="text-xs mb-3" style={{ color: "var(--tinta-2)" }}>
+                          {r.observacao}
+                        </p>
+
+                        <div className="mb-3">
+                          <span className="rotulo">Risco</span>
+                          <div
+                            className="grid grid-cols-3 gap-1"
+                            role="radiogroup"
+                            aria-label={`Risco de ${item.nome}`}
+                          >
+                            {CRITICIDADES.map((c, indice) => {
+                              const marcado = r.criticidade === c.valor;
+                              // Rampa de um matiz: risco é escala, não categoria.
+                              const cor = [
+                                "var(--ordinal-1)",
+                                "var(--ordinal-2)",
+                                "var(--ordinal-3)",
+                              ][indice];
+                              return (
+                                <button
+                                  key={c.valor}
+                                  type="button"
+                                  role="radio"
+                                  aria-checked={marcado}
+                                  onClick={() =>
+                                    alterarResposta(item.id, { criticidade: c.valor })
+                                  }
+                                  className="rounded-lg px-2 py-2 text-xs font-semibold"
+                                  style={{
+                                    minHeight: "2.5rem",
+                                    border: `1px solid ${marcado ? "transparent" : "var(--borda-forte)"}`,
+                                    background: marcado ? cor : "var(--superficie)",
+                                    color: marcado
+                                      ? indice === 0
+                                        ? "#0b0b0b"
+                                        : "#ffffff"
+                                      : "var(--tinta-2)",
+                                  }}
+                                >
+                                  {c.rotulo}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        <div className="mb-3">
+                          <label className="rotulo" htmlFor={`plano-${item.id}`}>
+                            Plano de ação
+                          </label>
+                          <textarea
+                            id={`plano-${item.id}`}
+                            className="campo"
+                            style={{ minHeight: "4rem" }}
+                            placeholder="O que será feito para resolver."
+                            value={r.planoAcao}
+                            onChange={(e) =>
+                              alterarResposta(item.id, { planoAcao: e.target.value })
+                            }
+                          />
+                        </div>
+
+                        <div>
+                          <label className="rotulo" htmlFor={`prazo-${item.id}`}>
+                            Conclusão estimada (opcional)
+                          </label>
+                          <input
+                            id={`prazo-${item.id}`}
+                            type="date"
+                            className="campo"
+                            value={r.previsaoFinalizacao}
+                            onChange={(e) =>
+                              alterarResposta(item.id, {
+                                previsaoFinalizacao: e.target.value,
+                              })
+                            }
+                          />
+                          <p className="mt-1 text-xs" style={{ color: "var(--tinta-3)" }}>
+                            Deixe em branco se ainda não há prazo. O sistema não
+                            preenche data nenhuma por conta própria.
+                          </p>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ) : null}
           </div>
         ) : null}
 
