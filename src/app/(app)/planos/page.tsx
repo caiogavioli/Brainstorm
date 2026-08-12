@@ -2,7 +2,14 @@ import type { Prisma, StatusOcorrencia } from "@prisma/client";
 
 import { prisma } from "@/lib/db";
 import { condominiosDaSessao, exigirSessao, filtroCondominio } from "@/lib/auth";
-import { diasAteSLA, formatarData, paraInputDate } from "@/lib/datas";
+import {
+  dataReferenciaDe,
+  diasAteSLA,
+  formatarData,
+  inicioDoDiaLocal,
+  paraInputDate,
+  somarDias,
+} from "@/lib/datas";
 import {
   CRITICIDADE_CLASSE,
   CRITICIDADE_LABEL,
@@ -16,11 +23,17 @@ import { EditarPlano, NovoPlano } from "@/components/planos/painel";
 export const metadata = { title: "Planos de ação — Gestão de Condomínios" };
 
 const STATUS_VALIDOS: StatusOcorrencia[] = ["PENDENTE", "EM_ANDAMENTO", "CONCLUIDO"];
+const DATA = /^\d{4}-\d{2}-\d{2}$/;
 
 export default async function PaginaPlanos({
   searchParams,
 }: {
-  searchParams: Promise<{ condominio?: string; status?: string }>;
+  searchParams: Promise<{
+    condominio?: string;
+    status?: string;
+    de?: string;
+    ate?: string;
+  }>;
 }) {
   const sessao = await exigirSessao();
   const params = await searchParams;
@@ -31,10 +44,25 @@ export default async function PaginaPlanos({
   const status = STATUS_VALIDOS.includes(params.status as StatusOcorrencia)
     ? (params.status as StatusOcorrencia)
     : null;
+  const de = DATA.test(params.de ?? "") ? params.de! : "";
+  const ate = DATA.test(params.ate ?? "") ? params.ate! : "";
 
+  // Aqui a data que interessa é a previsão de finalização — "o que vence nas
+  // próximas duas semanas" é a pergunta que se faz a um plano de ação, não
+  // quando ele foi cadastrado. Por isso o intervalo nasce vazio: com ele
+  // preenchido, planos sem previsão somem da lista, e sumir é uma decisão que
+  // tem que ser do usuário.
   const where: Prisma.PlanoAcaoWhereInput = {
     ...filtroCondominio(sessao, condominioFiltro),
     ...(status ? { status } : {}),
+    ...(de || ate
+      ? {
+          previsaoFinalizacao: {
+            ...(de ? { gte: inicioDoDiaLocal(de) } : {}),
+            ...(ate ? { lt: inicioDoDiaLocal(somarDias(ate, 1)) } : {}),
+          },
+        }
+      : {}),
   };
 
   const planos = await prisma.planoAcao.findMany({
@@ -59,7 +87,9 @@ export default async function PaginaPlanos({
 
       <FiltrosGlobais
         condominios={listaCondominios}
-        mostrarMes={false}
+        rotuloPeriodo="Previsão"
+        ajudaPeriodo="Com um intervalo de previsão preenchido, planos sem data prevista ficam de fora da lista."
+        hoje={dataReferenciaDe()}
         extras={[
           {
             nome: "status",

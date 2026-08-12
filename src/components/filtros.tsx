@@ -3,27 +3,43 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 
+import { primeiroDiaDoMes, somarDias, ultimoDiaDoMes } from "@/lib/datas";
+
 /**
  * Barra de filtros global (condomínio + período), em uma única linha acima do
  * conteúdo. Escreve na URL, então o estado é compartilhável e sobrevive ao
  * recarregamento.
+ *
+ * O período é um intervalo aberto — data de início e data de término, cada uma
+ * num campo de calendário. Um seletor de mês só responde perguntas mensais, e a
+ * análise real quase nunca cai certinho num mês: "da última visita até hoje",
+ * "a semana passada", "os três dias do feriado".
+ *
+ * Os atalhos existem porque o caso mais frequente é o de hoje, e clicar duas
+ * vezes num calendário para pedir "hoje" seria um retrocesso em relação ao
+ * seletor de dia que havia antes.
  */
 export function FiltrosGlobais({
   condominios,
-  mostrarMes = true,
-  mesPadrao,
-  mostrarDia = false,
-  diaPadrao,
+  mostrarPeriodo = true,
+  rotuloPeriodo = "Período",
+  ajudaPeriodo,
+  dePadrao,
+  atePadrao,
+  hoje,
   extras,
 }: {
   condominios: { id: number; nome: string }[];
-  mostrarMes?: boolean;
-  /** Mês exibido quando a URL não traz `?mes=` — mantém o campo em sincronia
-   *  com o período que a página está realmente mostrando. */
-  mesPadrao?: string;
-  /** Habilita a escolha entre analisar um dia ou o mês inteiro. */
-  mostrarDia?: boolean;
-  diaPadrao?: string;
+  mostrarPeriodo?: boolean;
+  /** Muda quando a data filtrada não é a do registro (ex.: "Previsão entre"). */
+  rotuloPeriodo?: string;
+  ajudaPeriodo?: string;
+  /** Valores exibidos quando a URL não traz `?de=`/`?ate=`. */
+  dePadrao?: string;
+  atePadrao?: string;
+  /** Hoje no fuso de operação, vindo do servidor — os atalhos dependem disso e
+   *  calcular no cliente daria divergência de hidratação. */
+  hoje?: string;
   extras?: {
     nome: string;
     rotulo: string;
@@ -34,18 +50,46 @@ export function FiltrosGlobais({
   const caminho = usePathname();
   const parametros = useSearchParams();
 
-  const porDia = parametros.get("dia") !== null && parametros.get("dia") !== "";
+  const de = parametros.get("de") ?? dePadrao ?? "";
+  const ate = parametros.get("ate") ?? atePadrao ?? "";
 
-  const atualizar = useCallback(
-    (chave: string, valor: string, limpar?: string) => {
+  const navegar = useCallback(
+    (mudancas: Record<string, string>) => {
       const busca = new URLSearchParams(parametros.toString());
-      if (valor) busca.set(chave, valor);
-      else busca.delete(chave);
-      if (limpar !== undefined) busca.delete(limpar);
+      for (const [chave, valor] of Object.entries(mudancas)) {
+        if (valor) busca.set(chave, valor);
+        else busca.delete(chave);
+      }
       router.push(`${caminho}?${busca.toString()}`);
     },
     [caminho, parametros, router],
   );
+
+  /**
+   * Um intervalo invertido devolveria zero resultados e pareceria um sistema
+   * quebrado, não um filtro mal preenchido. Arrastar a outra ponta junto é o
+   * comportamento que não tem como confundir.
+   */
+  const mudarInicio = (valor: string) =>
+    navegar({ de: valor, ...(valor && ate && valor > ate ? { ate: valor } : {}) });
+
+  const mudarFim = (valor: string) =>
+    navegar({ ate: valor, ...(valor && de && valor < de ? { de: valor } : {}) });
+
+  const atalhos = hoje
+    ? [
+        { rotulo: "Hoje", de: hoje, ate: hoje },
+        { rotulo: "Ontem", de: somarDias(hoje, -1), ate: somarDias(hoje, -1) },
+        { rotulo: "7 dias", de: somarDias(hoje, -6), ate: hoje },
+        { rotulo: "30 dias", de: somarDias(hoje, -29), ate: hoje },
+        { rotulo: "Este mês", de: primeiroDiaDoMes(hoje), ate: hoje },
+        {
+          rotulo: "Mês passado",
+          de: primeiroDiaDoMes(somarDias(primeiroDiaDoMes(hoje), -1)),
+          ate: ultimoDiaDoMes(somarDias(primeiroDiaDoMes(hoje), -1)),
+        },
+      ]
+    : [];
 
   return (
     <div className="card card-pad mb-4 sem-impressao">
@@ -58,7 +102,7 @@ export function FiltrosGlobais({
             id="filtro-condominio"
             className="campo"
             value={parametros.get("condominio") ?? ""}
-            onChange={(e) => atualizar("condominio", e.target.value)}
+            onChange={(e) => navegar({ condominio: e.target.value })}
           >
             <option value="">Todos</option>
             {condominios.map((c) => (
@@ -69,59 +113,36 @@ export function FiltrosGlobais({
           </select>
         </div>
 
-        {mostrarDia ? (
+        {mostrarPeriodo ? (
           <>
-            <div className="min-w-[8rem]">
-              <label className="rotulo" htmlFor="filtro-periodo">
-                Período
+            <div className="min-w-[9rem] flex-1">
+              <label className="rotulo" htmlFor="filtro-de">
+                {rotuloPeriodo} — início
               </label>
-              <select
-                id="filtro-periodo"
+              <input
+                id="filtro-de"
+                type="date"
                 className="campo"
-                value={porDia ? "dia" : "mes"}
-                onChange={(e) =>
-                  // Trocar de período limpa o outro campo: manter os dois na URL
-                  // deixaria ambíguo qual está valendo.
-                  e.target.value === "dia"
-                    ? atualizar("dia", diaPadrao ?? "", "mes")
-                    : atualizar("dia", "", "")
-                }
-              >
-                <option value="dia">Dia</option>
-                <option value="mes">Mês</option>
-              </select>
+                max={ate || undefined}
+                value={de}
+                onChange={(e) => mudarInicio(e.target.value)}
+              />
             </div>
 
-            {porDia ? (
-              <div className="min-w-[9rem] flex-1">
-                <label className="rotulo" htmlFor="filtro-dia">
-                  Dia
-                </label>
-                <input
-                  id="filtro-dia"
-                  type="date"
-                  className="campo"
-                  value={parametros.get("dia") ?? diaPadrao ?? ""}
-                  onChange={(e) => atualizar("dia", e.target.value)}
-                />
-              </div>
-            ) : null}
+            <div className="min-w-[9rem] flex-1">
+              <label className="rotulo" htmlFor="filtro-ate">
+                {rotuloPeriodo} — término
+              </label>
+              <input
+                id="filtro-ate"
+                type="date"
+                className="campo"
+                min={de || undefined}
+                value={ate}
+                onChange={(e) => mudarFim(e.target.value)}
+              />
+            </div>
           </>
-        ) : null}
-
-        {mostrarMes && !porDia ? (
-          <div className="min-w-[9rem] flex-1">
-            <label className="rotulo" htmlFor="filtro-mes">
-              Mês/Ano
-            </label>
-            <input
-              id="filtro-mes"
-              type="month"
-              className="campo"
-              value={parametros.get("mes") ?? mesPadrao ?? ""}
-              onChange={(e) => atualizar("mes", e.target.value)}
-            />
-          </div>
         ) : null}
 
         {extras?.map((extra) => (
@@ -133,7 +154,7 @@ export function FiltrosGlobais({
               id={`filtro-${extra.nome}`}
               className="campo"
               value={parametros.get(extra.nome) ?? ""}
-              onChange={(e) => atualizar(extra.nome, e.target.value)}
+              onChange={(e) => navegar({ [extra.nome]: e.target.value })}
             >
               {extra.opcoes.map((o) => (
                 <option key={o.valor} value={o.valor}>
@@ -144,6 +165,51 @@ export function FiltrosGlobais({
           </div>
         ))}
       </div>
+
+      {mostrarPeriodo && atalhos.length > 0 ? (
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <span className="text-xs" style={{ color: "var(--tinta-3)" }}>
+            Atalhos:
+          </span>
+          {atalhos.map((a) => {
+            const ativo = de === a.de && ate === a.ate;
+            return (
+              <button
+                key={a.rotulo}
+                type="button"
+                aria-pressed={ativo}
+                onClick={() => navegar({ de: a.de, ate: a.ate })}
+                className="rounded-full px-3 py-1 text-xs font-semibold transition-colors"
+                style={{
+                  border: `1px solid ${ativo ? "var(--serie-1)" : "var(--borda)"}`,
+                  background: ativo
+                    ? "color-mix(in srgb, var(--serie-1) 12%, transparent)"
+                    : "transparent",
+                  color: ativo ? "var(--serie-1)" : "var(--tinta-2)",
+                }}
+              >
+                {a.rotulo}
+              </button>
+            );
+          })}
+          {de || ate ? (
+            <button
+              type="button"
+              onClick={() => navegar({ de: "", ate: "" })}
+              className="text-xs underline"
+              style={{ color: "var(--tinta-3)" }}
+            >
+              limpar período
+            </button>
+          ) : null}
+        </div>
+      ) : null}
+
+      {ajudaPeriodo ? (
+        <p className="mt-2 text-xs" style={{ color: "var(--tinta-3)" }}>
+          {ajudaPeriodo}
+        </p>
+      ) : null}
     </div>
   );
 }

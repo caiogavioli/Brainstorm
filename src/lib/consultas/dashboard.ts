@@ -5,12 +5,12 @@ import type { Criticidade, Prisma, StatusOcorrencia } from "@prisma/client";
 import { prisma } from "@/lib/db";
 import {
   dataReferenciaDe,
+  diasDoIntervalo,
   formatarDataReferencia,
-  intervaloDoDia,
-  diasDoMes,
-  diasNoMes,
+  intervaloDeDatas,
   intervaloDoMes,
   rotuloDiaCurto,
+  rotuloIntervalo,
   rotuloMes,
   ultimosMeses,
 } from "@/lib/datas";
@@ -18,19 +18,24 @@ import {
 export type FiltroDashboard = {
   /** null = todos os condomínios do escopo do usuário. */
   condominioId: number | null;
-  /** "YYYY-MM" */
-  mes: string;
   /**
-   * "YYYY-MM-DD" — quando presente, o período é esse único dia, e não o mês.
+   * Intervalo analisado, "YYYY-MM-DD" nas duas pontas, inclusive.
    *
-   * A análise operacional é diária: a pergunta de toda manhã é "quem mandou o
-   * boletim ontem", não "como foi o mês". O mês continua existindo para a
-   * leitura de tendência.
+   * A análise operacional é diária — a pergunta de toda manhã é "quem mandou o
+   * boletim ontem" — mas quase nunca cai certinho num mês do calendário. Um
+   * intervalo livre atende os dois casos: `de === ate` é a leitura do dia.
    */
-  dia?: string | null;
+  de: string;
+  ate: string;
   /** Escopo do usuário (null = ADMIN, vê todos). */
   escopo: number[] | null;
 };
+
+/**
+ * Acima disso a linha do tempo vira um borrão de barras de um pixel, então ela
+ * passa a agregar por mês. Dois meses de dias ainda são legíveis.
+ */
+const MAXIMO_DIAS_NA_LINHA = 62;
 
 export type DadosDashboard = Awaited<ReturnType<typeof carregarDashboard>>;
 
@@ -58,14 +63,15 @@ function whereCondominioEntidade(filtro: FiltroDashboard): Prisma.CondominioWher
 }
 
 export async function carregarDashboard(filtro: FiltroDashboard) {
-  const { inicio, fim } = filtro.dia
-    ? intervaloDoDia(filtro.dia)
-    : intervaloDoMes(filtro.mes);
+  const { inicio, fim } = intervaloDeDatas(filtro.de, filtro.ate);
   const base = whereCondominio(filtro);
 
+  // Boletim se filtra por `dataReferencia` — o dia a que ele se refere — e não
+  // por `dataRegistro`, o instante em que a linha foi gravada. Quem preenche às
+  // 21h30 o boletim de hoje não deve ver o registro cair no dia seguinte.
   const whereBoletim: Prisma.BoletimWhereInput = {
     ...base,
-    dataRegistro: { gte: inicio, lt: fim },
+    dataReferencia: { gte: filtro.de, lte: filtro.ate },
   };
   const whereOcorrenciaAberta: Prisma.OcorrenciaWhereInput = {
     ...base,
@@ -151,11 +157,9 @@ export async function carregarDashboard(filtro: FiltroDashboard) {
   // Cobertura: quantos dias do mês realmente receberam boletim. Sem isso, um mês
   // com 2 boletins e 2 dias conformes exibiria "100% de conformidade".
   const hoje = dataReferenciaDe();
-  // Num único dia, o esperado é um boletim por condomínio — e não um por dia
-  // decorrido do mês.
-  const diasDoPeriodo = filtro.dia
-    ? [filtro.dia].filter((d) => d <= hoje)
-    : diasDoMes(filtro.mes).filter((d) => d <= hoje);
+  // Só os dias já decorridos contam como esperados: um intervalo que avança
+  // para o futuro não gera dívida de boletim.
+  const diasDoPeriodo = diasDoIntervalo(filtro.de, filtro.ate).filter((d) => d <= hoje);
   const condominiosNoFiltro = filtro.condominioId
     ? 1
     : (filtro.escopo?.length ??
@@ -194,16 +198,30 @@ export async function carregarDashboard(filtro: FiltroDashboard) {
 
   // ------------------------------------------------------ Linha do tempo ----
 
-  const contagemPorDia = new Map<string, number>();
+  const todosOsDias = diasDoIntervalo(filtro.de, filtro.ate);
+  const porMes = todosOsDias.length > MAXIMO_DIAS_NA_LINHA;
+
+  const contagemPorChave = new Map<string, number>();
   for (const o of ocorrenciasDoMes) {
     const dia = dataReferenciaDe(o.dataAbertura);
-    contagemPorDia.set(dia, (contagemPorDia.get(dia) ?? 0) + 1);
+    const chave = porMes ? dia.slice(0, 7) : dia;
+    contagemPorChave.set(chave, (contagemPorChave.get(chave) ?? 0) + 1);
   }
-  const linhaDoTempo = (filtro.dia ? [filtro.dia] : diasDoMes(filtro.mes)).map((dia) => ({
-    dia,
-    rotulo: rotuloDiaCurto(dia),
-    ocorrencias: contagemPorDia.get(dia) ?? 0,
-  }));
+
+  const linhaDoTempo = {
+    agregadaPorMes: porMes,
+    pontos: porMes
+      ? [...new Set(todosOsDias.map((d) => d.slice(0, 7)))].map((mes) => ({
+          rotulo: rotuloMes(mes).slice(0, 3),
+          rotuloCompleto: rotuloMes(mes),
+          ocorrencias: contagemPorChave.get(mes) ?? 0,
+        }))
+      : todosOsDias.map((dia) => ({
+          rotulo: rotuloDiaCurto(dia),
+          rotuloCompleto: formatarDataReferencia(dia),
+          ocorrencias: contagemPorChave.get(dia) ?? 0,
+        })),
+  };
 
   // ----------------------------------------- Distribuição do status do dia ---
 
@@ -224,7 +242,9 @@ export async function carregarDashboard(filtro: FiltroDashboard) {
 
   // --------------------------------------- Abertas x concluídas (6 meses) ----
 
-  const meses = ultimosMeses(filtro.mes, 6);
+  // A tendência é sempre mensal e ancorada no fim do intervalo — ela existe
+  // justamente para dar o contexto que o recorte escolhido não dá.
+  const meses = ultimosMeses(filtro.ate.slice(0, 7), 6);
   const primeiroMes = intervaloDoMes(meses[0]).inicio;
   const [aberturasHistorico, conclusoesHistorico] = await Promise.all([
     prisma.ocorrencia.findMany({
@@ -380,44 +400,46 @@ export async function carregarDashboard(filtro: FiltroDashboard) {
     .filter((c) => c.ativo || c.boletins > 0 || c.ocorrencias > 0 || c.emAberto > 0)
     .sort((a, b) => b.ocorrencias - a.ocorrencias || a.nome.localeCompare(b.nome, "pt-BR"));
 
-  // ------------------------------------------- Preenchimento do dia por prédio
+  // --------------------------------------- Preenchimento no período por prédio
   //
-  // O quadro de luzes responde a pergunta operacional da manhã: quem mandou o
-  // boletim e quem não mandou. Só faz sentido para UM dia — num mês inteiro,
-  // "preencheu" não é sim ou não.
-  const diaDoQuadro = filtro.dia ?? hoje;
+  // O quadro responde a pergunta operacional da manhã: quem mandou o boletim e
+  // quem não mandou. Num intervalo de vários dias a pergunta não é mais sim ou
+  // não, então vira contagem: vermelho é faltar ao menos um dia, amarelo é ter
+  // mandado tudo mas deixar não conformidade sem plano.
+  //
+  // Só os dias já decorridos contam. Cobrar boletim de amanhã acenderia vermelho
+  // no prédio inteiro e tornaria o quadro inútil justamente em quem consulta o
+  // mês corrente.
+  const umUnicoDia = diasDoPeriodo.length === 1;
 
-  const boletinsDoDia = await prisma.boletim.findMany({
-    where: { ...base, dataReferencia: diaDoQuadro },
+  const boletinsDoPeriodo = await prisma.boletim.findMany({
+    where: {
+      ...base,
+      dataReferencia: { gte: filtro.de, lte: filtro.ate },
+    },
     select: {
       condominioId: true,
-      statusGeral: true,
+      dataReferencia: true,
       dataRegistro: true,
       preenchidoPor: true,
       itens: { where: { situacao: "NAO_CONFORME" }, select: { id: true } },
-      ocorrencias: {
-        select: { id: true, planoAcao: true, previsaoFinalizacao: true },
-      },
+      ocorrencias: { select: { id: true, planoAcao: true } },
     },
   });
-  const boletimPorCondominio = new Map(boletinsDoDia.map((b) => [b.condominioId, b]));
 
-  const quadroDoDia = condominiosDoFiltro
+  const porPredio = new Map<number, typeof boletinsDoPeriodo>();
+  for (const b of boletinsDoPeriodo) {
+    const lista = porPredio.get(b.condominioId);
+    if (lista) lista.push(b);
+    else porPredio.set(b.condominioId, [b]);
+  }
+
+  const quadroPreenchimento = condominiosDoFiltro
     .filter((c) => c.ativo)
     .map((c) => {
-      const b = boletimPorCondominio.get(c.id);
-
-      if (!b) {
-        return {
-          id: c.id,
-          nome: c.nome,
-          luz: "VERMELHA" as const,
-          detalhe: "Boletim não preenchido",
-          naoConformes: 0,
-          enviadoEm: null as Date | null,
-          preenchidoPor: null as string | null,
-        };
-      }
+      const doPredio = (porPredio.get(c.id) ?? []).filter((b) =>
+        diasDoPeriodo.includes(b.dataReferencia),
+      );
 
       /*
        * Amarelo = enviado, mas o tratamento não foi fechado.
@@ -427,23 +449,32 @@ export async function carregarDashboard(filtro: FiltroDashboard) {
        * análise diária existe para encontrar. Prazo em branco NÃO conta como
        * pendência: ele é legitimamente opcional.
        */
-      const semPlano = b.ocorrencias.filter(
-        (o) => !o.planoAcao || o.planoAcao.trim().length === 0,
-      ).length;
+      const semPlano = doPredio.reduce(
+        (soma, b) =>
+          soma +
+          b.ocorrencias.filter((o) => !o.planoAcao || o.planoAcao.trim().length === 0)
+            .length,
+        0,
+      );
+      const naoConformes = doPredio.reduce((soma, b) => soma + b.itens.length, 0);
+      const faltando = diasDoPeriodo.length - doPredio.length;
+
+      const luz =
+        faltando > 0 ? ("VERMELHA" as const)
+        : semPlano > 0 ? ("AMARELA" as const)
+        : ("VERDE" as const);
 
       return {
         id: c.id,
         nome: c.nome,
-        luz: semPlano > 0 ? ("AMARELA" as const) : ("VERDE" as const),
-        detalhe:
-          semPlano > 0
-            ? `${semPlano} não conformidade(s) sem plano de ação`
-            : b.itens.length > 0
-              ? `${b.itens.length} não conformidade(s), todas tratadas`
-              : "Dia em conformidade",
-        naoConformes: b.itens.length,
-        enviadoEm: b.dataRegistro,
-        preenchidoPor: b.preenchidoPor,
+        luz,
+        diasEsperados: diasDoPeriodo.length,
+        diasPreenchidos: doPredio.length,
+        semPlano,
+        naoConformes,
+        // Hora e autor só fazem sentido quando há um boletim único a apontar.
+        enviadoEm: umUnicoDia ? (doPredio[0]?.dataRegistro ?? null) : null,
+        preenchidoPor: umUnicoDia ? (doPredio[0]?.preenchidoPor ?? null) : null,
       };
     })
     .sort((a, b) => {
@@ -460,10 +491,10 @@ export async function carregarDashboard(filtro: FiltroDashboard) {
 
   return {
     periodo: {
-      mes: filtro.mes,
-      dia: filtro.dia ?? null,
-      rotulo: filtro.dia ? formatarDataReferencia(filtro.dia) : rotuloMes(filtro.mes),
-      diasNoMes: diasNoMes(filtro.mes),
+      de: filtro.de,
+      ate: filtro.ate,
+      rotulo: rotuloIntervalo(filtro.de, filtro.ate),
+      dias: todosOsDias.length,
       diasDecorridos: diasDoPeriodo.length,
     },
     kpis: {
@@ -486,8 +517,7 @@ export async function carregarDashboard(filtro: FiltroDashboard) {
     distribuicaoStatusDia,
     historicoMensal,
     matrizRisco,
-    quadroDoDia,
-    diaDoQuadro,
+    quadroPreenchimento,
     porCondominio,
     filaPrioridade,
     planosPorStatus,

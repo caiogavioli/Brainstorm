@@ -15,7 +15,6 @@ import {
 } from "recharts";
 
 import { STATUS_DIA_LABEL } from "@/lib/labels";
-import { formatarDataReferencia } from "@/lib/datas";
 import { useTokensViz } from "@/components/dashboard/tokens";
 
 /* -------------------------------------------------------------------------
@@ -135,7 +134,10 @@ export function GraficoSetores({
 export function GraficoLinhaTempo({
   dados,
 }: {
-  dados: { dia: string; rotulo: string; ocorrencias: number }[];
+  /** `rotulo` é o do eixo (curto); `rotuloCompleto` é o da dica, onde cabe mais.
+   *  Em intervalos longos os pontos deixam de ser dias e passam a ser meses, e
+   *  os dois rótulos acompanham essa troca. */
+  dados: { rotulo: string; rotuloCompleto: string; ocorrencias: number }[];
 }) {
   const t = useTokensViz();
   const maximo = Math.max(...dados.map((d) => d.ocorrencias), 1);
@@ -162,11 +164,14 @@ export function GraficoLinhaTempo({
         <Tooltip
           content={({ active, payload }) => {
             if (!active || !payload?.length) return null;
-            const ponto = payload[0].payload as { dia: string; ocorrencias: number };
+            const ponto = payload[0].payload as {
+              rotuloCompleto: string;
+              ocorrencias: number;
+            };
             return (
               <div className="viz-tooltip">
                 <div className="font-semibold mb-1 text-xs num">
-                  {formatarDataReferencia(ponto.dia)}
+                  {ponto.rotuloCompleto}
                 </div>
                 <div className="flex items-center justify-between gap-3 text-xs">
                   <span className="flex items-center gap-1.5">

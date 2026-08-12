@@ -2,12 +2,7 @@ import Link from "next/link";
 
 import { condominiosDaSessao, escopoCondominios, exigirAdmin } from "@/lib/auth";
 import { carregarDashboard } from "@/lib/consultas/dashboard";
-import {
-  formatarData,
-  diasAteSLA,
-  dataReferenciaDe,
-  mesReferenciaAtual,
-} from "@/lib/datas";
+import { formatarData, diasAteSLA, dataReferenciaDe, primeiroDiaDoMes } from "@/lib/datas";
 import {
   CRITICIDADE_CLASSE,
   CRITICIDADE_LABEL,
@@ -15,7 +10,7 @@ import {
 } from "@/lib/labels";
 import { FiltrosGlobais } from "@/components/filtros";
 import { CartaoKPI } from "@/components/dashboard/kpi";
-import { QuadroDoDia } from "@/components/dashboard/quadro-dia";
+import { QuadroPreenchimento } from "@/components/dashboard/quadro-preenchimento";
 import { MarcadorSLA } from "@/components/marcador-sla";
 import {
   BarraConformidade,
@@ -39,25 +34,35 @@ function pct(valor: number): string {
   return valor.toFixed(valor >= 10 ? 0 : 1).replace(".", ",");
 }
 
+const DATA = /^\d{4}-\d{2}-\d{2}$/;
+
+/** Quantos condomínios cabem no gráfico comparativo antes de virar rolagem. */
+const MAXIMO_NO_GRAFICO = 15;
+
 export default async function PaginaDashboard({
   searchParams,
 }: {
-  searchParams: Promise<{ condominio?: string; mes?: string; dia?: string }>;
+  searchParams: Promise<{ condominio?: string; de?: string; ate?: string }>;
 }) {
   const sessao = await exigirAdmin();
   const params = await searchParams;
 
   const condominios = await condominiosDaSessao(sessao);
   const condominioId = params.condominio ? Number(params.condominio) : null;
-  const mes = /^\d{4}-\d{2}$/.test(params.mes ?? "")
-    ? params.mes!
-    : mesReferenciaAtual();
-  const dia = /^\d{4}-\d{2}-\d{2}$/.test(params.dia ?? "") ? params.dia! : null;
+
+  // Sem intervalo na URL, o padrão é o mês corrente até hoje: é o recorte que
+  // dá contexto sem esconder o dia de hoje, e os atalhos do filtro levam a
+  // "Hoje" em um clique.
+  const hoje = dataReferenciaDe();
+  const de = DATA.test(params.de ?? "") ? params.de! : primeiroDiaDoMes(hoje);
+  const ateBruto = DATA.test(params.ate ?? "") ? params.ate! : hoje;
+  // Um intervalo invertido não deve derrubar a página nem devolver vazio.
+  const ate = ateBruto < de ? de : ateBruto;
 
   const dados = await carregarDashboard({
     condominioId,
-    mes,
-    dia,
+    de,
+    ate,
     escopo: escopoCondominios(sessao),
   });
 
@@ -78,13 +83,17 @@ export default async function PaginaDashboard({
 
       <FiltrosGlobais
         condominios={condominios.map((c) => ({ id: c.id, nome: c.nome }))}
-        mesPadrao={mes}
-        mostrarDia
-        diaPadrao={dataReferenciaDe()}
+        dePadrao={de}
+        atePadrao={ate}
+        hoje={hoje}
       />
 
-      {/* Quadro de luzes: a leitura de todo dia, antes de qualquer número. */}
-      <QuadroDoDia linhas={dados.quadroDoDia} dia={dados.diaDoQuadro} />
+      {/* Quadro de preenchimento: a leitura de todo dia, antes de qualquer número. */}
+      <QuadroPreenchimento
+        linhas={dados.quadroPreenchimento}
+        rotuloPeriodo={dados.periodo.rotulo}
+        diasAnalisados={dados.periodo.diasDecorridos}
+      />
 
       {/* ------------------------------------------------------------ KPIs -- */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
@@ -92,11 +101,11 @@ export default async function PaginaDashboard({
           rotulo="Dias em conformidade"
           valor={pct(kpis.percentualConformidade)}
           unidade="%"
-          nota={`${kpis.diasConformes} de ${kpis.totalBoletins} boletins do mês sem nenhuma não conformidade.`}
+          nota={`${kpis.diasConformes} de ${kpis.totalBoletins} boletins do período sem nenhuma não conformidade.`}
           destaque={kpis.percentualConformidade >= 80 ? "bom" : null}
         />
         <CartaoKPI
-          rotulo="Ocorrências no mês"
+          rotulo="Ocorrências no período"
           valor={`${kpis.abertasNoMes} / ${kpis.concluidasNoMes}`}
           nota={`Abertas / concluídas. Saldo ${
             kpis.abertasNoMes - kpis.concluidasNoMes >= 0 ? "+" : ""
@@ -156,17 +165,22 @@ export default async function PaginaDashboard({
         </section>
 
         <section className="card card-pad">
-          <h2 className="font-semibold mb-1">Volume diário de ocorrências</h2>
+          <h2 className="font-semibold mb-1">
+            Volume {dados.linhaDoTempo.agregadaPorMes ? "mensal" : "diário"} de
+            ocorrências
+          </h2>
           <p className="text-xs mb-3" style={{ color: "var(--tinta-3)" }}>
-            Aberturas dia a dia — revela concentrações e sazonalidade.
+            {dados.linhaDoTempo.agregadaPorMes
+              ? "Aberturas mês a mês — o intervalo escolhido é longo demais para ler dia a dia."
+              : "Aberturas dia a dia — revela concentrações e sazonalidade."}
           </p>
-          <GraficoLinhaTempo dados={dados.linhaDoTempo} />
+          <GraficoLinhaTempo dados={dados.linhaDoTempo.pontos} />
         </section>
 
         <section className="card card-pad">
           <h2 className="font-semibold mb-1">Conformidade dos dias</h2>
           <p className="text-xs mb-3" style={{ color: "var(--tinta-3)" }}>
-            Como os {kpis.totalBoletins} boletins do mês foram classificados.
+            Como os {kpis.totalBoletins} boletins do período foram classificados.
           </p>
           <BarraConformidade dados={dados.distribuicaoStatusDia} />
         </section>
@@ -188,9 +202,19 @@ export default async function PaginaDashboard({
           Quanto cada prédio preencheu e quanto gerou em {dados.periodo.rotulo}. Um
           condomínio com poucos boletins e poucas ocorrências não está calmo — está
           sem reportar.
+          {dados.porCondominio.length > MAXIMO_NO_GRAFICO ? (
+            <>
+              {" "}
+              O gráfico mostra os {MAXIMO_NO_GRAFICO} com mais ocorrências; a
+              tabela abaixo traz todos os {dados.porCondominio.length}.
+            </>
+          ) : null}
         </p>
 
-        <GraficoCondominios dados={dados.porCondominio} />
+        {/* Uma barra por condomínio deixa de comparar quando são cinquenta —
+            vira uma tira de 2 metros que ninguém percorre. O gráfico fica com o
+            topo, e a lista completa continua na tabela, que é feita para isso. */}
+        <GraficoCondominios dados={dados.porCondominio.slice(0, MAXIMO_NO_GRAFICO)} />
 
         <div className="tabela-rolagem mt-4">
           <table className="tabela">
@@ -218,7 +242,7 @@ export default async function PaginaDashboard({
                   <tr key={c.id}>
                     <td>
                       <Link
-                        href={`/dashboard?condominio=${c.id}&mes=${mes}`}
+                        href={`/dashboard?condominio=${c.id}&de=${de}&ate=${ate}`}
                         className="font-semibold"
                         style={{ color: "var(--serie-1)" }}
                       >

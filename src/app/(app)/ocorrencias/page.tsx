@@ -7,7 +7,8 @@ import {
   dataReferenciaDe,
   diasAteSLA,
   formatarData,
-  intervaloDoMes,
+  inicioDoDiaLocal,
+  somarDias,
 } from "@/lib/datas";
 import {
   CRITICIDADE_CLASSE,
@@ -22,6 +23,7 @@ export const metadata = { title: "Ocorrências — Gestão de Condomínios" };
 
 const STATUS_VALIDOS: StatusOcorrencia[] = ["PENDENTE", "EM_ANDAMENTO", "CONCLUIDO"];
 const CRITICIDADES_VALIDAS: Criticidade[] = ["BAIXA", "MEDIA", "ALTA"];
+const DATA = /^\d{4}-\d{2}-\d{2}$/;
 
 /** Faixas de SLA — os mesmos recortes usados na matriz de risco do dashboard. */
 const FAIXAS_SLA = {
@@ -64,7 +66,8 @@ export default async function PaginaOcorrencias({
 }: {
   searchParams: Promise<{
     condominio?: string;
-    mes?: string;
+    de?: string;
+    ate?: string;
     status?: string;
     criticidade?: string;
     sla?: string;
@@ -76,6 +79,8 @@ export default async function PaginaOcorrencias({
   const condominios = await condominiosDaSessao(sessao);
 
   const condominioFiltro = params.condominio ? Number(params.condominio) : null;
+  const de = DATA.test(params.de ?? "") ? params.de! : "";
+  const ate = DATA.test(params.ate ?? "") ? params.ate! : "";
   const status = STATUS_VALIDOS.includes(params.status as StatusOcorrencia)
     ? (params.status as StatusOcorrencia)
     : null;
@@ -93,11 +98,15 @@ export default async function PaginaOcorrencias({
     // também escolheu um status, o dele prevalece na chave `status` acima.
     ...(sla ? filtroSLA(sla) : {}),
     ...(sla && status ? { status } : {}),
-    ...(params.mes
-      ? (() => {
-          const { inicio, fim } = intervaloDoMes(params.mes!);
-          return { dataAbertura: { gte: inicio, lt: fim } };
-        })()
+    // `dataAbertura` é um instante, então as bordas do intervalo precisam ser a
+    // meia-noite local — e não a UTC, que em Brasília cai às 21h do dia anterior.
+    ...(de || ate
+      ? {
+          dataAbertura: {
+            ...(de ? { gte: inicioDoDiaLocal(de) } : {}),
+            ...(ate ? { lt: inicioDoDiaLocal(somarDias(ate, 1)) } : {}),
+          },
+        }
       : {}),
   };
 
@@ -140,6 +149,8 @@ export default async function PaginaOcorrencias({
 
       <FiltrosGlobais
         condominios={condominios.map((c) => ({ id: c.id, nome: c.nome }))}
+        rotuloPeriodo="Abertura"
+        hoje={dataReferenciaDe()}
         extras={[
           {
             nome: "status",

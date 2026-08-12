@@ -2,16 +2,22 @@ import Link from "next/link";
 
 import { prisma } from "@/lib/db";
 import { condominiosDaSessao, exigirSessao, filtroCondominio } from "@/lib/auth";
-import { formatarDataReferencia, formatarDataHora, intervaloDoMes } from "@/lib/datas";
+import {
+  dataReferenciaDe,
+  formatarDataReferencia,
+  formatarDataHora,
+} from "@/lib/datas";
 import { STATUS_DIA_CLASSE, STATUS_DIA_LABEL } from "@/lib/labels";
 import { FiltrosGlobais } from "@/components/filtros";
 
 export const metadata = { title: "Boletins — Gestão de Condomínios" };
 
+const DATA = /^\d{4}-\d{2}-\d{2}$/;
+
 export default async function PaginaBoletins({
   searchParams,
 }: {
-  searchParams: Promise<{ condominio?: string; mes?: string }>;
+  searchParams: Promise<{ condominio?: string; de?: string; ate?: string }>;
 }) {
   const sessao = await exigirSessao();
   const params = await searchParams;
@@ -19,15 +25,22 @@ export default async function PaginaBoletins({
   const condominios = await condominiosDaSessao(sessao);
 
   const condominioFiltro = params.condominio ? Number(params.condominio) : null;
-  const mes = params.mes ?? "";
+  const de = DATA.test(params.de ?? "") ? params.de! : "";
+  const ate = DATA.test(params.ate ?? "") ? params.ate! : "";
 
+  // O recorte é por `dataReferencia` — o dia a que o boletim se refere — e não
+  // pelo instante em que a linha foi gravada. É a data que a lista mostra na
+  // coluna "Data", e é a única imune a fuso: quem preenche às 21h30 o boletim
+  // de hoje não pode vê-lo cair no dia seguinte.
   const where = {
     ...filtroCondominio(sessao, condominioFiltro),
-    ...(mes
-      ? (() => {
-          const { inicio, fim } = intervaloDoMes(mes);
-          return { dataRegistro: { gte: inicio, lt: fim } };
-        })()
+    ...(de || ate
+      ? {
+          dataReferencia: {
+            ...(de ? { gte: de } : {}),
+            ...(ate ? { lte: ate } : {}),
+          },
+        }
       : {}),
   };
 
@@ -58,6 +71,8 @@ export default async function PaginaBoletins({
 
       <FiltrosGlobais
         condominios={condominios.map((c) => ({ id: c.id, nome: c.nome }))}
+        rotuloPeriodo="Data do boletim"
+        hoje={dataReferenciaDe()}
       />
 
       {boletins.length === 0 ? (

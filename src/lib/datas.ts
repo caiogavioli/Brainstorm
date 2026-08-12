@@ -33,6 +33,92 @@ export function dataReferenciaParaDate(referencia: string): Date {
 }
 
 /**
+ * Deslocamento do fuso de operação em relação ao UTC, no instante dado.
+ *
+ * Calculado a partir do próprio Intl em vez de uma constante, porque uma
+ * constante "−3h" fica errada silenciosamente se o horário de verão voltar ou
+ * se o sistema for lido em outro fuso.
+ */
+function deslocamentoMs(instante: Date): number {
+  const partes = new Intl.DateTimeFormat("en-US", {
+    timeZone: FUSO_OPERACAO,
+    hour12: false,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  }).formatToParts(instante);
+  const get = (tipo: string) => Number(partes.find((p) => p.type === tipo)?.value ?? 0);
+  const comoSeFosseUTC = Date.UTC(
+    get("year"),
+    get("month") - 1,
+    get("day"),
+    get("hour") % 24,
+    get("minute"),
+    get("second"),
+  );
+  return comoSeFosseUTC - instante.getTime();
+}
+
+/**
+ * Instante UTC em que começa o dia "YYYY-MM-DD" no fuso de operação.
+ *
+ * Isso importa para qualquer filtro sobre coluna `DateTime`: meia-noite UTC é
+ * 21h do dia anterior em Brasília, então um filtro ingênuo joga tudo que foi
+ * registrado depois das 21h para o dia seguinte. Quem preencheu o boletim às
+ * 21h30 não o encontraria no dia em que trabalhou.
+ *
+ * A segunda passada corrige o caso de a estimativa cair do outro lado de uma
+ * virada de horário de verão.
+ */
+export function inicioDoDiaLocal(dia: string): Date {
+  const palpite = new Date(`${dia}T00:00:00.000Z`);
+  const primeira = new Date(palpite.getTime() - deslocamentoMs(palpite));
+  return new Date(palpite.getTime() - deslocamentoMs(primeira));
+}
+
+/**
+ * Intervalo semiaberto [início, fim) que cobre os dias de `de` até `ate`,
+ * inclusive nas duas pontas, medido no fuso de operação.
+ */
+export function intervaloDeDatas(de: string, ate: string): { inicio: Date; fim: Date } {
+  return { inicio: inicioDoDiaLocal(de), fim: inicioDoDiaLocal(somarDias(ate, 1)) };
+}
+
+/** Soma (ou subtrai) dias a "YYYY-MM-DD", devolvendo outra data no mesmo formato. */
+export function somarDias(dia: string, quantidade: number): string {
+  const d = new Date(`${dia}T00:00:00.000Z`);
+  d.setUTCDate(d.getUTCDate() + quantidade);
+  return d.toISOString().slice(0, 10);
+}
+
+/** Primeiro dia do mês a que "YYYY-MM-DD" pertence. */
+export function primeiroDiaDoMes(dia: string): string {
+  return `${dia.slice(0, 7)}-01`;
+}
+
+/** Último dia do mês a que "YYYY-MM-DD" pertence. */
+export function ultimoDiaDoMes(dia: string): string {
+  return `${dia.slice(0, 7)}-${String(diasNoMes(dia.slice(0, 7))).padStart(2, "0")}`;
+}
+
+/** Todos os dias de `de` até `ate`, inclusive. */
+export function diasDoIntervalo(de: string, ate: string): string[] {
+  const lista: string[] = [];
+  for (let d = de; d <= ate; d = somarDias(d, 1)) lista.push(d);
+  return lista;
+}
+
+/** "01/08/2026 a 12/08/2026", ou só "12/08/2026" quando as pontas coincidem. */
+export function rotuloIntervalo(de: string, ate: string): string {
+  return de === ate
+    ? formatarDataReferencia(de)
+    : `${formatarDataReferencia(de)} a ${formatarDataReferencia(ate)}`;
+}
+
+/**
  * Data escolhida por uma pessoa num campo de calendário, gravada ao MEIO-DIA UTC.
  *
  * Meia-noite UTC parece o natural e está errado: exibida em Brasília (UTC−3),
@@ -46,12 +132,9 @@ export function dataEscolhidaParaDate(dia: string): Date {
   return new Date(`${dia}T12:00:00.000Z`);
 }
 
-/** Primeiro e último instante de um mês "YYYY-MM", em UTC. */
+/** Primeiro e último instante de um mês "YYYY-MM", no fuso de operação. */
 export function intervaloDoMes(mes: string): { inicio: Date; fim: Date } {
-  const [ano, mesNum] = mes.split("-").map(Number);
-  const inicio = new Date(Date.UTC(ano, mesNum - 1, 1, 0, 0, 0, 0));
-  const fim = new Date(Date.UTC(ano, mesNum, 1, 0, 0, 0, 0));
-  return { inicio, fim };
+  return intervaloDeDatas(`${mes}-01`, ultimoDiaDoMes(`${mes}-01`));
 }
 
 /** Quantidade de dias de um mês "YYYY-MM". */
@@ -61,19 +144,6 @@ export function diasNoMes(mes: string): number {
 }
 
 /** Lista de "YYYY-MM-DD" de todos os dias de um mês. */
-/**
- * Início e fim de um único dia, em UTC.
- *
- * O `fim` é o começo do dia seguinte, para as consultas usarem `< fim` e não
- * dependerem de precisão de milissegundo no limite.
- */
-export function intervaloDoDia(dia: string): { inicio: Date; fim: Date } {
-  const inicio = new Date(`${dia}T00:00:00.000Z`);
-  const fim = new Date(inicio);
-  fim.setUTCDate(fim.getUTCDate() + 1);
-  return { inicio, fim };
-}
-
 export function diasDoMes(mes: string): string[] {
   const total = diasNoMes(mes);
   return Array.from(
