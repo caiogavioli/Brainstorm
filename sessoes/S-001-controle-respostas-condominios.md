@@ -34,3 +34,45 @@
 > 1) outlook. 2) TNU, Centenário(CTN), Alphaville, JKB, Panamerica, Passeio Paulista, Arquipeo, PL Extrema, 17007. 3) sempre por email. 4) mandei algumas sozinhas, e outras em conjunto no mesmo email. 5) não, não aconteceu até agora. 6) é uma rotina que se repete. 7) eu anoto no papel. 8) só esses que te falei 9) não, só eu. 10) não sei. 11) outlook. 12) não, é pontual. 13) só eu. 14) vai acontecer novamente com outros temas
 
 **Observação de condução:** as respostas 12 e 14 se contradizem — a 12 diz que é pontual, a 14 (e a 6) diz que a rotina se repete com outros temas. Fica pendente de esclarecimento antes da Rodada 2, porque muda a recomendação do Tomás (planilha descartável vs. estrutura pensada para se repetir).
+
+## Esclarecimento
+
+> Eu quero ter um projeto que eu reaproveito a estrutura a cada novo tema que surgir com os condomínios temos de criar um item específico de dar um nome, isso gere um nome legal, mas assim como se fosse uma análise dos pedidos da Brookfield, e aí você cria uma estrutura pra que sempre que chegar um email eu te aviso e falo assim olha, preciso fazer esse acompanhamento. E aí ele ele automaticamente já cria aí um controle de quem mandou ou não mandou.
+
+Resolve a contradição: é recorrente, com estrutura reaproveitável. A cada tema novo, o usuário abre um "caso" com nome (ex.: análise dos pedidos da Brookfield é a referência de formato), avisa a Claude, e um controle de quem respondeu / quem falta / o que já foi encaminhado pra Thassia nasce a partir de um molde comum.
+
+## Rodada 2 — decisão
+
+### Eixo 1 — Onde vive o controle (Tomás)
+
+- **A. Planilha fora do GitHub** (Excel no OneDrive, já que é tudo Microsoft/Outlook) — uma aba ou arquivo por caso, colunas: condomínio, respondeu (data), encaminhado pra Thassia (data).
+- **B. Repositório de código dedicado no GitHub**, com o controle como arquivo versionado.
+- **C. Só dentro do Outlook** — categorias/pastas/flags por tema, sem tabela separada.
+
+A custa quase nada, fica num lugar que o usuário já teria acesso, mas não é atualizada sozinha — alguém (usuário ou Claude, quando avisado) precisa marcar. B carrega complexidade que não se paga: GitHub é para código, ninguém abre PR pra marcar que o síndico respondeu, e um repo pesa em cima de uma planilha operacional do dia a dia. C fica difícil de enxergar "quem falta" de relance, e categoria do Outlook não segura bem dois status combinados (respondeu + encaminhado).
+
+**Recomendação do Tomás: A.** É a solução mais burra que funciona — nenhuma peça nova, nenhum custo, roda dentro do que o usuário já usa. B é dizer que sim pra gente ter uma coisa "profissional" que ninguém vai manter.
+
+### Eixo 2 — Quem detecta a resposta (Marina, discorda de parte do Tomás)
+
+- **A. Manual assistido** — usuário avisa a Claude quando abre um caso novo, quando alguém responde e quando encaminha pra Thassia; a Claude escreve na planilha.
+- **B. Monitoramento automático** — Claude usa o conector do Outlook (Microsoft 365, já disponível nesta sessão) pra checar sozinha quando cada condomínio responde e quando o encaminhamento pra Thassia sai.
+
+B economiza o "eu aviso", mas depende de rodar em background com acesso recorrente à caixa, com chance real de errar leitura (ex.: confundir resposta de outro assunto do mesmo condomínio) e tira do usuário o controle de quando algo entra no registro. A dá mais trabalho de avisar, mas é 100% confiável e nada entra no controle sem o usuário validar.
+
+**Recomendação da Marina: A agora, B depois se o volume justificar.** Discorda parcialmente do Tomás: acha que vale desenhar o passo B como evolução natural (o conector já existe, o custo de automatizar depois é baixo), não descartar de vez — mas para 9 itens por tema, automação plena hoje é resolver problema que ainda não apareceu.
+
+### Eixo 3 — Isso é projeto de software? (Rafael)
+
+Volume por caso é baixo (na casa de uma dezena de condomínios), frequência é "quando surge um tema" — não diário, não constante. O que falta hoje não é tecnologia, é deixar de anotar em papel e ter um molde que se repete. Isso não pede código nem repositório dedicado.
+
+**Recomendação do Rafael: isso não deveria virar um repositório de software.** É uma rotina que a própria Claude sustenta: um molde (nome do caso + lista de condomínios + tabela de status) que nasce toda vez que o usuário diz "preciso fazer esse acompanhamento de [tema]", populado e atualizado conversando, guardado numa planilha (Eixo 1) que ele já usa.
+
+## Recorte proposto
+
+Isto **não é um projeto de software** — não abre repositório novo. É uma rotina recorrente ("caso" por tema, mesmo molde), resolvida com:
+- Uma planilha (Excel/OneDrive) por caso, nomeada pelo tema.
+- Atualização conversacional: o usuário avisa a Claude nos três momentos (abriu o caso, fulano respondeu, encaminhei pra Thassia) e ela mantém a planilha.
+- Automação via conector do Outlook fica em aberto para uma iteração futura, se o volume crescer (ponto de discordância entre Marina e Tomás — decisão do usuário).
+
+Pendente de decisão do usuário: confirmar o recorte acima e o Eixo 2 (A puro, ou já deixar B configurado desde já).

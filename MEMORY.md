@@ -8,13 +8,13 @@ Estado vivo do brainstorming. Ler no início de cada sessão, atualizar ao fim d
 
 ## Situação atual
 
-Primeiro problema registrado e Rodada 1 aberta: controle de respostas dos condomínios sobre automação de energia elétrica (P-001). Aguardando o usuário responder as perguntas 1–14 antes de seguir para a Rodada 2.
+P-001 passou pela Rodada 1 e pela Rodada 2. Recorte proposto pelas três personas: não é projeto de software, é uma rotina recorrente ("caso" por tema) sustentada por planilha + atualização conversacional. Aguardando o usuário confirmar o recorte e decidir o Eixo 2 (automação via Outlook agora ou depois).
 
 ## Problemas
 
 | ID | Título | Fase | Desfecho |
 |---|---|---|---|
-| P-001 | Controle de respostas dos condomínios sobre automação de energia elétrica | rodada 1 | — |
+| P-001 | Controle de respostas dos condomínios sobre automação de energia elétrica | rodada 2 | proposto: virou script/rotina (não repo) — aguardando confirmação |
 
 Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` / `virou script`
 
