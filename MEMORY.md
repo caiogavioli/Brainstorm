@@ -8,7 +8,7 @@ Estado vivo do brainstorming. Ler no início de cada sessão, atualizar ao fim d
 
 ## Situação atual
 
-P-001 fechou como rotina/script — não vira repositório dedicado. Controle por planilha (Excel/OneDrive) por caso/tema, com leitura automática do Outlook via conector Microsoft 365 desde o início (usuário escolheu B no Eixo 2, contra a recomendação inicial da Marina de começar manual). Primeiro caso executado: planilha "Acompanhamento Condomínios.xlsx" criada no OneDrive do usuário (aba Leia-me + aba por tema), com o status do caso "Energia elétrica" já levantado direto do Outlook. Próximo tema novo: usuário avisa e a Claude cria uma aba nova na mesma planilha.
+P-001 mudou de desfecho depois da conexão com o projeto `caiogavioli/triagem-contratante` (já existente, fora deste repositório). Esse projeto já tinha passado pela mesma decisão — descartar estado num arquivo à parte em favor do Monday como fonte única — então a planilha `Acompanhamento Condomínios.xlsx` criada nesta sessão foi descartada como peça viva. O controle por condomínio do caso "Automatização de energia elétrica" agora mora dentro do card correspondente no Monday (board TAREFAS, item 12767606013), documentado em `rotina/monday.md` daquele repositório. Em aberto: se P-001 ainda é um problema próprio ou se era a mesma necessidade do projeto irmão, só sem a conexão feita.
 
 ## Problemas
 

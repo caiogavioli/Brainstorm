@@ -101,3 +101,17 @@ O item "Automatização de energia elétrica" (P-001) já existe nesse board com
 Conexão feita nesta sessão: postei um update no card do Monday com o status condomínio a condomínio e o link da planilha; mudei o status do card de "Não Iniciada" para "Em Progresso" (reflete a realidade: 8/9 já responderam); e adicionei, na aba da planilha, um link de volta para o card do Monday.
 
 Conexão que fica em aberto (não fiz sozinho): ligar isso de forma durável — ex. o playbook da Triagem Contratante passar a criar/referenciar automaticamente uma aba desta planilha sempre que um pedido novo for do tipo "levantamento por condomínio" — exigiria mexer no repositório `caiogavioli/triagem-contratante`, que é código de produto de outro projeto, fora do escopo deste repositório de brainstorming. Perguntei ao usuário se quer abrir isso como trabalho separado.
+
+## Correção de rumo — a planilha foi descartada
+
+Ao investigar o repositório `caiogavioli/triagem-contratante` para fazer a conexão, achei que ele já passou por isso: a spec original desse projeto (`docs/spec.md`) tinha um arquivo de estado no OneDrive, **eliminado em 10/08/2026** a pedido do próprio usuário — nota da revisão: *"era uma peça a mais para um usuário só — exatamente o que o Tomás combateu na Rodada 2"*. Hoje o Monday é a fonte única de estado daquele projeto, por decisão explícita.
+
+A planilha `Acompanhamento Condomínios.xlsx` criada nesta sessão reintroduzia o mesmo padrão que já tinha sido descartado ali — mais uma peça de estado fora do Monday, exigindo permissão nova pra rotina automática escrever nela sem aprovação manual.
+
+Apresentei ao usuário duas opções (A — guardar o detalhe por condomínio dentro do próprio card do Monday, na coluna já pensada para o card "valer sozinho"; B — manter a planilha e ensinar a rotina a escrever nela). **Ele escolheu A.**
+
+Feito:
+- Atualizei o card do Monday (`Automatização de energia — quais prédios têm e quanto custou`, item 12767606013) com o status por condomínio dentro do campo "Resumo e o que fazer".
+- Documentei a convenção no repositório `triagem-contratante` (`rotina/monday.md`, `rotina/playbook.md`) — pedidos "Portfólio" passam a manter esse bloco no próprio card, sem arquivo de apoio. Commit na branch `claude/detalhe-por-condominio-no-card`, ainda não mesclada (nenhum PR aberto — não foi pedido).
+
+**Consequência para o recorte de P-001:** a planilha `Acompanhamento Condomínios.xlsx` no OneDrive não faz mais parte do desenho — vira um artefato pontual desta sessão, não uma peça viva. Para pedidos que passam pela Triagem Contratante (o caso de energia e qualquer "Portfólio" futuro do mesmo tipo), o controle por condomínio mora no card do Monday. Fica em aberto se P-001 ainda tem razão de existir como problema separado, ou se foi só a descoberta de que a solução já existia num projeto irmão — a decidir com o usuário.
