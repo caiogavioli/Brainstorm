@@ -2,19 +2,19 @@
 
 Estado vivo do brainstorming. Ler no início de cada sessão, atualizar ao fim de cada rodada ou decisão.
 
-**Última atualização:** 2026-08-09
+**Última atualização:** 2026-08-12
 
 ---
 
 ## Situação atual
 
-Estrutura e processo definidos. Time apresentado. **Aguardando a apresentação dos primeiros problemas** — nenhuma Rodada 1 iniciada ainda.
+Primeiro problema registrado e Rodada 1 aberta: controle de respostas dos condomínios sobre automação de energia elétrica (P-001). Aguardando o usuário responder as perguntas 1–14 antes de seguir para a Rodada 2.
 
 ## Problemas
 
 | ID | Título | Fase | Desfecho |
 |---|---|---|---|
-| — | _nenhum registrado_ | — | — |
+| P-001 | Controle de respostas dos condomínios sobre automação de energia elétrica | rodada 1 | — |
 
 Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` / `virou script`
 
