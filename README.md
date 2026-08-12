@@ -35,8 +35,10 @@ projetos/       specs fechadas, prontas para virar repositório
 templates/      modelos usados acima
 ```
 
+## Um branch por problema
+
+`main` só tem o framework acima. Cada problema ganha o seu próprio branch a partir de `main`, com seu próprio `problemas/` / `sessoes/` / `projetos/`. O catálogo de quais branches existem e o que cada um contém vive em `MEMORY.md`, aqui em `main` — é o primeiro arquivo a ler em qualquer sessão nova.
+
 ## Estado atual
 
-| # | Problema | Fase | Projeto / repo |
-|---|---|---|---|
-| — | _aguardando primeira apresentação_ | — | — |
+Ver o catálogo de branches em `MEMORY.md`.

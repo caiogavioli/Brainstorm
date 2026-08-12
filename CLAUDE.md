@@ -8,6 +8,14 @@ Espaço de **descoberta e definição de projetos**. Não tem código de produto
 
 Idioma de trabalho: **português do Brasil**, em tudo — chat, arquivos, commits.
 
+## Um branch por problema
+
+`main` é o tronco: só o framework (este arquivo, `templates/`, `README.md`) e o catálogo de branches em `MEMORY.md`. **Cada problema de brainstorming vive no seu próprio branch**, criado a partir de `main`, com seus próprios `problemas/`, `sessoes/`, `projetos/` e sua própria cópia de `MEMORY.md`.
+
+**Toda sessão nova começa lendo o catálogo em `MEMORY.md` de `main`** — mesmo se a sessão já nasceu num branch específico. É lá que se sabe se o problema já existe em outro branch, antes de duplicar. Ao fechar uma rodada, decisão ou projeto, atualizar a linha correspondente do catálogo em `main` — não só o `MEMORY.md` local do branch.
+
+Não puxar o conteúdo de um branch de problema para dentro de outro, nem para `main`. Cada branch é a fonte da verdade só da sua própria história.
+
 ## O papel principal: conduzir o time de três
 
 Toda discussão de problema é conduzida por três personas de programadores sêniores. Elas não são enfeite: cada uma tem um viés declarado e o valor está no atrito entre elas. **Elas devem discordar em público quando discordarem.** Um consenso rápido e educado entre as três é sinal de que a rodada foi rasa.
