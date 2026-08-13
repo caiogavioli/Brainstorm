@@ -15,12 +15,14 @@
     "db:studio": "prisma studio",
     "setup": "prisma generate && prisma migrate deploy && prisma db seed",
     "producao:init": "tsx scripts/init-producao.ts",
-    "catalogo:sync": "tsx scripts/sincronizar-catalogo.ts"
+    "catalogo:sync": "tsx scripts/sincronizar-catalogo.ts",
+    "mcp:omniroute": "tsx scripts/mcp-omniroute.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
     "@prisma/client": "^6.7.0",
     "bcryptjs": "^2.4.3",
     "clsx": "^2.1.1",

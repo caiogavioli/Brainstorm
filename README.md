@@ -257,6 +257,39 @@ Os tokens estão em `src/app/globals.css`; os gráficos os leem em runtime
 - **Fuso** — a apuração usa `America/Sao_Paulo` (`TZ_OPERACAO` em
   `src/lib/datas.ts`).
 
+## Servidor MCP (`omniroute`)
+
+`scripts/mcp-omniroute.ts` expõe os dados do sistema — condomínios, boletins,
+ocorrências e planos de ação — via [Model Context Protocol](https://modelcontextprotocol.io),
+para consulta por um cliente de IA (Claude Code, Claude Desktop, etc.). Roda por
+stdio, direto contra o Postgres via `DATABASE_URL`; não abre porta nem depende do
+Next estar no ar.
+
+Somente leitura: não há ferramenta de escrita. Quem preenche o boletim continua
+sendo o formulário público.
+
+```
+DATABASE_URL=postgresql://... npm run mcp:omniroute
+```
+
+Para usar no Claude Code, adicione ao `.mcp.json` (ou via `claude mcp add`):
+
+```json
+{
+  "mcpServers": {
+    "omniroute": {
+      "command": "npx",
+      "args": ["tsx", "scripts/mcp-omniroute.ts"],
+      "env": { "DATABASE_URL": "postgresql://..." }
+    }
+  }
+}
+```
+
+Ferramentas disponíveis: `listar_condominios`, `listar_boletins`,
+`obter_boletim`, `listar_ocorrencias`, `obter_ocorrencia`,
+`listar_planos_acao`.
+
 ## Estrutura
 
 ```
@@ -287,6 +320,7 @@ src/
     consultas/dashboard.ts # agregações do BI
 scripts/sincronizar-catalogo.ts # aplica src/lib/checklist.ts no banco (roda no build)
 scripts/init-producao.ts   # catálogo + admin, sem dados de demonstração
+scripts/mcp-omniroute.ts   # servidor MCP somente leitura (condomínios, boletins, ocorrências, planos)
 Dockerfile                 # imagem de produção (standalone)
 docker-compose.yml         # aplicação + PostgreSQL em um comando
 vercel.json                # build e install explícitos para a Vercel
