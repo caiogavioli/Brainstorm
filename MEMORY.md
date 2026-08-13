@@ -74,14 +74,14 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
     sucesso), então esse passo ficou manual, pelo dashboard.
   - Depois de configurar as env vars, pode ser necessário forçar um
     redeploy no Vercel (mudança de env var não afeta deploy já feito).
-  - Raspagem do MakerWorld: **bloqueada** — este ambiente tem o egress de
-    rede bloqueado tanto para `makerworld.com` quanto para `supabase.com`
-    (só alcança o que está na allowlist do proxy). Não dá pra inspecionar
-    a página nem testar um script aqui. Perfil do usuário:
-    `https://makerworld.com/en/@cgavioli/collections`. Perguntado ao
-    usuário como prosseguir (cadastro manual pelo painel admin vs.
-    escrever o raspador às cegas vs. usuário descreve a página) — usuário
-    ainda não respondeu, retomar quando ele decidir.
+  - Raspagem do MakerWorld: **descartada**. Ambiente de implementação
+    bloqueia rede tanto pra `makerworld.com` quanto pra `supabase.com` —
+    não dava pra inspecionar a página nem testar um script. Perguntado ao
+    usuário como prosseguir; escolheu cadastro manual pelo painel admin.
+    CLAUDE.md e README do repo do projeto já atualizados (raspagem movida
+    pra "não entra", pastas `scraper/`/`data/` ficam sem uso). Perfil do
+    usuário, se algum dia isso for retomado como projeto à parte:
+    `https://makerworld.com/en/@cgavioli/collections`.
 - Logo da CMG3D precisa ser salvo como arquivo real no repo do projeto
   (`assets/logo/`) antes da implementação visual — pedir ao usuário para
   enviar como anexo, não só inline no chat. Por ora o site usa uma paleta
