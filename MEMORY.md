@@ -9,13 +9,15 @@ Estado vivo do brainstorming. Ler no início de cada sessão, atualizar ao fim d
 ## Situação atual
 
 Primeiro projeto fechado: catálogo de produtos de impressão 3D (P-001).
-Repositório criado e esqueleto no ar.
+Spec revisada para v2 (site com login + catálogo público, marca CMG3D) antes
+de qualquer implementação começar — v1 (PDF via script local) foi
+descartada. Repositório e esqueleto atualizados para a v2.
 
 ## Problemas
 
 | ID | Título | Fase | Desfecho |
 |---|---|---|---|
-| P-001 | Catálogo de produtos de impressão 3D | fechado | virou repo `catalogo-produtos-3d` |
+| P-001 | Catálogo de produtos de impressão 3D (CMG3D) | fechado (v2) | virou repo `catalogo-produtos-3d` |
 
 Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` / `virou script`
 
@@ -23,7 +25,7 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
 
 | Projeto | Origem | Repositório | Data |
 |---|---|---|---|
-| Catálogo de produtos de impressão 3D | P-001 | [caiogavioli/catalogo-produtos-3d](https://github.com/caiogavioli/catalogo-produtos-3d) | 2026-08-13 |
+| CMG3D — catálogo de produtos de impressão 3D (site) | P-001 | [caiogavioli/catalogo-produtos-3d](https://github.com/caiogavioli/catalogo-produtos-3d) | 2026-08-13 (v2) |
 
 ## Decisões sobre o processo
 
@@ -35,6 +37,8 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
 | 2026-08-09 | Time fixo de três personas com vieses declarados: Marina (dados/integrações), Rafael (produto/recorte), Tomás (infra/custo). | Formato pedido pelo usuário. |
 | 2026-08-13 | Repositórios novos nascem **privados** por padrão. | Confirmado no fechamento do P-001. |
 | 2026-08-13 | O GitHub App conectado a este workspace **não consegue criar repositórios via API** (403 mesmo após ajuste de permissão pelo usuário). Fluxo que funciona: usuário cria o repo vazio manualmente (privado, com README) → Claude usa `add_repo`/clone local para subir o esqueleto. | Descoberto ao tentar `create_repository` no fechamento do P-001. |
+| 2026-08-13 | Spec fechada pode ser revisada antes da implementação começar, sem reabrir as duas rodadas do zero — time analisa a ideia nova, propõe trade-offs e reescreve a spec (marcando "v2") se o usuário confirmar. | Usuário trouxe ideia de site com login logo depois do fechamento v1 do P-001; nenhuma linha de código do v1 tinha sido escrita ainda. |
+| 2026-08-13 | P-001 v2: site com catálogo público + área admin (login para 2 usuários, mesma permissão), stack Next.js + Vercel + Supabase, tudo em camada gratuita. PDF saiu do escopo. | Usuário quer compartilhar link com clientes e gerenciar o catálogo junto com a esposa; time recomendou Supabase por resolver banco+auth+storage numa peça só. |
 
 ## Preferências do usuário observadas
 
@@ -42,8 +46,17 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
 - Quer clareza sobre **quando** cada artefato é criado — não gosta de passo implícito. Ser explícito sobre gatilhos.
 - GitHub: conta `caiogavioli`. Repositório de brainstorming: `caiogavioli/Brainstorm`, branch de trabalho `claude/catalogo-produtos-3d-bm2dw2`.
 - Modelos 3D do usuário ficam no **MakerWorld** (sem API pública), organizados em pastas de categoria dentro da conta dele.
+- Marca: **CMG3D**. Logo enviado (roxo/metálico, tipografia bold angular,
+  ilustração de família) — ainda não salvo no repositório do projeto porque
+  chegou só inline no chat, não como arquivo; pedir para reenviar como
+  anexo quando a implementação visual começar.
+- Domínio/hospedagem: aceita gratuito (`*.vercel.app`), sem precisar de
+  domínio próprio pago.
 
 ## Em aberto
 
-- Stack de preferência do usuário ainda desconhecida além do que surgiu no P-001 (Python local). Confirmar em próximos projetos.
-- Implementação do scraper/gerador de PDF do `catalogo-produtos-3d` ainda não começou — é trabalho de outra sessão, no repositório novo.
+- Implementação do site `catalogo-produtos-3d` ainda não começou — é
+  trabalho de outra sessão, no repositório novo.
+- Logo da CMG3D precisa ser salvo como arquivo real no repo do projeto
+  (`assets/logo/`) antes da implementação visual — pedir ao usuário para
+  enviar como anexo, não só inline no chat.
