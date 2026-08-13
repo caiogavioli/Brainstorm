@@ -39,4 +39,4 @@ templates/      modelos usados acima
 
 | # | Problema | Fase | Projeto / repo |
 |---|---|---|---|
-| — | _aguardando primeira apresentação_ | — | — |
+| P-001 | Catálogo de produtos de impressão 3D | fechado | [caiogavioli/catalogo-produtos-3d](https://github.com/caiogavioli/catalogo-produtos-3d) |
