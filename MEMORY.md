@@ -11,10 +11,10 @@ Estado vivo do brainstorming. Ler no início de cada sessão, atualizar ao fim d
 Primeiro projeto fechado: catálogo de produtos de impressão 3D (P-001).
 Spec revisada para v2 (site com login + catálogo público, marca CMG3D) antes
 de qualquer implementação começar — v1 (PDF via script local) foi
-descartada. Repositório e esqueleto atualizados para a v2. Implementação do
-scaffold inicial (Next.js + Supabase, catálogo público + área admin) feita
-no repo `catalogo-produtos-3d`, branch `claude/setup-inicial` — ver seção
-"Em aberto" para o que falta antes de ir ao ar.
+descartada. Repositório e esqueleto atualizados para a v2. Scaffold
+(Next.js + Supabase, catálogo público + área admin) revisado, corrigido e
+mesclado na `main` do repo `catalogo-produtos-3d`; projeto Supabase real
+criado pelo usuário e ligado ao Vercel — ver "Em aberto" pro que falta.
 
 ## Problemas
 
@@ -58,14 +58,30 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
 
 ## Em aberto
 
-- Scaffold do site `catalogo-produtos-3d` implementado (Next.js + Supabase,
-  catálogo público + admin com login/CRUD) na branch `claude/setup-inicial`,
-  push feito, PR **não** aberto (ninguém pediu). Falta antes de ir ao ar:
-  - Criar o projeto Supabase de verdade, rodar `supabase/schema.sql`, criar
-    as 2 contas admin no painel de Auth, preencher `.env.local`.
-  - Escrever o script de raspagem do MakerWorld (pasta `scraper/`, ainda
-    vazia) para popular produtos iniciais.
-  - Deploy no Vercel.
+- Scaffold do site `catalogo-produtos-3d` revisado (bugs de preço,
+  limpeza de storage, confirmação de exclusão, idempotência do schema.sql
+  e cookie de sessão no middleware corrigidos) e mesclado direto na `main`
+  (sem PR — ninguém pediu). Projeto criado no Vercel (time `DF`) e ligado
+  ao repo; push na `main` já deve ter disparado o primeiro deploy.
+  Falta antes de funcionar de verdade:
+  - Usuário rodou `supabase/schema.sql` no projeto Supabase real
+    (`https://zpisplssvkudvyjaurhm.supabase.co`) e criou as 2 contas
+    admin — confirmar que os dois passos foram feitos.
+  - Configurar `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+    nas variáveis de ambiente do projeto no Vercel — a MCP do Vercel
+    disponível nesta sessão não tem ferramenta pra setar env vars nem
+    listar deployments/projeto (dá 403/404 mesmo após criar o projeto com
+    sucesso), então esse passo ficou manual, pelo dashboard.
+  - Depois de configurar as env vars, pode ser necessário forçar um
+    redeploy no Vercel (mudança de env var não afeta deploy já feito).
+  - Raspagem do MakerWorld: **bloqueada** — este ambiente tem o egress de
+    rede bloqueado tanto para `makerworld.com` quanto para `supabase.com`
+    (só alcança o que está na allowlist do proxy). Não dá pra inspecionar
+    a página nem testar um script aqui. Perfil do usuário:
+    `https://makerworld.com/en/@cgavioli/collections`. Perguntado ao
+    usuário como prosseguir (cadastro manual pelo painel admin vs.
+    escrever o raspador às cegas vs. usuário descreve a página) — usuário
+    ainda não respondeu, retomar quando ele decidir.
 - Logo da CMG3D precisa ser salvo como arquivo real no repo do projeto
   (`assets/logo/`) antes da implementação visual — pedir ao usuário para
   enviar como anexo, não só inline no chat. Por ora o site usa uma paleta
