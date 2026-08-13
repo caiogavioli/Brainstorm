@@ -11,7 +11,10 @@ Estado vivo do brainstorming. Ler no início de cada sessão, atualizar ao fim d
 Primeiro projeto fechado: catálogo de produtos de impressão 3D (P-001).
 Spec revisada para v2 (site com login + catálogo público, marca CMG3D) antes
 de qualquer implementação começar — v1 (PDF via script local) foi
-descartada. Repositório e esqueleto atualizados para a v2.
+descartada. Repositório e esqueleto atualizados para a v2. Implementação do
+scaffold inicial (Next.js + Supabase, catálogo público + área admin) feita
+no repo `catalogo-produtos-3d`, branch `claude/setup-inicial` — ver seção
+"Em aberto" para o que falta antes de ir ao ar.
 
 ## Problemas
 
@@ -55,8 +58,19 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
 
 ## Em aberto
 
-- Implementação do site `catalogo-produtos-3d` ainda não começou — é
-  trabalho de outra sessão, no repositório novo.
+- Scaffold do site `catalogo-produtos-3d` implementado (Next.js + Supabase,
+  catálogo público + admin com login/CRUD) na branch `claude/setup-inicial`,
+  push feito, PR **não** aberto (ninguém pediu). Falta antes de ir ao ar:
+  - Criar o projeto Supabase de verdade, rodar `supabase/schema.sql`, criar
+    as 2 contas admin no painel de Auth, preencher `.env.local`.
+  - Escrever o script de raspagem do MakerWorld (pasta `scraper/`, ainda
+    vazia) para popular produtos iniciais.
+  - Deploy no Vercel.
 - Logo da CMG3D precisa ser salvo como arquivo real no repo do projeto
   (`assets/logo/`) antes da implementação visual — pedir ao usuário para
-  enviar como anexo, não só inline no chat.
+  enviar como anexo, não só inline no chat. Por ora o site usa uma paleta
+  roxo/metálico placeholder em `src/app/globals.css`.
+- Next.js 16 tem um recurso que anexa automaticamente um bloco de
+  instruções para agentes de IA ao `CLAUDE.md` toda vez que roda `next dev`
+  (`agentRules`). Foi desativado no `next.config.ts` do projeto para manter
+  o `CLAUDE.md` sob controle manual, como de costume neste fluxo.
