@@ -14,9 +14,10 @@ de qualquer implementação começar — v1 (PDF via script local) foi
 descartada. Repositório e esqueleto atualizados para a v2. Site em
 produção no Vercel (`catalogo-produtos-3d`), com catálogo público, área
 admin, tema escuro roxo metálico, menu de categorias, busca,
-ordenação/paginação, destaques na home, "mais vistos" e contato via
-WhatsApp. Ver "Em aberto" pros passos manuais que faltam pra tudo
-funcionar de ponta a ponta.
+ordenação/paginação, destaques na home, "mais vistos", cores por
+produto (círculos na página do produto, não mais página separada) e
+contato via WhatsApp. Ver "Em aberto" pros passos manuais que faltam
+pra tudo funcionar de ponta a ponta.
 
 ## Problemas
 
@@ -78,20 +79,27 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
   sem PR (ninguém pediu). Cadastrado com 4 categorias e 8 produtos de
   exemplo (fotos placeholder) via SQL direto, só pra visualização — ainda
   precisa dos produtos e fotos reais, cadastrados pelo painel admin.
-  Passos manuais que faltam (o usuário precisa fazer, sem acesso
-  automatizado nem ao Supabase nem às env vars do Vercel nesta sessão):
-  - Rodar `supabase/migration-destaques-busca.sql` no projeto Supabase
-    real (`https://zpisplssvkudvyjaurhm.supabase.co`) — adiciona
-    destaque manual, contagem de visualização e índice de busca; feito
-    depois do `schema.sql` original já ter rodado.
-  - Configurar `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-    e `NEXT_PUBLIC_WHATSAPP_NUMBER` (`5511983231173`, sem o `+`) nas
-    variáveis de ambiente do projeto no Vercel — a MCP do Vercel
-    disponível nesta sessão não tem ferramenta pra setar env vars nem
-    listar deployments/projeto (dá 403/404 mesmo após criar o projeto com
-    sucesso), então esse passo ficou manual, pelo dashboard.
-  - Depois de configurar as env vars, pode ser necessário forçar um
-    redeploy no Vercel (mudança de env var não afeta deploy já feito).
+  Usuário confirmou ter configurado as env vars no Vercel e feito
+  redeploy (2026-08-14), mas relatou um erro ao abrir uma página de
+  produto — provavelmente por faltar rodar a migração SQL antes (a
+  contagem de visualização chamava uma função que só existe depois da
+  migração; corrigido no código pra falhar em silêncio em vez de
+  derrubar a página, mas a causa raiz — migração não rodada — pode
+  continuar pendente). Passos manuais que ainda podem faltar (sem
+  acesso automatizado ao Supabase nem às env vars do Vercel nesta sessão):
+  - Rodar, na ordem, no SQL Editor do projeto Supabase real
+    (`https://zpisplssvkudvyjaurhm.supabase.co`): `schema.sql` (se ainda
+    não rodou o projeto todo) → `migration-destaques-busca.sql` (destaque
+    manual, contagem de visualização, índice de busca) →
+    `migration-cores-por-produto.sql` (cor única/várias cores por
+    produto). Confirmar com o usuário se os dois arquivos de migração já
+    foram rodados.
+  - `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` e
+    `NEXT_PUBLIC_WHATSAPP_NUMBER` (`5511983231173`, sem o `+`) já
+    configurados no Vercel pelo usuário — a MCP do Vercel disponível
+    nesta sessão não tem ferramenta pra setar env vars nem listar
+    deployments/projeto (dá 403/404 mesmo após criar o projeto com
+    sucesso), então não dá pra confirmar por aqui; usuário que fez.
   - Raspagem do MakerWorld: **descartada**. Ambiente de implementação
     bloqueia rede tanto pra `makerworld.com` quanto pra `supabase.com` —
     não dava pra inspecionar a página nem testar um script. Perguntado ao
