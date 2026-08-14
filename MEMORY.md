@@ -11,10 +11,12 @@ Estado vivo do brainstorming. Ler no início de cada sessão, atualizar ao fim d
 Primeiro projeto fechado: catálogo de produtos de impressão 3D (P-001).
 Spec revisada para v2 (site com login + catálogo público, marca CMG3D) antes
 de qualquer implementação começar — v1 (PDF via script local) foi
-descartada. Repositório e esqueleto atualizados para a v2. Scaffold
-(Next.js + Supabase, catálogo público + área admin) revisado, corrigido e
-mesclado na `main` do repo `catalogo-produtos-3d`; projeto Supabase real
-criado pelo usuário e ligado ao Vercel — ver "Em aberto" pro que falta.
+descartada. Repositório e esqueleto atualizados para a v2. Site em
+produção no Vercel (`catalogo-produtos-3d`), com catálogo público, área
+admin, tema escuro roxo metálico, menu de categorias, busca,
+ordenação/paginação, destaques na home, "mais vistos" e contato via
+WhatsApp. Ver "Em aberto" pros passos manuais que faltam pra tudo
+funcionar de ponta a ponta.
 
 ## Problemas
 
@@ -54,28 +56,37 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
   chegou só inline no chat, não como arquivo; pedir para reenviar como
   anexo quando a implementação visual começar.
 - Visual do site **mudou** em 2026-08-14: saiu do roxo/metálico original
-  (herdado do logo) pra tema escuro "cinza chumbo" com acento
-  cobre/laranja, cartões com efeito vidro, fonte Inter, ícones Lucide,
-  animações com Framer Motion — pedido explícito do usuário (colou um
-  brief de design pronto, só quis aplicar em cima do catálogo existente,
-  não trocar a estrutura por uma landing page nova). Paleta pode mudar de
-  novo quando o logo real virar arquivo.
+  (herdado do logo) pra tema escuro "cinza chumbo", cartões com efeito
+  vidro, fonte Inter, ícones Lucide, animações com Framer Motion — pedido
+  explícito do usuário (colou um brief de design pronto, só quis aplicar
+  em cima do catálogo existente, não trocar a estrutura por uma landing
+  page nova). O acento chegou a ser cobre/laranja por algumas horas
+  (interpretação errada do brief) mas **voltou pra roxo metálico** no
+  mesmo dia, a pedido do usuário — essa é a cor da marca, fixa. Paleta
+  exata pode mudar de novo quando o logo real virar arquivo.
+- Catálogo vai crescer pra **centenas de produtos** (avisado em
+  2026-08-14) — motivou adicionar paginação, ordenação e busca antes do
+  que seria necessário só com os 8 produtos de exemplo atuais.
+- WhatsApp da CMG3D (pro botão "Perguntar no WhatsApp" no site):
+  `+55 11 98323-1173`.
 - Domínio/hospedagem: aceita gratuito (`*.vercel.app`), sem precisar de
   domínio próprio pago.
 
 ## Em aberto
 
-- Scaffold do site `catalogo-produtos-3d` revisado (bugs de preço,
-  limpeza de storage, confirmação de exclusão, idempotência do schema.sql
-  e cookie de sessão no middleware corrigidos) e mesclado direto na `main`
-  (sem PR — ninguém pediu). Projeto criado no Vercel (time `DF`) e ligado
-  ao repo; push na `main` já deve ter disparado o primeiro deploy.
-  Falta antes de funcionar de verdade:
-  - Usuário rodou `supabase/schema.sql` no projeto Supabase real
-    (`https://zpisplssvkudvyjaurhm.supabase.co`) e criou as 2 contas
-    admin — confirmar que os dois passos foram feitos.
-  - Configurar `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-    nas variáveis de ambiente do projeto no Vercel — a MCP do Vercel
+- Site `catalogo-produtos-3d` publicado na `main` do Vercel (time `DF`),
+  sem PR (ninguém pediu). Cadastrado com 4 categorias e 8 produtos de
+  exemplo (fotos placeholder) via SQL direto, só pra visualização — ainda
+  precisa dos produtos e fotos reais, cadastrados pelo painel admin.
+  Passos manuais que faltam (o usuário precisa fazer, sem acesso
+  automatizado nem ao Supabase nem às env vars do Vercel nesta sessão):
+  - Rodar `supabase/migration-destaques-busca.sql` no projeto Supabase
+    real (`https://zpisplssvkudvyjaurhm.supabase.co`) — adiciona
+    destaque manual, contagem de visualização e índice de busca; feito
+    depois do `schema.sql` original já ter rodado.
+  - Configurar `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+    e `NEXT_PUBLIC_WHATSAPP_NUMBER` (`5511983231173`, sem o `+`) nas
+    variáveis de ambiente do projeto no Vercel — a MCP do Vercel
     disponível nesta sessão não tem ferramenta pra setar env vars nem
     listar deployments/projeto (dá 403/404 mesmo após criar o projeto com
     sucesso), então esse passo ficou manual, pelo dashboard.
@@ -90,9 +101,9 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
     usuário, se algum dia isso for retomado como projeto à parte:
     `https://makerworld.com/en/@cgavioli/collections`.
 - Logo da CMG3D precisa ser salvo como arquivo real no repo do projeto
-  (`assets/logo/`) antes da implementação visual — pedir ao usuário para
-  enviar como anexo, não só inline no chat. Por ora o site usa uma paleta
-  roxo/metálico placeholder em `src/app/globals.css`.
+  (`assets/logo/`) antes da implementação visual definitiva — pedir ao
+  usuário para enviar como anexo, não só inline no chat. Por ora o site
+  usa roxo metálico "de estoque" em `src/app/globals.css`.
 - Next.js 16 tem um recurso que anexa automaticamente um bloco de
   instruções para agentes de IA ao `CLAUDE.md` toda vez que roda `next dev`
   (`agentRules`). Foi desativado no `next.config.ts` do projeto para manter
