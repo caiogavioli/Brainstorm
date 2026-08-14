@@ -15,9 +15,10 @@ descartada. Repositório e esqueleto atualizados para a v2. Site em
 produção no Vercel (`catalogo-produtos-3d`), com catálogo público, área
 admin, tema escuro roxo metálico, menu de categorias, busca,
 ordenação/paginação, destaques na home, "mais vistos", cores por
-produto (círculos na página do produto, não mais página separada) e
-contato via WhatsApp. Ver "Em aberto" pros passos manuais que faltam
-pra tudo funcionar de ponta a ponta.
+produto — inclusive metálicas, com efeito de brilho — (círculos na
+página do produto, não mais página separada) e contato via WhatsApp.
+Ver "Em aberto" pros passos manuais que faltam pra tudo funcionar de
+ponta a ponta.
 
 ## Problemas
 
@@ -89,8 +90,8 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
   pedir print/texto exato — não há acesso a logs do Vercel nesta sessão
   pra diagnosticar sozinho. Passos manuais que ainda podem faltar (sem
   acesso automatizado ao Supabase nem às env vars do Vercel nesta sessão):
-  - Rodar `migration-cores-por-produto.sql` (cor única/várias cores por
-    produto, criado em 2026-08-14) no SQL Editor do projeto Supabase real
+  - Rodar `migration-cores-por-produto.sql` e `migration-cor-metalica.sql`
+    (criados em 2026-08-14) no SQL Editor do projeto Supabase real
     (`https://zpisplssvkudvyjaurhm.supabase.co`) — ainda não confirmado
     pelo usuário.
   - `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` e
@@ -107,6 +108,16 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
     pra "não entra", pastas `scraper/`/`data/` ficam sem uso). Perfil do
     usuário, se algum dia isso for retomado como projeto à parte:
     `https://makerworld.com/en/@cgavioli/collections`.
+- **Incidente de segurança (2026-08-14, corrigido no mesmo dia)**: usuário
+  testou em aba anônima (nunca logada) e o painel `/admin` abria direto,
+  sem pedir senha — bug real, não confusão de sessão. RLS do banco já
+  bloqueava qualquer escrita não autenticada (dados provavelmente não
+  foram alterados), mas o painel e a lista de produtos ficaram visíveis
+  pra qualquer um por um tempo. Causa suspeita: `src/proxy.ts` (convenção
+  nova do Next.js 16, ver decisão abaixo) pode não ter suporte maduro no
+  Vercel ainda. Corrigido com duas camadas independentes: voltou pra
+  `src/middleware.ts` (convenção antiga, estável) + checagem de sessão
+  direto no layout do admin, sem depender só do middleware.
 - Logo da CMG3D precisa ser salvo como arquivo real no repo do projeto
   (`assets/logo/`) antes da implementação visual definitiva — pedir ao
   usuário para enviar como anexo, não só inline no chat. Por ora o site
