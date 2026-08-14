@@ -76,6 +76,15 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
   tudo**: agora reservado só pra 3 pontos de identidade (logo, selo
   "Destaque", indicador do carrossel). Decisão registrada porque muda a
   regra anterior ("roxo é a cor da marca, fixa em tudo").
+- Essa tentativa (âmbar+ciano) **não agradou** — usuário pediu, ainda no
+  mesmo dia, pra voltar tudo pro roxo. Regra fica **restabelecida**: roxo
+  metálico é o acento único do site inteiro (preço, botões, links, foco,
+  seleção — não só logo/detalhe). Único acréscimo aceito foi um cinza
+  metálico (`steel-*`) como segunda voz discreta em texto técnico, não
+  como acento novo. Lição pro futuro: não vale a pena propor trocar o
+  acento principal de marca sem pedido explícito, mesmo com pesquisa de
+  mercado favorável — a cor da marca é uma preferência fixa do usuário,
+  não um parâmetro aberto a otimização.
 - Catálogo vai crescer pra **centenas de produtos** (avisado em
   2026-08-14) — motivou adicionar paginação, ordenação e busca antes do
   que seria necessário só com os 8 produtos de exemplo atuais.
