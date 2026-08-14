@@ -1,65 +1,136 @@
-# Criar a Triagem Contratante como Routine no claude.ai
+# Criar a Triagem Contratante como Routine — passo a passo
 
-Passo a passo, e o texto pronto para colar.
+Rótulos conferidos na documentação oficial de Routines.
 
-## Por que pela interface, e não por aqui
+## Por que por aqui e não por programação
+
+A documentação é explícita sobre o que resolve o seu problema:
+
+> *"Routines run autonomously as full Claude Code cloud sessions: there is no
+> permission-mode picker and **no approval prompts during a run**."*
+
+> *"Claude can use every tool from an included connector, including writes,
+> **without asking for permission during a run**."*
 
 Um trigger criado por programação nesta organização **não consegue carregar os
-conectores**. A ferramenta avisa isso explicitamente: a sessão disparada nasce
-sem Outlook e sem Monday — cega e muda.
-
-Pela interface de Routines, dá para anexar os conectores, e a execução roda sem
-prompt de aprovação por desenho.
-
-## O que preencher
-
-| Campo | Valor |
-|---|---|
-| **Nome** | `Triagem Contratante — rodada diária` |
-| **Quando** | Dias úteis (seg–sex), **07:30** horário de Brasília |
-| **Conectores** | ✅ **Microsoft 365** · ✅ **monday.com** — os dois são obrigatórios |
-| **Repositório** | `caiogavioli/Brainstorm` |
-| **Notificação** | Push ao terminar (opcional, recomendado) |
-
-⚠️ **Se faltar um dos dois conectores, a rotina não funciona.** O Microsoft 365
-é a caixa de e-mail; o monday.com é o quadro de estado.
-
-## Depois de criar — como testar sem se enganar
-
-⚠️ **Atenção a uma armadilha:** se você disparar ainda hoje (sexta 14/08), a
-rotina **não vai mandar e-mail** — e isso é o comportamento correto, não falha.
-A regra "uma mensagem por dia" vai detectar que o `[Triagem] Sexta 14/08` já
-saiu de manhã e pular o envio. Você veria "não chegou e-mail" e concluiria
-errado.
-
-Então, duas formas de testar:
-
-**Opção A — esperar segunda (mais limpa).** A Routine dispara sozinha às 07:30.
-Sinal de sucesso: o e-mail `[Triagem] Segunda 17/08` chega **sem você ter
-aprovado nada**.
-
-**Opção B — disparar hoje mesmo.** Como o e-mail será pulado de propósito,
-julgue por outros dois sinais:
-
-1. **Nenhum prompt de aprovação apareceu** — este é o que importa
-2. A execução leu o Monday e a caixa sem erro, e explicou no final que não
-   enviou porque já havia mensagem do dia
-
-### O que me contar depois
-
-Só três coisas:
-
-1. Apareceu algum pedido de aprovação? Se sim, **em qual passo**
-2. O e-mail chegou (ou foi corretamente pulado)?
-3. O quadro no Monday foi atualizado?
-
-Se pedir aprovação mesmo pela interface, o problema não é mais de configuração
-— aí partimos para o caminho B, que é tirar a rotina de dentro do Claude e
-rodá-la como programa próprio no GitHub Actions.
+conectores** — a sessão nasceria sem Outlook e sem Monday. Pela interface, os
+conectores já vêm marcados por padrão.
 
 ---
 
-## Texto do prompt — colar inteiro no campo de instrução
+## Os 8 passos
+
+### 1. Abrir o formulário
+Acesse **claude.ai/code/routines** e clique em **New routine**.
+
+### 2. Nome
+```
+Triagem Contratante — rodada diária
+```
+
+### 3. Instruções (prompt)
+Cole o texto inteiro da seção **"Texto para colar"**, mais abaixo neste arquivo.
+
+O campo tem um **seletor de modelo** ao lado. O modelo escolhido é usado em
+todas as execuções.
+
+### 4. Repositórios
+Adicione os **dois**:
+
+- `caiogavioli/triagem-contratante` — onde mora o playbook
+- `caiogavioli/Brainstorm` — onde mora a trava de segurança
+
+⚠️ Cada repositório é clonado **a partir da branch padrão**. As travas já foram
+colocadas na branch padrão dos dois, então funciona de qualquer jeito.
+
+### 5. Ambiente
+Deixe **Default**. A rede dele é **Trusted**, e a documentação diz que o
+tráfego dos conectores passa pelos servidores da Anthropic — ou seja, **não
+precisa liberar domínio nenhum** para o Outlook e o Monday funcionarem.
+
+### 6. Gatilho
+Em **Select a trigger**, escolha **Schedule** e depois o preset **weekdays**
+(dias úteis), às **07:30**.
+
+O horário é digitado no **seu fuso** e convertido automaticamente. Não precisa
+calcular UTC.
+
+> A execução pode começar alguns minutos depois do horário — é um
+> escalonamento proposital, e o desvio é sempre o mesmo para cada rotina.
+
+### 7. Conectores
+Na seção **Connectors**, no fim do formulário: **todos os seus conectores já
+vêm incluídos por padrão.** Não precisa adicionar nada.
+
+Só confira que estes dois estão na lista, e **não os remova**:
+
+- ✅ **Microsoft 365** — a caixa de e-mail
+- ✅ **monday.com** — o quadro
+
+Sem um dos dois, a rotina não funciona.
+
+### 8. Criar
+Clique em **Create**.
+
+---
+
+## Como testar
+
+Na página da rotina, clique em **Run now**.
+
+### ⚠️ Armadilha: testar no mesmo dia
+
+Se você disparar num dia em que o `[Triagem]` já saiu, a rotina **não vai
+mandar e-mail** — e isso está **certo**. A regra "uma mensagem por dia" vai
+detectar a mensagem anterior e pular o envio. Você veria "não chegou e-mail" e
+concluiria errado.
+
+**Teste limpo:** deixar rodar sozinha na segunda às 07:30. Sucesso é o e-mail
+`[Triagem] Segunda 17/08` chegar sem você aprovar nada.
+
+**Teste imediato:** clicar em **Run now** e julgar por outros sinais:
+
+1. **Nenhum pedido de aprovação apareceu** — é o que importa
+2. Leu o Monday e a caixa sem erro
+3. Explicou no fim que não enviou porque já havia mensagem do dia
+
+### Não confie na bolinha verde
+
+A documentação avisa:
+
+> *"A green status in the run list means the session started and exited without
+> an infrastructure error. **It does not mean the task in your prompt
+> succeeded.**"*
+
+Clique na execução e leia a transcrição para ver o que realmente aconteceu.
+
+---
+
+## Depois do teste, me conte três coisas
+
+1. Apareceu pedido de aprovação? Se sim, **em qual passo**
+2. O e-mail chegou (ou foi corretamente pulado)?
+3. O quadro no Monday foi atualizado?
+
+Se ainda pedir aprovação mesmo assim, o caminho de agente está esgotado e
+partimos para o plano B: tirar a rotina de dentro do Claude e rodá-la como
+programa próprio no GitHub Actions, falando direto com a Graph API, a API do
+Monday e a API da Claude.
+
+---
+
+## ⚠️ Não apague nada ainda
+
+O trigger antigo (`trig_01XgjXnVg8oytX2yvTv5ZqTZ`) **continua ativo** e dispara
+segunda às 07:30 também. Deixei de propósito para você não ficar sem rotina
+durante o teste.
+
+Se a nova funcionar, me avise que eu apago a antiga. Enquanto as duas
+estiverem ligadas, você recebe a mensagem duas vezes na segunda — é esperado.
+
+---
+
+## Texto para colar
 
 ```
 Execute a rodada diária da Triagem Contratante agora, do começo ao fim, sem pedir confirmação — não há ninguém acompanhando esta execução.
@@ -71,7 +142,7 @@ CONTEXTO
 - Estado: Monday, board TAREFAS 18425132208, grupo group_mm637vs0. É a fonte única. Não existe arquivo de estado em lugar nenhum.
 
 PRIMEIRO PASSO OBRIGATÓRIO — carregue o playbook
-Clone caiogavioli/triagem-contratante (branch main) e leia, nesta ordem:
+No repositório caiogavioli/triagem-contratante, leia nesta ordem:
   1. rotina/playbook.md
   2. rotina/criterios-classificacao.md
   3. rotina/formato-mensagem.md
@@ -84,8 +155,8 @@ RESUMO DA RODADA
 2. Buscar na Inbox os emails dos dois domínios recebidos desde a última execução. Excluir remetentes @dfsindicos.com.br e assuntos com [Triagem]. Paginar se vier nextOffset.
 3. Usar sempre sentDateTime, nunca receivedDateTime, para janela, ordenação, dias parado e prazos relativos. O usuário edita a data de recebimento à mão para fixar emails no topo do Outlook — há casos com dois anos de diferença. Data futura é marcador de importância dele, não defeito: não sinalizar como anomalia.
 4. Classificar cada email em demanda ou informativo e extrair o prazo. Na dúvida, demanda.
-5. Ler os emails do próprio usuário com [Triagem] no assunto desde a última execução — são as respostas dele fechando pedidos em linguagem natural.
-6. Criar item no Monday para cada demanda nova, com o campo "Resumo e o que fazer" preenchido; atualizar Dias parado dos abertos; itens marcados Concluída saem da lista e o fechamento é confirmado na mensagem.
+5. Ler os emails do próprio usuário com [Triagem] no assunto desde a última execução — são as respostas dele fechando pedidos em linguagem natural. Confirmar na mensagem o que foi entendido antes de fechar qualquer item.
+6. Criar item no Monday para cada demanda nova, com o campo "Resumo e o que fazer" preenchido; atualizar Dias parado dos abertos; itens marcados Concluída saem da lista.
 7. Enviar o email diário de caio@dfsindicos.com.br para caio@dfsindicos.com.br, assunto "[Triagem] <Dia> <DD/MM> — <n> pedido(s)", no formato de tabela com emoji de formato-mensagem.md, com link para o board.
 
 PRAZO NA TABELA
@@ -107,11 +178,5 @@ Se algo falhar, envie a mensagem assim mesmo e descreva a falha no rodapé. Falh
 ## A rotina do SafetyDocs tem o mesmo defeito
 
 A `Cobrança SafetyDocs — rodada semanal` (segundas, 08h08) também está amarrada
-a uma sessão persistente e vai pedir aprovação do mesmo jeito. Quando quiser,
-refazemos ela pela interface com o mesmo procedimento — os conectores dela são
-os mesmos.
-
-## Depois que a Routine nova estiver rodando
-
-Apagar o trigger antigo `trig_01XgjXnVg8oytX2yvTv5ZqTZ`, senão a rotina roda
-duas vezes por dia. **Não apague antes de confirmar que a nova funciona.**
+a uma sessão persistente e vai pedir aprovação do mesmo jeito. Mesmo
+procedimento resolve, quando você quiser.
