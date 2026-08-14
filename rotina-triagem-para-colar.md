@@ -24,14 +24,38 @@ prompt de aprovação por desenho.
 ⚠️ **Se faltar um dos dois conectores, a rotina não funciona.** O Microsoft 365
 é a caixa de e-mail; o monday.com é o quadro de estado.
 
-## Depois de criar
+## Depois de criar — como testar sem se enganar
 
-Rode uma vez pelo botão de disparo manual e confira duas coisas:
+⚠️ **Atenção a uma armadilha:** se você disparar ainda hoje (sexta 14/08), a
+rotina **não vai mandar e-mail** — e isso é o comportamento correto, não falha.
+A regra "uma mensagem por dia" vai detectar que o `[Triagem] Sexta 14/08` já
+saiu de manhã e pular o envio. Você veria "não chegou e-mail" e concluiria
+errado.
 
-1. Chegou o e-mail `[Triagem] ...` na caixa
-2. O quadro no Monday foi atualizado
+Então, duas formas de testar:
 
-Se a rotina pedir aprovação de alguma coisa, algum conector não foi anexado.
+**Opção A — esperar segunda (mais limpa).** A Routine dispara sozinha às 07:30.
+Sinal de sucesso: o e-mail `[Triagem] Segunda 17/08` chega **sem você ter
+aprovado nada**.
+
+**Opção B — disparar hoje mesmo.** Como o e-mail será pulado de propósito,
+julgue por outros dois sinais:
+
+1. **Nenhum prompt de aprovação apareceu** — este é o que importa
+2. A execução leu o Monday e a caixa sem erro, e explicou no final que não
+   enviou porque já havia mensagem do dia
+
+### O que me contar depois
+
+Só três coisas:
+
+1. Apareceu algum pedido de aprovação? Se sim, **em qual passo**
+2. O e-mail chegou (ou foi corretamente pulado)?
+3. O quadro no Monday foi atualizado?
+
+Se pedir aprovação mesmo pela interface, o problema não é mais de configuração
+— aí partimos para o caminho B, que é tirar a rotina de dentro do Claude e
+rodá-la como programa próprio no GitHub Actions.
 
 ---
 
