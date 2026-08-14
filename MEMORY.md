@@ -79,21 +79,20 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
   sem PR (ninguém pediu). Cadastrado com 4 categorias e 8 produtos de
   exemplo (fotos placeholder) via SQL direto, só pra visualização — ainda
   precisa dos produtos e fotos reais, cadastrados pelo painel admin.
-  Usuário confirmou ter configurado as env vars no Vercel e feito
-  redeploy (2026-08-14), mas relatou um erro ao abrir uma página de
-  produto — provavelmente por faltar rodar a migração SQL antes (a
-  contagem de visualização chamava uma função que só existe depois da
-  migração; corrigido no código pra falhar em silêncio em vez de
-  derrubar a página, mas a causa raiz — migração não rodada — pode
-  continuar pendente). Passos manuais que ainda podem faltar (sem
+  Usuário confirmou ter configurado as env vars no Vercel, feito
+  redeploy e já ter rodado `migration-destaques-busca.sql` **antes** do
+  erro relatado — então a hipótese inicial (função de contagem de views
+  faltando) **não era a causa real**. Causa raiz do erro ainda
+  desconhecida; a correção defensiva (view count nunca derruba a página)
+  foi mantida por ser boa prática de qualquer forma, mas não resolve o
+  que causou o erro de fato. Se o erro persistir depois desta rodada,
+  pedir print/texto exato — não há acesso a logs do Vercel nesta sessão
+  pra diagnosticar sozinho. Passos manuais que ainda podem faltar (sem
   acesso automatizado ao Supabase nem às env vars do Vercel nesta sessão):
-  - Rodar, na ordem, no SQL Editor do projeto Supabase real
-    (`https://zpisplssvkudvyjaurhm.supabase.co`): `schema.sql` (se ainda
-    não rodou o projeto todo) → `migration-destaques-busca.sql` (destaque
-    manual, contagem de visualização, índice de busca) →
-    `migration-cores-por-produto.sql` (cor única/várias cores por
-    produto). Confirmar com o usuário se os dois arquivos de migração já
-    foram rodados.
+  - Rodar `migration-cores-por-produto.sql` (cor única/várias cores por
+    produto, criado em 2026-08-14) no SQL Editor do projeto Supabase real
+    (`https://zpisplssvkudvyjaurhm.supabase.co`) — ainda não confirmado
+    pelo usuário.
   - `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` e
     `NEXT_PUBLIC_WHATSAPP_NUMBER` (`5511983231173`, sem o `+`) já
     configurados no Vercel pelo usuário — a MCP do Vercel disponível
