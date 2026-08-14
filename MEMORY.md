@@ -66,6 +66,16 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
   (interpretação errada do brief) mas **voltou pra roxo metálico** no
   mesmo dia, a pedido do usuário — essa é a cor da marca, fixa. Paleta
   exata pode mudar de novo quando o logo real virar arquivo.
+- Visual **mudou de novo** em 2026-08-14 (mesmo dia, rodada de revisão
+  completa pedida pelo usuário): pesquisa de mercado em catálogos de
+  impressão 3D (MakerWorld, Printables, Bambu Store) apontou o roxo-sobre-
+  preto-com-glass como clichê de SaaS genérico, não padrão do nicho.
+  Usuário decidiu misturar as duas direções propostas — fundo carvão
+  neutro sem glass, acento âmbar (funcional: preço/CTA) + ciano
+  (estado ativo/selecionado), com o roxo metálico **não mais fixo em
+  tudo**: agora reservado só pra 3 pontos de identidade (logo, selo
+  "Destaque", indicador do carrossel). Decisão registrada porque muda a
+  regra anterior ("roxo é a cor da marca, fixa em tudo").
 - Catálogo vai crescer pra **centenas de produtos** (avisado em
   2026-08-14) — motivou adicionar paginação, ordenação e busca antes do
   que seria necessário só com os 8 produtos de exemplo atuais.
