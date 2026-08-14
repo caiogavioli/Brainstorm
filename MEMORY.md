@@ -53,6 +53,13 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
   ilustração de família) — ainda não salvo no repositório do projeto porque
   chegou só inline no chat, não como arquivo; pedir para reenviar como
   anexo quando a implementação visual começar.
+- Visual do site **mudou** em 2026-08-14: saiu do roxo/metálico original
+  (herdado do logo) pra tema escuro "cinza chumbo" com acento
+  cobre/laranja, cartões com efeito vidro, fonte Inter, ícones Lucide,
+  animações com Framer Motion — pedido explícito do usuário (colou um
+  brief de design pronto, só quis aplicar em cima do catálogo existente,
+  não trocar a estrutura por uma landing page nova). Paleta pode mudar de
+  novo quando o logo real virar arquivo.
 - Domínio/hospedagem: aceita gratuito (`*.vercel.app`), sem precisar de
   domínio próprio pago.
 
