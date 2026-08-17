@@ -23,6 +23,8 @@ entra nesta tabela como `a confirmar`, nunca é inventado.
 | Condomínio O Parque | O Parque T07 | oparquecorporate.gerente@innova.net.br;oparquecorporate.manutencao@innova.net.br;oparquecorporate.analista@innova.net.br;oparquecorporate.assistente@innova.net.br;thomaz.bastos@innova.net.br | confirmado |
 | Condomínio Panamerica Park - B2 (Comum) (BGRE) | Panamerica | kelly.dangelis@cbre.com;suneimy.brito@cbre.com;marco.gimenez@cbre.com;katia.oliveira@cbre.com;cristiane.cavalcanti@cbre.com | confirmado |
 | Condomínio Panamerica Park - B5 (BGRE) | Panamerica | kelly.dangelis@cbre.com;suneimy.brito@cbre.com;marco.gimenez@cbre.com;katia.oliveira@cbre.com;cristiane.cavalcanti@cbre.com | confirmado |
+| Condomínio Panamerica Park - B3 (BGRE) | — | — | a confirmar |
+| Condomínio Panamerica Park - B6 (BGRE) | — | — | a confirmar |
 
 ## Grupos de envio — prédios que viram **um único email**
 
@@ -42,6 +44,15 @@ subseção por rótulo original dentro de cada tabela (vencidos/a vencer) — pa
 o gestor saber se um item é do bloco B1 ou do B2, por exemplo. O assunto usa
 o nome do grupo de envio ("Centenário", "Panamerica"), não o rótulo
 individual. Todos os outros 9 prédios continuam 1 rótulo = 1 email.
+
+## Pendências de mapeamento
+
+**Condomínio Panamerica Park - B3 (BGRE)** e **Condomínio Panamerica Park - B6
+(BGRE)** apareceram pela primeira vez no informativo de 17/08/2026 — não
+existiam na semana anterior (10/08). Parecem ser blocos novos do mesmo
+complexo Panamerica (que já tem B2 e B5 confirmados e agrupados). **Não
+enviados ainda** — confirme o email de cobrança de cada um (e diga se
+devem entrar no grupo de envio "Panamerica" ou ficar separados).
 
 ## Como confirmar um rótulo novo
 

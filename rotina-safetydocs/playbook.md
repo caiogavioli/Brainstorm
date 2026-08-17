@@ -90,10 +90,18 @@ como "sem pendência" no resumo, separado de quem recebeu.
 ## Passo 6 — Checar se já enviou essa semana
 
 Antes de enviar, buscar na pasta **Itens Enviados**, remetente
-`caio@dfsindicos.com.br`, assunto contendo `[Cobrança SafetyDocs]` e o nome do
-condomínio, nos últimos 7 dias. Se já existe → pular (idempotência: uma
-reexecução manual não duplica quem já recebeu). Isso vale mesmo se a rotina
-travou no meio da rodada e for retomada depois.
+`caio@dfsindicos.com.br`, assunto contendo `[Cobrança SafetyDocs]`, o nome do
+condomínio **e a data do informativo desta rodada** (o `(DD/MM)` do final do
+assunto — ver `formato-mensagem.md`). Se já existe um envio com essa mesma
+data → pular (idempotência: uma reexecução manual não duplica quem já
+recebeu). Isso vale mesmo se a rotina travou no meio da rodada e for retomada
+depois.
+
+**Não usar só "últimos 7 dias" sem checar a data no assunto.** A cobrança da
+semana anterior (com outra data) pode cair dentro de uma janela solta de 7
+dias a partir da segunda seguinte — isso geraria um falso positivo de "já
+enviado" e pularia a cobrança nova por engano. A data no assunto é o
+identificador confiável de qual semana aquele envio pertence.
 
 ## Passo 7 — Montar e enviar
 
