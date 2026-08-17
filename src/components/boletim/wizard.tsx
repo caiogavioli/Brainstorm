@@ -1,13 +1,14 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import type { Criticidade, SituacaoItem, StatusGeralDia } from "@prisma/client";
 
 import { GRUPOS } from "@/lib/checklist";
-import { STATUS_DIA_LABEL } from "@/lib/labels";
+import { CRITICIDADE_CLASSE, CRITICIDADE_LABEL, STATUS_DIA_LABEL } from "@/lib/labels";
 import { formatarDataReferencia } from "@/lib/datas";
 import { corrigirBoletimAction, salvarBoletimAction } from "@/lib/acoes/boletim";
+import type { Pendencia, PendenciasPorCondominio } from "@/lib/consultas/pendencias";
 
 type ItemChecklist = {
   id: number;
@@ -25,7 +26,27 @@ type Resposta = {
   criticidade: Criticidade | "";
   planoAcao: string;
   previsaoFinalizacao: string;
+  /**
+   * Id da ocorrência que arrastou este item para dentro do boletim de hoje.
+   *
+   * Serve para separar, na revisão, o que a ronda encontrou agora do que já
+   * vinha de trás: são duas leituras diferentes e misturá-las faria o
+   * preenchedor reclassificar todo dia um problema que ele já classificou.
+   */
+  origemPendencia: number | null;
 };
+
+const RESPOSTA_LIMPA: Resposta = {
+  situacao: "CONFORME",
+  observacao: "",
+  criticidade: "",
+  planoAcao: "",
+  previsaoFinalizacao: "",
+  origemPendencia: null,
+};
+
+/** O que o preenchedor decidiu sobre uma pendência de dias anteriores. */
+type DecisaoPendencia = "CONTINUA" | "RESOLVIDA";
 
 const CRITICIDADES: { valor: Criticidade; rotulo: string }[] = [
   { valor: "BAIXA", rotulo: "Baixo" },
@@ -52,6 +73,7 @@ export function WizardBoletim({
   dataInicial,
   condominioInicial,
   boletimExistente,
+  pendencias = {},
   modoEdicao = false,
   valoresIniciais,
 }: {
@@ -61,6 +83,11 @@ export function WizardBoletim({
   condominioInicial: number | null;
   /** Datas que já possuem boletim, por condomínio — para avisar de substituição. */
   boletimExistente: Record<number, string[]>;
+  /**
+   * Ocorrências ainda em aberto, por condomínio. Vêm todas de uma vez porque o
+   * wizard troca de prédio sem recarregar a página.
+   */
+  pendencias?: PendenciasPorCondominio;
   /**
    * Correção de um boletim existente pelo admin. Condomínio e data ficam
    * travados: mudá-los criaria um segundo boletim em vez de corrigir este.
@@ -85,16 +112,77 @@ export function WizardBoletim({
     Object.fromEntries(
       itens.map((i) => [
         i.id,
-        valoresIniciais?.respostas[i.id] ?? {
-          situacao: "CONFORME" as SituacaoItem,
-          observacao: "",
-          criticidade: "" as const,
-          planoAcao: "",
-          previsaoFinalizacao: "",
-        },
+        valoresIniciais?.respostas[i.id] ?? { ...RESPOSTA_LIMPA },
       ]),
     ),
   );
+
+  /*
+   * Pendências do condomínio selecionado, carregadas para dentro do boletim.
+   *
+   * Na correção de um boletim antigo elas não aparecem: o admin está arrumando
+   * o registro de um dia que já passou, e fechar hoje uma ocorrência a partir
+   * daquela tela dataria a conclusão no dia errado.
+   */
+  const pendenciasDoCondominio = useMemo(
+    () => (modoEdicao ? [] : (pendencias[condominioId] ?? [])),
+    [pendencias, condominioId, modoEdicao],
+  );
+  const [decisoes, setDecisoes] = useState<Record<number, DecisaoPendencia>>({});
+
+  /*
+   * Toda pendência entra como "continua em aberto" — é o estado verdadeiro até
+   * alguém dizer o contrário. O item correspondente do checklist já nasce como
+   * não conforme, com risco, plano e prazo que a ocorrência trazia: sem isso, a
+   * pessoa teria que redigitar todo dia o que já está registrado.
+   */
+  useEffect(() => {
+    setDecisoes(
+      Object.fromEntries(
+        pendenciasDoCondominio.map((p) => [p.ocorrenciaId, "CONTINUA" as const]),
+      ),
+    );
+    setRespostas((atual) => {
+      const copia = { ...atual };
+      // Limpa o que veio de pendências de outro condomínio antes de aplicar as
+      // deste, senão trocar de prédio deixaria marcações órfãs.
+      for (const chave of Object.keys(copia)) {
+        const id = Number(chave);
+        if (copia[id].origemPendencia !== null) copia[id] = { ...RESPOSTA_LIMPA };
+      }
+      for (const p of pendenciasDoCondominio) {
+        if (p.checklistItemId === null || !copia[p.checklistItemId]) continue;
+        copia[p.checklistItemId] = {
+          situacao: "NAO_CONFORME",
+          observacao: p.descricao,
+          criticidade: p.criticidade,
+          planoAcao: p.planoAcao ?? "",
+          previsaoFinalizacao: p.previsaoFinalizacao,
+          origemPendencia: p.ocorrenciaId,
+        };
+      }
+      return copia;
+    });
+  }, [pendenciasDoCondominio]);
+
+  function decidirPendencia(p: Pendencia, decisao: DecisaoPendencia) {
+    setDecisoes((atual) => ({ ...atual, [p.ocorrenciaId]: decisao }));
+    if (p.checklistItemId === null) return;
+    setRespostas((atual) => ({
+      ...atual,
+      [p.checklistItemId!]:
+        decisao === "CONTINUA"
+          ? {
+              situacao: "NAO_CONFORME",
+              observacao: p.descricao,
+              criticidade: p.criticidade,
+              planoAcao: p.planoAcao ?? "",
+              previsaoFinalizacao: p.previsaoFinalizacao,
+              origemPendencia: p.ocorrenciaId,
+            }
+          : { ...RESPOSTA_LIMPA },
+    }));
+  }
 
   const itensPorGrupo = useMemo(() => {
     const mapa = new Map<string, ItemChecklist[]>();
@@ -104,31 +192,72 @@ export function WizardBoletim({
   }, [itens]);
 
   const naoConformes = useMemo(
-    () =>
-      itens.filter((i) => respostas[i.id]?.situacao === "NAO_CONFORME"),
+    () => itens.filter((i) => respostas[i.id]?.situacao === "NAO_CONFORME"),
     [itens, respostas],
   );
 
-  // O status do dia é sugerido pelo checklist, mas o gestor pode sobrepor.
-  const statusSugerido: StatusGeralDia =
-    naoConformes.length === 0
-      ? "EM_CONFORMIDADE"
-      : naoConformes.length >= 3
-        ? "OCORRENCIA_CRITICA"
-        : "OCORRENCIA_PONTUAL";
   const [statusManual, setStatusManual] = useState<StatusGeralDia | null>(
     valoresIniciais?.statusGeral ?? null,
   );
-  const statusGeral = statusManual ?? statusSugerido;
 
   // Na edição o boletim do dia é justamente este — avisar que "já existe" só
   // confundiria quem veio corrigi-lo.
   const jaExiste =
     !modoEdicao && (boletimExistente[condominioId] ?? []).includes(dataReferencia);
 
-  // Etapas: 0 = identificação, 1..4 = grupos, 5 = equipe/resumo.
-  const TOTAL_ETAPAS = GRUPOS.length + 2;
+  /*
+   * Etapas: identificação → pendências (quando há) → grupos → fechamento.
+   *
+   * As pendências vêm logo depois da identificação, antes do checklist, porque
+   * saber o que já está aberto muda a ronda: a pessoa passa no elevador
+   * sabendo que ele está na lista.
+   */
+  const etapas = useMemo(
+    () => [
+      "IDENTIFICACAO",
+      ...(pendenciasDoCondominio.length > 0 ? ["PENDENCIAS"] : []),
+      ...GRUPOS.map((g) => g.codigo),
+      "FECHAMENTO",
+    ],
+    [pendenciasDoCondominio],
+  );
+  const TOTAL_ETAPAS = etapas.length;
+  const etapaAtual = etapas[etapa] ?? "FECHAMENTO";
   const ultimaEtapa = etapa === TOTAL_ETAPAS - 1;
+  const grupoAtual = GRUPOS.find((g) => g.codigo === etapaAtual) ?? null;
+
+  // Na revisão, o que a ronda achou hoje e o que veio de trás ficam separados.
+  const novasNaoConformes = naoConformes.filter(
+    (i) => respostas[i.id]?.origemPendencia === null,
+  );
+  const emAcompanhamento = naoConformes.filter(
+    (i) => respostas[i.id]?.origemPendencia !== null,
+  );
+  const resolvidasAgora = pendenciasDoCondominio.filter(
+    (p) => decisoes[p.ocorrenciaId] === "RESOLVIDA",
+  ).length;
+
+  /*
+   * O status do dia é sugerido pelo que a RONDA DE HOJE encontrou — não pelo
+   * tamanho do backlog.
+   *
+   * Se as pendências antigas contassem, um prédio com oito problemas em aberto
+   * nasceria "ocorrência crítica" todo santo dia e o indicador de conformidade
+   * ficaria travado em zero até o último deles ser fechado. O indicador
+   * deixaria de distinguir o dia bom do dia ruim, que é a única coisa que ele
+   * serve para fazer. O acúmulo tem indicadores próprios — backlog, SLA
+   * estourado e o quadro de pendências desta tela.
+   *
+   * Continua sendo sugestão: quem preencheu pode marcar o dia como crítico
+   * porque o elevador segue parado, e é uma escolha legítima.
+   */
+  const statusSugerido: StatusGeralDia =
+    novasNaoConformes.length === 0
+      ? "EM_CONFORMIDADE"
+      : novasNaoConformes.length >= 3
+        ? "OCORRENCIA_CRITICA"
+        : "OCORRENCIA_PONTUAL";
+  const statusGeral = statusManual ?? statusSugerido;
 
   function alterarResposta(itemId: number, mudanca: Partial<Resposta>) {
     setRespostas((atual) => ({ ...atual, [itemId]: { ...atual[itemId], ...mudanca } }));
@@ -139,14 +268,11 @@ export function WizardBoletim({
     setRespostas((atual) => {
       const copia = { ...atual };
       for (const item of doGrupo) {
-        copia[item.id] = {
-          ...copia[item.id],
-          situacao: "CONFORME",
-          observacao: "",
-          criticidade: "",
-          planoAcao: "",
-          previsaoFinalizacao: "",
-        };
+        // "Tudo conforme" é sobre o que a ronda viu agora. Um problema que veio
+        // de dias anteriores só sai daqui se a pessoa disser que foi resolvido,
+        // na etapa de pendências — e não por um atalho de preenchimento.
+        if (copia[item.id].origemPendencia !== null) continue;
+        copia[item.id] = { ...RESPOSTA_LIMPA };
       }
       return copia;
     });
@@ -154,7 +280,7 @@ export function WizardBoletim({
 
   function avancar() {
     setErro(null);
-    if (etapa === 0) {
+    if (etapaAtual === "IDENTIFICACAO") {
       if (!condominioId) {
         setErro("Selecione o condomínio.");
         return;
@@ -201,11 +327,28 @@ export function WizardBoletim({
       return;
     }
     iniciarEnvio(async () => {
+      /*
+       * Só conta como resolvida a pendência cujo item NÃO está marcado como não
+       * conforme agora. Se a pessoa disse "resolvido" e depois marcou falha no
+       * mesmo item, ela está dizendo que o problema continua — e fechar a
+       * ocorrência ali abriria uma nova amanhã, quebrando o histórico do
+       * problema em duas.
+       */
+      const pendenciasResolvidas = pendenciasDoCondominio
+        .filter((p) => decisoes[p.ocorrenciaId] === "RESOLVIDA")
+        .filter(
+          (p) =>
+            p.checklistItemId === null ||
+            respostas[p.checklistItemId]?.situacao !== "NAO_CONFORME",
+        )
+        .map((p) => p.ocorrenciaId);
+
       const payload = {
         condominioId,
         dataReferencia,
         statusGeral,
         observacoes,
+        pendenciasResolvidas,
         itens: itens.map((i) => {
           const r = respostas[i.id];
           const naoConforme = r.situacao === "NAO_CONFORME";
@@ -218,6 +361,9 @@ export function WizardBoletim({
             planoAcao: naoConforme ? r.planoAcao : "",
             previsaoFinalizacao:
               naoConforme && r.previsaoFinalizacao ? r.previsaoFinalizacao : undefined,
+            // Sinaliza o que já vinha de trás: sem isso, uma falta de equipe em
+            // aberto seria contada de novo a cada dia em "Faltas registradas".
+            continuacao: naoConforme && r.origemPendencia !== null,
           };
         }),
       };
@@ -236,19 +382,17 @@ export function WizardBoletim({
     });
   }
 
-  const grupoAtual = etapa >= 1 && etapa <= GRUPOS.length ? GRUPOS[etapa - 1] : null;
-
   return (
     <div className="mx-auto max-w-2xl">
       {/* Progresso */}
       <div className="mb-4">
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm font-semibold">
-            {etapa === 0
+            {etapaAtual === "IDENTIFICACAO"
               ? "Identificação"
-              : grupoAtual
-                ? grupoAtual.titulo
-                : "Fechamento"}
+              : etapaAtual === "PENDENCIAS"
+                ? "Pendências de dias anteriores"
+                : (grupoAtual?.titulo ?? "Fechamento")}
           </span>
           <span className="text-xs num" style={{ color: "var(--tinta-3)" }}>
             Etapa {etapa + 1} de {TOTAL_ETAPAS}
@@ -275,8 +419,8 @@ export function WizardBoletim({
       </div>
 
       <div className="card card-pad">
-        {/* Etapa 0 — identificação */}
-        {etapa === 0 ? (
+        {/* Identificação */}
+        {etapaAtual === "IDENTIFICACAO" ? (
           <div className="space-y-4">
             <div>
               <label className="rotulo" htmlFor="condominio">
@@ -357,7 +501,126 @@ export function WizardBoletim({
           </div>
         ) : null}
 
-        {/* Etapas 1..4 — grupos do checklist */}
+        {/* Pendências arrastadas dos dias anteriores */}
+        {etapaAtual === "PENDENCIAS" ? (
+          <div>
+            <p className="text-sm mb-1" style={{ color: "var(--tinta-2)" }}>
+              Estes problemas continuam em aberto de dias anteriores. Diga o que
+              aconteceu com cada um — é assim que eles saem da lista.
+            </p>
+            <p className="text-xs mb-4" style={{ color: "var(--tinta-3)" }}>
+              Enquanto não forem concluídos, reaparecem aqui todo dia. Os que
+              continuam já entram no boletim de hoje com o risco e o plano que
+              você registrou antes; dá para ajustar na revisão, no fim.
+            </p>
+
+            <ul className="space-y-3">
+              {pendenciasDoCondominio.map((p) => {
+                const decisao = decisoes[p.ocorrenciaId] ?? "CONTINUA";
+                const resolvida = decisao === "RESOLVIDA";
+                return (
+                  <li
+                    key={p.ocorrenciaId}
+                    className="rounded-xl p-3"
+                    style={{
+                      border: `1px solid ${
+                        resolvida
+                          ? "color-mix(in srgb, var(--status-bom) 40%, transparent)"
+                          : "color-mix(in srgb, var(--status-atencao) 45%, transparent)"
+                      }`,
+                      background: resolvida
+                        ? "color-mix(in srgb, var(--status-bom) 6%, var(--superficie))"
+                        : "color-mix(in srgb, var(--status-atencao) 7%, var(--superficie))",
+                    }}
+                  >
+                    <div className="flex flex-wrap items-center gap-2 mb-1">
+                      <span className="font-semibold text-sm">{p.setor}</span>
+                      <span className={CRITICIDADE_CLASSE[p.criticidade]}>
+                        {CRITICIDADE_LABEL[p.criticidade]}
+                      </span>
+                      {p.totalRecorrencias > 0 ? (
+                        <span className="badge badge-neutral">
+                          {p.totalRecorrencias + 1}ª aparição
+                        </span>
+                      ) : null}
+                    </div>
+
+                    <p className="text-sm mb-1" style={{ color: "var(--tinta-2)" }}>
+                      {p.descricao}
+                    </p>
+                    <p
+                      className="text-xs mb-3 num"
+                      style={{ color: "var(--tinta-3)" }}
+                    >
+                      Aberta em {formatarDataReferencia(p.desde)}
+                      {p.previsaoFinalizacao
+                        ? ` · previsão ${formatarDataReferencia(p.previsaoFinalizacao)}`
+                        : " · sem prazo"}
+                    </p>
+
+                    <div
+                      className="grid grid-cols-2 gap-1"
+                      role="radiogroup"
+                      aria-label={`Situação de ${p.setor}`}
+                    >
+                      {(
+                        [
+                          { valor: "CONTINUA" as const, rotulo: "Continua em aberto" },
+                          { valor: "RESOLVIDA" as const, rotulo: "Resolvida" },
+                        ]
+                      ).map((opcao) => {
+                        const marcado = decisao === opcao.valor;
+                        const cor =
+                          opcao.valor === "RESOLVIDA"
+                            ? "var(--status-bom)"
+                            : "var(--status-atencao)";
+                        return (
+                          <button
+                            key={opcao.valor}
+                            type="button"
+                            role="radio"
+                            aria-checked={marcado}
+                            onClick={() => decidirPendencia(p, opcao.valor)}
+                            className="rounded-lg px-2 py-2 text-xs font-semibold"
+                            style={{
+                              minHeight: "2.75rem",
+                              border: `1px solid ${marcado ? "transparent" : "var(--borda-forte)"}`,
+                              background: marcado ? cor : "var(--superficie)",
+                              color: marcado
+                                ? opcao.valor === "RESOLVIDA"
+                                  ? "#ffffff"
+                                  : "#0b0b0b"
+                                : "var(--tinta-2)",
+                            }}
+                          >
+                            {opcao.rotulo}
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    {resolvida ? (
+                      <p className="mt-2 text-xs" style={{ color: "var(--tinta-3)" }}>
+                        Será dada como concluída em{" "}
+                        <span className="num">
+                          {formatarDataReferencia(dataReferencia)}
+                        </span>
+                        , a data deste boletim.
+                      </p>
+                    ) : p.checklistItemId === null ? (
+                      <p className="mt-2 text-xs" style={{ color: "var(--tinta-3)" }}>
+                        Ocorrência avulsa, fora do checklist — segue em
+                        acompanhamento e volta a aparecer amanhã.
+                      </p>
+                    ) : null}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ) : null}
+
+        {/* Grupos do checklist */}
         {grupoAtual ? (
           <div>
             <p className="text-sm mb-3" style={{ color: "var(--tinta-2)" }}>
@@ -472,6 +735,14 @@ export function WizardBoletim({
           <div className="space-y-5">
             <div>
               <span className="rotulo">Status geral do dia</span>
+              {emAcompanhamento.length > 0 ? (
+                <p className="text-xs mb-2" style={{ color: "var(--tinta-3)" }}>
+                  A sugestão olha só o que a ronda de hoje encontrou. As{" "}
+                  {emAcompanhamento.length} pendência(s) que vêm de trás continuam
+                  registradas e no acompanhamento, mas não classificam o dia — se
+                  classificassem, todo dia seria crítico enquanto elas existissem.
+                </p>
+              ) : null}
               <div className="space-y-2">
                 {(
                   [
@@ -555,17 +826,30 @@ export function WizardBoletim({
                   </dd>
                 </div>
                 <div className="flex justify-between gap-3">
-                  <dt>Itens não conformes</dt>
+                  <dt>Não conformidades novas</dt>
                   <dd className="font-medium num" style={{ color: "var(--tinta)" }}>
-                    {naoConformes.length}
+                    {novasNaoConformes.length}
                   </dd>
                 </div>
-                <div className="flex justify-between gap-3">
-                  <dt>Ocorrências a abrir</dt>
-                  <dd className="font-medium num" style={{ color: "var(--tinta)" }}>
-                    {naoConformes.length}
-                  </dd>
-                </div>
+                {emAcompanhamento.length > 0 ? (
+                  <div className="flex justify-between gap-3">
+                    <dt>Continuam de dias anteriores</dt>
+                    <dd className="font-medium num" style={{ color: "var(--tinta)" }}>
+                      {emAcompanhamento.length}
+                    </dd>
+                  </div>
+                ) : null}
+                {resolvidasAgora > 0 ? (
+                  <div className="flex justify-between gap-3">
+                    <dt>Pendências concluídas hoje</dt>
+                    <dd
+                      className="font-medium num"
+                      style={{ color: "var(--status-bom-texto)" }}
+                    >
+                      {resolvidasAgora}
+                    </dd>
+                  </div>
+                ) : null}
               </dl>
 
               {naoConformes.length === 0 ? (
@@ -582,22 +866,43 @@ export function WizardBoletim({
                   Cada item abaixo vira uma ocorrência. Classifique o risco e diga o
                   que será feito — quem esteve no local é quem sabe o tamanho do
                   problema.
+                  {emAcompanhamento.length > 0 ? (
+                    <>
+                      {" "}
+                      Os que vêm de dias anteriores já chegam preenchidos: só mexa
+                      se alguma coisa mudou.
+                    </>
+                  ) : null}
                 </p>
 
                 <ul className="space-y-3">
-                  {naoConformes.map((item) => {
+                  {[...novasNaoConformes, ...emAcompanhamento].map((item) => {
                     const r = respostas[item.id];
                     return (
                       <li
                         key={item.id}
                         className="rounded-xl p-3"
                         style={{
-                          border:
-                            "1px solid color-mix(in srgb, var(--status-critico) 40%, transparent)",
-                          background:
-                            "color-mix(in srgb, var(--status-critico) 5%, var(--superficie))",
+                          border: `1px solid color-mix(in srgb, ${
+                            r.origemPendencia !== null
+                              ? "var(--status-atencao) 45%"
+                              : "var(--status-critico) 40%"
+                          }, transparent)`,
+                          background: `color-mix(in srgb, ${
+                            r.origemPendencia !== null
+                              ? "var(--status-atencao) 6%"
+                              : "var(--status-critico) 5%"
+                          }, var(--superficie))`,
                         }}
                       >
+                        {r.origemPendencia !== null ? (
+                          <div
+                            className="text-xs font-semibold mb-1"
+                            style={{ color: "var(--tinta-3)" }}
+                          >
+                            Continua de dias anteriores
+                          </div>
+                        ) : null}
                         <div className="font-semibold text-sm mb-1">{item.nome}</div>
                         <p className="text-xs mb-3" style={{ color: "var(--tinta-2)" }}>
                           {r.observacao}

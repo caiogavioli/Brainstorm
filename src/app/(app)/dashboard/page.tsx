@@ -101,7 +101,7 @@ export default async function PaginaDashboard({
           rotulo="Dias em conformidade"
           valor={pct(kpis.percentualConformidade)}
           unidade="%"
-          nota={`${kpis.diasConformes} de ${kpis.totalBoletins} boletins do período sem nenhuma não conformidade.`}
+          nota={`${kpis.diasConformes} de ${kpis.totalBoletins} boletins do período em que a ronda não encontrou nada novo. Pendências que vêm de dias anteriores contam no backlog, não aqui.`}
           destaque={kpis.percentualConformidade >= 80 ? "bom" : null}
         />
         <CartaoKPI

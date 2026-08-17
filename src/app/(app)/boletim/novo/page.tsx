@@ -3,6 +3,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { condominiosDaSessao, exigirSessao } from "@/lib/auth";
 import { dataReferenciaDe } from "@/lib/datas";
+import { pendenciasAbertas } from "@/lib/consultas/pendencias";
 import { WizardBoletim } from "@/components/boletim/wizard";
 
 export const metadata = { title: "Novo boletim — Gestão de Condomínios" };
@@ -51,6 +52,10 @@ export default async function PaginaNovoBoletim({
     (boletimExistente[b.condominioId] ??= []).push(b.dataReferencia);
   }
 
+  // As ocorrências ainda abertas viajam junto: o boletim de hoje precisa
+  // mostrá-las sem que a pessoa tenha que lembrar de cada uma.
+  const pendencias = await pendenciasAbertas(condominios.map((c) => c.id));
+
   const preSelecionado = params.condominio ? Number(params.condominio) : null;
   const condominioInicial =
     preSelecionado && condominios.some((c) => c.id === preSelecionado)
@@ -77,6 +82,7 @@ export default async function PaginaNovoBoletim({
         dataInicial={dataReferenciaDe()}
         condominioInicial={condominioInicial}
         boletimExistente={boletimExistente}
+        pendencias={pendencias}
       />
     </div>
   );

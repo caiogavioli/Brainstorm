@@ -25,6 +25,8 @@ export type ResultadoRegistro = {
   id: number;
   abertas: number;
   reincidentes: number;
+  /** Pendências de dias anteriores que o preenchedor deu por concluídas. */
+  resolvidas: number;
   /** Texto pronto para colar no grupo de WhatsApp. */
   resumo: string;
 };
@@ -74,7 +76,11 @@ export async function registrarBoletim({
   }
 
   const naoConformes = itens.filter((i) => i.situacao === "NAO_CONFORME");
+  // Falta é evento do dia. Uma ausência que se arrasta já está contabilizada na
+  // ocorrência aberta; recontá-la a cada boletim inflaria "faltas registradas"
+  // em uma por dia até alguém fechar a ocorrência.
   const equipesComFalta = naoConformes
+    .filter((i) => !i.continuacao)
     .map((i) => porId.get(i.checklistItemId)!)
     .filter((c) => c.grupo === GRUPO_EQUIPES);
 
@@ -296,6 +302,43 @@ export async function registrarBoletim({
       });
     }
 
+    /*
+     * Pendências dadas como resolvidas hoje.
+     *
+     * O filtro por `condominioId` não é zelo excessivo: o id vem do cliente, e
+     * sem ele bastaria trocar um número no envio para fechar a ocorrência de
+     * outro prédio. O filtro por status também importa — reenviar o mesmo dia
+     * não pode reescrever a data de conclusão de algo já concluído.
+     */
+    let resolvidas = 0;
+    if (dados.pendenciasResolvidas.length > 0) {
+      const alvos = await tx.ocorrencia.findMany({
+        where: {
+          id: { in: dados.pendenciasResolvidas },
+          condominioId: dados.condominioId,
+          status: { in: ["PENDENTE", "EM_ANDAMENTO"] },
+        },
+        select: { id: true, descricao: true },
+      });
+
+      for (const alvo of alvos) {
+        await tx.ocorrencia.update({
+          where: { id: alvo.id },
+          data: { status: "CONCLUIDO", dataConclusao: abertura },
+        });
+        await tx.ocorrenciaLog.create({
+          data: {
+            ocorrenciaId: alvo.id,
+            usuarioId,
+            mensagem:
+              `Concluída no boletim de ${formatarDataReferencia(dados.dataReferencia)}, ` +
+              `enviado por ${autor}.`,
+          },
+        });
+      }
+      resolvidas = alvos.length;
+    }
+
     const resumo = montarResumoWhatsApp({
       condominio: condominio?.nome ?? "Condomínio",
       dataReferencia: dados.dataReferencia,
@@ -317,7 +360,7 @@ export async function registrarBoletim({
       ),
     });
 
-    return { id: boletim.id, abertas, reincidentes, resumo };
+    return { id: boletim.id, abertas, reincidentes, resolvidas, resumo };
   });
 }
 
@@ -330,6 +373,7 @@ export function resumoDoRegistro(r: ResultadoRegistro): string {
   if (r.reincidentes > 0) {
     partes.push(`${r.reincidentes} problema(s) já em aberto — nada foi duplicado`);
   }
+  if (r.resolvidas > 0) partes.push(`${r.resolvidas} pendência(s) concluída(s)`);
   return partes.length > 0
     ? `Boletim registrado — ${partes.join(" · ")}.`
     : "Boletim registrado. Nenhuma não conformidade.";

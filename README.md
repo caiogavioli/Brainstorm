@@ -124,6 +124,18 @@ o banco sozinho; localmente, `npm run catalogo:sync`.
 - **Ocorrência automática**: todo item `NAO_CONFORME` abre uma ocorrência
   vinculada ao item de origem, dentro da mesma transação do boletim. Criticidade
   e SLA vêm do catálogo (Alta 3d · Média 7d · Baixa 15d).
+- **Pendência que se arrasta reaparece sozinha.** Enquanto uma ocorrência não é
+  dada como concluída, ela volta no boletim do dia seguinte, numa etapa própria
+  logo depois da identificação, já com risco, plano e prazo preenchidos. Quem
+  preenche só diz se **continua em aberto** ou se foi **resolvida** — e resolver
+  fecha a ocorrência com a data daquele boletim.
+- **O backlog não classifica o dia.** As pendências arrastadas entram no boletim
+  e viram recorrência, mas a sugestão de status do dia olha só o que a ronda
+  encontrou de novo. Se contassem, um prédio com oito problemas abertos nasceria
+  "ocorrência crítica" todo dia e o indicador de conformidade travaria em zero
+  até o último deles ser fechado — deixando de distinguir o dia bom do ruim, que
+  é a única coisa que ele serve para fazer. O acúmulo tem indicadores próprios.
+  Pelo mesmo motivo, falta de equipe que se arrasta não é recontada a cada dia.
 - **Um problema, uma ocorrência.** Se já existe ocorrência em aberto para o
   mesmo condomínio e item, o boletim do dia **não** abre outra: registra uma
   linha em `OcorrenciaRecorrencia` e anota no histórico. Sem isso, uma
@@ -181,7 +193,8 @@ Baixa que estourou o prazo é promessa quebrada e não pode ficar atrás de toda
 Alta ainda no prazo). Logo abaixo, o estado do boletim de hoje e o botão para
 lançá-lo.
 
-**Wizard mobile** (`/boletim/novo`) — 12 etapas:
+**Wizard mobile** (`/boletim/novo`) — identificação, pendências de dias
+anteriores (quando há), os grupos do checklist e o fechamento:
 identificação, os 10 grupos do checklist e o fechamento. Todos os itens já vêm marcados como **Conforme**, então
 o gerente só toca onde há falha; ao marcar uma falha, o campo de descrição e a
 criticidade aparecem no mesmo cartão. Alvos de toque de 44px, campos de 16px

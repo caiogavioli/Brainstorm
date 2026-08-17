@@ -56,9 +56,28 @@ export const boletimSchema = z.object({
           .regex(/^\d{4}-\d{2}-\d{2}$/, "Data de conclusão inválida.")
           .optional()
           .or(z.literal("").transform(() => undefined)),
+        /**
+         * Item que já estava não conforme de dias anteriores e foi arrastado
+         * para este boletim. Não muda o que é gravado — muda o que é CONTADO:
+         * uma falta de equipe em aberto não pode entrar na estatística de
+         * faltas todo dia até ser resolvida.
+         */
+        continuacao: z.boolean().optional().default(false),
       }),
     )
     .min(1, "O boletim precisa de ao menos um item."),
+  /**
+   * Ocorrências de dias anteriores que o preenchedor deu como resolvidas hoje.
+   *
+   * Só os ids: o que muda no banco é decidido no servidor, e a posse de cada
+   * ocorrência é conferida contra o condomínio do boletim antes de fechar
+   * qualquer uma. As que continuam em aberto não vêm aqui — elas chegam como
+   * itens não conformes normais e caem na regra de recorrência que já existe.
+   */
+  pendenciasResolvidas: z
+    .array(z.coerce.number().int().positive())
+    .optional()
+    .default([]),
 });
 
 export type EntradaBoletim = z.infer<typeof boletimSchema>;

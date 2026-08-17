@@ -70,6 +70,9 @@ export default async function PaginaEditarBoletim({
             previsaoFinalizacao: o?.previsaoFinalizacao
               ? o.previsaoFinalizacao.toISOString().slice(0, 10)
               : "",
+            // A correção reescreve um dia que já passou; carregar pendências de
+            // hoje ali dataria a conclusão no dia errado. Nada vem de pendência.
+            origemPendencia: null,
           },
         ];
       }),
