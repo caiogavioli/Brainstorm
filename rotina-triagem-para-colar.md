@@ -119,14 +119,26 @@ Monday e a API da Claude.
 
 ---
 
-## ⚠️ Não apague nada ainda
+## ✅ RESOLVIDO — 17/08/2026
 
-O trigger antigo (`trig_01XgjXnVg8oytX2yvTv5ZqTZ`) **continua ativo** e dispara
-segunda às 07:30 também. Deixei de propósito para você não ficar sem rotina
-durante o teste.
+A Routine criada pela interface **funcionou**. Rodou sozinha às 07h46 BRT, sem
+nenhum pedido de aprovação, leu a caixa e o Monday, criou o card do pedido novo
+com o prazo preenchido e enviou a mensagem do dia.
 
-Se a nova funcionar, me avise que eu apago a antiga. Enquanto as duas
-estiverem ligadas, você recebe a mensagem duas vezes na segunda — é esperado.
+Confirmou também que o playbook chegou certo pela `main`: a mensagem dela saiu
+com a coluna Prazo nova, e ela tratou corretamente os e-mails de data
+manipulada, registrando "já mapeado, sem pedido novo aqui" em vez de os
+classificar como anomalia.
+
+O trigger antigo (`trig_01XgjXnVg8oytX2yvTv5ZqTZ`) foi **apagado** no mesmo dia.
+Enquanto os dois coexistiram houve colisão real: duas mensagens no mesmo dia e
+um card duplicado no quadro, porque as duas execuções leram o estado antes de a
+outra escrever. O card duplicado foi removido; ficou o da Routine.
+
+**Lição para o desenho:** duas rotinas escrevendo no mesmo quadro não se
+enxergam. A regra "uma mensagem por dia" só protege contra a segunda execução
+se ela consultar a caixa DEPOIS de a primeira ter enviado — o que não acontece
+quando as duas partem quase juntas.
 
 ---
 
