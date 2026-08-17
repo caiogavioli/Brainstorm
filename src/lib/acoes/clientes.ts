@@ -110,9 +110,20 @@ export async function excluirClienteAction(
 
   const cliente = await prisma.cliente.findUnique({
     where: { id },
-    select: { nome: true },
+    select: { nome: true, _count: { select: { orcamentos: true } } },
   });
   if (!cliente) return { ok: false, erro: "Cliente não encontrado." };
+
+  // Cliente com orçamento não é excluído, é desativado. Apagá-lo levaria junto
+  // o histórico comercial — quanto foi orçado, o que foi aceito, o que foi
+  // recusado — e é justamente esse histórico que responde se vale a pena
+  // insistir nele no ano que vem.
+  if (cliente._count.orcamentos > 0) {
+    return {
+      ok: false,
+      erro: `"${cliente.nome}" tem ${cliente._count.orcamentos} orçamento(s) no histórico. Desative-o em vez de excluir.`,
+    };
+  }
 
   if (confirmacao.trim().toLowerCase() !== cliente.nome.trim().toLowerCase()) {
     return {

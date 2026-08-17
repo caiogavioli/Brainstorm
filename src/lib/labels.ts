@@ -9,6 +9,7 @@ import type {
   SituacaoItem,
   StatusGeralDia,
   StatusOcorrencia,
+  StatusOrcamento,
 } from "@prisma/client";
 
 export const STATUS_DIA_LABEL: Record<StatusGeralDia, string> = {
@@ -63,4 +64,44 @@ export const SITUACAO_CLASSE: Record<SituacaoItem, string> = {
   CONFORME: "badge badge-ok",
   NAO_CONFORME: "badge badge-danger",
   NAO_APLICAVEL: "badge badge-neutral",
+};
+
+// ---------------------------------------------------------------------------
+// Orçamentos
+// ---------------------------------------------------------------------------
+
+export const STATUS_ORCAMENTO_LABEL: Record<StatusOrcamento, string> = {
+  RASCUNHO: "Rascunho",
+  ENVIADO: "Enviado",
+  VISUALIZADO: "Visualizado",
+  ACEITO: "Aceito",
+  RECUSADO: "Recusado",
+  AJUSTE_SOLICITADO: "Ajuste solicitado",
+  EXPIRADO: "Expirado",
+};
+
+/**
+ * Cor de cada estado. A leitura é comercial, não de gravidade:
+ * verde é dinheiro fechado, vermelho é negócio perdido, amarelo é bola na sua
+ * mão, azul é bola na mão do cliente.
+ */
+export const STATUS_ORCAMENTO_CLASSE: Record<StatusOrcamento, string> = {
+  RASCUNHO: "badge badge-neutral",
+  ENVIADO: "badge badge-info",
+  VISUALIZADO: "badge badge-info",
+  ACEITO: "badge badge-ok",
+  RECUSADO: "badge badge-danger",
+  AJUSTE_SOLICITADO: "badge badge-warn",
+  EXPIRADO: "badge badge-neutral",
+};
+
+/** O que cada estado significa em uma frase, para legenda e tela vazia. */
+export const STATUS_ORCAMENTO_AJUDA: Record<StatusOrcamento, string> = {
+  RASCUNHO: "Ainda não saiu daqui — pode editar à vontade.",
+  ENVIADO: "Foi para o cliente, que ainda não abriu o link.",
+  VISUALIZADO: "O cliente abriu, mas não respondeu.",
+  ACEITO: "O cliente aceitou.",
+  RECUSADO: "O cliente recusou.",
+  AJUSTE_SOLICITADO: "O cliente pediu mudança — a bola está com você.",
+  EXPIRADO: "Passou da validade sem resposta.",
 };

@@ -94,6 +94,7 @@ model Usuario {
   boletinsCriados    Boletim[]           @relation("BoletimCriadoPor")
   ocorrenciasAbertas Ocorrencia[]        @relation("OcorrenciaAbertaPor")
   logs               OcorrenciaLog[]
+  orcamentosCriados  Orcamento[]         @relation("OrcamentoCriadoPor")
 }
 
 // Liga um usuário GESTOR aos condomínios que ele pode operar.
@@ -119,9 +120,9 @@ model UsuarioCondominio {
 // ---------------------------------------------------------------------------
 
 model ChecklistItem {
-  id     Int    @id @default(autoincrement())
-  codigo String @unique // slug estável, ex.: "elevadores"
-  nome   String
+  id         Int     @id @default(autoincrement())
+  codigo     String  @unique // slug estável, ex.: "elevadores"
+  nome       String
   // Código do grupo ("EQUIPES", "ELETRICA"…). Texto e não enum de propósito:
   // reorganizar o checklist é rotina de negócio, e um enum exigiria migração
   // de banco a cada ajuste.
@@ -168,8 +169,8 @@ model Boletim {
   criadoEm     DateTime @default(now())
   atualizadoEm DateTime @updatedAt
 
-  condominio Condominio    @relation(fields: [condominioId], references: [id], onDelete: Cascade)
-  criadoPor  Usuario?      @relation("BoletimCriadoPor", fields: [criadoPorId], references: [id], onDelete: SetNull)
+  condominio   Condominio              @relation(fields: [condominioId], references: [id], onDelete: Cascade)
+  criadoPor    Usuario?                @relation("BoletimCriadoPor", fields: [criadoPorId], references: [id], onDelete: SetNull)
   itens        BoletimItem[]
   ocorrencias  Ocorrencia[]
   recorrencias OcorrenciaRecorrencia[]
@@ -221,15 +222,15 @@ model Ocorrencia {
   // Um problema que se arrasta continua sendo UMA ocorrência: cada boletim que
   // o reencontra vira uma linha em `recorrencias`, não uma ocorrência nova.
   ultimaRecorrenciaEm DateTime?
-  totalRecorrencias   Int              @default(0)
-  criadoEm            DateTime         @default(now())
-  atualizadoEm        DateTime         @updatedAt
+  totalRecorrencias   Int       @default(0)
+  criadoEm            DateTime  @default(now())
+  atualizadoEm        DateTime  @updatedAt
 
-  condominio    Condominio      @relation(fields: [condominioId], references: [id], onDelete: Cascade)
-  checklistItem ChecklistItem?  @relation(fields: [checklistItemId], references: [id])
-  boletim       Boletim?        @relation(fields: [boletimId], references: [id], onDelete: SetNull)
-  boletimItem   BoletimItem?    @relation(fields: [boletimItemId], references: [id], onDelete: SetNull)
-  abertaPor     Usuario?        @relation("OcorrenciaAbertaPor", fields: [abertaPorId], references: [id], onDelete: SetNull)
+  condominio    Condominio              @relation(fields: [condominioId], references: [id], onDelete: Cascade)
+  checklistItem ChecklistItem?          @relation(fields: [checklistItemId], references: [id])
+  boletim       Boletim?                @relation(fields: [boletimId], references: [id], onDelete: SetNull)
+  boletimItem   BoletimItem?            @relation(fields: [boletimItemId], references: [id], onDelete: SetNull)
+  abertaPor     Usuario?                @relation("OcorrenciaAbertaPor", fields: [abertaPorId], references: [id], onDelete: SetNull)
   fotos         OcorrenciaFoto[]
   historico     OcorrenciaLog[]
   recorrencias  OcorrenciaRecorrencia[]
@@ -353,6 +354,8 @@ model Cliente {
   criadoEm     DateTime @default(now())
   atualizadoEm DateTime @updatedAt
 
+  orcamentos Orcamento[]
+
   @@index([ativo, nome])
 }
 
@@ -393,7 +396,8 @@ model ServicoCatalogo {
   criadoEm     DateTime @default(now())
   atualizadoEm DateTime @updatedAt
 
-  itensModelo ModeloOrcamentoItem[]
+  itensModelo    ModeloOrcamentoItem[]
+  itensOrcamento OrcamentoItem[]
 
   @@index([ativo, categoria, ordem])
 }
@@ -451,5 +455,119 @@ model ModeloOrcamentoItem {
   servico ServicoCatalogo? @relation(fields: [servicoCatalogoId], references: [id], onDelete: SetNull)
 
   @@index([modeloId, ordem])
+  @@index([servicoCatalogoId])
+}
+
+// ===========================================================================
+// Módulo de Orçamentos — fase 2: o orçamento
+// ===========================================================================
+
+/// Ciclo de vida do orçamento.
+///
+/// RASCUNHO -> ENVIADO -> VISUALIZADO -> ACEITO
+///                                    -> RECUSADO
+///                                    -> AJUSTE_SOLICITADO -> (nova versão)
+///                                    -> EXPIRADO
+///
+/// AJUSTE_SOLICITADO é o estado que responde "preciso entregar mais alguma
+/// coisa?". Não é fim de linha: gera uma versão nova, que recomeça o fluxo.
+enum StatusOrcamento {
+  RASCUNHO
+  ENVIADO
+  VISUALIZADO
+  ACEITO
+  RECUSADO
+  AJUSTE_SOLICITADO
+  EXPIRADO
+}
+
+model Orcamento {
+  id Int @id @default(autoincrement())
+
+  /// Sequencial por ano, visível ao cliente: "2026-0007". É por ele que o
+  /// cliente se refere ao documento no telefone, então precisa ser curto,
+  /// previsível e nunca repetir. A geração está em src/lib/orcamentos/numero.ts.
+  numero String @unique
+
+  clienteId Int
+  titulo    String
+  status    StatusOrcamento @default(RASCUNHO)
+
+  /// Quantas vezes este orçamento foi refeito depois de um pedido de ajuste.
+  /// Aparece como "v2" ao lado do número.
+  versao Int @default(1)
+
+  /// Totais em centavos, gravados no momento em que o orçamento é salvo.
+  ///
+  /// Redundantes em relação aos itens, e de propósito: é este o valor que foi
+  /// mostrado ao cliente. Recalcular na leitura faria um orçamento antigo mudar
+  /// de total se a regra de arredondamento mudasse um dia.
+  subtotalCentavos Int @default(0)
+  descontoCentavos Int @default(0)
+  totalCentavos    Int @default(0)
+
+  condicoesPagamento String?
+  prazoExecucao      String?
+  observacoes        String?
+
+  /// Até quando o orçamento vale. Passou disso sem resposta, vira EXPIRADO.
+  validoAte DateTime?
+
+  /// Endereço secreto do link público (32 bytes aleatórios em base64url).
+  ///
+  /// É a única credencial da página do cliente, então precisa ser impossível de
+  /// adivinhar por tentativa. Nasce junto com o orçamento — criar a coluna
+  /// depois, já com linhas na tabela, exigiria preencher o passado com valores
+  /// inventados.
+  token String @unique
+
+  /// Rastreio. `enviadoEm` é o nosso registro de disparo; as visualizações são
+  /// contadas por acesso ao link, não por pixel de abertura — ver o porquê em
+  /// PLANO-ORCAMENTOS.md, seção 1.
+  enviadoEm              DateTime?
+  primeiraVisualizacaoEm DateTime?
+  ultimaVisualizacaoEm   DateTime?
+  totalVisualizacoes     Int       @default(0)
+  respondidoEm           DateTime?
+  respostaMensagem       String?
+
+  criadoPorId  Int?
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  cliente   Cliente         @relation(fields: [clienteId], references: [id])
+  criadoPor Usuario?        @relation("OrcamentoCriadoPor", fields: [criadoPorId], references: [id], onDelete: SetNull)
+  itens     OrcamentoItem[]
+
+  @@index([status, criadoEm])
+  @@index([clienteId, criadoEm])
+  @@index([status, validoAte])
+}
+
+model OrcamentoItem {
+  id          Int @id @default(autoincrement())
+  orcamentoId Int
+
+  /// De qual serviço do catálogo esta linha nasceu. É o que permite responder
+  /// depois "quanto já orcei de manutenção elétrica este ano". `SetNull` porque
+  /// aposentar um serviço não pode apagar um orçamento emitido.
+  servicoCatalogoId Int?
+
+  ordem     Int     @default(0)
+  descricao String
+  detalhe   String?
+  unidade   String  @default("un")
+
+  quantidadeMilesimos   Int @default(1000)
+  valorUnitarioCentavos Int @default(0)
+
+  /// Total da linha, gravado. Mesmo motivo dos totais do orçamento: é o número
+  /// que o cliente viu, e ele não pode mudar depois.
+  totalCentavos Int @default(0)
+
+  orcamento Orcamento        @relation(fields: [orcamentoId], references: [id], onDelete: Cascade)
+  servico   ServicoCatalogo? @relation(fields: [servicoCatalogoId], references: [id], onDelete: SetNull)
+
+  @@index([orcamentoId, ordem])
   @@index([servicoCatalogoId])
 }

@@ -3,7 +3,7 @@ import { PAPEL_LABEL } from "@/lib/labels";
 import { Navegacao, type ItemNav } from "@/components/navegacao";
 import { sairAction } from "@/app/login/actions";
 
-// Os dois últimos são o módulo comercial (orçamentos). Ele fica só para ADMIN:
+// Os três últimos são o módulo comercial (orçamentos). Ele fica só para ADMIN:
 // o gerente predial preenche boletim e acompanha o prédio dele, e preço de
 // proposta não é assunto dele.
 const NAV_ADMIN: ItemNav[] = [
@@ -13,6 +13,7 @@ const NAV_ADMIN: ItemNav[] = [
   { href: "/planos", rotulo: "Planos", icone: "◷" },
   { href: "/condominios", rotulo: "Condomínios", icone: "⌂" },
   { href: "/usuarios", rotulo: "Usuários", icone: "☺" },
+  { href: "/orcamentos", rotulo: "Orçamentos", icone: "◈" },
   { href: "/clientes", rotulo: "Clientes", icone: "◑" },
   { href: "/servicos", rotulo: "Catálogo", icone: "≡" },
 ];

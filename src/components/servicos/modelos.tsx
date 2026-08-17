@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
 import {
@@ -9,24 +9,15 @@ import {
   salvarModeloAction,
 } from "@/lib/acoes/servicos";
 import type { ResultadoAcao } from "@/lib/acoes/boletim";
-import {
-  centavosParaCampo,
-  formatarMoeda,
-  formatarQuantidade,
-  lerMoeda,
-  lerQuantidade,
-  totalLinhaCentavos,
-} from "@/lib/dinheiro";
+import { formatarMoeda, formatarQuantidade, totalLinhaCentavos } from "@/lib/dinheiro";
 import { Aviso } from "@/components/aviso";
+import {
+  EditorLinhas,
+  useLinhas,
+  type ServicoDoCatalogo,
+} from "@/components/orcamentos/linhas";
 
-export type ServicoDoCatalogo = {
-  id: number;
-  nome: string;
-  descricao: string | null;
-  unidade: string;
-  valorPadraoCentavos: number;
-  categoria: string;
-};
+export type { ServicoDoCatalogo };
 
 export type ModeloEditavel = {
   id: number;
@@ -47,44 +38,6 @@ export type ModeloEditavel = {
   }[];
 };
 
-/** Uma linha enquanto está sendo editada: tudo texto, como a pessoa digitou. */
-type LinhaEdicao = {
-  chave: number;
-  servicoCatalogoId: number;
-  descricao: string;
-  detalhe: string;
-  unidade: string;
-  quantidade: string;
-  valorUnitario: string;
-};
-
-function linhaVazia(chave: number): LinhaEdicao {
-  return {
-    chave,
-    servicoCatalogoId: 0,
-    descricao: "",
-    detalhe: "",
-    unidade: "un",
-    quantidade: "1",
-    valorUnitario: "",
-  };
-}
-
-/**
- * Total de uma linha em edição, ou `null` quando o que foi digitado ainda não
- * é um número.
- *
- * O `null` é mostrado como "—" em vez de zero de propósito: um total zerado
- * parece um preço combinado, e quem está no meio de digitar "1.2" não pretendia
- * dizer que o serviço é de graça.
- */
-function totalDaLinha(linha: LinhaEdicao): number | null {
-  const quantidade = lerQuantidade(linha.quantidade);
-  const valor = lerMoeda(linha.valorUnitario);
-  if (quantidade === null || valor === null) return null;
-  return totalLinhaCentavos(quantidade, valor);
-}
-
 // ---------------------------------------------------------------------------
 // Editor
 // ---------------------------------------------------------------------------
@@ -102,12 +55,6 @@ export function EditorModelo({
   const [estado, setEstado] = useState<ResultadoAcao | null>(null);
   const [salvando, iniciar] = useTransition();
 
-  // Contador para as chaves do React. Um índice de array não serve: remover a
-  // linha 2 faria a 3 herdar a chave da 2 e o React reaproveitaria o campo
-  // errado, embaralhando o que a pessoa já tinha digitado.
-  const proximaChave = useRef(0);
-  const novaChave = () => proximaChave.current++;
-
   const [nome, setNome] = useState(modelo?.nome ?? "");
   const [descricao, setDescricao] = useState(modelo?.descricao ?? "");
   const [condicoesPagamento, setCondicoesPagamento] = useState(
@@ -118,60 +65,7 @@ export function EditorModelo({
   const [validadeDias, setValidadeDias] = useState(String(modelo?.validadeDias ?? 15));
   const [ativo, setAtivo] = useState(modelo?.ativo ?? true);
 
-  const [linhas, setLinhas] = useState<LinhaEdicao[]>(() =>
-    modelo && modelo.itens.length > 0
-      ? modelo.itens.map((item) => ({
-          chave: novaChave(),
-          servicoCatalogoId: item.servicoCatalogoId ?? 0,
-          descricao: item.descricao,
-          detalhe: item.detalhe ?? "",
-          unidade: item.unidade,
-          quantidade: formatarQuantidade(item.quantidadeMilesimos),
-          valorUnitario: centavosParaCampo(item.valorUnitarioCentavos),
-        }))
-      : [linhaVazia(novaChave())],
-  );
-
-  function alterarLinha(chave: number, mudanca: Partial<LinhaEdicao>) {
-    setLinhas((atual) =>
-      atual.map((l) => (l.chave === chave ? { ...l, ...mudanca } : l)),
-    );
-  }
-
-  /**
-   * Escolher um serviço do catálogo copia descrição, unidade e valor para a
-   * linha — e a partir daí eles são editáveis.
-   *
-   * Copiar, e não referenciar, é a regra do módulo inteiro: reajustar o preço
-   * de um serviço amanhã não pode reescrever um modelo já aprovado.
-   */
-  function aplicarServico(chave: number, servicoId: number) {
-    const servico = catalogo.find((s) => s.id === servicoId);
-    if (!servico) {
-      alterarLinha(chave, { servicoCatalogoId: 0 });
-      return;
-    }
-    alterarLinha(chave, {
-      servicoCatalogoId: servico.id,
-      descricao: servico.descricao?.trim() || servico.nome,
-      unidade: servico.unidade,
-      valorUnitario: centavosParaCampo(servico.valorPadraoCentavos),
-    });
-  }
-
-  function mover(indice: number, direcao: -1 | 1) {
-    const destino = indice + direcao;
-    if (destino < 0 || destino >= linhas.length) return;
-    setLinhas((atual) => {
-      const copia = [...atual];
-      [copia[indice], copia[destino]] = [copia[destino], copia[indice]];
-      return copia;
-    });
-  }
-
-  const totais = linhas.map(totalDaLinha);
-  const temLinhaIncompleta = totais.some((t) => t === null);
-  const total = totais.reduce<number>((soma, t) => soma + (t ?? 0), 0);
+  const linhas = useLinhas(modelo?.itens);
 
   function salvar() {
     iniciar(async () => {
@@ -184,14 +78,7 @@ export function EditorModelo({
         observacoes,
         validadeDias,
         ativo,
-        itens: linhas.map((l) => ({
-          servicoCatalogoId: l.servicoCatalogoId,
-          descricao: l.descricao,
-          detalhe: l.detalhe,
-          unidade: l.unidade,
-          quantidade: l.quantidade,
-          valorUnitario: l.valorUnitario,
-        })),
+        itens: linhas.paraEnvio(),
       });
       setEstado(r);
       if (r.ok) {
@@ -301,165 +188,9 @@ export function EditorModelo({
         </label>
       </div>
 
-      {/* Itens */}
       <div>
         <h4 className="titulo-secao mb-2">Itens do modelo</h4>
-
-        <div className="space-y-3">
-          {linhas.map((linha, indice) => (
-            <div
-              key={linha.chave}
-              className="rounded-xl p-3"
-              style={{
-                background: "var(--superficie-2)",
-                border: "1px solid var(--borda)",
-              }}
-            >
-              <div className="flex items-center justify-between gap-2 mb-2">
-                <span className="titulo-secao num">Item {indice + 1}</span>
-                <div className="flex items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => mover(indice, -1)}
-                    disabled={indice === 0}
-                    className="text-xs font-semibold disabled:opacity-30"
-                    style={{ color: "var(--tinta-2)" }}
-                    aria-label={`Mover item ${indice + 1} para cima`}
-                  >
-                    ↑
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => mover(indice, 1)}
-                    disabled={indice === linhas.length - 1}
-                    className="text-xs font-semibold disabled:opacity-30"
-                    style={{ color: "var(--tinta-2)" }}
-                    aria-label={`Mover item ${indice + 1} para baixo`}
-                  >
-                    ↓
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setLinhas((atual) =>
-                        atual.length === 1
-                          ? [linhaVazia(novaChave())]
-                          : atual.filter((l) => l.chave !== linha.chave),
-                      )
-                    }
-                    className="text-xs font-semibold underline"
-                    style={{ color: "var(--status-critico-texto)" }}
-                  >
-                    Remover
-                  </button>
-                </div>
-              </div>
-
-              <div className="grid gap-2 sm:grid-cols-2">
-                <div className="sm:col-span-2">
-                  <label className="rotulo" htmlFor={`servico-${linha.chave}`}>
-                    Serviço do catálogo
-                  </label>
-                  <select
-                    id={`servico-${linha.chave}`}
-                    className="campo"
-                    value={linha.servicoCatalogoId}
-                    onChange={(e) =>
-                      aplicarServico(linha.chave, Number(e.target.value))
-                    }
-                  >
-                    <option value={0}>Linha avulsa (digitar à mão)</option>
-                    {catalogo.map((s) => (
-                      <option key={s.id} value={s.id}>
-                        {s.categoria} · {s.nome} — {formatarMoeda(s.valorPadraoCentavos)}/
-                        {s.unidade}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="rotulo" htmlFor={`descricao-${linha.chave}`}>
-                    Descrição
-                  </label>
-                  <textarea
-                    id={`descricao-${linha.chave}`}
-                    className="campo"
-                    rows={2}
-                    value={linha.descricao}
-                    onChange={(e) =>
-                      alterarLinha(linha.chave, { descricao: e.target.value })
-                    }
-                    placeholder="O que o cliente vai ler nesta linha"
-                  />
-                </div>
-
-                <div className="grid grid-cols-3 gap-2 sm:col-span-2">
-                  <div>
-                    <label className="rotulo" htmlFor={`quantidade-${linha.chave}`}>
-                      Qtde.
-                    </label>
-                    <input
-                      id={`quantidade-${linha.chave}`}
-                      className="campo num"
-                      inputMode="decimal"
-                      value={linha.quantidade}
-                      onChange={(e) =>
-                        alterarLinha(linha.chave, { quantidade: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div>
-                    <label className="rotulo" htmlFor={`unidade-${linha.chave}`}>
-                      Unidade
-                    </label>
-                    <input
-                      id={`unidade-${linha.chave}`}
-                      className="campo"
-                      value={linha.unidade}
-                      onChange={(e) =>
-                        alterarLinha(linha.chave, { unidade: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div>
-                    <label className="rotulo" htmlFor={`valor-${linha.chave}`}>
-                      Valor unit.
-                    </label>
-                    <input
-                      id={`valor-${linha.chave}`}
-                      className="campo num"
-                      inputMode="decimal"
-                      placeholder="0,00"
-                      value={linha.valorUnitario}
-                      onChange={(e) =>
-                        alterarLinha(linha.chave, { valorUnitario: e.target.value })
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div
-                className="mt-2 pt-2 text-right text-sm num"
-                style={{ borderTop: "1px solid var(--borda)" }}
-              >
-                <span style={{ color: "var(--tinta-3)" }}>Total do item: </span>
-                <strong>
-                  {totais[indice] === null ? "—" : formatarMoeda(totais[indice]!)}
-                </strong>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <button
-          type="button"
-          onClick={() => setLinhas((atual) => [...atual, linhaVazia(novaChave())])}
-          className="botao botao-secundario w-full mt-3"
-        >
-          + Adicionar item
-        </button>
+        <EditorLinhas ctrl={linhas} catalogo={catalogo} />
       </div>
 
       <div
@@ -467,15 +198,8 @@ export function EditorModelo({
         style={{ background: "var(--superficie-2)" }}
       >
         <span className="titulo-secao">Total do modelo</span>
-        <strong className="num text-lg">{formatarMoeda(total)}</strong>
+        <strong className="num text-lg">{formatarMoeda(linhas.subtotal)}</strong>
       </div>
-
-      {temLinhaIncompleta ? (
-        <p className="text-xs" style={{ color: "var(--tinta-3)" }}>
-          Alguma linha tem quantidade ou valor que ainda não dá para ler como
-          número — o total acima ignora essas linhas.
-        </p>
-      ) : null}
 
       <Aviso estado={estado} />
 

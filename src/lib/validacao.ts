@@ -220,6 +220,46 @@ export const modeloOrcamentoSchema = z.object({
 
 export type EntradaModeloOrcamento = z.infer<typeof modeloOrcamentoSchema>;
 
+/** Uma linha do orçamento — mesmo formato do item de modelo. */
+const itemOrcamentoSchema = z.object({
+  servicoCatalogoId: z.coerce
+    .number()
+    .int()
+    .min(0)
+    .transform((v) => (v === 0 ? null : v))
+    .nullable(),
+  descricao: z.string().trim().min(2, "Descreva o item do orçamento."),
+  detalhe: textoOpcional,
+  unidade,
+  quantidade: quantidadeEmMilesimos,
+  valorUnitario: valorEmCentavos,
+});
+
+export const orcamentoSchema = z.object({
+  clienteId: z.coerce.number().int().positive("Selecione o cliente."),
+  titulo: z.string().trim().min(3, "Dê um título ao orçamento."),
+  condicoesPagamento: textoOpcional,
+  prazoExecucao: textoOpcional,
+  observacoes: textoOpcional,
+  /**
+   * Desconto sobre o subtotal, em centavos. Aceita zero, mas nunca negativo:
+   * desconto negativo é acréscimo disfarçado, e o cliente leria "desconto" num
+   * campo que aumentou a conta.
+   */
+  desconto: valorEmCentavos,
+  validadeDias: z.coerce
+    .number()
+    .int()
+    .min(1, "A validade precisa ser de ao menos 1 dia.")
+    .max(365, "Validade muito longa (máx. 365 dias)."),
+  itens: z
+    .array(itemOrcamentoSchema)
+    .min(1, "O orçamento precisa de ao menos um item.")
+    .max(200, "Orçamento com itens demais (máx. 200)."),
+});
+
+export type EntradaOrcamento = z.infer<typeof orcamentoSchema>;
+
 /** Primeira mensagem de erro de um ZodError, para exibir no formulário. */
 export function primeiraMensagem(erro: z.ZodError): string {
   return erro.issues[0]?.message ?? "Dados inválidos.";

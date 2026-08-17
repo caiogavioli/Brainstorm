@@ -211,31 +211,30 @@ O envio fica atrás de uma interface única (`src/lib/email/`), com adaptadores
 trocáveis. Assim trocar de provedor amanhã é mudar uma variável de ambiente, não
 reescrever o módulo.
 
-### Ponto que precisa ser confirmado
+### Decisão: Microsoft 365 corporativo, via API Graph
 
-**Qual é o tipo da sua conta Outlook?** A resposta muda a forma de conectar:
-
-**a) Microsoft 365 corporativo** (e-mail no seu domínio, `@suaempresa.com.br`)
-
-O caminho é a **API Microsoft Graph**: registra-se um aplicativo no Entra ID,
-com permissão `Mail.Send` restrita à sua caixa por política de acesso. O envio
+A conta é **Microsoft 365 corporativo**, então o caminho é a **API Microsoft
+Graph**: registra-se um aplicativo no Entra ID com permissão de aplicação
+`Mail.Send`, restrita a uma única caixa por `ApplicationAccessPolicy`. O envio
 aparece nos Itens Enviados do seu Outlook e as respostas do cliente chegam na
 sua caixa normalmente.
 
-A Microsoft descontinuou o SMTP com senha comum (Basic Auth) no Exchange Online,
-então em conta corporativa o SMTP tradicional tende a simplesmente não
-autenticar. Vale confirmar a situação do seu locatário antes de investir nesse
-caminho.
+SMTP foi descartado, e não por gosto: a Microsoft descontinuou o Basic Auth do
+SMTP no Exchange Online, então em conta corporativa ele tende a simplesmente não
+autenticar.
 
-**b) Conta pessoal `@outlook.com` / `@hotmail.com`**
+O que precisará ser feito no portal do Azure, na fase 3:
 
-Aqui o **SMTP via `nodemailer`** (`smtp.office365.com:587`, STARTTLS) resolve,
-usando uma senha de aplicativo gerada na conta Microsoft — o que exige verificação
-em duas etapas ativada.
+1. Registrar um aplicativo no Entra ID (Azure AD).
+2. Conceder a permissão **de aplicação** `Mail.Send` (não a delegada) e dar o
+   consentimento do administrador.
+3. Criar um segredo do cliente e anotar validade — ele expira, e o envio para
+   no dia em que expirar sem avisar.
+4. Restringir o aplicativo à sua caixa com `New-ApplicationAccessPolicy`. Sem
+   isso, a permissão vale para **todas** as caixas do locatário.
 
-Vale saber que conta pessoal tem limite baixo de envios por dia e reputação de
-entrega mais fraca. Para orçamento comercial em nome de empresa, o domínio
-próprio passa mais confiança e cai menos em spam.
+O passo 4 é o que separa "o sistema envia pelo meu e-mail" de "o sistema pode
+enviar como qualquer pessoa da empresa". Não é opcional.
 
 ### O que o Outlook não entrega
 
@@ -282,9 +281,18 @@ valor em mãos.
 > milésimos inteiros, com a conversão de e para texto isolada num só lugar. É
 > dela que todo valor do módulo vai depender.
 
-**Fase 2 — Orçamento e PDF.** Editor com aplicação de modelo, cálculo de totais,
-numeração automática, detalhe, página de impressão e geração do PDF.
+**Fase 2 — Orçamento e PDF. ✅ Pronta.** Editor com aplicação de modelo, cálculo
+de totais, numeração automática, detalhe, página de impressão e geração do PDF.
 *Ao final:* você gera o orçamento e baixa o PDF — já dá para enviar na mão.
+
+> A numeração usa trava consultiva do Postgres (`pg_advisory_xact_lock`) dentro
+> da transação. Duas abas abertas ao mesmo tempo é o caso comum, não o exótico:
+> sem trava, as duas leriam o mesmo "último número" e a segunda gravação
+> estouraria no índice único, perdendo o orçamento já digitado.
+>
+> O editor de linhas virou componente único (`components/orcamentos/linhas.tsx`),
+> usado pelo modelo e pelo orçamento. Duas cópias significariam corrigir um
+> arredondamento em dois lugares e esquecer o segundo.
 
 **Fase 3 — Envio.** Camada de e-mail com adaptador do Outlook, modelo de
 mensagem, botão de enviar e reenviar, registro em `OrcamentoEnvio`.
@@ -307,21 +315,15 @@ pendências, lembretes automáticos, versionamento do orçamento.
 APP_URL="https://seu-sistema.vercel.app"
 
 # --- Envio de e-mail ---
-# Adaptador: "graph" (Microsoft 365), "smtp" (Outlook pessoal) ou "log" (testes)
+# Adaptador: "graph" (Microsoft 365) ou "log" (grava sem enviar, para testes)
 EMAIL_PROVEDOR="graph"
 EMAIL_REMETENTE="voce@suaempresa.com.br"
 EMAIL_NOME_REMETENTE="Sua Empresa"
 
-# Microsoft Graph (EMAIL_PROVEDOR="graph")
+# Microsoft Graph — aplicativo registrado no Entra ID
 MS_TENANT_ID=""
 MS_CLIENT_ID=""
 MS_CLIENT_SECRET=""
-
-# SMTP (EMAIL_PROVEDOR="smtp")
-SMTP_HOST="smtp.office365.com"
-SMTP_PORTA="587"
-SMTP_USUARIO=""
-SMTP_SENHA=""          # senha de aplicativo, não a senha da conta
 
 # Protege a rota de lembretes automáticos
 CRON_SEGREDO=""
@@ -341,8 +343,9 @@ configurado — o desenvolvimento não fica parado esperando credencial.
 
 ## 10. Pontos em aberto
 
-1. **Tipo da conta Outlook** — define Graph ou SMTP (seção 6). É o único item
-   que bloqueia a fase 3; as fases 1 e 2 seguem sem ele.
+1. **Credenciais do Entra ID** — o registro do aplicativo (seção 6) precisa
+   estar pronto antes de a fase 3 enviar de verdade. Até lá, o adaptador `log`
+   grava a mensagem sem enviar, e o desenvolvimento não fica parado.
 2. **Aceite tem valor de contrato?** Se o aceite pelo link precisar valer como
    assinatura, é preciso guardar IP, data, identificação de quem aceitou e o
    texto exato aceito. O plano já registra IP e data; formalizar isso é uma
