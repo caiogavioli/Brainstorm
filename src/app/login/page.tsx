@@ -13,7 +13,7 @@ export default async function PaginaLogin({
 }) {
   const { configurado } = await searchParams;
   const sessao = await sessaoAtual();
-  if (sessao) redirect(sessao.papel === "ADMIN" ? "/dashboard" : "/boletim");
+  if (sessao) redirect(sessao.papel === "ADMIN" ? "/dashboard" : "/inicio");
 
   const mostrarCredenciais =
     process.env.NODE_ENV !== "production" ||

@@ -144,7 +144,7 @@ export default async function PaginaBoletim({
               <span
                 className="ml-2 text-xs"
                 style={{ color: "var(--tinta-3)" }}
-                title="Enviado pelo formulário público, sem login"
+                title="Enviado pelo formulário aberto que existia antes do login obrigatório"
               >
                 (formulário aberto)
               </span>

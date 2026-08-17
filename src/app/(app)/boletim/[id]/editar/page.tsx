@@ -9,11 +9,12 @@ import { WizardBoletim, type ValoresIniciais } from "@/components/boletim/wizard
 export const metadata = { title: "Corrigir boletim — Gestão de Condomínios" };
 
 /**
- * Correção de um boletim já enviado. Só ADMIN: o formulário público não
- * sobrescreve nada, então esta é a única porta para arrumar o registro de um dia.
+ * Correção de um boletim já enviado. Só ADMIN — quem preencheu corrige o próprio
+ * lançamento reenviando o dia pelo wizard.
  *
- * Salvar reaproveita `salvarBoletimAction`, que substitui o boletim do mesmo
- * condomínio/data e refaz as ocorrências que ele havia originado.
+ * Salvar reaproveita `corrigirBoletimAction`, que substitui o boletim do mesmo
+ * condomínio/data, refaz as ocorrências que ele havia originado e preserva a
+ * autoria original.
  */
 export default async function PaginaEditarBoletim({
   params,

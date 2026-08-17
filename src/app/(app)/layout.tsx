@@ -3,6 +3,9 @@ import { PAPEL_LABEL } from "@/lib/labels";
 import { Navegacao, type ItemNav } from "@/components/navegacao";
 import { sairAction } from "@/app/login/actions";
 
+// O admin não leva "Início" na barra: a home dele é o dashboard, e a barra
+// inferior do celular com sete abas fica com alvos de 50px. A tela continua
+// acessível por /inicio para quem quiser ver o que o preenchedor vê.
 const NAV_ADMIN: ItemNav[] = [
   { href: "/dashboard", rotulo: "Dashboard", icone: "▦" },
   { href: "/boletim", rotulo: "Boletins", icone: "☑" },
@@ -13,6 +16,7 @@ const NAV_ADMIN: ItemNav[] = [
 ];
 
 const NAV_GESTOR: ItemNav[] = [
+  { href: "/inicio", rotulo: "Início", icone: "⌂" },
   { href: "/boletim", rotulo: "Boletins", icone: "☑" },
   { href: "/ocorrencias", rotulo: "Ocorrências", icone: "⚑" },
   { href: "/planos", rotulo: "Planos", icone: "◷" },

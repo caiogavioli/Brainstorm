@@ -137,28 +137,24 @@ o banco sozinho; localmente, `npm run catalogo:sync`.
 
 ## Como se entra
 
-| Endereço | Quem usa | Login |
+Todo mundo entra com login. A raiz (`/`) apenas encaminha: quem não tem sessão
+vai para `/login`; quem tem, vai para a sua tela inicial.
+
+| Endereço | Quem usa | Cai em |
 |---|---|---|
-| `/` | Gerente predial — preenche o boletim | **Não** |
-| `/login` e o painel | Administradora | Sim |
+| `/inicio` | Gerente predial — trata ocorrências e lança o boletim | Após o login |
+| `/dashboard` | Administradora | Após o login |
 
-O **formulário do boletim é público**: o gerente abre o link e cai direto nas
-perguntas. Ele se identifica digitando o nome (gravado em `Boletim.preenchidoPor`)
-e escolhe o condomínio num menu que o administrador mantém em `/condominios`.
+**Houve aqui um formulário público, sem login**, em que o gerente se
+identificava digitando o nome. Ele foi removido quando o acompanhamento das
+ocorrências passou a ser tarefa de quem preenche: "as suas ocorrências" não
+existe sem saber quem é quem, e um nome digitado não liga o registro a ninguém.
+A Server Action daquele fluxo foi apagada junto com a tela — uma Server Action
+segue alcançável pelo identificador mesmo sem botão apontando para ela, então
+escondê-la da interface não a fecharia.
 
-Duas travas compensam a ausência de sessão nesse fluxo:
-
-- o `condominioId` recebido é conferido contra o banco — só condomínio
-  **existente e ativo** é aceito;
-- um dia que já tem boletim **não é substituído** pelo formulário público. Sem
-  login, permitir sobrescrever deixaria um envio acidental (ou de má-fé) apagar
-  o registro legítimo do dia. Pelo painel, quem tem login continua podendo
-  corrigir o próprio lançamento.
-
-> ⚠️ Um formulário aberto aceita envios de qualquer pessoa que tenha o link.
-> Para um boletim operacional isso costuma ser proporcional, mas se um dia
-> aparecer registro indevido, o caminho é publicar o sistema atrás de uma rede
-> fechada ou reativar o login para o preenchimento.
+Para migrar, o administrador cria em **/usuarios** uma conta por preenchedor,
+define a senha inicial e marca os condomínios que cada um enxerga.
 
 ## Perfis de acesso
 
@@ -179,7 +175,13 @@ condomínio é intersectado com o escopo do usuário** (`filtroCondominio` em
 
 ## Interface
 
-**Wizard mobile** (`/` público, `/boletim/novo` no painel) — 12 etapas:
+**Tela inicial do preenchedor** (`/inicio`) — abre com as ocorrências em aberto
+dos condomínios dele, as mais urgentes primeiro (atraso vence criticidade: uma
+Baixa que estourou o prazo é promessa quebrada e não pode ficar atrás de toda
+Alta ainda no prazo). Logo abaixo, o estado do boletim de hoje e o botão para
+lançá-lo.
+
+**Wizard mobile** (`/boletim/novo`) — 12 etapas:
 identificação, os 10 grupos do checklist e o fechamento. Todos os itens já vêm marcados como **Conforme**, então
 o gerente só toca onde há falha; ao marcar uma falha, o campo de descrição e a
 criticidade aparecem no mesmo cartão. Alvos de toque de 44px, campos de 16px
@@ -196,7 +198,8 @@ status, criticidade e faixa de SLA), `/ocorrencias/[id]` (gestão + histórico),
 
 ## Dashboard (`/dashboard`)
 
-Filtros globais de **condomínio** e **mês/ano**. Contém:
+Filtros globais de **condomínio** e **intervalo de datas** (início e término,
+com atalhos para hoje, ontem, 7/30 dias, este mês e o mês passado). Contém:
 
 - **KPIs** — % de dias em conformidade, abertas vs. concluídas no mês, taxa de
   ocorrências críticas, volume de faltas, backlog em aberto, SLA estourado,

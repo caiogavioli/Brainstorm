@@ -7,11 +7,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { exigirSessao, podeAcessarCondominio, sessaoAtual } from "@/lib/auth";
 import { boletimSchema, primeiraMensagem } from "@/lib/validacao";
-import {
-  BoletimJaExisteError,
-  registrarBoletim,
-  resumoDoRegistro,
-} from "@/lib/acoes/registrar-boletim";
+import { registrarBoletim, resumoDoRegistro } from "@/lib/acoes/registrar-boletim";
 
 export type ResultadoAcao =
   | { ok: true; id?: number; mensagem?: string; resumo?: string }
@@ -25,9 +21,6 @@ function revalidarTudo(id?: number) {
 }
 
 function tratarErro(erro: unknown): ResultadoAcao {
-  if (erro instanceof BoletimJaExisteError) {
-    return { ok: false, erro: erro.message };
-  }
   console.error("Falha ao salvar boletim:", erro);
   const conhecido = erro as Prisma.PrismaClientKnownRequestError;
   if (conhecido?.code === "P2002") {
@@ -36,63 +29,18 @@ function tratarErro(erro: unknown): ResultadoAcao {
   return { ok: false, erro: "Não foi possível salvar o boletim. Tente novamente." };
 }
 
-/**
- * Envio pelo formulário **público** — sem login.
+/*
+ * Aqui existia `enviarBoletimPublicoAction`, o envio sem login.
  *
- * Quem preenche se identifica digitando o nome, e escolhe o condomínio numa
- * lista que o administrador mantém. Duas travas compensam a ausência de sessão:
- *
- * - o condomínio precisa existir e estar **ativo** (o id não é aceito na fé);
- * - um dia que já tem boletim **não é substituído** — sem login, permitir
- *   sobrescrever deixaria qualquer envio apagar o registro legítimo do dia.
+ * Ela foi removida junto com o formulário público, e não apenas escondida da
+ * tela: uma Server Action continua alcançável pelo seu identificador mesmo sem
+ * nenhum botão apontando para ela. Deixar a função no arquivo seria manter uma
+ * porta de escrita sem autenticação, fechada só por não estar desenhada.
  */
-export async function enviarBoletimPublicoAction(
-  payload: unknown,
-): Promise<ResultadoAcao> {
-  const entrada = z
-    .object({ preenchidoPor: z.string().trim().min(3, "Informe seu nome completo.") })
-    .passthrough()
-    .safeParse(payload);
-  if (!entrada.success) {
-    return { ok: false, erro: primeiraMensagem(entrada.error) };
-  }
-
-  const parse = boletimSchema.safeParse(payload);
-  if (!parse.success) {
-    return { ok: false, erro: primeiraMensagem(parse.error) };
-  }
-  const dados = parse.data;
-
-  const condominio = await prisma.condominio.findFirst({
-    where: { id: dados.condominioId, ativo: true },
-    select: { id: true },
-  });
-  if (!condominio) {
-    return { ok: false, erro: "Condomínio inválido. Recarregue a página e tente de novo." };
-  }
-
-  try {
-    const resultado = await registrarBoletim({
-      dados,
-      preenchidoPor: entrada.data.preenchidoPor,
-      usuarioId: null,
-      permitirSubstituir: false,
-    });
-    revalidarTudo(resultado.id);
-    return {
-      ok: true,
-      id: resultado.id,
-      mensagem: resumoDoRegistro(resultado),
-      resumo: resultado.resumo,
-    };
-  } catch (erro) {
-    return tratarErro(erro);
-  }
-}
 
 /**
- * Lançamento pelo painel, com usuário logado. Aqui reenviar o mesmo dia
- * substitui o boletim — quem tem login pode corrigir o próprio registro.
+ * Lançamento pelo painel, com usuário logado. Reenviar o mesmo dia substitui o
+ * boletim — quem tem login pode corrigir o próprio registro.
  */
 export async function salvarBoletimAction(payload: unknown): Promise<ResultadoAcao> {
   const sessao = await exigirSessao();
@@ -112,7 +60,6 @@ export async function salvarBoletimAction(payload: unknown): Promise<ResultadoAc
       dados,
       preenchidoPor: sessao.nome,
       usuarioId: sessao.usuarioId,
-      permitirSubstituir: true,
     });
     revalidarTudo(resultado.id);
     return {
@@ -154,7 +101,6 @@ export async function corrigirBoletimAction(payload: unknown): Promise<Resultado
       dados,
       preenchidoPor: sessao.nome,
       usuarioId: sessao.usuarioId,
-      permitirSubstituir: true,
       manterAutoria: true,
     });
     revalidarTudo(resultado.id);

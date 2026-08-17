@@ -16,9 +16,9 @@ import {
 import type { EntradaBoletim } from "@/lib/validacao";
 
 /**
- * Gravação do boletim — o mesmo caminho para o formulário público e para o
- * lançamento pelo painel. As regras de negócio ficam aqui uma vez só; cada
- * porta de entrada cuida apenas da sua autenticação.
+ * Gravação do boletim — o mesmo caminho para o lançamento e para a correção
+ * pelo admin. As regras de negócio ficam aqui uma vez só; cada porta de entrada
+ * cuida apenas da sua autenticação.
  */
 
 export type ResultadoRegistro = {
@@ -31,17 +31,10 @@ export type ResultadoRegistro = {
 
 export type OpcoesRegistro = {
   dados: EntradaBoletim;
-  /** Nome digitado por quem preencheu (formulário público). */
+  /** Nome de quem preencheu, para exibição no boletim e no resumo. */
   preenchidoPor: string | null;
   /** Usuário logado, quando o lançamento vem do painel. */
   usuarioId: number | null;
-  /**
-   * Se `false`, um boletim já existente para aquele condomínio/dia é um erro em
-   * vez de ser substituído. O formulário público usa `false`: sem login, deixar
-   * sobrescrever permitiria que um envio acidental (ou de má-fé) apagasse o
-   * boletim legítimo do dia.
-   */
-  permitirSubstituir: boolean;
   /**
    * Correção pelo admin: mantém no registro o nome de quem preencheu de fato.
    * Sem isso, arrumar um erro de digitação apagaria a autoria da ronda e
@@ -50,20 +43,10 @@ export type OpcoesRegistro = {
   manterAutoria?: boolean;
 };
 
-export class BoletimJaExisteError extends Error {
-  constructor(dataReferencia: string) {
-    super(
-      `Já existe um boletim enviado para este condomínio em ${formatarDataReferencia(dataReferencia)}. Para corrigi-lo, peça ao administrador.`,
-    );
-    this.name = "BoletimJaExisteError";
-  }
-}
-
 export async function registrarBoletim({
   dados,
   preenchidoPor,
   usuarioId,
-  permitirSubstituir,
   manterAutoria = false,
 }: OpcoesRegistro): Promise<ResultadoRegistro> {
   // O catálogo é a fonte da criticidade — o cliente não tem voz nisso.
@@ -114,8 +97,6 @@ export async function registrarBoletim({
       manterAutoria && existente?.preenchidoPor ? existente.preenchidoPor : preenchidoPor;
 
     if (existente) {
-      if (!permitirSubstituir) throw new BoletimJaExisteError(dados.dataReferencia);
-
       // Desfaz só o que este boletim havia causado.
       const recorrenciasAntigas = await tx.ocorrenciaRecorrencia.findMany({
         where: { boletimId: existente.id },

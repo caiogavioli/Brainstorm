@@ -125,7 +125,7 @@ export async function exigirSessao(): Promise<Sessao> {
 /** Exige papel ADMIN (painel administrativo e dashboard gerencial). */
 export async function exigirAdmin(): Promise<Sessao> {
   const sessao = await exigirSessao();
-  if (sessao.papel !== "ADMIN") redirect("/boletim");
+  if (sessao.papel !== "ADMIN") redirect("/inicio");
   return sessao;
 }
 

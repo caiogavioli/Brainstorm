@@ -129,7 +129,7 @@ export function FormularioCondominio({
           defaultChecked={condominio?.ativo ?? true}
           className="h-4 w-4"
         />
-        Ativo — aparece na lista do formulário público
+        Ativo — aparece na lista de quem lança boletim
       </label>
 
       {estado ? (

@@ -23,8 +23,9 @@ export async function entrarAction(
   }
 
   const sessao = await sessaoAtual();
-  // Gerente predial cai direto no boletim; admin, no dashboard.
-  redirect(sessao?.papel === "ADMIN" ? "/dashboard" : "/boletim");
+  // Admin abre no dashboard; quem preenche, na tela que mostra as ocorrências
+  // em aberto e o botão do boletim de hoje.
+  redirect(sessao?.papel === "ADMIN" ? "/dashboard" : "/inicio");
 }
 
 export async function sairAction(): Promise<void> {
