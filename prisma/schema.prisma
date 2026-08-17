@@ -311,3 +311,145 @@ model PlanoAcao {
   @@index([condominioId, status])
   @@index([status, previsaoFinalizacao])
 }
+
+// ===========================================================================
+// Módulo de Orçamentos — fase 1: cadastros
+//
+// Área comercial do sistema, independente do módulo de condomínios: o cliente
+// que recebe um orçamento pode não ser (ainda) um prédio administrado.
+//
+// O desenho completo do módulo está em PLANO-ORCAMENTOS.md. Esta fase entrega
+// só as bases que o orçamento vai consumir: para quem se orça (`Cliente`), o
+// que se orça (`ServicoCatalogo`) e o orçamento padrão pronto
+// (`ModeloOrcamento`).
+// ===========================================================================
+
+// ---------------------------------------------------------------------------
+// Cliente — quem recebe o orçamento
+// ---------------------------------------------------------------------------
+
+model Cliente {
+  id   Int    @id @default(autoincrement())
+  nome String // razão social ou nome da pessoa
+
+  // Quem lê e assina, quando o cliente é uma empresa. Guardado separado do
+  // `nome` porque é ele que abre o e-mail: "Prezado João" tem outra taxa de
+  // resposta que "Prezada Construtora Andrade Ltda".
+  contato String?
+
+  // Sempre em minúsculas — ver `normalizarEmail` em src/lib/acoes/clientes.ts.
+  // Único: dois cadastros com o mesmo e-mail viram dois históricos parciais do
+  // mesmo cliente, e nenhum dos dois conta a verdade.
+  email String @unique
+
+  telefone    String?
+  documento   String? // CNPJ ou CPF
+  endereco    String?
+  observacoes String?
+
+  // Desativar tira o cliente da lista de seleção sem apagar o histórico
+  // comercial. Mesmo princípio de `Condominio.ativo`.
+  ativo        Boolean  @default(true)
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  @@index([ativo, nome])
+}
+
+// ---------------------------------------------------------------------------
+// Catálogo de serviços — a base da padronização
+//
+// Mesma escolha do `ChecklistItem`: o catálogo é DADO, não código. Serviços
+// entram, mudam de preço e são aposentados pela tela, sem migração de banco.
+//
+// O item do orçamento vai COPIAR daqui descrição, unidade e valor no momento em
+// que for criado, guardando só a referência de origem. Reajustar um preço
+// amanhã não pode reescrever o valor de um orçamento que o cliente já recebeu.
+// ---------------------------------------------------------------------------
+
+model ServicoCatalogo {
+  id     Int    @id @default(autoincrement())
+  codigo String @unique // slug estável derivado do nome, ex.: "limpeza-de-caixa-dagua"
+  nome   String
+
+  descricao String?
+
+  // Texto e não enum, pelo mesmo motivo de `ChecklistItem.grupo`: reorganizar a
+  // lista de serviços é rotina de negócio, e um enum exigiria migração de banco
+  // a cada categoria nova.
+  categoria String @default("Geral")
+
+  // "un", "h", "m²", "visita", "mês"… Livre pelo mesmo motivo da categoria.
+  unidade String @default("un")
+
+  // Em centavos inteiros. Dinheiro em ponto flutuante erra: 0,1 + 0,2 não dá
+  // 0,3 em nenhuma linguagem que use float, e num orçamento de dezenas de
+  // linhas o total fecha com centavos de diferença da soma na calculadora —
+  // que é exatamente o tipo de erro que o cliente nota.
+  valorPadraoCentavos Int @default(0)
+
+  ativo        Boolean  @default(true)
+  ordem        Int      @default(0)
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  itensModelo ModeloOrcamentoItem[]
+
+  @@index([ativo, categoria, ordem])
+}
+
+// ---------------------------------------------------------------------------
+// Modelo de orçamento — o orçamento padrão pronto
+//
+// É isto que torna o orçamento "padronizado" na prática: um conjunto de itens
+// mais os textos que se repetem. Sem modelo, padrão é só uma intenção — cada
+// orçamento sai um pouco diferente do anterior.
+// ---------------------------------------------------------------------------
+
+model ModeloOrcamento {
+  id        Int     @id @default(autoincrement())
+  nome      String
+  descricao String? // para que serve este modelo, visível só internamente
+
+  // Textos que entram prontos no orçamento e quase nunca mudam.
+  condicoesPagamento String?
+  prazoExecucao      String?
+  observacoes        String?
+
+  // Quantos dias o orçamento vale, contados do envio. Vira `validoAte`.
+  validadeDias Int @default(15)
+
+  ativo        Boolean  @default(true)
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  itens ModeloOrcamentoItem[]
+
+  @@index([ativo, nome])
+}
+
+model ModeloOrcamentoItem {
+  id       Int @id @default(autoincrement())
+  modeloId Int
+
+  // De qual serviço do catálogo esta linha nasceu. Opcional: o modelo aceita
+  // linha avulsa. `SetNull` para que aposentar um serviço não apague o modelo.
+  servicoCatalogoId Int?
+
+  ordem     Int     @default(0)
+  descricao String
+  detalhe   String?
+  unidade   String  @default("un")
+
+  // Quantidade em milésimos (1500 = 1,5), pelo mesmo motivo dos centavos:
+  // inteiro fecha a conta, decimal binário não. Permite meia hora, 2,5 m².
+  quantidadeMilesimos Int @default(1000)
+
+  valorUnitarioCentavos Int @default(0)
+
+  modelo  ModeloOrcamento  @relation(fields: [modeloId], references: [id], onDelete: Cascade)
+  servico ServicoCatalogo? @relation(fields: [servicoCatalogoId], references: [id], onDelete: SetNull)
+
+  @@index([modeloId, ordem])
+  @@index([servicoCatalogoId])
+}

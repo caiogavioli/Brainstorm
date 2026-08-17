@@ -274,9 +274,13 @@ automáticos. Insistência demais custa o cliente.
 Cada fase entrega algo usável por si. Dá para parar em qualquer uma e já ter
 valor em mãos.
 
-**Fase 1 — Cadastros.** Modelos Prisma, migração, telas de `/clientes` e
-`/servicos` (catálogo e modelos de orçamento), entradas no menu.
+**Fase 1 — Cadastros. ✅ Pronta.** Modelos Prisma, migração, telas de
+`/clientes` e `/servicos` (catálogo e modelos de orçamento), entradas no menu.
 *Ao final:* você cadastra clientes e monta seu catálogo padrão.
+
+> Entregue também a base de cálculo (`src/lib/dinheiro.ts`): centavos e
+> milésimos inteiros, com a conversão de e para texto isolada num só lugar. É
+> dela que todo valor do módulo vai depender.
 
 **Fase 2 — Orçamento e PDF.** Editor com aplicação de modelo, cálculo de totais,
 numeração automática, detalhe, página de impressão e geração do PDF.

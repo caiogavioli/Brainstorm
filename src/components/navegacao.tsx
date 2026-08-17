@@ -142,9 +142,14 @@ export function Navegacao({
           paddingBottom: "env(safe-area-inset-bottom)",
         }}
       >
-        <ul className="flex">
+        {/* Rola na horizontal quando não cabe.
+            Com `flex-1` puro, cada item novo espremia todos os outros: com oito
+            entradas num celular de 360px sobram 45px por alvo, abaixo dos 44px
+            recomendados e com o rótulo cortado. Uma largura mínima por item
+            preserva o alvo de toque e empurra o excedente para a rolagem. */}
+        <ul className="flex overflow-x-auto">
           {itens.map((item) => (
-            <li key={item.href} className="flex-1">
+            <li key={item.href} className="flex-1 min-w-[4.5rem]">
               <Link
                 href={item.href}
                 aria-current={ativo(item.href) ? "page" : undefined}
