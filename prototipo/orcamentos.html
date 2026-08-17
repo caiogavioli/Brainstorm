@@ -1,0 +1,1753 @@
+<title>Orçamentos BID</title>
+
+<style>
+  /* ======================================================================
+     Tokens copiados de src/app/globals.css — o protótipo usa o sistema de
+     design que já existe no projeto, não uma identidade nova.
+
+     Tema claro único, como no app: lá a decisão está documentada ("a tela é a
+     mesma no celular do gerente e no monitor do síndico"), e um protótipo que
+     mudasse de cor conforme o aparelho mostraria um sistema que não é o seu.
+     Por isso todas as cores são pintadas explicitamente, inclusive o fundo do
+     body — sem isso a página tomaria emprestado o fundo de quem a hospeda.
+     ====================================================================== */
+  :root {
+    color-scheme: light;
+
+    --plano: #f9f9f7;
+    --superficie: #fcfcfb;
+    --superficie-2: #f2f2ee;
+
+    --tinta: #0b0b0b;
+    --tinta-2: #52514e;
+    --tinta-3: #898781;
+
+    --grade: #e1e0d9;
+    --borda: rgba(11, 11, 11, 0.1);
+    --borda-forte: rgba(11, 11, 11, 0.16);
+
+    --serie-1: #2a78d6;
+    --serie-2: #1baf7a;
+
+    --status-bom: #0ca30c;
+    --status-atencao: #fab219;
+    --status-critico: #d03b3b;
+    --status-bom-texto: #006300;
+    --status-critico-texto: #a52020;
+
+    --sombra: 0 1px 2px rgba(11, 11, 11, 0.05), 0 1px 3px rgba(11, 11, 11, 0.04);
+
+    --fonte: system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--plano);
+    color: var(--tinta);
+    font-family: var(--fonte);
+    -webkit-font-smoothing: antialiased;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .num { font-variant-numeric: tabular-nums; }
+
+  a { color: var(--serie-1); }
+
+  :focus-visible {
+    outline: 2px solid var(--serie-1);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* ------------------------------ Faixa do protótipo ------------------- */
+
+  .faixa {
+    background: #104281;
+    color: #eaf1fb;
+    padding: 0.5rem 1rem;
+    font-size: 0.8125rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .faixa strong { color: #ffffff; }
+  .faixa button {
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 999px;
+    padding: 0.125rem 0.625rem;
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .faixa button:hover { background: rgba(255, 255, 255, 0.24); }
+
+  /* ------------------------------ Casca do app ------------------------- */
+
+  header.topo {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: var(--superficie);
+    border-bottom: 1px solid var(--borda);
+  }
+
+  .largura {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .barra {
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .marca {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    min-width: 0;
+  }
+  .marca .simbolo {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 8px;
+    background: var(--serie-1);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 0.8125rem;
+    flex: none;
+  }
+
+  nav.menu {
+    display: flex;
+    gap: 0.125rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  nav.menu::-webkit-scrollbar { display: none; }
+
+  nav.menu a {
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--tinta-2);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  nav.menu a:hover { background: var(--superficie-2); }
+  nav.menu a[aria-current="page"] {
+    background: color-mix(in srgb, var(--serie-1) 12%, var(--superficie));
+    color: var(--serie-1);
+  }
+
+  .usuario {
+    text-align: right;
+    line-height: 1.2;
+    flex: none;
+  }
+  .usuario .nome { font-size: 0.875rem; font-weight: 500; }
+  .usuario .papel { font-size: 0.75rem; color: var(--tinta-3); }
+
+  main { max-width: 80rem; margin: 0 auto; padding: 1.25rem 1rem 4rem; }
+
+  /* ------------------------------ Componentes -------------------------- */
+
+  .card {
+    background: var(--superficie);
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    box-shadow: var(--sombra);
+  }
+  .card-pad { padding: 1rem; }
+  @media (min-width: 768px) { .card-pad { padding: 1.25rem; } }
+
+  .titulo-secao {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--tinta-3);
+  }
+
+  h1 { font-size: 1.25rem; font-weight: 700; margin: 0; text-wrap: balance; }
+  h2 { font-size: 1rem; font-weight: 600; margin: 0; }
+  h3 { font-size: 0.9375rem; font-weight: 600; margin: 0; }
+
+  .sub { font-size: 0.875rem; color: var(--tinta-2); margin: 0.125rem 0 0; }
+  .fraco { color: var(--tinta-3); }
+  .pequeno { font-size: 0.8125rem; }
+  .mini { font-size: 0.75rem; }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.4;
+    white-space: nowrap;
+    border: 1px solid var(--borda);
+    background: var(--superficie-2);
+    color: var(--tinta-2);
+  }
+  .badge::before {
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: currentColor;
+    flex: none;
+  }
+  .badge-ok {
+    color: var(--status-bom-texto);
+    border-color: color-mix(in srgb, var(--status-bom) 35%, transparent);
+    background: color-mix(in srgb, var(--status-bom) 12%, var(--superficie));
+  }
+  .badge-warn {
+    color: color-mix(in srgb, var(--status-atencao) 70%, var(--tinta));
+    border-color: color-mix(in srgb, var(--status-atencao) 45%, transparent);
+    background: color-mix(in srgb, var(--status-atencao) 16%, var(--superficie));
+  }
+  .badge-danger {
+    color: var(--status-critico-texto);
+    border-color: color-mix(in srgb, var(--status-critico) 35%, transparent);
+    background: color-mix(in srgb, var(--status-critico) 12%, var(--superficie));
+  }
+  .badge-info {
+    color: var(--serie-1);
+    border-color: color-mix(in srgb, var(--serie-1) 35%, transparent);
+    background: color-mix(in srgb, var(--serie-1) 12%, var(--superficie));
+  }
+  .badge-neutral { color: var(--tinta-3); }
+
+  .rotulo {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--tinta-2);
+    margin-bottom: 0.375rem;
+  }
+
+  .campo {
+    width: 100%;
+    background: var(--superficie);
+    border: 1px solid var(--borda-forte);
+    border-radius: 10px;
+    padding: 0.625rem 0.75rem;
+    font-size: 1rem;
+    color: var(--tinta);
+    font-family: inherit;
+  }
+  .campo:focus {
+    outline: 2px solid var(--serie-1);
+    outline-offset: 1px;
+    border-color: var(--serie-1);
+  }
+  .campo::placeholder { color: var(--tinta-3); }
+  textarea.campo { min-height: 4.5rem; resize: vertical; }
+
+  .botao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0.625rem 1rem;
+    border-radius: 10px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: none;
+    transition: filter 0.12s ease, background 0.12s ease;
+  }
+  .botao:disabled { opacity: 0.55; cursor: not-allowed; }
+  .botao-primario { background: var(--serie-1); color: #ffffff; }
+  .botao-primario:hover:not(:disabled) { filter: brightness(1.08); }
+  .botao-secundario {
+    background: var(--superficie);
+    color: var(--tinta);
+    border-color: var(--borda-forte);
+  }
+  .botao-secundario:hover:not(:disabled) { background: var(--superficie-2); }
+  .botao-perigo {
+    background: color-mix(in srgb, var(--status-critico) 14%, var(--superficie));
+    color: var(--status-critico-texto);
+    border-color: color-mix(in srgb, var(--status-critico) 40%, transparent);
+  }
+
+  .ligacao {
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-decoration: underline;
+    color: var(--serie-1);
+    cursor: pointer;
+  }
+
+  /* ------------------------------ Utilidades --------------------------- */
+
+  .pilha { display: flex; flex-direction: column; gap: 1rem; }
+  .pilha-fina { display: flex; flex-direction: column; gap: 0.5rem; }
+
+  /* Item de grid/flex nasce com `min-width: auto`, o que impede a coluna de
+     encolher abaixo do conteúdo mais largo — uma tabela ou um texto sem quebra
+     lá no fundo empurra a página inteira para o lado no celular. Zerar o
+     mínimo devolve o controle ao contêiner de rolagem certo (.rolagem). */
+  .pilha, .pilha-fina, .colunas > *, .pilha > *, .pilha-fina > * { min-width: 0; }
+  .linha { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .entre { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; flex-wrap: wrap; }
+  .direita { text-align: right; }
+  .crescer { flex: 1; min-width: 0; }
+
+  .grade-kpi { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  @media (min-width: 900px) { .grade-kpi { grid-template-columns: repeat(4, 1fr); } }
+
+  .colunas { display: grid; gap: 1rem; }
+  @media (min-width: 1000px) { .colunas { grid-template-columns: 1fr 20rem; } }
+
+  .campos { display: grid; gap: 0.75rem; }
+  @media (min-width: 640px) { .campos-2 { grid-template-columns: 1fr 1fr; } }
+
+  .rolagem { overflow-x: auto; }
+
+  table.tabela { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  table.tabela th {
+    text-align: left;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--tinta-3);
+    padding: 0.5rem 0.5rem;
+    border-bottom: 1px solid var(--borda);
+    white-space: nowrap;
+  }
+  table.tabela td {
+    padding: 0.625rem 0.5rem;
+    border-bottom: 1px solid var(--grade);
+    color: var(--tinta-2);
+    vertical-align: top;
+  }
+  table.tabela tbody tr:last-child td { border-bottom: none; }
+
+  .caixa-suave {
+    background: var(--superficie-2);
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    padding: 0.75rem;
+  }
+
+  .item-lista {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+  }
+  .item-lista:hover { background: var(--superficie-2); }
+
+  /* Marca as telas que ainda não existem no código. */
+  .marca-fase {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #7a4b00;
+    background: color-mix(in srgb, var(--status-atencao) 20%, var(--superficie));
+    border: 1px solid color-mix(in srgb, var(--status-atencao) 45%, transparent);
+    border-radius: 999px;
+    padding: 0.125rem 0.5rem;
+  }
+
+  .aviso-fase {
+    border-left: 3px solid var(--status-atencao);
+    background: color-mix(in srgb, var(--status-atencao) 10%, var(--superficie));
+    border-radius: 0 10px 10px 0;
+    padding: 0.625rem 0.75rem;
+    font-size: 0.8125rem;
+    color: var(--tinta-2);
+  }
+
+  /* Linha do tempo */
+  .tempo { list-style: none; margin: 0; padding: 0; }
+  .tempo li {
+    position: relative;
+    padding: 0 0 0.875rem 1.25rem;
+    border-left: 2px solid var(--grade);
+  }
+  .tempo li:last-child { border-left-color: transparent; padding-bottom: 0; }
+  .tempo li::before {
+    content: "";
+    position: absolute;
+    left: -0.3125rem;
+    top: 0.3125rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: var(--eixo, #c3c2b7);
+    border: 2px solid var(--superficie);
+  }
+  .tempo li.destaque::before { background: var(--serie-1); }
+
+  /* Barra de funil */
+  .funil { display: flex; height: 0.5rem; border-radius: 999px; overflow: hidden; background: var(--superficie-2); }
+  .funil span { display: block; height: 100%; }
+
+  /* Página pública do cliente */
+  .publico {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 4rem;
+  }
+  .publico-topo {
+    border-bottom: 2px solid var(--serie-1);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+
+<div class="faixa">
+  <span><strong>Protótipo navegável</strong> — dados de exemplo, sem login e sem envio real de e-mail.</span>
+  <button type="button" id="reiniciar">Reiniciar dados</button>
+</div>
+
+<div id="app"></div>
+
+<script>
+(() => {
+  "use strict";
+
+  // =====================================================================
+  // Dinheiro: centavos inteiros e quantidade em milésimos, exatamente como
+  // em src/lib/dinheiro.ts. O protótipo repete a regra em vez de arredondar
+  // "de qualquer jeito" — é justamente o total que você vai conferir aqui.
+  // =====================================================================
+  const fmtBRL = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+  const moeda = (centavos) => fmtBRL.format(centavos / 100);
+
+  function paraCampo(centavos) {
+    const s = centavos < 0 ? "-" : "";
+    const a = Math.abs(centavos);
+    return s + Math.trunc(a / 100) + "," + String(a % 100).padStart(2, "0");
+  }
+
+  function qtde(milesimos) {
+    const inteiro = Math.trunc(milesimos / 1000);
+    const resto = Math.abs(milesimos % 1000);
+    if (resto === 0) return String(inteiro);
+    return inteiro + "," + String(resto).padStart(3, "0").replace(/0+$/, "");
+  }
+
+  function lerMoeda(texto) {
+    let c = String(texto).replace(/[R$\s ]/gi, "").trim();
+    if (c === "") return null;
+    const neg = c.startsWith("-");
+    if (neg) c = c.slice(1);
+    if (!/^[\d.,]+$/.test(c)) return null;
+    if (c.includes(",")) {
+      c = c.replace(/\./g, "");
+      if ((c.match(/,/g) || []).length > 1) return null;
+      c = c.replace(",", ".");
+    } else {
+      const p = c.split(".");
+      if (p.length > 1) {
+        if (p.slice(1).every((x) => /^\d{3}$/.test(x))) c = p.join("");
+        else if (p.length > 2) return null;
+      }
+    }
+    const n = Number(c);
+    if (!Number.isFinite(n)) return null;
+    return (neg ? -1 : 1) * Math.round(n * 100);
+  }
+
+  function lerQtde(texto) {
+    const c = String(texto).replace(/\s/g, "").replace(",", ".");
+    if (c === "" || c === "." || !/^\d*\.?\d*$/.test(c)) return null;
+    const n = Number(c);
+    if (!Number.isFinite(n) || n < 0) return null;
+    return Math.round(n * 1000);
+  }
+
+  // Arredondamento POR LINHA, não no total: o cliente confere somando a
+  // coluna impressa, e a coluna precisa fechar.
+  const totalLinha = (q, v) => Math.round((q * v) / 1000);
+
+  const data = (iso) =>
+    iso ? new Date(iso + "T12:00:00Z").toLocaleDateString("pt-BR", { timeZone: "UTC" }) : "—";
+  const dataHora = (iso) =>
+    iso ? new Date(iso).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }) : "—";
+
+  const esc = (s) =>
+    String(s == null ? "" : s).replace(/[&<>"']/g, (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+
+  // =====================================================================
+  // Dados de demonstração
+  // =====================================================================
+  const EMPRESA = {
+    nome: "Gavioli Gestão Predial",
+    documento: "12.345.678/0001-90",
+    endereco: "Av. Paulista, 1000 — São Paulo/SP",
+    telefone: "(11) 3000-0000",
+    email: "orcamentos@gavioli.com.br",
+  };
+
+  const ROTULO = {
+    RASCUNHO: "Rascunho", ENVIADO: "Enviado", VISUALIZADO: "Visualizado",
+    ACEITO: "Aceito", RECUSADO: "Recusado",
+    AJUSTE_SOLICITADO: "Ajuste solicitado", EXPIRADO: "Expirado",
+  };
+  const CLASSE = {
+    RASCUNHO: "badge badge-neutral", ENVIADO: "badge badge-info",
+    VISUALIZADO: "badge badge-info", ACEITO: "badge badge-ok",
+    RECUSADO: "badge badge-danger", AJUSTE_SOLICITADO: "badge badge-warn",
+    EXPIRADO: "badge badge-neutral",
+  };
+  const AJUDA = {
+    RASCUNHO: "Ainda não saiu daqui — pode editar à vontade.",
+    ENVIADO: "Foi para o cliente, que ainda não abriu o link.",
+    VISUALIZADO: "O cliente abriu, mas não respondeu.",
+    ACEITO: "O cliente aceitou.",
+    RECUSADO: "O cliente recusou.",
+    AJUSTE_SOLICITADO: "O cliente pediu mudança — a bola está com você.",
+    EXPIRADO: "Passou da validade sem resposta.",
+  };
+
+  function inicial() {
+    return {
+      clientes: [
+        { id: 1, nome: "Condomínio Edifício Atrium", contato: "Maria Souza", email: "maria@atrium.com.br", telefone: "(11) 98888-1234", documento: "11.222.333/0001-44", endereco: "R. das Acácias, 210 — São Paulo/SP", ativo: true },
+        { id: 2, nome: "Construtora Andrade Ltda", contato: "João Andrade", email: "joao@andrade.com.br", telefone: "(11) 97777-5566", documento: "22.333.444/0001-55", endereco: "Av. Brasil, 4500 — São Paulo/SP", ativo: true },
+        { id: 3, nome: "Residencial Centenário", contato: "Paula Lima", email: "sindico@centenario.com.br", telefone: "(11) 96666-7788", documento: "33.444.555/0001-66", endereco: "R. Centenário, 88 — Santo André/SP", ativo: true },
+        { id: 4, nome: "Ipê Administradora", contato: "Carlos Nunes", email: "carlos@ipeadm.com.br", telefone: "(11) 95555-9900", documento: "44.555.666/0001-77", endereco: "R. do Ipê, 15 — Osasco/SP", ativo: false },
+      ],
+      servicos: [
+        { id: 1, codigo: "limpeza-de-caixa-d-agua", nome: "Limpeza de caixa d'água", descricao: "Limpeza, desinfecção e laudo da caixa d'água, com certificado.", categoria: "Hidráulica", unidade: "un", valor: 125000, ativo: true, usos: 2 },
+        { id: 2, codigo: "manutencao-eletrica", nome: "Manutenção elétrica", descricao: "Manutenção corretiva em quadros, circuitos e iluminação de área comum.", categoria: "Elétrica", unidade: "h", valor: 18050, ativo: true, usos: 2 },
+        { id: 3, codigo: "inspecao-de-elevadores", nome: "Inspeção de elevadores", descricao: "Vistoria mensal de cabine, casa de máquinas e dispositivos de segurança.", categoria: "Elevadores", unidade: "mês", valor: 89000, ativo: true, usos: 1 },
+        { id: 4, codigo: "pintura-de-area-comum", nome: "Pintura de área comum", descricao: "Preparo de superfície e duas demãos de tinta acrílica.", categoria: "Civil", unidade: "m²", valor: 4200, ativo: true, usos: 0 },
+        { id: 5, codigo: "dedetizacao", nome: "Dedetização", descricao: "Controle de pragas em áreas comuns, com certificado sanitário.", categoria: "Higienização", unidade: "visita", valor: 68000, ativo: true, usos: 0 },
+        { id: 6, codigo: "troca-de-luminarias", nome: "Troca de luminárias", descricao: "Substituição por luminárias LED, material incluso.", categoria: "Elétrica", unidade: "un", valor: 9800, ativo: false, usos: 0 },
+      ],
+      modelos: [
+        {
+          id: 1, nome: "Manutenção predial mensal", descricao: "Pacote recorrente para prédios residenciais",
+          condicoes: "50% na aprovação, 50% na entrega.", prazo: "15 dias úteis após a aprovação.",
+          observacoes: "Materiais de consumo inclusos. Trabalhos em finais de semana sob consulta.",
+          validade: 30, ativo: true,
+          itens: [
+            { servicoId: 1, descricao: "Limpeza, desinfecção e laudo da caixa d'água, com certificado.", unidade: "un", q: 1000, v: 125000 },
+            { servicoId: 2, descricao: "Manutenção corretiva em quadros, circuitos e iluminação de área comum.", unidade: "h", q: 2500, v: 18050 },
+            { servicoId: 3, descricao: "Vistoria mensal de cabine, casa de máquinas e dispositivos de segurança.", unidade: "mês", q: 1000, v: 89000 },
+          ],
+        },
+        {
+          id: 2, nome: "Reforma de fachada", descricao: "Pintura e recuperação de área comum",
+          condicoes: "30% na assinatura, 40% na metade, 30% na entrega.", prazo: "45 dias corridos.",
+          observacoes: "Andaime e proteção inclusos. Não inclui reparo estrutural.",
+          validade: 20, ativo: true,
+          itens: [
+            { servicoId: 4, descricao: "Preparo de superfície e duas demãos de tinta acrílica.", unidade: "m²", q: 320000, v: 4200 },
+          ],
+        },
+      ],
+      orcamentos: [
+        {
+          id: 1, numero: "2026-0004", versao: 1, clienteId: 1, titulo: "Manutenção predial — Edifício Atrium",
+          status: "AJUSTE_SOLICITADO", criadoEm: "2026-08-10T09:12:00Z", validoAte: "2026-09-09",
+          enviadoEm: "2026-08-10T14:03:00Z", visualizadoEm: "2026-08-11T08:20:00Z", visualizacoes: 4,
+          respondidoEm: "2026-08-12T16:45:00Z",
+          resposta: "Podem incluir a limpeza das cisternas do subsolo? E o elevador social precisa de vistoria quinzenal, não mensal.",
+          condicoes: "50% na aprovação, 50% na entrega.", prazo: "15 dias úteis após a aprovação.",
+          observacoes: "Materiais de consumo inclusos.", desconto: 0,
+          token: "kR7nQ2xVb9LpTz4HcW1eYs6MdA8fJ3gU5oNvB0iEqXw",
+          itens: [
+            { descricao: "Limpeza, desinfecção e laudo da caixa d'água, com certificado.", unidade: "un", q: 1000, v: 125000 },
+            { descricao: "Manutenção corretiva em quadros, circuitos e iluminação de área comum.", unidade: "h", q: 2500, v: 18050 },
+            { descricao: "Vistoria mensal de cabine, casa de máquinas e dispositivos de segurança.", unidade: "mês", q: 1000, v: 89000 },
+          ],
+          pendencias: [
+            { texto: "Cotar limpeza das cisternas do subsolo", prazo: "2026-08-19", feito: false },
+            { texto: "Confirmar preço da vistoria quinzenal com a equipe", prazo: "2026-08-18", feito: true },
+          ],
+        },
+        {
+          id: 2, numero: "2026-0003", versao: 1, clienteId: 2, titulo: "Reforma de fachada — Bloco B",
+          status: "ACEITO", criadoEm: "2026-08-04T10:00:00Z", validoAte: "2026-08-24",
+          enviadoEm: "2026-08-04T11:30:00Z", visualizadoEm: "2026-08-04T18:12:00Z", visualizacoes: 7,
+          respondidoEm: "2026-08-06T09:05:00Z", resposta: "Aprovado. Podem começar dia 20.",
+          condicoes: "30% na assinatura, 40% na metade, 30% na entrega.", prazo: "45 dias corridos.",
+          observacoes: "Andaime e proteção inclusos.", desconto: 90000,
+          token: "aB3dE5fG7hJ9kL1mN2pQ4rS6tU8vW0xY1zC3vB5nM7q",
+          itens: [
+            { descricao: "Preparo de superfície e duas demãos de tinta acrílica.", unidade: "m²", q: 320000, v: 4200 },
+          ],
+          pendencias: [],
+        },
+        {
+          id: 3, numero: "2026-0002", versao: 1, clienteId: 3, titulo: "Dedetização semestral",
+          status: "VISUALIZADO", criadoEm: "2026-08-13T15:40:00Z", validoAte: "2026-08-28",
+          enviadoEm: "2026-08-13T16:00:00Z", visualizadoEm: "2026-08-14T07:55:00Z", visualizacoes: 2,
+          respondidoEm: null, resposta: null,
+          condicoes: "À vista, na conclusão.", prazo: "5 dias úteis.",
+          observacoes: "Certificado sanitário emitido em até 48h.", desconto: 0,
+          token: "zX9cV7bN5mQ3wE1rT2yU4iO6pA8sD0fG1hJ3kL5zX7c",
+          itens: [
+            { descricao: "Controle de pragas em áreas comuns, com certificado sanitário.", unidade: "visita", q: 2000, v: 68000 },
+          ],
+          pendencias: [],
+        },
+        {
+          id: 4, numero: "2026-0001", versao: 1, clienteId: 3, titulo: "Troca de luminárias — garagem",
+          status: "RECUSADO", criadoEm: "2026-07-28T08:00:00Z", validoAte: "2026-08-12",
+          enviadoEm: "2026-07-28T09:15:00Z", visualizadoEm: "2026-07-28T20:30:00Z", visualizacoes: 3,
+          respondidoEm: "2026-07-30T11:00:00Z", resposta: "Fechamos com outro fornecedor, obrigado.",
+          condicoes: "À vista.", prazo: "10 dias úteis.", observacoes: null, desconto: 0,
+          token: "qW2eR4tY6uI8oP0aS1dF3gH5jK7lZ9xC1vB3nM5qW7e",
+          itens: [
+            { descricao: "Substituição por luminárias LED, material incluso.", unidade: "un", q: 48000, v: 9800 },
+          ],
+          pendencias: [],
+        },
+        {
+          id: 5, numero: "2026-0005", versao: 1, clienteId: 2, titulo: "Inspeção de elevadores — anual",
+          status: "RASCUNHO", criadoEm: "2026-08-16T17:20:00Z", validoAte: "2026-08-31",
+          enviadoEm: null, visualizadoEm: null, visualizacoes: 0, respondidoEm: null, resposta: null,
+          condicoes: "50% na aprovação, 50% na entrega.", prazo: "A combinar.", observacoes: null, desconto: 0,
+          token: "mN4bV6cX8zL0kJ2hG4fD6sA8pO0iU2yT4rE6wQ8mN0b",
+          itens: [
+            { descricao: "Vistoria mensal de cabine, casa de máquinas e dispositivos de segurança.", unidade: "mês", q: 12000, v: 89000 },
+          ],
+          pendencias: [],
+        },
+      ],
+    };
+  }
+
+  const CHAVE = "prototipo-orcamentos-v1";
+  let db;
+  try {
+    const salvo = sessionStorage.getItem(CHAVE);
+    db = salvo ? JSON.parse(salvo) : inicial();
+  } catch { db = inicial(); }
+
+  function gravar() {
+    try { sessionStorage.setItem(CHAVE, JSON.stringify(db)); } catch { /* modo privado */ }
+  }
+
+  // ---- derivados ----
+  const cliente = (id) => db.clientes.find((c) => c.id === id);
+  const subtotal = (o) => o.itens.reduce((s, i) => s + totalLinha(i.q, i.v), 0);
+  const total = (o) => Math.max(0, subtotal(o) - (o.desconto || 0));
+  const porToken = (t) => db.orcamentos.find((o) => o.token === t);
+
+  // =====================================================================
+  // Roteamento por hash
+  // =====================================================================
+  const app = document.getElementById("app");
+
+  const MENU = [
+    { rota: "orcamentos", texto: "Orçamentos" },
+    { rota: "clientes", texto: "Clientes" },
+    { rota: "catalogo", texto: "Catálogo" },
+  ];
+
+  function casca(rotaAtiva, conteudo) {
+    return `
+      <header class="topo">
+        <div class="largura">
+          <div class="barra">
+            <div class="marca">
+              <span class="simbolo" aria-hidden="true">◈</span>
+              <span>Orçamentos</span>
+            </div>
+            <nav class="menu" aria-label="Principal">
+              ${MENU.map((m) => `<a href="#/${m.rota}" ${m.rota === rotaAtiva ? 'aria-current="page"' : ""}>${m.texto}</a>`).join("")}
+            </nav>
+            <div class="usuario">
+              <div class="nome">Caio Gavioli</div>
+              <div class="papel">Administrador</div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main>${conteudo}</main>`;
+  }
+
+  function avisoFase(n, texto) {
+    return `<div class="aviso-fase"><span class="marca-fase">Fase ${n} — a construir</span> ${texto}</div>`;
+  }
+
+  // =====================================================================
+  // Tela: painel de orçamentos
+  // =====================================================================
+  let filtro = { status: "", cliente: "" };
+
+  function telaPainel() {
+    const emAberto = ["ENVIADO", "VISUALIZADO", "AJUSTE_SOLICITADO"];
+    const soma = (lista) => db.orcamentos.filter((o) => lista.includes(o.status))
+      .reduce((a, o) => ({ n: a.n + 1, v: a.v + total(o) }), { n: 0, v: 0 });
+
+    const aberto = soma(emAberto);
+    const ganho = soma(["ACEITO"]);
+    const perdido = soma(["RECUSADO"]);
+    const rascunho = soma(["RASCUNHO"]);
+    const decididos = ganho.n + perdido.n;
+    const taxa = decididos ? Math.round((ganho.n / decididos) * 100) : null;
+
+    const visiveis = db.orcamentos
+      .filter((o) => (!filtro.status || o.status === filtro.status))
+      .filter((o) => (!filtro.cliente || o.clienteId === Number(filtro.cliente)))
+      .slice()
+      .sort((a, b) => new Date(b.criadoEm) - new Date(a.criadoEm));
+
+    const usados = db.clientes.filter((c) => db.orcamentos.some((o) => o.clienteId === c.id));
+
+    const kpi = (rot, val, apoio, cor) => `
+      <div class="card card-pad">
+        <div class="titulo-secao">${rot}</div>
+        <div class="num" style="font-size:1.125rem;font-weight:700;margin-top:.25rem;${cor ? `color:${cor}` : ""}">${val}</div>
+        <div class="mini num fraco">${apoio}</div>
+      </div>`;
+
+    const totalFunil = aberto.n + ganho.n + perdido.n + rascunho.n;
+    const fatia = (n, cor) => n ? `<span style="width:${(n / totalFunil) * 100}%;background:${cor}" title="${n}"></span>` : "";
+
+    return casca("orcamentos", `
+      <div class="entre" style="margin-bottom:1rem">
+        <div>
+          <h1>Orçamentos</h1>
+          <p class="sub">O que foi proposto, para quem, e em que pé está.</p>
+        </div>
+        <a href="#/novo" class="botao botao-primario">+ Novo orçamento</a>
+      </div>
+
+      <div class="grade-kpi" style="margin-bottom:.75rem">
+        ${kpi("Em aberto", moeda(aberto.v), aberto.n + " orçamento(s)")}
+        ${kpi("Ganho", moeda(ganho.v), ganho.n + " aceito(s)", "var(--status-bom-texto)")}
+        ${kpi("Taxa de aceite", taxa === null ? "—" : taxa + "%", decididos ? "entre " + decididos + " decidido(s)" : "nenhum decidido ainda")}
+        ${kpi("Rascunhos", String(rascunho.n), "ainda não enviados")}
+      </div>
+
+      <div class="card card-pad" style="margin-bottom:1rem">
+        <div class="titulo-secao" style="margin-bottom:.5rem">Funil</div>
+        <div class="funil">
+          ${fatia(rascunho.n, "var(--tinta-3)")}
+          ${fatia(aberto.n, "var(--serie-1)")}
+          ${fatia(ganho.n, "var(--status-bom)")}
+          ${fatia(perdido.n, "var(--status-critico)")}
+        </div>
+        <div class="linha mini fraco" style="margin-top:.5rem;gap:.75rem">
+          <span>■ Rascunho ${rascunho.n}</span>
+          <span style="color:var(--serie-1)">■ Em aberto ${aberto.n}</span>
+          <span style="color:var(--status-bom-texto)">■ Aceito ${ganho.n}</span>
+          <span style="color:var(--status-critico-texto)">■ Recusado ${perdido.n}</span>
+        </div>
+      </div>
+
+      <div class="card card-pad campos campos-2" style="margin-bottom:1rem;align-items:end">
+        <div>
+          <label class="rotulo" for="f-status">Situação</label>
+          <select id="f-status" class="campo">
+            <option value="">Todas</option>
+            ${Object.keys(ROTULO).map((s) => `<option value="${s}" ${filtro.status === s ? "selected" : ""}>${ROTULO[s]}</option>`).join("")}
+          </select>
+        </div>
+        <div>
+          <label class="rotulo" for="f-cliente">Cliente</label>
+          <select id="f-cliente" class="campo">
+            <option value="">Todos</option>
+            ${usados.map((c) => `<option value="${c.id}" ${String(filtro.cliente) === String(c.id) ? "selected" : ""}>${esc(c.nome)}</option>`).join("")}
+          </select>
+        </div>
+      </div>
+
+      ${visiveis.length === 0 ? `
+        <div class="card card-pad"><p class="pequeno" style="color:var(--tinta-2);margin:0">Nenhum orçamento com esses filtros.</p></div>
+      ` : `
+        <div class="pilha-fina">
+          ${visiveis.map((o) => {
+            const c = cliente(o.clienteId);
+            return `
+            <a class="card card-pad item-lista" href="#/orcamento/${o.id}">
+              <div class="entre">
+                <div class="crescer">
+                  <div class="linha">
+                    <span class="num" style="font-weight:600;color:var(--serie-1)">${o.numero}${o.versao > 1 ? " v" + o.versao : ""}</span>
+                    <span class="${CLASSE[o.status]}">${ROTULO[o.status]}</span>
+                    ${o.pendencias.some((p) => !p.feito) ? `<span class="badge badge-warn">${o.pendencias.filter((p) => !p.feito).length} pendência(s)</span>` : ""}
+                  </div>
+                  <div style="font-weight:600;margin-top:.125rem">${esc(o.titulo)}</div>
+                  <div class="mini fraco">${esc(c.nome)} · criado em ${data(o.criadoEm.slice(0, 10))}${o.validoAte ? " · vale até " + data(o.validoAte) : ""}</div>
+                </div>
+                <div class="direita" style="flex:none">
+                  <div class="num" style="font-weight:600">${moeda(total(o))}</div>
+                  <div class="mini fraco">${AJUDA[o.status]}</div>
+                </div>
+              </div>
+            </a>`;
+          }).join("")}
+        </div>
+      `}
+    `);
+  }
+
+  // =====================================================================
+  // Tela: detalhe do orçamento
+  // =====================================================================
+  function telaOrcamento(id) {
+    const o = db.orcamentos.find((x) => x.id === id);
+    if (!o) return casca("orcamentos", `<p>Orçamento não encontrado. <a href="#/orcamentos">Voltar</a></p>`);
+    const c = cliente(o.clienteId);
+    const rascunho = o.status === "RASCUNHO";
+    const link = rascunho ? null : location.origin + location.pathname + "#/o/" + o.token;
+
+    const eventos = [];
+    eventos.push({ q: o.criadoEm, t: "Orçamento criado", d: "Por Caio Gavioli" });
+    if (o.enviadoEm) eventos.push({ q: o.enviadoEm, t: "Enviado por e-mail", d: "Para " + c.email, forte: true });
+    if (o.visualizadoEm) eventos.push({ q: o.visualizadoEm, t: "Cliente abriu o link", d: o.visualizacoes + " visualização(ões) no total", forte: true });
+    if (o.respondidoEm) {
+      const rot = { ACEITO: "Cliente aceitou", RECUSADO: "Cliente recusou", AJUSTE_SOLICITADO: "Cliente pediu ajuste" }[o.status] || "Cliente respondeu";
+      eventos.push({ q: o.respondidoEm, t: rot, d: o.resposta || "", forte: true });
+    }
+    eventos.reverse();
+
+    return casca("orcamentos", `
+      <a href="#/orcamentos" class="ligacao">← Orçamentos</a>
+      <div class="entre" style="margin:.25rem 0 1rem">
+        <div class="crescer">
+          <div class="linha">
+            <h1 class="num">${o.numero}${o.versao > 1 ? " v" + o.versao : ""}</h1>
+            <span class="${CLASSE[o.status]}">${ROTULO[o.status]}</span>
+          </div>
+          <p style="font-weight:600;margin:.125rem 0 0">${esc(o.titulo)}</p>
+          <p class="mini fraco" style="margin:0">${AJUDA[o.status]}</p>
+        </div>
+        <div class="direita" style="flex:none">
+          <div class="num" style="font-size:1.5rem;font-weight:700">${moeda(total(o))}</div>
+          ${o.validoAte ? `<div class="mini num fraco">válido até ${data(o.validoAte)}</div>` : ""}
+        </div>
+      </div>
+
+      ${o.status === "AJUSTE_SOLICITADO" ? `
+        <div class="card card-pad" style="margin-bottom:1rem;border-left:3px solid var(--status-atencao)">
+          <div class="titulo-secao">O cliente pediu um ajuste</div>
+          <p style="margin:.375rem 0 0">${esc(o.resposta)}</p>
+          <p class="mini fraco" style="margin:.375rem 0 0">${dataHora(o.respondidoEm)}</p>
+          <button class="botao botao-primario" style="margin-top:.75rem" data-acao="nova-versao" data-id="${o.id}">Gerar versão 2 com os ajustes</button>
+        </div>` : ""}
+
+      <div class="colunas">
+        <div class="pilha">
+          <section class="card card-pad">
+            <h2 style="margin-bottom:.75rem">Itens</h2>
+            <div class="rolagem">
+              <table class="tabela">
+                <thead><tr>
+                  <th>Descrição</th><th style="text-align:right">Qtde.</th>
+                  <th style="text-align:right">Valor unit.</th><th style="text-align:right">Total</th>
+                </tr></thead>
+                <tbody>
+                  ${o.itens.map((i) => `
+                    <tr>
+                      <td style="color:var(--tinta)">${esc(i.descricao)}</td>
+                      <td class="num" style="text-align:right;white-space:nowrap">${qtde(i.q)} ${esc(i.unidade)}</td>
+                      <td class="num" style="text-align:right;white-space:nowrap">${moeda(i.v)}</td>
+                      <td class="num" style="text-align:right;white-space:nowrap;color:var(--tinta)">${moeda(totalLinha(i.q, i.v))}</td>
+                    </tr>`).join("")}
+                </tbody>
+              </table>
+            </div>
+            <dl style="margin:.75rem 0 0 auto;max-width:18rem;font-size:.875rem">
+              <div class="entre" style="flex-wrap:nowrap"><dt style="color:var(--tinta-2)">Subtotal</dt><dd class="num" style="margin:0">${moeda(subtotal(o))}</dd></div>
+              ${o.desconto > 0 ? `<div class="entre" style="flex-wrap:nowrap"><dt style="color:var(--tinta-2)">Desconto</dt><dd class="num" style="margin:0">− ${moeda(o.desconto)}</dd></div>` : ""}
+              <div class="entre" style="flex-wrap:nowrap;border-top:1px solid var(--borda);padding-top:.5rem;margin-top:.5rem;font-weight:600;font-size:1rem">
+                <dt>Total</dt><dd class="num" style="margin:0">${moeda(total(o))}</dd>
+              </div>
+            </dl>
+          </section>
+
+          ${(o.condicoes || o.prazo || o.observacoes) ? `
+          <section class="card card-pad pilha-fina">
+            <h2>Condições</h2>
+            ${o.condicoes ? `<div><div class="titulo-secao">Pagamento</div><p class="pequeno" style="margin:0;color:var(--tinta-2)">${esc(o.condicoes)}</p></div>` : ""}
+            ${o.prazo ? `<div><div class="titulo-secao">Prazo de execução</div><p class="pequeno" style="margin:0;color:var(--tinta-2)">${esc(o.prazo)}</p></div>` : ""}
+            ${o.observacoes ? `<div><div class="titulo-secao">Observações</div><p class="pequeno" style="margin:0;color:var(--tinta-2)">${esc(o.observacoes)}</p></div>` : ""}
+          </section>` : ""}
+
+          <section class="card card-pad">
+            <div class="linha" style="justify-content:space-between;margin-bottom:.75rem">
+              <h2>Linha do tempo</h2>
+              <span class="marca-fase">Fase 5 — a construir</span>
+            </div>
+            <ul class="tempo">
+              ${eventos.map((e) => `
+                <li class="${e.forte ? "destaque" : ""}">
+                  <div class="pequeno" style="font-weight:600">${esc(e.t)}</div>
+                  <div class="mini fraco num">${dataHora(e.q)}</div>
+                  ${e.d ? `<div class="mini" style="color:var(--tinta-2);margin-top:.125rem">${esc(e.d)}</div>` : ""}
+                </li>`).join("")}
+            </ul>
+          </section>
+
+          <section class="card card-pad">
+            <div class="linha" style="justify-content:space-between;margin-bottom:.5rem">
+              <h2>Pendências</h2>
+              <span class="marca-fase">Fase 5 — a construir</span>
+            </div>
+            <p class="mini fraco" style="margin:0 0 .75rem">O que você combinou de entregar antes de o cliente decidir.</p>
+            ${o.pendencias.length === 0
+              ? `<p class="pequeno fraco" style="margin:0">Nada pendente.</p>`
+              : `<div class="pilha-fina">${o.pendencias.map((p, i) => `
+                  <label class="caixa-suave linha" style="cursor:pointer;gap:.625rem">
+                    <input type="checkbox" ${p.feito ? "checked" : ""} data-acao="pendencia" data-id="${o.id}" data-i="${i}" style="width:1rem;height:1rem;flex:none">
+                    <span class="crescer pequeno" style="${p.feito ? "text-decoration:line-through;color:var(--tinta-3)" : ""}">${esc(p.texto)}</span>
+                    <span class="mini num ${new Date(p.prazo) < new Date("2026-08-17") && !p.feito ? "" : "fraco"}"
+                          style="${new Date(p.prazo) < new Date("2026-08-17") && !p.feito ? "color:var(--status-critico-texto);font-weight:600" : ""}">
+                      ${data(p.prazo)}
+                    </span>
+                  </label>`).join("")}</div>`}
+          </section>
+        </div>
+
+        <aside class="pilha">
+          <section class="card card-pad">
+            <h2 style="margin-bottom:.5rem">Cliente</h2>
+            <div class="pequeno">
+              <div style="font-weight:500">${esc(c.nome)}</div>
+              ${c.contato ? `<div style="color:var(--tinta-2)">A/C ${esc(c.contato)}</div>` : ""}
+              <div style="color:var(--tinta-2)">${esc(c.email)}</div>
+              ${c.telefone ? `<div class="num" style="color:var(--tinta-2)">${esc(c.telefone)}</div>` : ""}
+            </div>
+          </section>
+
+          <section class="card card-pad">
+            <h2 style="margin-bottom:.75rem">Ações</h2>
+            <div class="pilha-fina">
+              <button class="botao botao-primario" data-acao="pdf">Ver PDF</button>
+              ${rascunho
+                ? `<a class="botao botao-primario" href="#/enviar/${o.id}">Enviar para o cliente</a>
+                   <a class="botao botao-secundario" href="#/editar/${o.id}">Editar</a>`
+                : `<a class="botao botao-secundario" href="#/enviar/${o.id}">Reenviar</a>`}
+              ${link ? `<a class="botao botao-secundario" href="#/o/${o.token}">Ver como o cliente vê</a>` : ""}
+            </div>
+
+            ${link ? `
+              <div style="margin-top:.75rem">
+                <div class="titulo-secao" style="margin-bottom:.25rem">Link do cliente</div>
+                <p class="mini caixa-suave" style="margin:0;word-break:break-all;color:var(--tinta-2)">/o/${esc(o.token)}</p>
+              </div>` : `
+              <p class="mini fraco" style="margin:.75rem 0 0">Rascunho ainda não tem link: ele nasce no envio.</p>`}
+          </section>
+
+          <section class="card card-pad">
+            <h2 style="margin-bottom:.5rem">Acompanhamento</h2>
+            <dl class="pequeno pilha-fina" style="gap:.375rem;margin:0">
+              ${[
+                ["Criado", dataHora(o.criadoEm)],
+                ["Enviado", o.enviadoEm ? dataHora(o.enviadoEm) : "ainda não"],
+                ["1ª visualização", o.visualizadoEm ? dataHora(o.visualizadoEm) : "ainda não"],
+                ["Visualizações", String(o.visualizacoes)],
+                ["Resposta", o.respondidoEm ? dataHora(o.respondidoEm) : "aguardando"],
+              ].map(([k, v]) => `<div class="entre" style="flex-wrap:nowrap"><dt class="fraco">${k}</dt><dd class="num direita" style="margin:0">${v}</dd></div>`).join("")}
+            </dl>
+          </section>
+        </aside>
+      </div>
+    `);
+  }
+
+  // =====================================================================
+  // Tela: editor (novo / editar)
+  // =====================================================================
+  let editor = null;
+
+  function abrirEditor(id) {
+    if (id) {
+      const o = db.orcamentos.find((x) => x.id === id);
+      editor = {
+        id: o.id, clienteId: o.clienteId, titulo: o.titulo,
+        condicoes: o.condicoes || "", prazo: o.prazo || "", observacoes: o.observacoes || "",
+        desconto: paraCampo(o.desconto || 0), validade: "30",
+        itens: o.itens.map((i) => ({ servicoId: 0, descricao: i.descricao, unidade: i.unidade, q: qtde(i.q), v: paraCampo(i.v) })),
+      };
+    } else {
+      editor = {
+        id: null, clienteId: 0, titulo: "", condicoes: "", prazo: "", observacoes: "",
+        desconto: "", validade: "15",
+        itens: [{ servicoId: 0, descricao: "", unidade: "un", q: "1", v: "" }],
+      };
+    }
+  }
+
+  function totaisEditor() {
+    const linhas = editor.itens.map((i) => {
+      const q = lerQtde(i.q), v = lerMoeda(i.v);
+      return q === null || v === null ? null : totalLinha(q, v);
+    });
+    const sub = linhas.reduce((s, t) => s + (t || 0), 0);
+    const desc = Math.min(Math.max(lerMoeda(editor.desconto) || 0, 0), sub);
+    return { linhas, sub, desc, total: sub - desc, incompleta: linhas.some((t) => t === null) };
+  }
+
+  function telaEditor() {
+    const t = totaisEditor();
+    const ativos = db.servicos.filter((s) => s.ativo);
+
+    return casca("orcamentos", `
+      <a href="${editor.id ? "#/orcamento/" + editor.id : "#/orcamentos"}" class="ligacao">← Voltar</a>
+      <h1 style="margin:.25rem 0 .125rem">${editor.id ? "Editar orçamento" : "Novo orçamento"}</h1>
+      <p class="sub" style="margin-bottom:1rem">${editor.id ? "Só rascunho pode ser editado." : "Nasce como rascunho. O número e o link do cliente são gerados ao salvar."}</p>
+
+      <div class="pilha">
+        <section class="card card-pad campos campos-2">
+          <div>
+            <label class="rotulo" for="e-cliente">Cliente</label>
+            <select id="e-cliente" class="campo" data-campo="clienteId">
+              <option value="0">Selecione…</option>
+              ${db.clientes.filter((c) => c.ativo).map((c) => `<option value="${c.id}" ${editor.clienteId === c.id ? "selected" : ""}>${esc(c.nome)}${c.contato ? " — A/C " + esc(c.contato) : ""}</option>`).join("")}
+            </select>
+          </div>
+          <div>
+            <label class="rotulo" for="e-modelo">Partir de um modelo</label>
+            <select id="e-modelo" class="campo" data-acao="modelo">
+              <option value="0">Escolher modelo…</option>
+              ${db.modelos.filter((m) => m.ativo).map((m) => `<option value="${m.id}">${esc(m.nome)}</option>`).join("")}
+            </select>
+            <p class="mini fraco" style="margin:.25rem 0 0">Preenche itens e textos de uma vez. Você ajusta depois.</p>
+          </div>
+          <div style="grid-column:1/-1">
+            <label class="rotulo" for="e-titulo">Título</label>
+            <input id="e-titulo" class="campo" data-campo="titulo" value="${esc(editor.titulo)}" placeholder="Manutenção predial — Edifício Atrium">
+          </div>
+        </section>
+
+        <section class="card card-pad">
+          <h2 style="margin-bottom:.75rem">Itens</h2>
+          <div class="pilha-fina">
+            ${editor.itens.map((i, idx) => `
+              <div class="caixa-suave">
+                <div class="linha" style="justify-content:space-between;margin-bottom:.5rem">
+                  <span class="titulo-secao num">Item ${idx + 1}</span>
+                  <div class="linha" style="gap:.75rem">
+                    <button class="ligacao" style="color:var(--tinta-2);text-decoration:none" data-acao="mover" data-i="${idx}" data-dir="-1" ${idx === 0 ? "disabled" : ""} aria-label="Mover item ${idx + 1} para cima">↑</button>
+                    <button class="ligacao" style="color:var(--tinta-2);text-decoration:none" data-acao="mover" data-i="${idx}" data-dir="1" ${idx === editor.itens.length - 1 ? "disabled" : ""} aria-label="Mover item ${idx + 1} para baixo">↓</button>
+                    <button class="ligacao" style="color:var(--status-critico-texto)" data-acao="remover" data-i="${idx}">Remover</button>
+                  </div>
+                </div>
+                <div class="campos">
+                  <div>
+                    <label class="rotulo" for="s-${idx}">Serviço do catálogo</label>
+                    <select id="s-${idx}" class="campo" data-acao="servico" data-i="${idx}">
+                      <option value="0">Linha avulsa (digitar à mão)</option>
+                      ${ativos.map((s) => `<option value="${s.id}" ${i.servicoId === s.id ? "selected" : ""}>${esc(s.categoria)} · ${esc(s.nome)} — ${moeda(s.valor)}/${esc(s.unidade)}</option>`).join("")}
+                    </select>
+                  </div>
+                  <div>
+                    <label class="rotulo" for="d-${idx}">Descrição</label>
+                    <textarea id="d-${idx}" class="campo" rows="2" data-item="descricao" data-i="${idx}" placeholder="O que o cliente vai ler nesta linha">${esc(i.descricao)}</textarea>
+                  </div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem">
+                    <div>
+                      <label class="rotulo" for="q-${idx}">Qtde.</label>
+                      <input id="q-${idx}" class="campo num" inputmode="decimal" data-item="q" data-i="${idx}" value="${esc(i.q)}">
+                    </div>
+                    <div>
+                      <label class="rotulo" for="u-${idx}">Unidade</label>
+                      <input id="u-${idx}" class="campo" data-item="unidade" data-i="${idx}" value="${esc(i.unidade)}">
+                    </div>
+                    <div>
+                      <label class="rotulo" for="v-${idx}">Valor unit.</label>
+                      <input id="v-${idx}" class="campo num" inputmode="decimal" data-item="v" data-i="${idx}" value="${esc(i.v)}" placeholder="0,00">
+                    </div>
+                  </div>
+                </div>
+                <div class="direita pequeno num" style="border-top:1px solid var(--borda);margin-top:.5rem;padding-top:.5rem">
+                  <span class="fraco">Total do item: </span>
+                  <strong>${t.linhas[idx] === null ? "—" : moeda(t.linhas[idx])}</strong>
+                </div>
+              </div>`).join("")}
+          </div>
+          <button class="botao botao-secundario" style="width:100%;margin-top:.75rem" data-acao="adicionar">+ Adicionar item</button>
+          ${t.incompleta ? `<p class="mini fraco" style="margin:.5rem 0 0">Alguma linha tem quantidade ou valor que ainda não dá para ler como número — o total ignora essas linhas.</p>` : ""}
+        </section>
+
+        <section class="card card-pad">
+          <h2 style="margin-bottom:.75rem">Condições</h2>
+          <div class="campos campos-2">
+            <div>
+              <label class="rotulo" for="e-cond">Condições de pagamento</label>
+              <textarea id="e-cond" class="campo" rows="2" data-campo="condicoes">${esc(editor.condicoes)}</textarea>
+            </div>
+            <div>
+              <label class="rotulo" for="e-prazo">Prazo de execução</label>
+              <textarea id="e-prazo" class="campo" rows="2" data-campo="prazo">${esc(editor.prazo)}</textarea>
+            </div>
+            <div style="grid-column:1/-1">
+              <label class="rotulo" for="e-obs">Observações (o cliente lê)</label>
+              <textarea id="e-obs" class="campo" rows="2" data-campo="observacoes">${esc(editor.observacoes)}</textarea>
+            </div>
+            <div>
+              <label class="rotulo" for="e-desc">Desconto (R$)</label>
+              <input id="e-desc" class="campo num" inputmode="decimal" data-campo="desconto" value="${esc(editor.desconto)}" placeholder="0,00">
+            </div>
+            <div>
+              <label class="rotulo" for="e-val">Validade (dias)</label>
+              <input id="e-val" class="campo num" type="number" min="1" max="365" data-campo="validade" value="${esc(editor.validade)}">
+            </div>
+          </div>
+        </section>
+
+        <section class="card card-pad">
+          <dl style="margin:0;font-size:.875rem">
+            <div class="entre" style="flex-wrap:nowrap"><dt style="color:var(--tinta-2)">Subtotal</dt><dd class="num" style="margin:0">${moeda(t.sub)}</dd></div>
+            ${t.desc > 0 ? `<div class="entre" style="flex-wrap:nowrap"><dt style="color:var(--tinta-2)">Desconto</dt><dd class="num" style="margin:0">− ${moeda(t.desc)}</dd></div>` : ""}
+            <div class="entre" style="flex-wrap:nowrap;border-top:1px solid var(--borda);margin-top:.5rem;padding-top:.5rem;font-size:1.125rem;font-weight:600">
+              <dt>Total</dt><dd class="num" style="margin:0">${moeda(t.total)}</dd>
+            </div>
+          </dl>
+        </section>
+
+        <div class="linha" style="gap:.5rem">
+          <button class="botao botao-primario crescer" data-acao="salvar">${editor.id ? "Salvar orçamento" : "Criar orçamento"}</button>
+          <a class="botao botao-secundario" href="${editor.id ? "#/orcamento/" + editor.id : "#/orcamentos"}">Cancelar</a>
+        </div>
+      </div>
+    `);
+  }
+
+  // =====================================================================
+  // Tela: enviar (fase 3)
+  // =====================================================================
+  function telaEnviar(id) {
+    const o = db.orcamentos.find((x) => x.id === id);
+    if (!o) return casca("orcamentos", `<p>Não encontrado. <a href="#/orcamentos">Voltar</a></p>`);
+    const c = cliente(o.clienteId);
+    const reenvio = o.status !== "RASCUNHO";
+
+    return casca("orcamentos", `
+      <a href="#/orcamento/${o.id}" class="ligacao">← Orçamento ${o.numero}</a>
+      <h1 style="margin:.25rem 0 .125rem">${reenvio ? "Reenviar" : "Enviar"} orçamento</h1>
+      <p class="sub" style="margin-bottom:1rem">Sai da sua caixa do Outlook. As respostas do cliente chegam nela normalmente.</p>
+
+      ${avisoFase(3, "Esta tela ainda não existe no código. Aqui ela está simulada para você avaliar o fluxo — nenhum e-mail é enviado.")}
+
+      <div class="colunas" style="margin-top:1rem">
+        <div class="pilha">
+          <section class="card card-pad campos">
+            <div>
+              <label class="rotulo" for="m-para">Para</label>
+              <input id="m-para" class="campo" value="${esc(c.email)}">
+              <p class="mini fraco" style="margin:.25rem 0 0">Do cadastro de ${esc(c.nome)}.</p>
+            </div>
+            <div>
+              <label class="rotulo" for="m-copia">Cópia (opcional)</label>
+              <input id="m-copia" class="campo" placeholder="socio@empresa.com.br">
+            </div>
+            <div>
+              <label class="rotulo" for="m-assunto">Assunto</label>
+              <input id="m-assunto" class="campo" value="Orçamento ${o.numero} — ${esc(o.titulo)}">
+            </div>
+            <div>
+              <label class="rotulo" for="m-corpo">Mensagem</label>
+              <textarea id="m-corpo" class="campo" rows="9">Prezado(a) ${esc(c.contato || c.nome)},
+
+Segue o orçamento ${o.numero} referente a ${esc(o.titulo)}, no valor de ${moeda(total(o))}.
+
+Você pode ver o orçamento completo, baixar o PDF e responder — aceitando, recusando ou pedindo um ajuste — pelo link abaixo.
+
+O orçamento é válido até ${data(o.validoAte)}.
+
+Atenciosamente,
+${esc(EMPRESA.nome)}
+${esc(EMPRESA.telefone)}</textarea>
+            </div>
+            <label class="linha pequeno" style="gap:.5rem">
+              <input type="checkbox" checked style="width:1rem;height:1rem">
+              Anexar o PDF além do link
+            </label>
+          </section>
+
+          <div class="linha" style="gap:.5rem">
+            <button class="botao botao-primario crescer" data-acao="confirmar-envio" data-id="${o.id}">
+              ${reenvio ? "Reenviar agora" : "Enviar agora"}
+            </button>
+            <a class="botao botao-secundario" href="#/orcamento/${o.id}">Cancelar</a>
+          </div>
+        </div>
+
+        <aside class="pilha">
+          <section class="card card-pad">
+            <h2 style="margin-bottom:.5rem">O que o cliente recebe</h2>
+            <ul class="pequeno" style="margin:0;padding-left:1.1rem;color:var(--tinta-2);display:flex;flex-direction:column;gap:.375rem">
+              <li>Um <strong>link único</strong> para a página do orçamento.</li>
+              <li>O <strong>PDF</strong> anexado, para arquivar ou repassar.</li>
+              <li>Botões para <strong>aceitar, recusar ou pedir ajuste</strong>.</li>
+            </ul>
+          </section>
+          <section class="card card-pad">
+            <h2 style="margin-bottom:.5rem">O que fica registrado</h2>
+            <ul class="pequeno" style="margin:0;padding-left:1.1rem;color:var(--tinta-2);display:flex;flex-direction:column;gap:.375rem">
+              <li>Data, destinatário e resultado do disparo.</li>
+              <li>Cada abertura do link, com data e hora.</li>
+              <li>A resposta do cliente e o texto que ele escreveu.</li>
+            </ul>
+            <p class="mini fraco" style="margin:.75rem 0 0">O Outlook não avisa quando um e-mail volta por endereço inválido — essa devolução chega na sua caixa.</p>
+          </section>
+        </aside>
+      </div>
+    `);
+  }
+
+  // =====================================================================
+  // Tela pública do cliente (fase 4) — sem a casca do sistema
+  // =====================================================================
+  function telaCliente(token) {
+    const o = porToken(token);
+    if (!o) return `<main class="publico"><p>Orçamento não encontrado.</p></main>`;
+    const c = cliente(o.clienteId);
+    const respondido = !!o.respondidoEm;
+    const expirado = o.status === "EXPIRADO";
+
+    return `
+      <main class="publico">
+        <div class="aviso-fase" style="margin-bottom:1rem">
+          <span class="marca-fase">Fase 4 — a construir</span>
+          É isto que o cliente vê ao abrir o link, sem login. Os botões abaixo funcionam no protótipo.
+          <a href="#/orcamento/${o.id}" style="display:inline-block;margin-top:.375rem">← voltar para a visão interna</a>
+        </div>
+
+        <div class="card card-pad">
+          <header class="publico-topo entre">
+            <div>
+              <div style="font-size:1.125rem;font-weight:700">${esc(EMPRESA.nome)}</div>
+              <div class="mini num" style="color:var(--tinta-2)">CNPJ ${esc(EMPRESA.documento)}</div>
+              <div class="mini" style="color:var(--tinta-2)">${esc(EMPRESA.endereco)}</div>
+              <div class="mini" style="color:var(--tinta-2)">${esc(EMPRESA.telefone)} · ${esc(EMPRESA.email)}</div>
+            </div>
+            <div class="direita">
+              <div class="titulo-secao">Orçamento</div>
+              <div class="num" style="font-size:1.125rem;font-weight:700;color:var(--serie-1)">${o.numero}${o.versao > 1 ? " v" + o.versao : ""}</div>
+              <div class="mini num" style="color:var(--tinta-2)">Emissão: ${data(o.criadoEm.slice(0, 10))}</div>
+              <div class="mini num" style="color:var(--tinta-2)">Válido até: ${data(o.validoAte)}</div>
+            </div>
+          </header>
+
+          <h1 style="margin-bottom:1rem">${esc(o.titulo)}</h1>
+
+          <div class="campos campos-2" style="margin-bottom:1rem">
+            <div>
+              <div class="titulo-secao">Cliente</div>
+              <div class="pequeno">${esc(c.nome)}</div>
+              <div class="mini num" style="color:var(--tinta-2)">${esc(c.documento)}</div>
+              <div class="mini" style="color:var(--tinta-2)">${esc(c.endereco)}</div>
+            </div>
+            <div>
+              <div class="titulo-secao">Contato</div>
+              <div class="pequeno">${esc(c.contato)}</div>
+              <div class="mini" style="color:var(--tinta-2)">${esc(c.email)}</div>
+            </div>
+          </div>
+
+          <div class="rolagem">
+            <table class="tabela">
+              <thead><tr>
+                <th style="width:2rem">#</th><th>Descrição</th>
+                <th style="text-align:right">Qtde.</th><th style="text-align:right">Valor unit.</th><th style="text-align:right">Total</th>
+              </tr></thead>
+              <tbody>
+                ${o.itens.map((i, n) => `
+                  <tr>
+                    <td class="num">${n + 1}</td>
+                    <td style="color:var(--tinta)">${esc(i.descricao)}</td>
+                    <td class="num" style="text-align:right;white-space:nowrap">${qtde(i.q)} ${esc(i.unidade)}</td>
+                    <td class="num" style="text-align:right;white-space:nowrap">${moeda(i.v)}</td>
+                    <td class="num" style="text-align:right;white-space:nowrap;color:var(--tinta)">${moeda(totalLinha(i.q, i.v))}</td>
+                  </tr>`).join("")}
+              </tbody>
+            </table>
+          </div>
+
+          <dl style="margin:1rem 0 1.25rem auto;max-width:18rem;font-size:.875rem">
+            ${o.desconto > 0 ? `
+              <div class="entre" style="flex-wrap:nowrap"><dt style="color:var(--tinta-2)">Subtotal</dt><dd class="num" style="margin:0">${moeda(subtotal(o))}</dd></div>
+              <div class="entre" style="flex-wrap:nowrap"><dt style="color:var(--tinta-2)">Desconto</dt><dd class="num" style="margin:0">− ${moeda(o.desconto)}</dd></div>` : ""}
+            <div class="entre" style="flex-wrap:nowrap;border-top:1px solid var(--tinta);padding-top:.5rem;margin-top:.5rem;font-size:1.25rem;font-weight:700">
+              <dt>TOTAL</dt><dd class="num" style="margin:0">${moeda(total(o))}</dd>
+            </div>
+          </dl>
+
+          <div class="pilha-fina pequeno" style="margin-bottom:1.25rem">
+            ${o.condicoes ? `<div><div class="titulo-secao">Condições de pagamento</div><p style="margin:0;color:var(--tinta-2)">${esc(o.condicoes)}</p></div>` : ""}
+            ${o.prazo ? `<div><div class="titulo-secao">Prazo de execução</div><p style="margin:0;color:var(--tinta-2)">${esc(o.prazo)}</p></div>` : ""}
+            ${o.observacoes ? `<div><div class="titulo-secao">Observações</div><p style="margin:0;color:var(--tinta-2)">${esc(o.observacoes)}</p></div>` : ""}
+          </div>
+
+          <button class="botao botao-secundario" style="width:100%" data-acao="pdf">Baixar o PDF</button>
+        </div>
+
+        ${expirado ? `
+          <div class="card card-pad" style="margin-top:1rem;text-align:center">
+            <p class="pequeno" style="margin:0;color:var(--tinta-2)">Este orçamento passou da validade em ${data(o.validoAte)}. Fale com ${esc(EMPRESA.nome)} para receber uma versão atualizada.</p>
+          </div>`
+        : respondido ? `
+          <div class="card card-pad" style="margin-top:1rem;text-align:center">
+            <span class="${CLASSE[o.status]}">${ROTULO[o.status]}</span>
+            <p class="pequeno" style="margin:.5rem 0 0;color:var(--tinta-2)">Sua resposta foi registrada em ${dataHora(o.respondidoEm)}.</p>
+            ${o.resposta ? `<p class="pequeno caixa-suave" style="margin:.75rem 0 0;text-align:left">“${esc(o.resposta)}”</p>` : ""}
+            <button class="ligacao" style="margin-top:.75rem" data-acao="refazer" data-id="${o.id}">Mudar minha resposta (só no protótipo)</button>
+          </div>`
+        : `
+          <div class="card card-pad" style="margin-top:1rem">
+            <h2 style="margin-bottom:.25rem">O que você decide?</h2>
+            <p class="pequeno fraco" style="margin:0 0 .875rem">Sua resposta chega na hora para ${esc(EMPRESA.nome)}.</p>
+            <div class="pilha-fina">
+              <button class="botao botao-primario" style="background:var(--status-bom-texto)" data-acao="responder" data-id="${o.id}" data-r="ACEITO">Aceitar este orçamento</button>
+              <button class="botao botao-secundario" data-acao="responder" data-id="${o.id}" data-r="AJUSTE_SOLICITADO">Preciso de um ajuste</button>
+              <button class="botao botao-perigo" data-acao="responder" data-id="${o.id}" data-r="RECUSADO">Recusar</button>
+            </div>
+            <div style="margin-top:.75rem">
+              <label class="rotulo" for="resp-msg">Quer dizer alguma coisa? (opcional)</label>
+              <textarea id="resp-msg" class="campo" rows="3" placeholder="Ex.: podem incluir a limpeza das cisternas?"></textarea>
+            </div>
+          </div>`}
+
+        <p class="mini fraco" style="text-align:center;margin-top:1rem">${esc(EMPRESA.nome)} · Orçamento ${o.numero}</p>
+      </main>`;
+  }
+
+  // =====================================================================
+  // Tela: clientes
+  // =====================================================================
+  function telaClientes() {
+    return casca("clientes", `
+      <h1>Clientes</h1>
+      <p class="sub" style="margin-bottom:1rem">Quem recebe os orçamentos. Independente do cadastro de condomínios — o cliente pode ser um prédio que você administra ou alguém que ainda não é.</p>
+
+      <div class="colunas">
+        <div class="pilha-fina">
+          <p class="mini num fraco" style="margin:0">${db.clientes.length} cadastrado(s) · ${db.clientes.filter((c) => c.ativo).length} ativo(s)</p>
+          ${db.clientes.slice().sort((a, b) => (b.ativo - a.ativo) || a.nome.localeCompare(b.nome)).map((c) => {
+            const meus = db.orcamentos.filter((o) => o.clienteId === c.id);
+            const ganhos = meus.filter((o) => o.status === "ACEITO");
+            return `
+            <div class="card card-pad">
+              <div class="entre" style="margin-bottom:.5rem">
+                <div class="crescer">
+                  <div style="font-weight:600">${esc(c.nome)}</div>
+                  <div class="mini fraco">${c.contato ? "A/C " + esc(c.contato) : "Sem pessoa de contato"}</div>
+                </div>
+                <span class="badge ${c.ativo ? "badge-ok" : "badge-neutral"}">${c.ativo ? "Ativo" : "Inativo"}</span>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem;font-size:.875rem;color:var(--tinta-2)">
+                <div><div class="titulo-secao">E-mail</div><div style="overflow-wrap:anywhere">${esc(c.email)}</div></div>
+                <div><div class="titulo-secao">Telefone</div><div class="num">${esc(c.telefone)}</div></div>
+                <div><div class="titulo-secao">CNPJ / CPF</div><div class="num">${esc(c.documento)}</div></div>
+                <div><div class="titulo-secao">Histórico</div><div class="num">${meus.length} orçamento(s) · ${ganhos.length} aceito(s)</div></div>
+              </div>
+              <div class="linha" style="gap:1rem;border-top:1px solid var(--borda);margin-top:.75rem;padding-top:.75rem">
+                <button class="ligacao">Editar</button>
+                <button class="ligacao" style="color:var(--tinta-2)">${c.ativo ? "Desativar" : "Reativar"}</button>
+                ${meus.length === 0
+                  ? `<button class="ligacao" style="color:var(--status-critico-texto)">Excluir</button>`
+                  : `<span class="mini num fraco">tem histórico — desative em vez de excluir</span>`}
+              </div>
+            </div>`;
+          }).join("")}
+        </div>
+
+        <aside>
+          <div class="card card-pad">
+            <h2 style="margin-bottom:.75rem">Cadastrar cliente</h2>
+            <div class="campos">
+              <div><label class="rotulo" for="c-nome">Nome / Razão social</label><input id="c-nome" class="campo"></div>
+              <div><label class="rotulo" for="c-contato">Pessoa de contato</label><input id="c-contato" class="campo" placeholder="Quem lê e assina"></div>
+              <div>
+                <label class="rotulo" for="c-email">E-mail <span style="color:var(--status-critico-texto)">*</span></label>
+                <input id="c-email" class="campo" type="email">
+                <p class="mini fraco" style="margin:.25rem 0 0">É para cá que o orçamento vai. Por isso é o único campo obrigatório além do nome.</p>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem">
+                <div><label class="rotulo" for="c-tel">Telefone</label><input id="c-tel" class="campo"></div>
+                <div><label class="rotulo" for="c-doc">CNPJ / CPF</label><input id="c-doc" class="campo"></div>
+              </div>
+              <button class="botao botao-primario" style="width:100%" data-acao="demo">Cadastrar cliente</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    `);
+  }
+
+  // =====================================================================
+  // Tela: catálogo e modelos
+  // =====================================================================
+  function telaCatalogo() {
+    const categorias = [...new Set(db.servicos.map((s) => s.categoria))].sort();
+
+    return casca("catalogo", `
+      <h1>Catálogo e modelos</h1>
+      <p class="sub" style="margin-bottom:1rem">O <strong>catálogo</strong> guarda cada serviço que você vende, com descrição e preço. O <strong>modelo</strong> junta vários deles num orçamento pronto. É o que faz dois orçamentos do mesmo tipo saírem iguais.</p>
+
+      <div class="colunas">
+        <div class="pilha">
+          <section>
+            <h2 style="margin-bottom:.5rem">Serviços do catálogo</h2>
+            <div class="pilha" style="gap:1rem">
+              ${categorias.map((cat) => `
+                <div>
+                  <h3 class="titulo-secao" style="margin-bottom:.5rem">${esc(cat)}</h3>
+                  <div class="pilha-fina">
+                    ${db.servicos.filter((s) => s.categoria === cat).map((s) => `
+                      <div class="card card-pad">
+                        <div class="entre">
+                          <div class="crescer">
+                            <div style="font-weight:600">${esc(s.nome)}</div>
+                            <p class="mini" style="margin:.125rem 0 0;color:var(--tinta-2)">${esc(s.descricao)}</p>
+                            <p class="mini num fraco" style="margin:.25rem 0 0">${esc(s.codigo)}</p>
+                          </div>
+                          <div class="direita" style="flex:none">
+                            <div class="num" style="font-weight:600">${moeda(s.valor)}</div>
+                            <div class="mini fraco">por ${esc(s.unidade)}</div>
+                            ${!s.ativo ? `<span class="badge badge-neutral" style="margin-top:.25rem">Inativo</span>` : ""}
+                          </div>
+                        </div>
+                        <div class="linha" style="gap:1rem;border-top:1px solid var(--borda);margin-top:.75rem;padding-top:.75rem">
+                          <button class="ligacao">Editar</button>
+                          <button class="ligacao" style="color:var(--tinta-2)">${s.ativo ? "Desativar" : "Reativar"}</button>
+                          ${s.usos === 0
+                            ? `<button class="ligacao" style="color:var(--status-critico-texto)">Excluir</button>`
+                            : `<span class="mini num fraco">usado em ${s.usos} modelo(s)</span>`}
+                        </div>
+                      </div>`).join("")}
+                  </div>
+                </div>`).join("")}
+            </div>
+          </section>
+
+          <section>
+            <h2 style="margin-bottom:.5rem">Modelos de orçamento</h2>
+            <div class="pilha-fina">
+              <button class="botao botao-primario" style="align-self:flex-start" data-acao="demo">+ Novo modelo</button>
+              ${db.modelos.map((m) => {
+                const t = m.itens.reduce((s, i) => s + totalLinha(i.q, i.v), 0);
+                return `
+                <div class="card card-pad">
+                  <div class="entre">
+                    <div class="crescer">
+                      <div style="font-weight:600">${esc(m.nome)}</div>
+                      <p class="mini" style="margin:.125rem 0 0;color:var(--tinta-2)">${esc(m.descricao)}</p>
+                      <p class="mini num fraco" style="margin:.25rem 0 0">${m.itens.length} item(ns) · validade de ${m.validade} dia(s)</p>
+                    </div>
+                    <div class="direita" style="flex:none">
+                      <div class="num" style="font-weight:600">${moeda(t)}</div>
+                    </div>
+                  </div>
+                  <ul class="pequeno" style="margin:.75rem 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:.25rem;color:var(--tinta-2)">
+                    ${m.itens.map((i) => `
+                      <li class="entre" style="flex-wrap:nowrap;gap:.75rem">
+                        <span class="crescer" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">
+                          <span class="num">${qtde(i.q)} ${esc(i.unidade)}</span> · ${esc(i.descricao)}
+                        </span>
+                        <span class="num" style="flex:none">${moeda(totalLinha(i.q, i.v))}</span>
+                      </li>`).join("")}
+                  </ul>
+                  <div class="linha" style="gap:1rem;border-top:1px solid var(--borda);margin-top:.75rem;padding-top:.75rem">
+                    <button class="ligacao">Editar</button>
+                    <button class="ligacao" style="color:var(--tinta-2)">Desativar</button>
+                    <button class="ligacao" style="color:var(--status-critico-texto)">Excluir</button>
+                  </div>
+                </div>`;
+              }).join("")}
+            </div>
+          </section>
+        </div>
+
+        <aside>
+          <div class="card card-pad">
+            <h2 style="margin-bottom:.75rem">Novo serviço</h2>
+            <div class="campos">
+              <div><label class="rotulo" for="s-nome">Nome do serviço</label><input id="s-nome" class="campo" placeholder="Limpeza de caixa d'água"></div>
+              <div><label class="rotulo" for="s-desc">Descrição</label><textarea id="s-desc" class="campo" rows="2" placeholder="O texto que vai aparecer no orçamento"></textarea></div>
+              <div><label class="rotulo" for="s-cat">Categoria</label><input id="s-cat" class="campo" list="cats" placeholder="Geral"><datalist id="cats">${categorias.map((c) => `<option value="${esc(c)}"></option>`).join("")}</datalist></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem">
+                <div><label class="rotulo" for="s-un">Unidade</label><input id="s-un" class="campo" placeholder="un"></div>
+                <div><label class="rotulo" for="s-val">Valor padrão (R$)</label><input id="s-val" class="campo num" inputmode="decimal" placeholder="0,00"></div>
+              </div>
+              <button class="botao botao-primario" style="width:100%" data-acao="demo">Adicionar ao catálogo</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    `);
+  }
+
+  // =====================================================================
+  // Render + eventos
+  // =====================================================================
+  function render() {
+    const partes = (location.hash.replace(/^#\/?/, "") || "orcamentos").split("/");
+    const [rota, arg] = partes;
+
+    if (rota === "novo") { if (!editor || editor.id) abrirEditor(null); app.innerHTML = telaEditor(); }
+    else if (rota === "editar") { if (!editor || editor.id !== Number(arg)) abrirEditor(Number(arg)); app.innerHTML = telaEditor(); }
+    else if (rota === "orcamento") { editor = null; app.innerHTML = telaOrcamento(Number(arg)); }
+    else if (rota === "enviar") { editor = null; app.innerHTML = telaEnviar(Number(arg)); }
+    else if (rota === "o") { editor = null; app.innerHTML = telaCliente(arg); }
+    else if (rota === "clientes") { editor = null; app.innerHTML = telaClientes(); }
+    else if (rota === "catalogo") { editor = null; app.innerHTML = telaCatalogo(); }
+    else { editor = null; app.innerHTML = telaPainel(); }
+
+    window.scrollTo(0, 0);
+  }
+
+  // Redesenha só a área principal, preservando o foco e a posição do cursor —
+  // sem isso, digitar num campo do editor perderia o foco a cada tecla.
+  function redesenharEditor() {
+    const ativo = document.activeElement;
+    const id = ativo && ativo.id;
+    const pos = ativo && ativo.selectionStart;
+    app.innerHTML = telaEditor();
+    if (id) {
+      const novo = document.getElementById(id);
+      if (novo) {
+        novo.focus();
+        if (pos != null && novo.setSelectionRange) {
+          try { novo.setSelectionRange(pos, pos); } catch { /* select não aceita */ }
+        }
+      }
+    }
+  }
+
+  // ---- entrada de texto ----
+  app.addEventListener("input", (ev) => {
+    const el = ev.target;
+
+    if (el.dataset.campo && editor) {
+      editor[el.dataset.campo] = el.dataset.campo === "clienteId" ? Number(el.value) : el.value;
+      if (el.dataset.campo === "desconto") redesenharEditor();
+      return;
+    }
+    if (el.dataset.item && editor) {
+      editor.itens[Number(el.dataset.i)][el.dataset.item] = el.value;
+      if (el.dataset.item === "q" || el.dataset.item === "v") redesenharEditor();
+      return;
+    }
+    if (el.id === "f-status") { filtro.status = el.value; render(); return; }
+    if (el.id === "f-cliente") { filtro.cliente = el.value; render(); return; }
+  });
+
+  // ---- selects de ação ----
+  app.addEventListener("change", (ev) => {
+    const el = ev.target;
+
+    if (el.dataset.acao === "servico" && editor) {
+      const s = db.servicos.find((x) => x.id === Number(el.value));
+      const linha = editor.itens[Number(el.dataset.i)];
+      if (s) {
+        // Copia do catálogo, não referencia: reajustar um preço amanhã não pode
+        // reescrever um orçamento que o cliente já recebeu.
+        linha.servicoId = s.id;
+        linha.descricao = s.descricao || s.nome;
+        linha.unidade = s.unidade;
+        linha.v = paraCampo(s.valor);
+      } else {
+        linha.servicoId = 0;
+      }
+      redesenharEditor();
+      return;
+    }
+
+    if (el.dataset.acao === "modelo" && editor) {
+      const m = db.modelos.find((x) => x.id === Number(el.value));
+      el.value = "0";
+      if (!m) return;
+      const tem = editor.itens.some((i) => i.descricao.trim() || i.v.trim()) || editor.condicoes.trim();
+      if (tem && !confirm("Aplicar o modelo substitui os itens e os textos já preenchidos. Continuar?")) return;
+      editor.itens = m.itens.map((i) => ({ servicoId: i.servicoId, descricao: i.descricao, unidade: i.unidade, q: qtde(i.q), v: paraCampo(i.v) }));
+      editor.condicoes = m.condicoes;
+      editor.prazo = m.prazo;
+      editor.observacoes = m.observacoes;
+      editor.validade = String(m.validade);
+      redesenharEditor();
+      return;
+    }
+
+    if (el.dataset.acao === "pendencia") {
+      const o = db.orcamentos.find((x) => x.id === Number(el.dataset.id));
+      o.pendencias[Number(el.dataset.i)].feito = el.checked;
+      gravar();
+      render();
+    }
+  });
+
+  // ---- cliques ----
+  app.addEventListener("click", (ev) => {
+    const btn = ev.target.closest("[data-acao]");
+    if (!btn) return;
+    const acao = btn.dataset.acao;
+
+    if (acao === "demo") {
+      ev.preventDefault();
+      alert("No protótipo este formulário é só demonstração. No sistema real ele grava no banco.");
+      return;
+    }
+
+    if (acao === "pdf") {
+      ev.preventDefault();
+      alert("No sistema real, aqui abre o PDF gerado pelo servidor — o mesmo arquivo que vai anexado ao e-mail.");
+      return;
+    }
+
+    if (acao === "adicionar" && editor) {
+      editor.itens.push({ servicoId: 0, descricao: "", unidade: "un", q: "1", v: "" });
+      redesenharEditor(); return;
+    }
+
+    if (acao === "remover" && editor) {
+      const i = Number(btn.dataset.i);
+      if (editor.itens.length === 1) editor.itens = [{ servicoId: 0, descricao: "", unidade: "un", q: "1", v: "" }];
+      else editor.itens.splice(i, 1);
+      redesenharEditor(); return;
+    }
+
+    if (acao === "mover" && editor) {
+      const i = Number(btn.dataset.i), d = Number(btn.dataset.dir), j = i + d;
+      if (j < 0 || j >= editor.itens.length) return;
+      [editor.itens[i], editor.itens[j]] = [editor.itens[j], editor.itens[i]];
+      redesenharEditor(); return;
+    }
+
+    if (acao === "salvar" && editor) {
+      if (!editor.clienteId) { alert("Selecione o cliente."); return; }
+      if (editor.titulo.trim().length < 3) { alert("Dê um título ao orçamento."); return; }
+      const itens = editor.itens
+        .map((i) => ({ descricao: i.descricao.trim(), unidade: i.unidade.trim() || "un", q: lerQtde(i.q), v: lerMoeda(i.v) }))
+        .filter((i) => i.descricao && i.q && i.v !== null);
+      if (itens.length === 0) { alert("O orçamento precisa de ao menos um item com descrição, quantidade e valor."); return; }
+
+      const t = totaisEditor();
+      if (editor.id) {
+        const o = db.orcamentos.find((x) => x.id === editor.id);
+        Object.assign(o, {
+          clienteId: editor.clienteId, titulo: editor.titulo.trim(), itens,
+          condicoes: editor.condicoes, prazo: editor.prazo, observacoes: editor.observacoes,
+          desconto: t.desc,
+        });
+        gravar(); editor = null; location.hash = "#/orcamento/" + o.id;
+      } else {
+        const ano = new Date().getFullYear();
+        const usados = db.orcamentos.map((o) => Number(o.numero.slice(5))).filter((n) => !isNaN(n));
+        const seq = (usados.length ? Math.max(...usados) : 0) + 1;
+        const novo = {
+          id: Math.max(0, ...db.orcamentos.map((o) => o.id)) + 1,
+          numero: ano + "-" + String(seq).padStart(4, "0"), versao: 1,
+          clienteId: editor.clienteId, titulo: editor.titulo.trim(), status: "RASCUNHO",
+          criadoEm: new Date().toISOString(),
+          validoAte: new Date(Date.now() + Number(editor.validade || 15) * 864e5).toISOString().slice(0, 10),
+          enviadoEm: null, visualizadoEm: null, visualizacoes: 0, respondidoEm: null, resposta: null,
+          condicoes: editor.condicoes, prazo: editor.prazo, observacoes: editor.observacoes,
+          desconto: t.desc, token: novoToken(), itens, pendencias: [],
+        };
+        db.orcamentos.push(novo);
+        gravar(); editor = null; location.hash = "#/orcamento/" + novo.id;
+      }
+      return;
+    }
+
+    if (acao === "confirmar-envio") {
+      const o = db.orcamentos.find((x) => x.id === Number(btn.dataset.id));
+      o.status = "ENVIADO";
+      o.enviadoEm = new Date().toISOString();
+      gravar();
+      alert("No protótipo nada é enviado.\n\nNo sistema real, aqui o e-mail sai pela sua caixa do Outlook e o disparo fica registrado com data, destinatário e resultado.");
+      location.hash = "#/orcamento/" + o.id;
+      return;
+    }
+
+    if (acao === "responder") {
+      const o = db.orcamentos.find((x) => x.id === Number(btn.dataset.id));
+      const msg = document.getElementById("resp-msg");
+      o.status = btn.dataset.r;
+      o.respondidoEm = new Date().toISOString();
+      o.resposta = msg && msg.value.trim() ? msg.value.trim() : null;
+      if (!o.visualizadoEm) { o.visualizadoEm = new Date().toISOString(); }
+      o.visualizacoes += 1;
+      if (o.status === "AJUSTE_SOLICITADO" && o.resposta) {
+        o.pendencias.push({ texto: "Responder ao pedido: " + o.resposta.slice(0, 60), prazo: new Date(Date.now() + 3 * 864e5).toISOString().slice(0, 10), feito: false });
+      }
+      gravar(); render();
+      return;
+    }
+
+    if (acao === "refazer") {
+      const o = db.orcamentos.find((x) => x.id === Number(btn.dataset.id));
+      o.status = "VISUALIZADO"; o.respondidoEm = null; o.resposta = null;
+      gravar(); render();
+      return;
+    }
+
+    if (acao === "nova-versao") {
+      const o = db.orcamentos.find((x) => x.id === Number(btn.dataset.id));
+      o.versao += 1; o.status = "RASCUNHO";
+      o.enviadoEm = null; o.visualizadoEm = null; o.visualizacoes = 0;
+      o.respondidoEm = null; o.resposta = null; o.token = novoToken();
+      gravar();
+      alert("Versão " + o.versao + " criada como rascunho.\n\nO histórico da versão anterior fica na linha do tempo — é assim que a fase 4 vai tratar um pedido de ajuste.");
+      render();
+      return;
+    }
+  });
+
+  function novoToken() {
+    const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+    const bytes = new Uint8Array(43);
+    crypto.getRandomValues(bytes);
+    return Array.from(bytes, (b) => alfabeto[b % 64]).join("");
+  }
+
+  document.getElementById("reiniciar").addEventListener("click", () => {
+    if (!confirm("Voltar os dados de exemplo ao estado inicial?")) return;
+    db = inicial();
+    gravar();
+    editor = null;
+    filtro = { status: "", cliente: "" };
+    render();
+  });
+
+  window.addEventListener("hashchange", render);
+  render();
+})();
+</script>
