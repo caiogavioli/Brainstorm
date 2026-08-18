@@ -18,7 +18,9 @@ multi-condomínio, um **painel administrativo** para o síndico profissional e u
 
 ## Colocar no ar
 
-**→ [GUIA-DEPLOY.md](GUIA-DEPLOY.md)** — passo a passo. O caminho principal é a
+**→ [GUIA-DEPLOY.md](GUIA-DEPLOY.md)** — passo a passo.
+**→ [GUIA-VPS.md](GUIA-VPS.md)** — sair da Vercel + Neon e migrar para um
+servidor próprio, com HTTPS automático e backup agendado. O caminho principal é a
 **Vercel**; Docker num computador próprio e Node direto ficam como alternativas,
 junto com Koyeb, Netlify e Render.
 

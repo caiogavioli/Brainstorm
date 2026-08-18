@@ -1,0 +1,25 @@
+# Porta de entrada do sistema em produção.
+#
+# O Caddy resolve sozinho a parte que mais dá errado num servidor próprio: ele
+# pede o certificado à Let's Encrypt, instala, e renova antes de vencer. Não há
+# certbot para configurar nem renovação para lembrar.
+#
+# `DOMINIO` vem do .env:
+#   - em produção, o domínio de verdade (ex.: boletim.suaempresa.com.br) — o
+#     Caddy vê um nome e emite o certificado, servindo em HTTPS;
+#   - em teste local, `:80` — sem nome não há certificado a emitir, e ele
+#     serve em HTTP puro. É o mesmo arquivo nos dois casos.
+{$DOMINIO} {
+	encode gzip
+
+	# `app` é o nome do serviço no compose; o Docker resolve para o container.
+	# A aplicação nunca abre porta para fora: só o Caddy fala com ela.
+	reverse_proxy app:3000
+
+	log {
+		output file /var/log/caddy/acesso.log {
+			roll_size 10MiB
+			roll_keep 5
+		}
+	}
+}

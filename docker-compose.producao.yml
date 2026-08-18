@@ -1,0 +1,48 @@
+# Camada de produção, aplicada por cima do docker-compose.yml:
+#
+#   docker compose -f docker-compose.yml -f docker-compose.producao.yml up -d
+#
+# O que ela muda em relação ao arquivo base:
+#
+#   1. fecha a porta da aplicação. No base, a porta 3000 fica exposta na
+#      máquina — cômodo para testar no seu computador, errado num servidor com
+#      IP público, onde o sistema ficaria acessível em HTTP puro por um
+#      endereço sem certificado;
+#   2. põe o Caddy na frente, que emite e renova o certificado sozinho.
+#
+# Depois disso, só as portas 80 e 443 respondem de fora.
+
+services:
+  app:
+    # `!override` troca a lista do arquivo base em vez de somar a ela: sem
+    # isso, o compose manteria a 3000 aberta junto com o proxy.
+    ports: !override []
+    expose:
+      - "3000"
+
+  proxy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      - app
+    environment:
+      # Domínio apontado para o IP deste servidor. Em teste local, use `:80`.
+      DOMINIO: "${DOMINIO:?defina DOMINIO no .env — o domínio do sistema, ou :80 para teste local}"
+    ports:
+      - "80:80"
+      - "443:443"
+      # QUIC/HTTP3. Sem ela o site funciona igual, só um pouco mais lento em
+      # redes móveis ruins.
+      - "443:443/udp"
+    volumes:
+      - ./docker/Caddyfile:/etc/caddy/Caddyfile:ro
+      # Certificados emitidos. Este volume é o que impede o Caddy de pedir
+      # certificado novo a cada reinício e bater no limite da Let's Encrypt.
+      - dados-caddy:/data
+      - config-caddy:/config
+      - logs-caddy:/var/log/caddy
+
+volumes:
+  dados-caddy:
+  config-caddy:
+  logs-caddy:
