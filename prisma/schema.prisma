@@ -189,7 +189,10 @@ model BoletimItem {
 
   boletim       Boletim       @relation(fields: [boletimId], references: [id], onDelete: Cascade)
   checklistItem ChecklistItem @relation(fields: [checklistItemId], references: [id])
-  ocorrencia    Ocorrencia? // ocorrência gerada automaticamente por este item
+  // Um item não conforme pode render MAIS DE UMA ocorrência: "falta na equipe
+  // de segurança" pode ser o líder e o vigilante de piso, que são dois
+  // problemas com responsáveis, planos e prazos diferentes.
+  ocorrencias   Ocorrencia[]
 
   @@unique([boletimId, checklistItemId])
   @@index([checklistItemId, situacao])
@@ -215,7 +218,7 @@ model Ocorrencia {
   dataConclusao       DateTime?
   origem              String           @default("BOLETIM") // BOLETIM | AVULSA
   boletimId           Int?
-  boletimItemId       Int?             @unique
+  boletimItemId       Int?
   abertaPorId         Int?
 
   // Um problema que se arrasta continua sendo UMA ocorrência: cada boletim que
@@ -234,6 +237,7 @@ model Ocorrencia {
   historico     OcorrenciaLog[]
   recorrencias  OcorrenciaRecorrencia[]
 
+  @@index([boletimItemId])
   @@index([condominioId, status])
   @@index([condominioId, dataAbertura])
   @@index([status, criticidade, previsaoFinalizacao])
