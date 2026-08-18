@@ -41,28 +41,47 @@ export const boletimSchema = z.object({
       z.object({
         checklistItemId: z.coerce.number().int().positive(),
         situacao,
-        observacao: textoOpcional,
-        criticidade: z.enum(["ALTA", "MEDIA", "BAIXA"]).optional(),
-        planoAcao: textoOpcional,
         /**
-         * Data estimada de conclusão, sempre opcional e NUNCA preenchida pelo
-         * sistema. Um prazo que ninguém assumiu vira cobrança sem dono e
-         * contamina todo indicador de atraso; melhor um campo vazio, que se lê
-         * como "ainda sem prazo", do que uma data inventada que parece
-         * compromisso.
+         * Ocorrências deste item — uma ou mais.
+         *
+         * "Falta na equipe de segurança" pode ser o líder e o vigilante de
+         * piso: dois problemas com responsáveis, planos e prazos próprios.
+         * Item conforme chega com a lista vazia.
          */
-        previsaoFinalizacao: z
-          .string()
-          .regex(/^\d{4}-\d{2}-\d{2}$/, "Data de conclusão inválida.")
-          .optional()
-          .or(z.literal("").transform(() => undefined)),
-        /**
-         * Item que já estava não conforme de dias anteriores e foi arrastado
-         * para este boletim. Não muda o que é gravado — muda o que é CONTADO:
-         * uma falta de equipe em aberto não pode entrar na estatística de
-         * faltas todo dia até ser resolvida.
-         */
-        continuacao: z.boolean().optional().default(false),
+        ocorrencias: z
+          .array(
+            z.object({
+              descricao: textoOpcional,
+              criticidade: z.enum(["ALTA", "MEDIA", "BAIXA"]).optional(),
+              planoAcao: textoOpcional,
+              /**
+               * Data estimada de conclusão, sempre opcional e NUNCA preenchida
+               * pelo sistema. Um prazo que ninguém assumiu vira cobrança sem
+               * dono e contamina todo indicador de atraso; melhor um campo
+               * vazio, que se lê como "ainda sem prazo", do que uma data
+               * inventada que parece compromisso.
+               */
+              previsaoFinalizacao: z
+                .string()
+                .regex(/^\d{4}-\d{2}-\d{2}$/, "Data de conclusão inválida.")
+                .optional()
+                .or(z.literal("").transform(() => undefined)),
+              /**
+               * Id da ocorrência que já estava aberta e voltou hoje. Quando
+               * presente, o servidor registra recorrência nela em vez de abrir
+               * outra. É a identidade exata do problema — deduzir pelo item
+               * deixou de funcionar agora que um item comporta vários.
+               */
+              origemPendencia: z.coerce.number().int().positive().nullable().optional(),
+              /**
+               * Problema vindo de dias anteriores. Não muda o que é gravado —
+               * muda o que é CONTADO: uma falta de equipe em aberto não pode
+               * entrar na estatística de faltas todo dia até ser resolvida.
+               */
+              continuacao: z.boolean().optional().default(false),
+            }),
+          )
+          .default([]),
       }),
     )
     .min(1, "O boletim precisa de ao menos um item."),

@@ -38,9 +38,29 @@ export default async function PaginaEditarBoletim({
         ocorrencias: {
           select: {
             boletimItemId: true,
+            descricao: true,
             criticidade: true,
             planoAcao: true,
             previsaoFinalizacao: true,
+          },
+        },
+        // As recorrências que ESTE boletim registrou em ocorrências antigas.
+        // Sem elas, salvar a correção apagaria o registro de que o problema
+        // continuava naquele dia — e, pior, abriria uma ocorrência nova no
+        // lugar, partindo o histórico do mesmo problema em dois.
+        recorrencias: {
+          select: {
+            ocorrenciaId: true,
+            observacao: true,
+            ocorrencia: {
+              select: {
+                checklistItemId: true,
+                descricao: true,
+                criticidade: true,
+                planoAcao: true,
+                previsaoFinalizacao: true,
+              },
+            },
           },
         },
       },
@@ -54,26 +74,46 @@ export default async function PaginaEditarBoletim({
 
   if (!boletim || !podeAcessarCondominio(sessao, boletim.condominioId)) notFound();
 
+  const paraInput = (d: Date | null) => (d ? d.toISOString().slice(0, 10) : "");
+  let sequencia = 0;
+
   const valoresIniciais: ValoresIniciais = {
     respostas: Object.fromEntries(
       boletim.itens.map((i) => {
-        // A ocorrência que este item gerou traz o tratamento que foi dado a ele
-        // — risco, plano e prazo — para a correção começar do que já existe.
-        const o = boletim.ocorrencias.find((x) => x.boletimItemId === i.id);
+        // Um item pode ter gerado VÁRIAS ocorrências, e ainda ter reencontrado
+        // problemas antigos. A correção precisa começar exatamente do que está
+        // gravado — as duas listas, na ordem.
+        const proprias = boletim.ocorrencias
+          .filter((x) => x.boletimItemId === i.id)
+          .map((o) => {
+            sequencia += 1;
+            return {
+              chave: `edicao-${sequencia}`,
+              descricao: o.descricao,
+              criticidade: o.criticidade,
+              planoAcao: o.planoAcao ?? "",
+              previsaoFinalizacao: paraInput(o.previsaoFinalizacao),
+              origemPendencia: null,
+            };
+          });
+
+        const reencontradas = boletim.recorrencias
+          .filter((r) => r.ocorrencia.checklistItemId === i.checklistItemId)
+          .map((r) => {
+            sequencia += 1;
+            return {
+              chave: `edicao-${sequencia}`,
+              descricao: r.observacao ?? r.ocorrencia.descricao,
+              criticidade: r.ocorrencia.criticidade,
+              planoAcao: r.ocorrencia.planoAcao ?? "",
+              previsaoFinalizacao: paraInput(r.ocorrencia.previsaoFinalizacao),
+              origemPendencia: r.ocorrenciaId,
+            };
+          });
+
         return [
           i.checklistItemId,
-          {
-            situacao: i.situacao,
-            observacao: i.observacao ?? "",
-            criticidade: o?.criticidade ?? ("" as const),
-            planoAcao: o?.planoAcao ?? "",
-            previsaoFinalizacao: o?.previsaoFinalizacao
-              ? o.previsaoFinalizacao.toISOString().slice(0, 10)
-              : "",
-            // A correção reescreve um dia que já passou; carregar pendências de
-            // hoje ali dataria a conclusão no dia errado. Nada vem de pendência.
-            origemPendencia: null,
-          },
+          { situacao: i.situacao, ocorrencias: [...proprias, ...reencontradas] },
         ];
       }),
     ),

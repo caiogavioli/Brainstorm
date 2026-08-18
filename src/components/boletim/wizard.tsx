@@ -19,31 +19,52 @@ type ItemChecklist = {
 
 type Condominio = { id: number; nome: string };
 
-type Resposta = {
-  situacao: SituacaoItem;
-  observacao: string;
-  /** Preenchidos só quando o item é não conforme, na etapa de revisão. */
+/**
+ * Uma ocorrência dentro de um item do checklist.
+ *
+ * O mesmo item pode ter várias: "falta na equipe de segurança" pode ser o líder
+ * e o vigilante de piso — dois problemas, com responsáveis, planos e prazos
+ * próprios, que só cabiam num registro quando o modelo obrigava.
+ */
+export type OcorrenciaResposta = {
+  /** Chave local estável, só para o React distinguir as linhas da lista. */
+  chave: string;
+  descricao: string;
+  /** Preenchidos na etapa de revisão. */
   criticidade: Criticidade | "";
   planoAcao: string;
   previsaoFinalizacao: string;
   /**
-   * Id da ocorrência que arrastou este item para dentro do boletim de hoje.
+   * Id da ocorrência que arrastou este problema para dentro do boletim de hoje.
    *
-   * Serve para separar, na revisão, o que a ronda encontrou agora do que já
-   * vinha de trás: são duas leituras diferentes e misturá-las faria o
-   * preenchedor reclassificar todo dia um problema que ele já classificou.
+   * Serve para duas coisas: separar na revisão o que a ronda encontrou agora do
+   * que já vinha de trás, e dizer ao servidor em QUAL ocorrência registrar a
+   * recorrência — deduzir pelo item deixou de funcionar quando um item passou a
+   * comportar vários problemas.
    */
   origemPendencia: number | null;
 };
 
-const RESPOSTA_LIMPA: Resposta = {
-  situacao: "CONFORME",
-  observacao: "",
-  criticidade: "",
-  planoAcao: "",
-  previsaoFinalizacao: "",
-  origemPendencia: null,
+type Resposta = {
+  situacao: SituacaoItem;
+  ocorrencias: OcorrenciaResposta[];
 };
+
+const RESPOSTA_LIMPA: Resposta = { situacao: "CONFORME", ocorrencias: [] };
+
+let contadorChave = 0;
+function novaOcorrencia(inicial?: Partial<OcorrenciaResposta>): OcorrenciaResposta {
+  contadorChave += 1;
+  return {
+    chave: `oc-${contadorChave}`,
+    descricao: "",
+    criticidade: "",
+    planoAcao: "",
+    previsaoFinalizacao: "",
+    origemPendencia: null,
+    ...inicial,
+  };
+}
 
 /** O que o preenchedor decidiu sobre uma pendência de dias anteriores. */
 type DecisaoPendencia = "CONTINUA" | "RESOLVIDA";
@@ -137,6 +158,14 @@ export function WizardBoletim({
    * pessoa teria que redigitar todo dia o que já está registrado.
    */
   useEffect(() => {
+    /*
+     * Na correção este efeito não tem o que fazer — e fazia estrago: a limpeza
+     * abaixo remove as linhas vindas de pendência, que na tela de correção são
+     * justamente as recorrências reconstruídas do boletim gravado. Sair cedo
+     * preserva o que a página carregou.
+     */
+    if (modoEdicao) return;
+
     setDecisoes(
       Object.fromEntries(
         pendenciasDoCondominio.map((p) => [p.ocorrenciaId, "CONTINUA" as const]),
@@ -148,40 +177,70 @@ export function WizardBoletim({
       // deste, senão trocar de prédio deixaria marcações órfãs.
       for (const chave of Object.keys(copia)) {
         const id = Number(chave);
-        if (copia[id].origemPendencia !== null) copia[id] = { ...RESPOSTA_LIMPA };
+        const restantes = copia[id].ocorrencias.filter((o) => o.origemPendencia === null);
+        if (restantes.length !== copia[id].ocorrencias.length) {
+          copia[id] = {
+            situacao: restantes.length === 0 ? "CONFORME" : copia[id].situacao,
+            ocorrencias: restantes,
+          };
+        }
       }
+      // Várias pendências podem cair no mesmo item — e é justamente esse o
+      // caso que o modelo antigo não sabia representar.
       for (const p of pendenciasDoCondominio) {
         if (p.checklistItemId === null || !copia[p.checklistItemId]) continue;
+        const atualDoItem = copia[p.checklistItemId];
         copia[p.checklistItemId] = {
           situacao: "NAO_CONFORME",
-          observacao: p.descricao,
-          criticidade: p.criticidade,
-          planoAcao: p.planoAcao ?? "",
-          previsaoFinalizacao: p.previsaoFinalizacao,
-          origemPendencia: p.ocorrenciaId,
-        };
-      }
-      return copia;
-    });
-  }, [pendenciasDoCondominio]);
-
-  function decidirPendencia(p: Pendencia, decisao: DecisaoPendencia) {
-    setDecisoes((atual) => ({ ...atual, [p.ocorrenciaId]: decisao }));
-    if (p.checklistItemId === null) return;
-    setRespostas((atual) => ({
-      ...atual,
-      [p.checklistItemId!]:
-        decisao === "CONTINUA"
-          ? {
-              situacao: "NAO_CONFORME",
-              observacao: p.descricao,
+          ocorrencias: [
+            ...atualDoItem.ocorrencias,
+            novaOcorrencia({
+              descricao: p.descricao,
               criticidade: p.criticidade,
               planoAcao: p.planoAcao ?? "",
               previsaoFinalizacao: p.previsaoFinalizacao,
               origemPendencia: p.ocorrenciaId,
-            }
-          : { ...RESPOSTA_LIMPA },
-    }));
+            }),
+          ],
+        };
+      }
+      return copia;
+    });
+  }, [pendenciasDoCondominio, modoEdicao]);
+
+  function decidirPendencia(p: Pendencia, decisao: DecisaoPendencia) {
+    setDecisoes((atual) => ({ ...atual, [p.ocorrenciaId]: decisao }));
+    if (p.checklistItemId === null) return;
+
+    setRespostas((atual) => {
+      const item = atual[p.checklistItemId!];
+      if (!item) return atual;
+
+      // Mexe só na linha desta pendência: o item pode carregar outras, e
+      // resolver uma não pode apagar as vizinhas.
+      const semEsta = item.ocorrencias.filter((o) => o.origemPendencia !== p.ocorrenciaId);
+      const ocorrencias =
+        decisao === "CONTINUA"
+          ? [
+              ...semEsta,
+              novaOcorrencia({
+                descricao: p.descricao,
+                criticidade: p.criticidade,
+                planoAcao: p.planoAcao ?? "",
+                previsaoFinalizacao: p.previsaoFinalizacao,
+                origemPendencia: p.ocorrenciaId,
+              }),
+            ]
+          : semEsta;
+
+      return {
+        ...atual,
+        [p.checklistItemId!]: {
+          situacao: ocorrencias.length === 0 ? "CONFORME" : "NAO_CONFORME",
+          ocorrencias,
+        },
+      };
+    });
   }
 
   const itensPorGrupo = useMemo(() => {
@@ -226,13 +285,18 @@ export function WizardBoletim({
   const ultimaEtapa = etapa === TOTAL_ETAPAS - 1;
   const grupoAtual = GRUPOS.find((g) => g.codigo === etapaAtual) ?? null;
 
-  // Na revisão, o que a ronda achou hoje e o que veio de trás ficam separados.
-  const novasNaoConformes = naoConformes.filter(
-    (i) => respostas[i.id]?.origemPendencia === null,
+  /*
+   * A revisão trabalha com pares (item, ocorrência), não com itens.
+   *
+   * Desde que um item comporta vários problemas, "as não conformidades" deixou
+   * de ser a lista de itens: cada ocorrência tem risco, plano e prazo próprios
+   * e precisa da sua própria caixa.
+   */
+  const linhas = naoConformes.flatMap((item) =>
+    (respostas[item.id]?.ocorrencias ?? []).map((oc) => ({ item, oc })),
   );
-  const emAcompanhamento = naoConformes.filter(
-    (i) => respostas[i.id]?.origemPendencia !== null,
-  );
+  const novasNaoConformes = linhas.filter((l) => l.oc.origemPendencia === null);
+  const emAcompanhamento = linhas.filter((l) => l.oc.origemPendencia !== null);
   const resolvidasAgora = pendenciasDoCondominio.filter(
     (p) => decisoes[p.ocorrenciaId] === "RESOLVIDA",
   ).length;
@@ -259,8 +323,66 @@ export function WizardBoletim({
         : "OCORRENCIA_PONTUAL";
   const statusGeral = statusManual ?? statusSugerido;
 
-  function alterarResposta(itemId: number, mudanca: Partial<Resposta>) {
-    setRespostas((atual) => ({ ...atual, [itemId]: { ...atual[itemId], ...mudanca } }));
+  function alterarSituacao(itemId: number, situacao: SituacaoItem) {
+    setRespostas((atual) => {
+      const anterior = atual[itemId];
+      return {
+        ...atual,
+        [itemId]: {
+          situacao,
+          // Marcar falha abre a primeira ocorrência; sair da falha limpa a
+          // lista, inclusive o que veio de dias anteriores — dizer "conforme"
+          // hoje é dizer que a ronda não encontrou o problema hoje.
+          ocorrencias:
+            situacao === "NAO_CONFORME"
+              ? anterior.ocorrencias.length > 0
+                ? anterior.ocorrencias
+                : [novaOcorrencia()]
+              : [],
+        },
+      };
+    });
+  }
+
+  function alterarOcorrencia(
+    itemId: number,
+    chave: string,
+    mudanca: Partial<OcorrenciaResposta>,
+  ) {
+    setRespostas((atual) => ({
+      ...atual,
+      [itemId]: {
+        ...atual[itemId],
+        ocorrencias: atual[itemId].ocorrencias.map((o) =>
+          o.chave === chave ? { ...o, ...mudanca } : o,
+        ),
+      },
+    }));
+  }
+
+  function adicionarOcorrencia(itemId: number) {
+    setRespostas((atual) => ({
+      ...atual,
+      [itemId]: {
+        ...atual[itemId],
+        ocorrencias: [...atual[itemId].ocorrencias, novaOcorrencia()],
+      },
+    }));
+  }
+
+  function removerOcorrencia(itemId: number, chave: string) {
+    setRespostas((atual) => {
+      const restantes = atual[itemId].ocorrencias.filter((o) => o.chave !== chave);
+      return {
+        ...atual,
+        [itemId]: {
+          // Sem nenhuma ocorrência o item deixa de ser uma falha: manter
+          // "não conforme" sem problema descrito produziria um item vazio.
+          situacao: restantes.length === 0 ? "CONFORME" : atual[itemId].situacao,
+          ocorrencias: restantes,
+        },
+      };
+    });
   }
 
   function marcarGrupoConforme(grupo: string) {
@@ -271,8 +393,13 @@ export function WizardBoletim({
         // "Tudo conforme" é sobre o que a ronda viu agora. Um problema que veio
         // de dias anteriores só sai daqui se a pessoa disser que foi resolvido,
         // na etapa de pendências — e não por um atalho de preenchimento.
-        if (copia[item.id].origemPendencia !== null) continue;
-        copia[item.id] = { ...RESPOSTA_LIMPA };
+        const daPendencia = copia[item.id].ocorrencias.filter(
+          (o) => o.origemPendencia !== null,
+        );
+        copia[item.id] =
+          daPendencia.length > 0
+            ? { situacao: "NAO_CONFORME", ocorrencias: daPendencia }
+            : { ...RESPOSTA_LIMPA };
       }
       return copia;
     });
@@ -300,12 +427,21 @@ export function WizardBoletim({
     setErro(null);
 
     // Uma falha sem descrição vira uma ocorrência sem contexto — bloqueia aqui.
-    const semDescricao = naoConformes.find(
-      (i) => (respostas[i.id]?.observacao ?? "").trim().length < 5,
-    );
+    // A validação percorre ocorrência por ocorrência: com várias no mesmo item,
+    // checar só a primeira deixaria as outras passarem vazias.
+    const posicao = (l: (typeof linhas)[number]) => {
+      const total = respostas[l.item.id].ocorrencias.length;
+      if (total < 2) return `"${l.item.nome}"`;
+      const indice = respostas[l.item.id].ocorrencias.findIndex(
+        (o) => o.chave === l.oc.chave,
+      );
+      return `a ${indice + 1}ª ocorrência de "${l.item.nome}"`;
+    };
+
+    const semDescricao = linhas.find((l) => l.oc.descricao.trim().length < 5);
     if (semDescricao) {
       setErro(
-        `Descreva o problema em "${semDescricao.nome}" — a descrição vira a ocorrência.`,
+        `Descreva o problema em ${posicao(semDescricao)} — a descrição vira a ocorrência.`,
       );
       return;
     }
@@ -314,33 +450,32 @@ export function WizardBoletim({
     // entra na fila de prioridade, e sem plano ninguém sabe o que fazer com ela.
     // Já o prazo pode legitimamente não existir ainda — e forçar um seria o
     // mesmo que o sistema inventar a data.
-    const semRisco = naoConformes.find((i) => !respostas[i.id]?.criticidade);
+    const semRisco = linhas.find((l) => !l.oc.criticidade);
     if (semRisco) {
-      setErro(`Classifique o risco de "${semRisco.nome}" na revisão.`);
+      setErro(`Classifique o risco de ${posicao(semRisco)} na revisão.`);
       return;
     }
-    const semPlano = naoConformes.find(
-      (i) => (respostas[i.id]?.planoAcao ?? "").trim().length < 5,
-    );
+    const semPlano = linhas.find((l) => l.oc.planoAcao.trim().length < 5);
     if (semPlano) {
-      setErro(`Informe o plano de ação de "${semPlano.nome}" na revisão.`);
+      setErro(`Informe o plano de ação de ${posicao(semPlano)} na revisão.`);
       return;
     }
     iniciarEnvio(async () => {
       /*
-       * Só conta como resolvida a pendência cujo item NÃO está marcado como não
-       * conforme agora. Se a pessoa disse "resolvido" e depois marcou falha no
-       * mesmo item, ela está dizendo que o problema continua — e fechar a
-       * ocorrência ali abriria uma nova amanhã, quebrando o histórico do
-       * problema em duas.
+       * Só conta como resolvida a pendência que NÃO voltou como ocorrência
+       * deste boletim. Se a pessoa disse "resolvido" e depois apontou de novo o
+       * mesmo problema, ela está dizendo que ele continua — e fechar a
+       * ocorrência ali abriria uma nova amanhã, partindo o histórico em dois.
        */
+      const aindaApontadas = new Set(
+        Object.values(respostas)
+          .flatMap((r) => r.ocorrencias)
+          .map((o) => o.origemPendencia)
+          .filter((id): id is number => id !== null),
+      );
       const pendenciasResolvidas = pendenciasDoCondominio
         .filter((p) => decisoes[p.ocorrenciaId] === "RESOLVIDA")
-        .filter(
-          (p) =>
-            p.checklistItemId === null ||
-            respostas[p.checklistItemId]?.situacao !== "NAO_CONFORME",
-        )
+        .filter((p) => !aindaApontadas.has(p.ocorrenciaId))
         .map((p) => p.ocorrenciaId);
 
       const payload = {
@@ -355,15 +490,19 @@ export function WizardBoletim({
           return {
             checklistItemId: i.id,
             situacao: r.situacao,
-            observacao: r.observacao,
-            // Risco, plano e prazo só fazem sentido onde houve falha.
-            criticidade: naoConforme && r.criticidade ? r.criticidade : undefined,
-            planoAcao: naoConforme ? r.planoAcao : "",
-            previsaoFinalizacao:
-              naoConforme && r.previsaoFinalizacao ? r.previsaoFinalizacao : undefined,
-            // Sinaliza o que já vinha de trás: sem isso, uma falta de equipe em
-            // aberto seria contada de novo a cada dia em "Faltas registradas".
-            continuacao: naoConforme && r.origemPendencia !== null,
+            // Item conforme não leva ocorrência nenhuma.
+            ocorrencias: naoConforme
+              ? r.ocorrencias.map((o) => ({
+                  descricao: o.descricao,
+                  criticidade: o.criticidade || undefined,
+                  planoAcao: o.planoAcao,
+                  previsaoFinalizacao: o.previsaoFinalizacao || undefined,
+                  origemPendencia: o.origemPendencia,
+                  // Sinaliza o que já vinha de trás: sem isso, uma falta de
+                  // equipe em aberto seria recontada todo dia em "faltas".
+                  continuacao: o.origemPendencia !== null,
+                }))
+              : [],
           };
         }),
       };
@@ -667,9 +806,7 @@ export function WizardBoletim({
                             type="button"
                             role="radio"
                             aria-checked={selecionado}
-                            onClick={() =>
-                              alterarResposta(item.id, { situacao: s.valor })
-                            }
+                            onClick={() => alterarSituacao(item.id, s.valor)}
                             className="rounded-lg px-2 py-2 text-xs font-semibold transition-colors"
                             style={{
                               minHeight: "2.5rem",
@@ -694,32 +831,71 @@ export function WizardBoletim({
 
                     {falha ? (
                       <div className="mt-3 space-y-2">
-                        <div>
-                          <label
-                            className="rotulo"
-                            htmlFor={`obs-${item.id}`}
-                            style={{ marginBottom: "0.25rem" }}
-                          >
-                            O que aconteceu?
-                          </label>
-                          <textarea
-                            id={`obs-${item.id}`}
-                            className="campo"
-                            style={{ minHeight: "4.5rem" }}
-                            placeholder="Ex.: elevador social 02 parado entre o 7º e o 8º andar."
-                            value={resposta.observacao}
-                            onChange={(e) =>
-                              alterarResposta(item.id, { observacao: e.target.value })
-                            }
-                          />
-                        </div>
+                        {/* Uma lista, e não um campo: o mesmo item pode ter mais
+                            de um problema — "falta na equipe de segurança" pode
+                            ser o líder e o vigilante de piso. */}
+                        {resposta.ocorrencias.map((oc, indice) => (
+                          <div key={oc.chave}>
+                            <div className="flex items-center justify-between gap-2">
+                              <label
+                                className="rotulo"
+                                htmlFor={`obs-${item.id}-${oc.chave}`}
+                                style={{ marginBottom: "0.25rem" }}
+                              >
+                                {resposta.ocorrencias.length > 1
+                                  ? `Ocorrência ${indice + 1}`
+                                  : "O que aconteceu?"}
+                              </label>
+                              {resposta.ocorrencias.length > 1 ? (
+                                <button
+                                  type="button"
+                                  onClick={() => removerOcorrencia(item.id, oc.chave)}
+                                  className="text-xs underline"
+                                  style={{
+                                    color: "var(--tinta-3)",
+                                    minHeight: "1.75rem",
+                                  }}
+                                  aria-label={`Remover ocorrência ${indice + 1} de ${item.nome}`}
+                                >
+                                  remover
+                                </button>
+                              ) : null}
+                            </div>
+                            <textarea
+                              id={`obs-${item.id}-${oc.chave}`}
+                              className="campo"
+                              style={{ minHeight: "4.5rem" }}
+                              placeholder="Ex.: elevador social 02 parado entre o 7º e o 8º andar."
+                              value={oc.descricao}
+                              onChange={(e) =>
+                                alterarOcorrencia(item.id, oc.chave, {
+                                  descricao: e.target.value,
+                                })
+                              }
+                            />
+                            {oc.origemPendencia !== null ? (
+                              <p
+                                className="mt-1 text-xs"
+                                style={{ color: "var(--tinta-3)" }}
+                              >
+                                Continua de dias anteriores.
+                              </p>
+                            ) : null}
+                          </div>
+                        ))}
 
-                        <p
-                          className="text-xs"
-                          style={{ color: "var(--tinta-3)" }}
+                        <button
+                          type="button"
+                          onClick={() => adicionarOcorrencia(item.id)}
+                          className="botao botao-secundario w-full"
+                          style={{ minHeight: "2.5rem", fontSize: "0.8125rem" }}
                         >
-                          A criticidade e o prazo são definidos automaticamente
-                          pela natureza do item.
+                          + Adicionar outra ocorrência
+                        </button>
+
+                        <p className="text-xs" style={{ color: "var(--tinta-3)" }}>
+                          O risco, o plano de ação e o prazo de cada uma são
+                          preenchidos na revisão, no fim do boletim.
                         </p>
                       </div>
                     ) : null}
@@ -876,26 +1052,30 @@ export function WizardBoletim({
                 </p>
 
                 <ul className="space-y-3">
-                  {[...novasNaoConformes, ...emAcompanhamento].map((item) => {
-                    const r = respostas[item.id];
+                  {[...novasNaoConformes, ...emAcompanhamento].map(({ item, oc }) => {
+                    const daPendencia = oc.origemPendencia !== null;
+                    const total = respostas[item.id].ocorrencias.length;
+                    const indice = respostas[item.id].ocorrencias.findIndex(
+                      (o) => o.chave === oc.chave,
+                    );
                     return (
                       <li
-                        key={item.id}
+                        key={oc.chave}
                         className="rounded-xl p-3"
                         style={{
                           border: `1px solid color-mix(in srgb, ${
-                            r.origemPendencia !== null
+                            daPendencia
                               ? "var(--status-atencao) 45%"
                               : "var(--status-critico) 40%"
                           }, transparent)`,
                           background: `color-mix(in srgb, ${
-                            r.origemPendencia !== null
+                            daPendencia
                               ? "var(--status-atencao) 6%"
                               : "var(--status-critico) 5%"
                           }, var(--superficie))`,
                         }}
                       >
-                        {r.origemPendencia !== null ? (
+                        {daPendencia ? (
                           <div
                             className="text-xs font-semibold mb-1"
                             style={{ color: "var(--tinta-3)" }}
@@ -903,9 +1083,21 @@ export function WizardBoletim({
                             Continua de dias anteriores
                           </div>
                         ) : null}
-                        <div className="font-semibold text-sm mb-1">{item.nome}</div>
+                        <div className="font-semibold text-sm mb-1">
+                          {item.nome}
+                          {/* Com várias no mesmo item, o nome sozinho não diz de
+                              qual delas é esta caixa. */}
+                          {total > 1 ? (
+                            <span
+                              className="ml-2 text-xs font-medium"
+                              style={{ color: "var(--tinta-3)" }}
+                            >
+                              ocorrência {indice + 1} de {total}
+                            </span>
+                          ) : null}
+                        </div>
                         <p className="text-xs mb-3" style={{ color: "var(--tinta-2)" }}>
-                          {r.observacao}
+                          {oc.descricao}
                         </p>
 
                         <div className="mb-3">
@@ -913,16 +1105,16 @@ export function WizardBoletim({
                           <div
                             className="grid grid-cols-3 gap-1"
                             role="radiogroup"
-                            aria-label={`Risco de ${item.nome}`}
+                            aria-label={`Risco de ${item.nome}${total > 1 ? ` — ocorrência ${indice + 1}` : ""}`}
                           >
-                            {CRITICIDADES.map((c, indice) => {
-                              const marcado = r.criticidade === c.valor;
+                            {CRITICIDADES.map((c, posicao) => {
+                              const marcado = oc.criticidade === c.valor;
                               // Rampa de um matiz: risco é escala, não categoria.
                               const cor = [
                                 "var(--ordinal-1)",
                                 "var(--ordinal-2)",
                                 "var(--ordinal-3)",
-                              ][indice];
+                              ][posicao];
                               return (
                                 <button
                                   key={c.valor}
@@ -930,7 +1122,9 @@ export function WizardBoletim({
                                   role="radio"
                                   aria-checked={marcado}
                                   onClick={() =>
-                                    alterarResposta(item.id, { criticidade: c.valor })
+                                    alterarOcorrencia(item.id, oc.chave, {
+                                      criticidade: c.valor,
+                                    })
                                   }
                                   className="rounded-lg px-2 py-2 text-xs font-semibold"
                                   style={{
@@ -938,7 +1132,7 @@ export function WizardBoletim({
                                     border: `1px solid ${marcado ? "transparent" : "var(--borda-forte)"}`,
                                     background: marcado ? cor : "var(--superficie)",
                                     color: marcado
-                                      ? indice === 0
+                                      ? posicao === 0
                                         ? "#0b0b0b"
                                         : "#ffffff"
                                       : "var(--tinta-2)",
@@ -952,32 +1146,34 @@ export function WizardBoletim({
                         </div>
 
                         <div className="mb-3">
-                          <label className="rotulo" htmlFor={`plano-${item.id}`}>
+                          <label className="rotulo" htmlFor={`plano-${oc.chave}`}>
                             Plano de ação
                           </label>
                           <textarea
-                            id={`plano-${item.id}`}
+                            id={`plano-${oc.chave}`}
                             className="campo"
                             style={{ minHeight: "4rem" }}
                             placeholder="O que será feito para resolver."
-                            value={r.planoAcao}
+                            value={oc.planoAcao}
                             onChange={(e) =>
-                              alterarResposta(item.id, { planoAcao: e.target.value })
+                              alterarOcorrencia(item.id, oc.chave, {
+                                planoAcao: e.target.value,
+                              })
                             }
                           />
                         </div>
 
                         <div>
-                          <label className="rotulo" htmlFor={`prazo-${item.id}`}>
+                          <label className="rotulo" htmlFor={`prazo-${oc.chave}`}>
                             Conclusão estimada (opcional)
                           </label>
                           <input
-                            id={`prazo-${item.id}`}
+                            id={`prazo-${oc.chave}`}
                             type="date"
                             className="campo"
-                            value={r.previsaoFinalizacao}
+                            value={oc.previsaoFinalizacao}
                             onChange={(e) =>
-                              alterarResposta(item.id, {
+                              alterarOcorrencia(item.id, oc.chave, {
                                 previsaoFinalizacao: e.target.value,
                               })
                             }

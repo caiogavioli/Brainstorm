@@ -80,8 +80,12 @@ export async function registrarBoletim({
   // ocorrência aberta; recontá-la a cada boletim inflaria "faltas registradas"
   // em uma por dia até alguém fechar a ocorrência.
   const equipesComFalta = naoConformes
-    .filter((i) => !i.continuacao)
-    .map((i) => porId.get(i.checklistItemId)!)
+    // Só conta a falta que a ronda encontrou HOJE. Uma ausência que se arrasta
+    // já está contabilizada na ocorrência aberta; recontá-la a cada boletim
+    // inflaria "faltas registradas" em uma por dia até alguém fechá-la.
+    .flatMap((i) =>
+      i.ocorrencias.filter((o) => !o.continuacao).map(() => porId.get(i.checklistItemId)!),
+    )
     .filter((c) => c.grupo === GRUPO_EQUIPES);
 
   const dataRegistro = new Date();
@@ -141,7 +145,13 @@ export async function registrarBoletim({
           create: itens.map((i) => ({
             checklistItemId: i.checklistItemId,
             situacao: i.situacao as SituacaoItem,
-            observacao: i.observacao,
+            // A anotação do item passa a ser o apanhado das suas ocorrências —
+            // é o que as telas de leitura mostram numa linha só.
+            observacao:
+              i.ocorrencias
+                .map((o) => o.descricao?.trim())
+                .filter(Boolean)
+                .join(" · ") || null,
           })),
         },
       },
@@ -161,145 +171,172 @@ export async function registrarBoletim({
       );
       if (!boletimItem) continue;
 
-      const descricao =
-        item.observacao ??
-        `Não conformidade registrada em ${catalogoItem.nome} no boletim diário.`;
+      /*
+       * Um item não conforme pode trazer VÁRIAS ocorrências.
+       *
+       * Cada entrada da lista é um problema com vida própria: "falta na equipe
+       * de segurança" pode ser o líder e o vigilante de piso, com planos e
+       * prazos diferentes. Espremer os dois numa descrição só apagaria a
+       * possibilidade de fechar um antes do outro.
+       */
+      for (const entrada of item.ocorrencias) {
+        const descricao =
+          entrada.descricao ??
+          `Não conformidade registrada em ${catalogoItem.nome} no boletim diário.`;
 
-      // Um problema já em aberto não vira ocorrência nova: vira recorrência.
-      const emAberto = await tx.ocorrencia.findFirst({
-        where: {
-          condominioId: dados.condominioId,
-          checklistItemId: item.checklistItemId,
-          status: { in: ["PENDENTE", "EM_ANDAMENTO"] },
-        },
-        orderBy: { dataAbertura: "asc" },
-        select: {
-          id: true,
-          descricao: true,
-          criticidade: true,
-          status: true,
-          previsaoFinalizacao: true,
-          dataAbertura: true,
-        },
-      });
-
-      if (emAberto) {
-        await tx.ocorrenciaRecorrencia.create({
-          data: {
-            ocorrenciaId: emAberto.id,
-            boletimId: boletim.id,
-            dataReferencia: dados.dataReferencia,
-            observacao: item.observacao,
-          },
-        });
         /*
-         * A reincidência não descarta o que a pessoa escreveu agora.
+         * Recorrência agora é por identidade, não por dedução.
          *
-         * Continua sendo UMA ocorrência — a regra de não duplicar plano de ação
-         * vale. Mas quem preencheu classificou o risco e escreveu um plano
-         * olhando para o problema hoje, e essa leitura é mais recente que a de
-         * dias atrás. Ignorá-la seria pedir informação para jogar fora, o que
-         * ensina a equipe a preencher por preencher.
-         *
-         * Um campo deixado em branco não apaga o que já existia.
+         * Antes o servidor procurava "alguma ocorrência aberta neste item" e
+         * assumia que era a mesma. Com vários problemas por item essa dedução
+         * passaria a errar: o segundo problema do dia seria confundido com o
+         * primeiro. Quem sabe qual é qual é a etapa de pendências, que devolve
+         * o id exato em `origemPendencia`.
          */
-        await tx.ocorrencia.update({
-          where: { id: emAberto.id },
+        const emAberto = entrada.origemPendencia
+          ? await tx.ocorrencia.findFirst({
+              where: {
+                id: entrada.origemPendencia,
+                condominioId: dados.condominioId,
+                status: { in: ["PENDENTE", "EM_ANDAMENTO"] },
+              },
+              select: {
+                id: true,
+                descricao: true,
+                criticidade: true,
+                status: true,
+                previsaoFinalizacao: true,
+                dataAbertura: true,
+              },
+            })
+          : null;
+
+        if (emAberto) {
+          await tx.ocorrenciaRecorrencia.create({
+            data: {
+              ocorrenciaId: emAberto.id,
+              boletimId: boletim.id,
+              dataReferencia: dados.dataReferencia,
+              observacao: entrada.descricao,
+            },
+          });
+          /*
+           * A reincidência não descarta o que a pessoa escreveu agora.
+           *
+           * Continua sendo UMA ocorrência — a regra de não duplicar plano de
+           * ação vale. Mas quem preencheu classificou o risco e escreveu um
+           * plano olhando para o problema hoje, e essa leitura é mais recente
+           * que a de dias atrás. Ignorá-la seria pedir informação para jogar
+           * fora, o que ensina a equipe a preencher por preencher.
+           *
+           * Um campo deixado em branco não apaga o que já existia.
+           */
+          await tx.ocorrencia.update({
+            where: { id: emAberto.id },
+            data: {
+              ultimaRecorrenciaEm: abertura,
+              totalRecorrencias: { increment: 1 },
+              ...(entrada.criticidade ? { criticidade: entrada.criticidade } : {}),
+              ...(entrada.planoAcao ? { planoAcao: entrada.planoAcao } : {}),
+              ...(entrada.previsaoFinalizacao
+                ? {
+                    previsaoFinalizacao: dataEscolhidaParaDate(
+                      entrada.previsaoFinalizacao,
+                    ),
+                  }
+                : {}),
+            },
+          });
+          await tx.ocorrenciaLog.create({
+            data: {
+              ocorrenciaId: emAberto.id,
+              usuarioId,
+              mensagem:
+                `Problema ainda presente no boletim de ${formatarDataReferencia(dados.dataReferencia)}, enviado por ${autor}.` +
+                (entrada.descricao ? ` "${entrada.descricao}"` : "") +
+                (entrada.criticidade
+                  ? ` Risco reavaliado como ${entrada.criticidade}.`
+                  : "") +
+                (entrada.planoAcao
+                  ? ` Plano de ação atualizado: "${entrada.planoAcao}"`
+                  : "") +
+                (entrada.previsaoFinalizacao
+                  ? ` Conclusão estimada para ${formatarDataReferencia(entrada.previsaoFinalizacao)}.`
+                  : ""),
+            },
+          });
+          paraResumo.push({
+            setor: catalogoItem.nome,
+            descricao: entrada.descricao?.trim() || emAberto.descricao,
+            planoAcao: entrada.planoAcao,
+            criticidade: entrada.criticidade ?? emAberto.criticidade,
+            status: emAberto.status,
+            previsaoFinalizacao: entrada.previsaoFinalizacao
+              ? dataEscolhidaParaDate(entrada.previsaoFinalizacao)
+              : emAberto.previsaoFinalizacao,
+            reincidente: true,
+            desde: emAberto.dataAbertura,
+          });
+          reincidentes++;
+          continue;
+        }
+
+        /*
+         * O prazo vem de quem preencheu — ou não vem.
+         *
+         * O sistema NÃO calcula data de conclusão. Um prazo gerado
+         * automaticamente parece compromisso sem que ninguém o tenha assumido:
+         * enche a matriz de risco de atrasos que não são de ninguém e treina
+         * todo mundo a ignorar o indicador. Campo vazio se lê como "ainda sem
+         * prazo", que é a verdade quando ninguém definiu um.
+         */
+        const previsao = entrada.previsaoFinalizacao
+          ? dataEscolhidaParaDate(entrada.previsaoFinalizacao)
+          : null;
+
+        // A criticidade do catálogo é sugestão; quem esteve no local decide.
+        const criticidade = entrada.criticidade ?? catalogoItem.criticidadePadrao;
+
+        const ocorrencia = await tx.ocorrencia.create({
           data: {
-            ultimaRecorrenciaEm: abertura,
-            totalRecorrencias: { increment: 1 },
-            ...(item.criticidade ? { criticidade: item.criticidade } : {}),
-            ...(item.planoAcao ? { planoAcao: item.planoAcao } : {}),
-            ...(item.previsaoFinalizacao
-              ? { previsaoFinalizacao: dataEscolhidaParaDate(item.previsaoFinalizacao) }
-              : {}),
+            condominioId: dados.condominioId,
+            checklistItemId: item.checklistItemId,
+            descricao,
+            planoAcao: entrada.planoAcao ?? null,
+            criticidade,
+            status: "PENDENTE",
+            previsaoFinalizacao: previsao,
+            dataAbertura: dataRegistro,
+            origem: "BOLETIM",
+            boletimId: boletim.id,
+            boletimItemId: boletimItem.id,
+            abertaPorId: usuarioId,
           },
         });
-        await tx.ocorrenciaLog.create({
-          data: {
-            ocorrenciaId: emAberto.id,
-            usuarioId,
-            mensagem:
-              `Problema ainda presente no boletim de ${formatarDataReferencia(dados.dataReferencia)}, enviado por ${autor}.` +
-              (item.observacao ? ` "${item.observacao}"` : "") +
-              (item.criticidade ? ` Risco reavaliado como ${item.criticidade}.` : "") +
-              (item.planoAcao ? ` Plano de ação atualizado: "${item.planoAcao}"` : "") +
-              (item.previsaoFinalizacao
-                ? ` Conclusão estimada para ${formatarDataReferencia(item.previsaoFinalizacao)}.`
-                : ""),
-          },
-        });
+        abertas++;
+
         paraResumo.push({
           setor: catalogoItem.nome,
-          descricao: item.observacao?.trim() || emAberto.descricao,
-          planoAcao: item.planoAcao,
-          criticidade: item.criticidade ?? emAberto.criticidade,
-          status: emAberto.status,
-          previsaoFinalizacao: item.previsaoFinalizacao
-            ? dataEscolhidaParaDate(item.previsaoFinalizacao)
-            : emAberto.previsaoFinalizacao,
-          reincidente: true,
-          desde: emAberto.dataAbertura,
-        });
-        reincidentes++;
-        continue;
-      }
-
-      /*
-       * O prazo vem de quem preencheu — ou não vem.
-       *
-       * O sistema NÃO calcula data de conclusão. Um prazo gerado
-       * automaticamente parece compromisso sem que ninguém o tenha assumido:
-       * enche a matriz de risco de atrasos que não são de ninguém e treina
-       * todo mundo a ignorar o indicador. Campo vazio se lê como "ainda sem
-       * prazo", que é a verdade quando ninguém definiu um.
-       */
-      const previsao = item.previsaoFinalizacao
-        ? dataEscolhidaParaDate(item.previsaoFinalizacao)
-        : null;
-
-      // A criticidade do catálogo é sugestão; quem esteve no local decide.
-      const criticidade = item.criticidade ?? catalogoItem.criticidadePadrao;
-
-      const ocorrencia = await tx.ocorrencia.create({
-        data: {
-          condominioId: dados.condominioId,
-          checklistItemId: item.checklistItemId,
           descricao,
-          planoAcao: item.planoAcao ?? null,
-          criticidade,
-          status: "PENDENTE",
-          previsaoFinalizacao: previsao,
-          dataAbertura: dataRegistro,
-          origem: "BOLETIM",
-          boletimId: boletim.id,
-          boletimItemId: boletimItem.id,
-          abertaPorId: usuarioId,
-        },
-      });
-      abertas++;
+          planoAcao: entrada.planoAcao,
+          criticidade: ocorrencia.criticidade,
+          status: ocorrencia.status,
+          previsaoFinalizacao: ocorrencia.previsaoFinalizacao,
+        });
 
-      paraResumo.push({
-        setor: catalogoItem.nome,
-        descricao,
-        planoAcao: item.planoAcao,
-        criticidade: ocorrencia.criticidade,
-        status: ocorrencia.status,
-        previsaoFinalizacao: ocorrencia.previsaoFinalizacao,
-      });
-
-      await tx.ocorrenciaLog.create({
-        data: {
-          ocorrenciaId: ocorrencia.id,
-          usuarioId,
-          mensagem:
-            `Ocorrência aberta pelo boletim de ${formatarDataReferencia(dados.dataReferencia)}, enviado por ${autor}. ` +
-            `Criticidade ${criticidade}${item.criticidade ? " informada por quem preencheu" : " sugerida pelo catálogo"}. ` +
-            (previsao
-              ? `Conclusão estimada para ${formatarDataReferencia(item.previsaoFinalizacao!)}.`
-              : "Sem prazo definido."),
-        },
-      });
+        await tx.ocorrenciaLog.create({
+          data: {
+            ocorrenciaId: ocorrencia.id,
+            usuarioId,
+            mensagem:
+              `Ocorrência aberta pelo boletim de ${formatarDataReferencia(dados.dataReferencia)}, enviado por ${autor}. ` +
+              `Criticidade ${criticidade}${entrada.criticidade ? " informada por quem preencheu" : " sugerida pelo catálogo"}. ` +
+              (previsao
+                ? `Conclusão estimada para ${formatarDataReferencia(entrada.previsaoFinalizacao!)}.`
+                : "Sem prazo definido."),
+          },
+        });
+      }
     }
 
     /*
@@ -351,7 +388,11 @@ export async function registrarBoletim({
           grupo: c.grupo,
           ordem: c.ordem,
           situacao: i.situacao as SituacaoItem,
-          observacao: i.observacao,
+          observacao:
+            i.ocorrencias
+              .map((o) => o.descricao?.trim())
+              .filter(Boolean)
+              .join(" · ") || null,
         };
       }),
       // Críticas primeiro: é o que precisa ser lido antes de rolar a mensagem.

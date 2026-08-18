@@ -124,6 +124,11 @@ o banco sozinho; localmente, `npm run catalogo:sync`.
 - **Ocorrência automática**: todo item `NAO_CONFORME` abre uma ocorrência
   vinculada ao item de origem, dentro da mesma transação do boletim. Criticidade
   e SLA vêm do catálogo (Alta 3d · Média 7d · Baixa 15d).
+- **Um item, várias ocorrências.** Um item não conforme pode render mais de um
+  registro: "falta na equipe de segurança" pode ser o líder e o vigilante de
+  piso, com responsáveis, planos e prazos próprios, que podem ser fechados em
+  dias diferentes. O botão **+ Adicionar outra ocorrência** abre uma nova dentro
+  do mesmo item, e a revisão gera uma caixa de tratamento para cada.
 - **Pendência que se arrasta reaparece sozinha.** Enquanto uma ocorrência não é
   dada como concluída, ela volta no boletim do dia seguinte, numa etapa própria
   logo depois da identificação, já com risco, plano e prazo preenchidos. Quem
@@ -138,7 +143,10 @@ o banco sozinho; localmente, `npm run catalogo:sync`.
   Pelo mesmo motivo, falta de equipe que se arrasta não é recontada a cada dia.
 - **Um problema, uma ocorrência.** Se já existe ocorrência em aberto para o
   mesmo condomínio e item, o boletim do dia **não** abre outra: registra uma
-  linha em `OcorrenciaRecorrencia` e anota no histórico. Sem isso, uma
+  linha em `OcorrenciaRecorrencia` e anota no histórico. A identidade vem do id
+  da ocorrência que a etapa de pendências devolve, e não de "alguma aberta neste
+  item" — essa dedução deixou de servir quando um item passou a comportar
+  vários problemas ao mesmo tempo. Sem isso, uma
   infiltração que dura duas semanas viraria catorze ocorrências e catorze planos
   de ação para o mesmo problema. A unicidade por (ocorrência, boletim) mantém o
   reenvio do mesmo dia idempotente.
