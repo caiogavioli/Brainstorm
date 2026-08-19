@@ -217,6 +217,14 @@ Se a coluna `senha` do CSV de usuários vier em branco, o sistema gera uma
 senha aleatória e mostra na tela **uma única vez**, para copiar e repassar —
 ela não fica visível depois, nem para o próprio administrador.
 
+Em **/condominios** há também "Importei o arquivo errado — desfazer uma
+importação": exclui em lote os condomínios criados numa janela de tempo
+escolhida (últimos 15 min, última hora, etc.), mas só os que ainda não têm
+nenhum boletim, ocorrência, plano ou usuário vinculado. Um condomínio real que
+por acaso tenha sido só **atualizado** nessa janela — não criado — aparece
+como aviso à parte, nunca como candidato a exclusão; a ferramenta não sabe
+recuperar campos sobrescritos, só evitar apagar o que é de verdade.
+
 ## Interface
 
 **Tela inicial do preenchedor** (`/inicio`) — abre com as ocorrências em aberto

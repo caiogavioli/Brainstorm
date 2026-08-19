@@ -3,6 +3,7 @@ import { exigirAdmin } from "@/lib/auth";
 import { formatarData } from "@/lib/datas";
 import { FormularioCondominio } from "@/components/condominios/formulario";
 import { ImportarCondominios } from "@/components/condominios/importar";
+import { DesfazerImportacaoCondominios } from "@/components/condominios/desfazer-importacao";
 import { AcoesCondominio } from "@/components/condominios/painel";
 
 export const metadata = { title: "Condomínios — Gestão de Condomínios" };
@@ -95,6 +96,8 @@ export default async function PaginaCondominios() {
           <ImportarCondominios
             condominios={condominios.map((c) => ({ id: c.id, nome: c.nome }))}
           />
+
+          <DesfazerImportacaoCondominios />
         </aside>
       </div>
     </div>
