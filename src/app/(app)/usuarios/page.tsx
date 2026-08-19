@@ -6,6 +6,7 @@ import {
   EditarUsuario,
   FormularioNovoUsuario,
 } from "@/components/usuarios/formularios";
+import { ImportarUsuarios } from "@/components/usuarios/importar";
 
 export const metadata = { title: "Usuários — Gestão de Condomínios" };
 
@@ -99,11 +100,13 @@ export default async function PaginaUsuarios() {
           ))}
         </div>
 
-        <aside className="order-1 lg:order-2">
+        <aside className="order-1 lg:order-2 space-y-4">
           <div className="card card-pad">
             <h2 className="font-semibold mb-3">Novo usuário</h2>
             <FormularioNovoUsuario condominios={condominios} />
           </div>
+
+          <ImportarUsuarios condominios={condominios} />
         </aside>
       </div>
     </div>

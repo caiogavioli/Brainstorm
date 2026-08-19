@@ -2,6 +2,7 @@ import { prisma } from "@/lib/db";
 import { exigirAdmin } from "@/lib/auth";
 import { formatarData } from "@/lib/datas";
 import { FormularioCondominio } from "@/components/condominios/formulario";
+import { ImportarCondominios } from "@/components/condominios/importar";
 import { AcoesCondominio } from "@/components/condominios/painel";
 
 export const metadata = { title: "Condomínios — Gestão de Condomínios" };
@@ -85,11 +86,15 @@ export default async function PaginaCondominios() {
           ))}
         </div>
 
-        <aside className="order-1 lg:order-2">
+        <aside className="order-1 lg:order-2 space-y-4">
           <div className="card card-pad">
             <h2 className="font-semibold mb-3">Cadastrar condomínio</h2>
             <FormularioCondominio />
           </div>
+
+          <ImportarCondominios
+            condominios={condominios.map((c) => ({ id: c.id, nome: c.nome }))}
+          />
         </aside>
       </div>
     </div>

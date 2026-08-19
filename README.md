@@ -195,6 +195,28 @@ O vínculo gerente↔condomínio fica em `UsuarioCondominio`. **Todo filtro por
 condomínio é intersectado com o escopo do usuário** (`filtroCondominio` em
 `src/lib/auth.ts`) — trocar `?condominio=` na URL não expõe outro prédio.
 
+### Importar em lote por planilha
+
+Em **/condominios** e **/usuarios**, o botão "Importar planilha" aceita um CSV
+— baixe o modelo na própria tela para ver as colunas esperadas. A prévia roda
+inteira no navegador antes de qualquer gravação; o servidor valida tudo de
+novo, porque é ele quem decide o que é gravado.
+
+Duas regras deliberadas:
+
+- **Condomínio já cadastrado (mesmo nome) é substituído por completo** — uma
+  coluna em branco na planilha apaga o valor antigo daquele campo. Reenviar a
+  mesma planilha depois de corrigir uma linha é seguro; reenviar uma planilha
+  incompleta não é.
+- **E-mail de usuário já cadastrado é pulado, nunca alterado** — nem a senha.
+  Redefinir senha de quem já tem conta continua sendo o botão "Redefinir
+  senha", uma ação deliberada, não um efeito colateral de reimportar a
+  planilha.
+
+Se a coluna `senha` do CSV de usuários vier em branco, o sistema gera uma
+senha aleatória e mostra na tela **uma única vez**, para copiar e repassar —
+ela não fica visível depois, nem para o próprio administrador.
+
 ## Interface
 
 **Tela inicial do preenchedor** (`/inicio`) — abre com as ocorrências em aberto

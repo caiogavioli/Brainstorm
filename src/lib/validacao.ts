@@ -5,7 +5,7 @@ const statusTarefa = z.enum(["PENDENTE", "EM_ANDAMENTO", "CONCLUIDO"]);
 const situacao = z.enum(["CONFORME", "NAO_CONFORME", "NAO_APLICAVEL"]);
 
 /** "" -> null, para campos opcionais vindos de <input>. */
-const textoOpcional = z
+export const textoOpcional = z
   .string()
   .trim()
   .transform((v) => (v === "" ? null : v))
