@@ -156,7 +156,7 @@ export function FormularioNovoUsuario({ condominios }: { condominios: Condominio
           value={papel}
           onChange={(e) => setPapel(e.target.value as Papel)}
         >
-          <option value="GESTOR">Gerente predial (preenche o boletim)</option>
+          <option value="GESTOR">Usuário (preenche o boletim)</option>
           <option value="ADMIN">Administrador (vê tudo, inclui o dashboard)</option>
         </select>
       </div>
@@ -257,7 +257,7 @@ export function EditarUsuario({
                 value={papel}
                 onChange={(e) => setPapel(e.target.value as Papel)}
               >
-                <option value="GESTOR">Gerente predial</option>
+                <option value="GESTOR">Usuário</option>
                 <option value="ADMIN">Administrador</option>
               </select>
             </div>

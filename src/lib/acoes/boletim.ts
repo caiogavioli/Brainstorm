@@ -115,6 +115,36 @@ export async function corrigirBoletimAction(payload: unknown): Promise<Resultado
   }
 }
 
+/**
+ * Apaga um boletim dentro de uma transação já aberta — usada tanto pela
+ * exclusão de um só quanto pela em lote, para as duas nunca divergirem no que
+ * é considerado "o que este boletim originou".
+ *
+ * `BoletimItem` e `OcorrenciaRecorrencia` têm `onDelete: Cascade` no schema e
+ * somem sozinhos com o `boletim.delete`. O que não cascateia — de propósito —
+ * são as ocorrências que este boletim ABRIU (`origem: "BOLETIM"`): elas
+ * precisam ser apagadas explicitamente, e as recorrências que ele registrou em
+ * ocorrências de OUTROS dias precisam decrementar o contador antes de sumir,
+ * para não deixar `totalRecorrencias` mentindo depois que o rastro sumiu.
+ */
+async function excluirBoletimNaTransacao(
+  tx: Prisma.TransactionClient,
+  id: number,
+): Promise<void> {
+  const recorrencias = await tx.ocorrenciaRecorrencia.findMany({
+    where: { boletimId: id },
+    select: { ocorrenciaId: true },
+  });
+  for (const r of recorrencias) {
+    await tx.ocorrencia.update({
+      where: { id: r.ocorrenciaId },
+      data: { totalRecorrencias: { decrement: 1 } },
+    });
+  }
+  await tx.ocorrencia.deleteMany({ where: { boletimId: id, origem: "BOLETIM" } });
+  await tx.boletim.delete({ where: { id } });
+}
+
 /** Remove um boletim e o que ele originou. Somente ADMIN. */
 export async function excluirBoletimAction(id: number): Promise<ResultadoAcao> {
   const sessao = await sessaoAtual();
@@ -128,21 +158,46 @@ export async function excluirBoletimAction(id: number): Promise<ResultadoAcao> {
   });
   if (!boletim) return { ok: false, erro: "Boletim não encontrado." };
 
-  await prisma.$transaction(async (tx) => {
-    const recorrencias = await tx.ocorrenciaRecorrencia.findMany({
-      where: { boletimId: id },
-      select: { ocorrenciaId: true },
-    });
-    for (const r of recorrencias) {
-      await tx.ocorrencia.update({
-        where: { id: r.ocorrenciaId },
-        data: { totalRecorrencias: { decrement: 1 } },
-      });
-    }
-    await tx.ocorrencia.deleteMany({ where: { boletimId: id, origem: "BOLETIM" } });
-    await tx.boletim.delete({ where: { id } });
-  });
+  await prisma.$transaction((tx) => excluirBoletimNaTransacao(tx, id));
 
   revalidarTudo();
   return { ok: true, mensagem: "Boletim excluído." };
+}
+
+/**
+ * Remove vários boletins de uma vez. Somente ADMIN.
+ *
+ * Cada boletim segue exatamente a mesma regra da exclusão individual — nada
+ * de atalho porque são muitos de uma vez. Ids que não existem mais (alguém
+ * já os apagou entre a seleção e a confirmação) são silenciosamente
+ * ignorados: o objetivo é o estado final, não reclamar do que já sumiu.
+ */
+export async function excluirBoletinsEmLoteAction(
+  ids: number[],
+): Promise<ResultadoAcao & { excluidos: number }> {
+  const sessao = await sessaoAtual();
+  if (sessao?.papel !== "ADMIN") {
+    return { ok: false, erro: "Apenas administradores podem excluir boletins.", excluidos: 0 };
+  }
+  if (ids.length === 0) {
+    return { ok: false, erro: "Nenhum boletim selecionado.", excluidos: 0 };
+  }
+
+  const existentes = await prisma.boletim.findMany({
+    where: { id: { in: ids } },
+    select: { id: true },
+  });
+
+  await prisma.$transaction(async (tx) => {
+    for (const { id } of existentes) {
+      await excluirBoletimNaTransacao(tx, id);
+    }
+  });
+
+  revalidarTudo();
+  return {
+    ok: true,
+    mensagem: `${existentes.length} boletim(ns) excluído(s).`,
+    excluidos: existentes.length,
+  };
 }

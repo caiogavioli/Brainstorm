@@ -37,7 +37,7 @@ export const STATUS_OCORRENCIA_LABEL: Record<StatusOcorrencia, string> = {
 
 export const PAPEL_LABEL: Record<Papel, string> = {
   ADMIN: "Administrador",
-  GESTOR: "Gerente predial",
+  GESTOR: "Usuário",
 };
 
 /** Classes Tailwind para "badges" — usam tokens do design system em globals.css. */

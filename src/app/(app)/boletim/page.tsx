@@ -2,13 +2,9 @@ import Link from "next/link";
 
 import { prisma } from "@/lib/db";
 import { condominiosDaSessao, exigirSessao, filtroCondominio } from "@/lib/auth";
-import {
-  dataReferenciaDe,
-  formatarDataReferencia,
-  formatarDataHora,
-} from "@/lib/datas";
-import { STATUS_DIA_CLASSE, STATUS_DIA_LABEL } from "@/lib/labels";
+import { dataReferenciaDe } from "@/lib/datas";
 import { FiltrosGlobais } from "@/components/filtros";
+import { ListaBoletins } from "@/components/boletim/lista-selecionavel";
 
 export const metadata = { title: "Boletins — Gestão de Condomínios" };
 
@@ -51,9 +47,13 @@ export default async function PaginaBoletins({
     include: {
       condominio: { select: { nome: true } },
       criadoPor: { select: { nome: true } },
-      _count: { select: { ocorrencias: true } },
+      _count: { select: { ocorrencias: true, recorrencias: true } },
     },
   });
+
+  // Excluir em lote é ação de administrador — a mesma trava que já valia para
+  // excluir um boletim só, na página de detalhe.
+  const podeExcluir = sessao.papel === "ADMIN";
 
   return (
     <div>
@@ -85,90 +85,23 @@ export default async function PaginaBoletins({
           </Link>
         </div>
       ) : (
-        <>
-          {/* Cartões no celular */}
-          <ul className="space-y-2 md:hidden">
-            {boletins.map((b) => (
-              <li key={b.id}>
-                <Link href={`/boletim/${b.id}`} className="card card-pad block">
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <div>
-                      <div className="font-semibold text-sm">{b.condominio.nome}</div>
-                      <div className="text-xs num" style={{ color: "var(--tinta-3)" }}>
-                        {formatarDataReferencia(b.dataReferencia)}
-                      </div>
-                    </div>
-                    <span className={STATUS_DIA_CLASSE[b.statusGeral]}>
-                      {STATUS_DIA_LABEL[b.statusGeral]}
-                    </span>
-                  </div>
-                  <div
-                    className="flex gap-4 text-xs"
-                    style={{ color: "var(--tinta-2)" }}
-                  >
-                    <span className="num">
-                      {b._count.ocorrencias} ocorrência(s)
-                    </span>
-                    <span>{b.houveFaltas ? `Faltas: ${b.setoresFaltas}` : "Sem faltas"}</span>
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
-
-          {/* Tabela no desktop */}
-          <div className="card hidden md:block">
-            <div className="tabela-rolagem">
-              <table className="tabela">
-                <thead>
-                  <tr>
-                    <th>Data</th>
-                    <th>Condomínio</th>
-                    <th>Status do dia</th>
-                    <th>Ocorrências</th>
-                    <th>Faltas</th>
-                    <th>Registrado por</th>
-                    <th>Enviado em</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {boletins.map((b) => (
-                    <tr key={b.id}>
-                      <td className="num">
-                        <Link
-                          href={`/boletim/${b.id}`}
-                          className="font-semibold"
-                          style={{ color: "var(--serie-1)" }}
-                        >
-                          {formatarDataReferencia(b.dataReferencia)}
-                        </Link>
-                      </td>
-                      <td>{b.condominio.nome}</td>
-                      <td>
-                        <span className={STATUS_DIA_CLASSE[b.statusGeral]}>
-                          {STATUS_DIA_LABEL[b.statusGeral]}
-                        </span>
-                      </td>
-                      <td className="num">{b._count.ocorrencias}</td>
-                      <td>
-                        {b.houveFaltas ? (
-                          <span>
-                            {b.qtdeFaltas > 0 ? `${b.qtdeFaltas} — ` : ""}
-                            {b.setoresFaltas}
-                          </span>
-                        ) : (
-                          <span style={{ color: "var(--tinta-3)" }}>Não</span>
-                        )}
-                      </td>
-                      <td>{b.preenchidoPor ?? b.criadoPor?.nome ?? "—"}</td>
-                      <td className="num">{formatarDataHora(b.dataRegistro)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </>
+        <ListaBoletins
+          podeExcluir={podeExcluir}
+          boletins={boletins.map((b) => ({
+            id: b.id,
+            dataReferencia: b.dataReferencia,
+            condominioNome: b.condominio.nome,
+            statusGeral: b.statusGeral,
+            houveFaltas: b.houveFaltas,
+            qtdeFaltas: b.qtdeFaltas,
+            setoresFaltas: b.setoresFaltas,
+            preenchidoPor: b.preenchidoPor,
+            criadoPorNome: b.criadoPor?.nome ?? null,
+            dataRegistro: b.dataRegistro,
+            ocorrencias: b._count.ocorrencias,
+            recorrencias: b._count.recorrencias,
+          }))}
+        />
       )}
     </div>
   );

@@ -96,7 +96,7 @@ async function seedUsuarios(condominioIds: number[]) {
     },
   });
 
-  // Um gerente predial por condomínio, com acesso restrito ao seu prédio.
+  // Um usuário por condomínio, com acesso restrito ao seu prédio.
   const gestores = [
     { nome: "Gerente — Atrium Office", email: "gestor.atrium@condominios.com.br" },
     { nome: "Gerente — Edifício Centenário", email: "gestor.centenario@condominios.com.br" },

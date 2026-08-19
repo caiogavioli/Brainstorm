@@ -248,8 +248,8 @@ Abra **http://localhost:3000**.
 ## Depois de entrar, em qualquer caminho
 
 1. **Condomínios** — cadastre cada prédio: nome, endereço, responsável, telefone.
-2. **Usuários** — crie a conta de cada gerente predial.
-   - *Gerente predial* só vê os condomínios que você marcar e não enxerga o
+2. **Usuários** — crie a conta de cada usuário.
+   - *Usuário* só vê os condomínios que você marcar e não enxerga o
      dashboard gerencial.
    - *Administrador* vê tudo, como você.
    - Defina a senha inicial e combine com a pessoa. Você pode redefinir a

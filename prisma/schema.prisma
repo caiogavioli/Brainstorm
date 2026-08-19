@@ -21,7 +21,7 @@ datasource db {
 // Enums
 // ---------------------------------------------------------------------------
 
-// Papéis de acesso. GESTOR = gerente predial (preenche o boletim).
+// Papéis de acesso. GESTOR = usuário (preenche o boletim).
 // ADMIN = síndico profissional / gestor da administradora (vê tudo).
 enum Papel {
   ADMIN

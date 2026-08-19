@@ -55,7 +55,7 @@ export const linhaUsuarioSchema = z
     path: ["papel"],
   })
   .refine((v) => v.papel === "ADMIN" || v.condominiosNomes.length > 0, {
-    message: "Gerente predial precisa de ao menos um condomínio (separe vários com ;).",
+    message: "Usuário precisa de ao menos um condomínio (separe vários com ;).",
     path: ["condominios"],
   });
 

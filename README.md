@@ -1,7 +1,7 @@
 # Sistema de Gestão e Boletim Diário de Operações — Condomínios
 
 Substitui o preenchimento por WhatsApp e planilhas de Excel por: um **formulário
-mobile em etapas** para o gerente predial, um **banco relacional**
+mobile em etapas** para o usuário, um **banco relacional**
 multi-condomínio, um **painel administrativo** para o síndico profissional e um
 **dashboard gerencial** com KPIs, gráficos e matriz de risco de SLA.
 
@@ -57,9 +57,9 @@ ocorrências sintéticas, e os usuários de demonstração:
 | Papel | E-mail | Senha |
 |---|---|---|
 | Administrador (síndico) | `sindico@condominios.com.br` | `condominio123` |
-| Gerente predial (Atrium Office) | `gestor.atrium@condominios.com.br` | `condominio123` |
-| Gerente predial (Centenário) | `gestor.centenario@condominios.com.br` | `condominio123` |
-| Gerente predial (Passeio Paulista) | `gestor.paulista@condominios.com.br` | `condominio123` |
+| Usuário (Atrium Office) | `gestor.atrium@condominios.com.br` | `condominio123` |
+| Usuário (Centenário) | `gestor.centenario@condominios.com.br` | `condominio123` |
+| Usuário (Passeio Paulista) | `gestor.paulista@condominios.com.br` | `condominio123` |
 
 Comandos úteis: `npm run db:studio` (inspecionar o banco), `npm run db:migrate`
 (criar migração após mudar o schema), `npm run typecheck`, `npm run build`.
@@ -164,7 +164,7 @@ vai para `/login`; quem tem, vai para a sua tela inicial.
 
 | Endereço | Quem usa | Cai em |
 |---|---|---|
-| `/inicio` | Gerente predial — trata ocorrências e lança o boletim | Após o login |
+| `/inicio` | Usuário — trata ocorrências e lança o boletim | Após o login |
 | `/dashboard` | Administradora | Após o login |
 
 **Houve aqui um formulário público, sem login**, em que o gerente se
@@ -180,7 +180,7 @@ define a senha inicial e marca os condomínios que cada um enxerga.
 
 ## Perfis de acesso
 
-| | Gerente predial | Administrador |
+| | Usuário | Administrador |
 |---|---|---|
 | Lançar boletim | ✅ (só nos seus condomínios) | ✅ |
 | Ocorrências e planos | ✅ (só nos seus condomínios) | ✅ (todos) |

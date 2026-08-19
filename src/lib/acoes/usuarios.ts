@@ -51,7 +51,7 @@ export async function criarUsuarioAction(
   if (dados.papel === "GESTOR" && dados.condominios.length === 0) {
     return {
       ok: false,
-      erro: "Selecione ao menos um condomínio para o gerente predial.",
+      erro: "Selecione ao menos um condomínio para o usuário.",
     };
   }
 
@@ -117,7 +117,7 @@ export async function atualizarUsuarioAction(
   }
 
   if (papel === "GESTOR" && condominios.length === 0) {
-    return { ok: false, erro: "Selecione ao menos um condomínio para o gerente predial." };
+    return { ok: false, erro: "Selecione ao menos um condomínio para o usuário." };
   }
 
   // Trava de segurança: impede que o último admin ativo se rebaixe ou se
