@@ -38,8 +38,10 @@ export function Logo({
         stroke={MARCA_NAVY}
         strokeWidth="9"
       />
-      {/* Haste do F, que divide a moldura de alto a baixo */}
-      <rect x="52" y="4.5" width="8.5" height="91" fill={MARCA_NAVY} />
+      {/* Haste do F — começa na altura do braço de cima, não no topo da
+          moldura, para fechar o ângulo reto do F em vez de continuar
+          subindo como se fosse só uma linha divisória entre D e F. */}
+      <rect x="52" y="26" width="8.5" height="69.5" fill={MARCA_NAVY} />
       {/* Braços do F */}
       <rect x="60.5" y="26" width="26" height="8.5" fill={MARCA_NAVY} />
       <rect x="60.5" y="45" width="20" height="8.5" fill={MARCA_NAVY} />
