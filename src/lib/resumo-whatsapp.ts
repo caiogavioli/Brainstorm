@@ -19,11 +19,19 @@ import { GRUPOS } from "@/lib/checklist";
 import { CRITICIDADE_LABEL, STATUS_OCORRENCIA_LABEL } from "@/lib/labels";
 import { formatarData, formatarDataReferencia } from "@/lib/datas";
 
-/** Ícone por situação — a mesma convenção do modelo antigo. */
+/**
+ * Ícone por situação. Não são os emojis coloridos do modelo antigo (✅/⚠️/➖)
+ * de propósito: eles dependem de uma fonte de emoji colorido que o WhatsApp
+ * Web/Desktop nem sempre tem instalada no computador de quem recebe — sem
+ * ela, o ícone chega como um quadrado quebrado (◆ ou 🮖), mesmo com o link
+ * gerado corretamente. Estes símbolos são dingbats simples, presentes na
+ * fonte padrão de praticamente qualquer sistema, então continuam legíveis
+ * mesmo sem suporte a emoji.
+ */
 export const ICONE_SITUACAO: Record<SituacaoItem, string> = {
-  CONFORME: "✅",
-  NAO_CONFORME: "⚠️",
-  NAO_APLICAVEL: "➖",
+  CONFORME: "✓",
+  NAO_CONFORME: "✗",
+  NAO_APLICAVEL: "–",
 };
 
 const SEPARADOR = "------------------------------------------";
