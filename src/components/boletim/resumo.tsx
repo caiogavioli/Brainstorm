@@ -2,16 +2,15 @@
 
 import { useState } from "react";
 
-import { linkWhatsApp } from "@/lib/resumo-whatsapp";
-
 /**
  * O boletim pronto para virar mensagem.
  *
- * Dois caminhos porque os dois falham em situações diferentes: o botão do
- * WhatsApp é o atalho, mas depende do app instalado e de o navegador deixar
- * abrir a aba; copiar funciona sempre e serve para colar em e-mail, Teams ou
- * onde mais for preciso. Por isso o texto fica visível e selecionável — nunca
- * escondido atrás de um botão só.
+ * Só copiar, sem link direto para o WhatsApp: o botão "abrir no WhatsApp"
+ * (via wa.me) depende do app instalado, do navegador deixar abrir a aba e —
+ * na prática — de detalhes de codificação fora do nosso controle que já
+ * quebraram o texto para quem usa WhatsApp Web/Desktop sem fonte de emoji.
+ * Copiar e colar manualmente é mais garantido: funciona em qualquer
+ * navegador e serve tanto para WhatsApp quanto e-mail, Teams etc.
  */
 export function ResumoWhatsApp({
   texto,
@@ -65,20 +64,11 @@ export function ResumoWhatsApp({
         {texto}
       </pre>
 
-      <div className="mt-3 flex flex-col sm:flex-row gap-2">
-        <a
-          href={linkWhatsApp(texto)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="botao botao-primario flex-1 justify-center"
-          style={{ background: "#25D366", borderColor: "#25D366", color: "#06301a" }}
-        >
-          Enviar no WhatsApp
-        </a>
+      <div className="mt-3">
         <button
           type="button"
           onClick={copiar}
-          className="botao botao-secundario flex-1"
+          className="botao botao-primario w-full justify-center"
           aria-live="polite"
         >
           {copiado ? "✓ Copiado" : "Copiar texto"}
@@ -92,8 +82,11 @@ export function ResumoWhatsApp({
         </p>
       ) : null}
 
-      <p className="mt-2 text-xs" style={{ color: "var(--tinta-3)" }}>
-        O botão abre o WhatsApp com a mensagem pronta — é só escolher o grupo.
+      <p
+        className="mt-3 text-center text-base font-bold"
+        style={{ color: "var(--serie-1)" }}
+      >
+        COPIE E COLE NO WHATSAPP
       </p>
     </section>
   );
