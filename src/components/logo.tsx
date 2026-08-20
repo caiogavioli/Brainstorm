@@ -43,15 +43,19 @@ export function Logo({
       {/* Braços do F */}
       <rect x="60.5" y="26" width="26" height="8.5" fill={MARCA_NAVY} />
       <rect x="60.5" y="45" width="20" height="8.5" fill={MARCA_NAVY} />
-      {/* D: haste + barriga */}
-      <rect x="17" y="33" width="8.5" height="34" fill={MARCA_NAVY} />
+      {/* D: haste + barriga arredondada, com o furo (contraforma) recortado
+          pela mesma peça via fill-rule evenodd — a versão anterior desenhava
+          o furo como uma peça branca por cima, e um dos lados dela tinha um
+          comando de tamanho zero (h0 em vez de h8), deixando o traço da
+          barriga com espessura desigual: reto de um lado, afunilando do
+          outro. Com as duas metades (fora e furo) simétricas e no mesmo
+          path, a parede fica com a mesma espessura da haste em todo o
+          contorno, e o desenho não depende do fundo estar branco. */}
       <path
-        d="M25.5 33 h8 a17 17 0 0 1 0 34 h-8 z"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M17 33 H34 A17 17 0 0 1 34 67 H17 Z M25.5 41.5 H34 A8.5 8.5 0 0 1 34 58.5 H25.5 Z"
         fill={MARCA_NAVY}
-      />
-      <path
-        d="M33.5 41.5 h0 a8.5 8.5 0 0 1 0 17 h-8 v-17 z"
-        fill="#ffffff"
       />
     </svg>
   );
