@@ -1,5 +1,14 @@
 # Sistema de Gestão e Boletim Diário de Operações — Condomínios
 
+> **Esta é a branch `claude/hostinger-kvm`** — cópia independente deste sistema,
+> preparada para rodar num VPS próprio (ex.: Hostinger KVM) em vez de Vercel +
+> Neon. É um sistema separado: banco de dados próprio, seus próprios
+> condomínios e usuários, sem sincronia com a branch principal
+> (`claude/condominio-boletim-gestao-ougoqd`, que continua no ar normalmente
+> na Vercel). Mudanças de código costumam valer para as duas; dados, não.
+>
+> Deploy: **[GUIA-VPS.md](GUIA-VPS.md)**.
+
 Substitui o preenchimento por WhatsApp e planilhas de Excel por: um **formulário
 mobile em etapas** para o usuário, um **banco relacional**
 multi-condomínio, um **painel administrativo** para o síndico profissional e um

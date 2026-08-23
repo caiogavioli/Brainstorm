@@ -1,15 +1,24 @@
-# Migrar da Vercel + Neon para um VPS
+# Colocar este sistema num VPS próprio
 
-Passo a passo para tirar o sistema da Vercel (aplicação) e do Neon (banco) e
-colocar tudo num servidor próprio — Hostinger, Contabo, DigitalOcean, tanto faz:
-o que segue vale para qualquer VPS com Ubuntu.
+Passo a passo para subir esta cópia do sistema (branch `claude/hostinger-kvm`)
+num servidor próprio — Hostinger, Contabo, DigitalOcean, tanto faz: o que segue
+vale para qualquer VPS com Ubuntu.
 
 Leva cerca de uma hora, a maior parte dela esperando. Não é preciso saber Linux:
 todo comando está escrito para copiar e colar.
 
-> **Uma coisa antes de tudo.** Só desligue a Vercel e o Neon no fim, depois de
-> conferir que o servidor novo está funcionando com os seus dados. Enquanto os
-> dois estiverem de pé, qualquer erro aqui é reversível.
+> **Isto não desliga nada.** O sistema que já está no ar na Vercel + Neon
+> (branch `claude/condominio-boletim-gestao-ougoqd`) continua funcionando
+> exatamente como está — este guia sobe um segundo sistema, independente, no
+> seu próprio servidor. Os dois passam a existir em paralelo, cada um com seu
+> próprio banco de dados.
+>
+> **Sobre os dados do passo 8 (copiar do Neon):** ele é opcional. Faça-o só se
+> você quiser que este servidor comece com os condomínios e usuários que já
+> existem hoje; a partir da cópia, os dois bancos seguem cada um por conta
+> própria — o que for lançado num não aparece no outro. Se preferir que este
+> servidor comece vazio (por exemplo, para atender só os condomínios novos daqui
+> para frente), pule o passo 8 e vá direto para o passo 9.
 
 ---
 
@@ -19,8 +28,8 @@ todo comando está escrito para copiar e colar.
 |---|---|
 | **Um VPS** | Ubuntu 24.04, mínimo 2 GB de RAM e 2 vCPU. Menos que isso não compila a aplicação. |
 | **Um domínio** | Ex.: `boletim.suaempresa.com.br`. Pode ser um subdomínio de um domínio que você já tem. |
-| **A URL do banco no Neon** | No painel do Neon, *Connection string*. Começa com `postgresql://`. |
-| **Acesso ao repositório** | O código está em `caiogavioli/Brainstorm`, branch `claude/condominio-boletim-gestao-ougoqd`. |
+| **A URL do banco no Neon** | Só se for copiar os dados existentes (passo 8) — no painel do Neon, *Connection string*. Começa com `postgresql://`. |
+| **Acesso ao repositório** | O código está em `caiogavioli/Brainstorm`, branch `claude/hostinger-kvm`. |
 
 ---
 
@@ -124,7 +133,7 @@ Tem que responder o IP do seu VPS.
 cd ~
 git clone https://github.com/caiogavioli/Brainstorm.git boletim
 cd boletim
-git checkout claude/condominio-boletim-gestao-ougoqd
+git checkout claude/hostinger-kvm
 ```
 
 Se o repositório for privado, o `git` vai pedir usuário e senha — use um
@@ -179,8 +188,7 @@ chmod 600 .env
 
 ## Passo 7 — Subir só o banco de dados
 
-Ainda **não** suba o sistema inteiro. Primeiro o banco vazio, para receber os
-dados do Neon:
+Ainda **não** suba o sistema inteiro. Primeiro o banco vazio:
 
 ```bash
 docker compose up -d banco
@@ -188,9 +196,14 @@ docker compose up -d banco
 
 ---
 
-## Passo 8 — Trazer os dados do Neon
+## Passo 8 — Trazer os dados do Neon (opcional)
 
-Este é o passo que não pode dar errado. Vá com calma.
+**Pule este passo inteiro se quiser que este servidor comece com o banco
+vazio** — por exemplo, se ele vai atender só condomínios novos, separados dos
+que já usam o sistema na Vercel. Vá direto para o passo 9.
+
+Se for copiar os dados existentes, este é o passo que não pode dar errado. Vá
+com calma — e lembre que copiar não move nem apaga nada no Neon, só lê.
 
 ### 8.1 Descobrir a versão do Postgres no Neon
 
@@ -274,17 +287,18 @@ login, **com cadeado**.
 
 ---
 
-## Passo 10 — Conferir antes de desligar o que existe hoje
+## Passo 10 — Conferir que o servidor novo está de pé
 
 Entre e confira, um por um:
 
-- [ ] O login funciona com o seu usuário de sempre.
-- [ ] O dashboard mostra os boletins e os números que você conhece.
-- [ ] As ocorrências em aberto estão lá, com as datas certas.
+- [ ] A tela de login abre, com cadeado.
+- [ ] Se copiou os dados do Neon (passo 8): o login funciona com o seu usuário
+      de sempre, o dashboard mostra os boletins e números que você conhece, e
+      as ocorrências em aberto estão lá com as datas certas.
+- [ ] Se começou vazio: `/configuracao-inicial` (ou `ADMIN_EMAIL`/`ADMIN_SENHA`
+      no `.env`) cria o primeiro administrador normalmente.
 - [ ] Um preenchedor consegue entrar e lançar um boletim de teste.
 - [ ] O resumo do WhatsApp é gerado.
-
-Só depois disso siga para o passo seguinte.
 
 ---
 
@@ -358,14 +372,24 @@ docker compose exec -T banco dropdb -U condominios teste_restauracao
 
 ---
 
-## Passo 12 — Desligar a Vercel e o Neon
+## Passo 12 — Vercel e Neon continuam no ar (a menos que você decida o contrário)
 
-Só agora, e nesta ordem:
+Este servidor é um sistema à parte — não há nada para desligar na Vercel ou no
+Neon por causa dele. Os dois continuam servindo normalmente quem já usa o
+sistema por lá.
 
-1. Rode o backup uma última vez no Neon (passo 8.2) e guarde o arquivo.
-2. Na Vercel, pause ou apague o projeto.
-3. No Neon, **espere alguns dias** antes de apagar o banco. Custa pouco manter
-   e é o seu caminho de volta se algo aparecer.
+Se um dia você **quiser mesmo assim** consolidar tudo num só lugar (por
+exemplo, migrar todo mundo para este VPS e aposentar a Vercel), o caminho é:
+
+1. Rodar o backup no Neon (passo 8.2) uma última vez e guardar o arquivo.
+2. Restaurar esse backup aqui (passo 8.3) — vai sobrescrever o que este
+   servidor tiver, então confirme antes que é isso mesmo que quer.
+3. Na Vercel, pausar ou apagar o projeto.
+4. No Neon, esperar alguns dias antes de apagar o banco — custa pouco manter e
+   é o caminho de volta se algo aparecer.
+
+Mas isso é uma decisão separada, para quando (e se) fizer sentido — não é parte
+deste guia.
 
 ---
 
