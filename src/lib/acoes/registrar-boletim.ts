@@ -402,8 +402,19 @@ export async function registrarBoletim({
     });
 
     return { id: boletim.id, abertas, reincidentes, resolvidas, resumo };
-  });
+  }, TRANSACAO_OPCOES);
 }
+
+/**
+ * O padrão do Prisma é 5s de limite e 2s de espera por uma conexão — curto
+ * demais aqui. Um boletim com várias não conformidades faz uma ida ao banco
+ * por ocorrência (buscar, criar/atualizar, registrar log), em sequência
+ * dentro da mesma transação; num dia ruim, com vários problemas de verdade
+ * para registrar, essa soma passa de 5s e o Prisma cancela a transação —
+ * exatamente quando o registro é mais importante. Os números aqui dão
+ * margem para isso sem esconder um travamento real por tempo indefinido.
+ */
+const TRANSACAO_OPCOES = { timeout: 20_000, maxWait: 10_000 };
 
 const ORDEM_CRITICIDADE = { ALTA: 3, MEDIA: 2, BAIXA: 1 } as const;
 
