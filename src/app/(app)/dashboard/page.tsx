@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { condominiosDaSessao, escopoCondominios, exigirAdmin } from "@/lib/auth";
 import { carregarDashboard } from "@/lib/consultas/dashboard";
-import { formatarData, diasAteSLA, dataReferenciaDe, primeiroDiaDoMes } from "@/lib/datas";
+import { formatarData, diasAteSLA, dataReferenciaDe } from "@/lib/datas";
 import {
   CRITICIDADE_CLASSE,
   CRITICIDADE_LABEL,
@@ -50,11 +50,10 @@ export default async function PaginaDashboard({
   const condominios = await condominiosDaSessao(sessao);
   const condominioId = params.condominio ? Number(params.condominio) : null;
 
-  // Sem intervalo na URL, o padrão é o mês corrente até hoje: é o recorte que
-  // dá contexto sem esconder o dia de hoje, e os atalhos do filtro levam a
-  // "Hoje" em um clique.
+  // Sem intervalo na URL, o padrão é hoje — é o que se quer ver assim que
+  // abre o dashboard; os outros recortes ficam a um clique nos atalhos.
   const hoje = dataReferenciaDe();
-  const de = DATA.test(params.de ?? "") ? params.de! : primeiroDiaDoMes(hoje);
+  const de = DATA.test(params.de ?? "") ? params.de! : hoje;
   const ateBruto = DATA.test(params.ate ?? "") ? params.ate! : hoje;
   // Um intervalo invertido não deve derrubar a página nem devolver vazio.
   const ate = ateBruto < de ? de : ateBruto;
