@@ -22,6 +22,20 @@
 # Liberada em 20/08/2026 a pedido explícito do usuário, para a cobrança dos
 # descontos de NF (17.007, TNU e Centenário).
 #
+# Ampliada em 31/08/2026, também a pedido explícito, para a cobrança da
+# Pesquisa de Satisfação 2026. Três grupos entraram:
+#
+#   - equipe DF Síndicos (denise, amanda, andre, anapaula, controladoria);
+#   - CONTRATANTE: gabriel.fernandes@bgre.com e alex.trindade@bgre.com;
+#   - jose.perozzi@cbre.com, segundo endereço do gestor do JKB.
+#
+# A entrada do contratante é a mudança relevante e vale registrar por quê ela
+# não desfaz a proteção original: a camada 1 continua intacta. Uma mensagem com
+# assunto "[Triagem] …" ou "[Relatório de Triagem] …" segue indo só para o
+# usuário, mesmo agora que a BGRE está na lista. Quem ganhou o direito de
+# escrever para o contratante foi o envio pontual, conferido pelo usuário —
+# não a rotina que roda de madrugada sem ninguém olhando.
+#
 # Entrada: JSON do PreToolUse no stdin.
 # Saída:   nada (segue o fluxo normal) ou um veredito "deny" em JSON.
 
@@ -32,6 +46,14 @@ USUARIO="caio@dfsindicos.com.br"
 # Endereços confirmados no mapeamento de prédios, em minúsculas.
 MAPEADOS="
 caio@dfsindicos.com.br
+denise@dfsindicos.com.br
+amanda@dfsindicos.com.br
+andre@dfsindicos.com.br
+anapaula@dfsindicos.com.br
+controladoria@dfsindicos.com.br
+gabriel.fernandes@bgre.com
+alex.trindade@bgre.com
+jose.perozzi@cbre.com
 abner.nogueira@cbre.com
 marco.gimenez@cbre.com
 katia.oliveira@cbre.com
