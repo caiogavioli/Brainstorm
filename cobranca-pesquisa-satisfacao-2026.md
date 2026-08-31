@@ -177,9 +177,7 @@ Conforme ele orientou, a planilha deve ir diretamente para o Gabriel
 Peço que me mantenham em cópia para que eu consiga acompanhar o status dos
 condomínios sob minha gestão.
 
-Gabriel, se o [CONDOMÍNIO] já tiver enviado a planilha direto para você e para
-o Alex, me avise para que eu dê baixa — como o retorno não passa por mim,
-minha lista pode estar defasada.
+Caso tenham enviado a resposta, me avisem para eu dar baixa.
 
 Atenciosamente,
 
