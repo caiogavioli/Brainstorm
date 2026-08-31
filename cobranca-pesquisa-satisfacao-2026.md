@@ -257,6 +257,38 @@ Quatro testes rodados contra o hook alterado:
 O terceiro é o que importa: é a regressão que provaria que abrir a lista para a
 BGRE tinha soltado a rotina automática junto. Não soltou.
 
-Os sete e-mails estão prontos para disparo. **Nada foi enviado ainda** —
-aguardando seu OK, porque são sete mensagens para o contratante e não há
-desfazer.
+---
+
+## 7. Enviados — 31/08/2026, 11h48–11h49 (BRT)
+
+Validado pelo usuário e disparado. Sete mensagens, conferidas na Sent Items
+com `folderName: "Sent Items"` + data (a combinação `sender` + data devolveu
+subconjunto de novo — a armadilha já documentada no playbook).
+`totalResultCount: 7`, sem duplicata.
+
+| # | Prédio | Enviado | Destinatários |
+|---|---|---|---|
+| 1 | 17.007 Nações | 11h48m44 | 8 |
+| 2 | TNU | 11h48m47 | 8 |
+| 3 | Centenário | 11h48m52 | 8 |
+| 4 | Panamerica | 11h48m58 | 8 |
+| 5 | Passeio Paulista | 11h49m11 | 8 |
+| 6 | PL Extrema | 11h49m31 | 8 |
+| 7 | JKB | 11h49m35 | 9 (dois endereços do Perozzi) |
+
+Corpo em `bodyType: "html"` explícito — a trava contra o defeito de 26/08, em
+que o `bodyType` omitido caiu no default `text` e entregou as tags escapadas.
+
+### O que acompanhar
+
+- **Prazo 02/09 (quarta).** Retorno esperado dos seis prédios; o Arquipeo já
+  entregou em 28/08.
+- **O retorno não passa pela caixa do Caio.** O Gabriel pediu planilha só para
+  ele e para o Alex, então "não respondeu" continua significando "não respondeu
+  com você em cópia". A frase final do e-mail existe para cobrir isso.
+- **Grupo B em aberto:** Alphaville, O Parque T07 e Atrium Office ficaram fora
+  da lista do Gabriel. Se forem BGRE, quem precisa ser avisado é o Gabriel, não
+  o prédio.
+- **Grupo C em aberto:** 17 endereços da lista do Gabriel que não estão no
+  `mapeamento-predios.md`. Se algum for prédio do Caio, está invisível também
+  para a rotina semanal de documentos.
