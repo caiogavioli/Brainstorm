@@ -185,64 +185,78 @@ Caio Gavioli
 DF Síndicos
 ```
 
-### 5.4. Destinatários — por prédio
+### 5.4. Destinatários
 
-**Cc fixo em todos os sete:**
-`gabriel.fernandes@bgre.com` · `alex.trindade@bgre.com` · equipe DF Síndicos
+**Cc fixo nos sete** — definido por você em 31/08:
 
-| # | Prédio | Para | Cc adicional (mapeamento) |
-|---|---|---|---|
-| 1 | 17.007 Nações | `17007@cbre.com` | `17007.oper@cbre.com` · `marco.gimenez@cbre.com` · `katia.oliveira@cbre.com` · `cristiane.cavalcanti@cbre.com` |
-| 2 | TNU | `marcus.martinez@cbre.com` | `paloma.pedrosa@cbre.com` · `marco.gimenez@cbre.com` · `katia.oliveira@cbre.com` · `cristiane.cavalcanti@cbre.com` |
-| 3 | Centenário | `adriano.camilo@cbre.com` | `daiane.silva1@cbre.com` · `jose.ferreira@cbre.com` · `marco.gimenez@cbre.com` · `katia.oliveira@cbre.com` · `cristiane.cavalcanti@cbre.com` |
-| 4 | Panamerica | `kelly.dangelis@cbre.com` | `suneimy.brito@cbre.com` · `marco.gimenez@cbre.com` · `katia.oliveira@cbre.com` · `cristiane.cavalcanti@cbre.com` |
-| 5 | Passeio Paulista | `sandra.alquimin@cushwake.com` | `ederson.silva@cushwake.com` · `marcelo.durazzo@sa.cushwake.com` · `ricardo.lugli@cushwake.com` |
-| 6 | PL Extrema | `plextrema.gerente@innova.net.br` | `plextrema.supervisor@innova.net.br` · `geraldo.ferreira@innova.net.br` · `luis.baptista@innova.net.br` |
-| 7 | JKB | ⚠️ `jose.perozzi@cbre.com` **ou** `pedro.perozzi@cbre.com` | `lenilde.costa@cbre.com` |
+| Endereço | Quem |
+|---|---|
+| `gabriel.fernandes@bgre.com` | Gabriel Fernandes (BGRE) — autor do pedido |
+| `alex.trindade@bgre.com` | Alex Trindade (BGRE) |
+| `denise@dfsindicos.com.br` | Denise Ferreira (DF) |
+| `amanda@dfsindicos.com.br` | Amanda Tigre (DF) |
+| `andre@dfsindicos.com.br` | André Ferreira da Silva (DF) |
+| `anapaula@dfsindicos.com.br` | Ana Paula (DF) |
+| `controladoria@dfsindicos.com.br` | Claudia De Santi (DF) |
 
-O "Cc adicional" é opcional — são os gerentes regionais e coordenadores do
-mapeamento do SafetyDocs, que **não estavam** na thread do Gabriel. Com o
-contratante já em cópia, incluí-los aumenta bastante a plateia de uma cobrança.
-**Minha recomendação: não incluir.** Sete e-mails com o Gabriel e o Alex lendo
-já produzem o efeito; somar cinco pessoas da CBRE por prédio transforma um
-lembrete em escalação. Se discordar, é uma linha para mudar.
+Os cinco da DF foram confirmados por citação literal na sua própria caixa
+(`Claudia De Santi <controladoria@dfsindicos.com.br>`, `André Ferreira da Silva
+<andre@dfsindicos.com.br>`, `Amanda Tigre <amanda@dfsindicos.com.br>`), não por
+dedução do padrão `nome@dfsindicos.com.br`.
+
+**Para, por prédio:**
+
+| # | Prédio | Para |
+|---|---|---|
+| 1 | 17.007 Nações | `17007@cbre.com` |
+| 2 | TNU | `marcus.martinez@cbre.com` |
+| 3 | Centenário | `adriano.camilo@cbre.com` |
+| 4 | Panamerica | `kelly.dangelis@cbre.com` |
+| 5 | Passeio Paulista | `sandra.alquimin@cushwake.com` |
+| 6 | PL Extrema | `plextrema.gerente@innova.net.br` |
+| 7 | JKB | `jose.perozzi@cbre.com` **e** `pedro.perozzi@cbre.com` |
+
+Os dois endereços do José Perozzi vão juntos no "Para", como você pediu — o
+Gabriel escreveu para o `jose.`, o mapeamento do SafetyDocs tem o `pedro.`, e
+mandar para os dois custa nada e elimina a chance de o e-mail cair na caixa
+errada.
+
+**Não incluídos:** os gerentes regionais e coordenadores do mapeamento do
+SafetyDocs (Marco Gimenez, Kátia Oliveira, Cristiane Cavalcanti, Suneimy Brito,
+Ederson Silva, Marcelo Durazzo, Ricardo Lugli, Lenilde Costa, supervisores da
+Innova). Eles não estavam na thread do Gabriel, e com o contratante já em cópia
+somar cinco pessoas por prédio transformaria lembrete em escalação. Estão
+listados no `mapeamento-predios.md` se você quiser incluir depois.
 
 ---
 
-## 6. ⛔ O que está travado hoje
+## 6. Trava de envio — ampliada em 31/08
 
-O `guard-destinatario.sh` valida `to`, `cc` **e** `bcc` contra a lista de
-endereços confirmados no `mapeamento-predios.md`. Endereço fora da lista =
-envio recusado, não importa se está em Cc.
+O `guard-destinatario.sh` valida `to`, `cc` **e** `bcc`. Os nove endereços
+novos entraram na allowlist a seu pedido:
 
-**Liberados** (todos os "Para" e os Cc adicionais, menos o JKB):
-`17007@cbre.com`, `marcus.martinez@cbre.com`, `adriano.camilo@cbre.com`,
-`kelly.dangelis@cbre.com`, `sandra.alquimin@cushwake.com`,
-`plextrema.gerente@innova.net.br`, e os Cc do mapeamento.
+- **equipe DF** — `denise@`, `amanda@`, `andre@`, `anapaula@`, `controladoria@`;
+- **contratante** — `gabriel.fernandes@bgre.com`, `alex.trindade@bgre.com`;
+- **JKB** — `jose.perozzi@cbre.com` (o `pedro.perozzi@cbre.com` já estava).
 
-**Bloqueados — exatamente o que você pediu para copiar:**
+**A entrada do contratante não desfaz a proteção original.** A camada 1 do hook
+continua intacta: mensagem com assunto `[Triagem]` ou `[Relatório de Triagem]`
+segue indo só para você, mesmo agora que a BGRE está na lista. Quem ganhou o
+direito de escrever para o contratante foi o **envio pontual, conferido por
+você** — não a rotina que roda de madrugada sem ninguém olhando.
 
-| Endereço | Papel | Por que está fora |
+Quatro testes rodados contra o hook alterado:
+
+| Teste | Esperado | Resultado |
 |---|---|---|
-| `gabriel.fernandes@bgre.com` | contratante (autor do pedido) | nunca foi liberado — o hook só conhece gestores prediais |
-| `alex.trindade@bgre.com` | contratante | idem |
-| `denise@dfsindicos.com.br` | equipe DF | idem |
-| `anapaula@dfsindicos.com.br` | equipe DF | idem |
-| `jose.perozzi@cbre.com` | JKB | o mapeamento tem `pedro.perozzi@cbre.com` |
+| Cobrança para o 17.007 com o Cc completo | libera | ✅ libera |
+| Cobrança para o JKB nos dois endereços | libera | ✅ libera |
+| **Rotina `[Triagem]` tentando copiar o Gabriel** | **bloqueia** | ✅ **bloqueia** |
+| Endereço fora da lista (`eldorado@cbre.com`) | bloqueia | ✅ bloqueia |
 
-Isso não é um bug: o hook foi escrito para impedir que uma sessão automática
-escrevesse para o contratante. **Copiar o Gabriel e o Alex é uma decisão sua,
-não um acidente — mas exige que eu acrescente os dois à allowlist.** Só faço
-isso com sua autorização explícita, porque abre um caminho para o contratante
-que hoje não existe.
+O terceiro é o que importa: é a regressão que provaria que abrir a lista para a
+BGRE tinha soltado a rotina automática junto. Não soltou.
 
-Duas perguntas em aberto antes do disparo:
-
-1. **Autoriza acrescentar `gabriel.fernandes@bgre.com` e
-   `alex.trindade@bgre.com` à allowlist do hook?**
-2. **"Equipe DF Síndicos" são quais endereços?** Achei `denise@dfsindicos.com.br`
-   e `anapaula@dfsindicos.com.br` na sua caixa. Confirma esses dois, ou tem
-   mais gente?
-3. **JKB: `jose.perozzi` ou `pedro.perozzi`?**
-
-Nada foi enviado.
+Os sete e-mails estão prontos para disparo. **Nada foi enviado ainda** —
+aguardando seu OK, porque são sete mensagens para o contratante e não há
+desfazer.
