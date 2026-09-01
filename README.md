@@ -318,6 +318,23 @@ liberado". `condominioId` restringe a um prédio; omitido, devolve todos, sem
 o recorte por usuário que o `/dashboard` aplica (quem tem o token já precisa
 ser confiável com o negócio inteiro).
 
+### Gerar os dados do relatório executivo publicado
+
+`scripts/gerar-dados-relatorio-executivo.mjs` chama esse endpoint (o período
+pedido e o mesmo período um mês antes, para o card de comparativo) e imprime
+em stdout o `const DATA = {...};` pronto pra colar no script do relatório
+executivo publicado como Artifact:
+
+```bash
+RELATORIO_API_TOKEN=... NODE_USE_ENV_PROXY=1 \
+  node scripts/gerar-dados-relatorio-executivo.mjs 2026-09-01 2026-09-30
+```
+
+`NODE_USE_ENV_PROXY=1` só é necessário rodando de dentro de uma sessão do
+Claude Code (o `fetch` nativo do Node não lê `HTTPS_PROXY` sozinho). Usado
+pela Routine mensal que atualiza o relatório — ver `MEMORY.md` do Brainstorm
+para o link do artifact e o `trigger_id`.
+
 ## Notas de produção
 
 - **Migrações** — o build roda `prisma migrate deploy`, então publicar já aplica
