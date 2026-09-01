@@ -52,15 +52,106 @@ Felipe:
 - oficializar a auditoria trimestral de exaustão no regimento interno.
 
 **Para o Felipe, você não respondeu nada até agora.** O e-mail dele está
-marcado `1: to respond` na sua caixa há 4 dias. Duas ordens possíveis:
+marcado `1: to respond` na sua caixa há 4 dias.
 
-- **(a)** responder o Felipe primeiro, dizendo que vai levantar e dando prazo,
-  e só depois cobrar os prédios;
-- **(b)** cobrar os prédios primeiro e responder o Felipe já com o status.
+**Descartado em 01/09 a seu pedido.** O texto novo está na seção 2-A. A
+diferença que importa: o rascunho do Fyxer prometia as cinco coisas sem
+ressalva, inclusive as duas que não dependem só de você — negociar tabela com
+consultor de incêndio e alterar regimento interno. Prometer prazo em cima disso
+é assumir compromisso que você pode não conseguir cumprir.
 
-**Eu iria de (a).** O rascunho já está escrito, custa um minuto, e tira o item
-da mesa dele — que é quem está esperando. (b) deixa o contratante 5+ dias sem
-sinal para ganhar pouca coisa.
+---
+
+## 2-A. Resposta ao Felipe — para sua aprovação
+
+**Para:** `felipe.camacho@bgre.com` · `rmazarotto@insindicos.com.br`
+**Cc:** `mauricio.savassa@bgre.com` + equipe DF
+(responder a todos da thread original, mantendo o Ronaldo, que também foi
+destinatário)
+
+**Assunto:** `RES: Manual de obras - atualização`
+
+```
+Felipe, bom dia.
+
+Recebido. Vou levantar com os condomínios sob minha gestão se os manuais de
+obras já contemplam os temas que você enviou, e providenciar a inclusão onde
+faltar. Estou disparando hoje a verificação para os dez empreendimentos, com
+retorno pedido até 11/09.
+
+Sobre os prazos, preciso separar os itens em dois grupos, porque eles não
+dependem das mesmas coisas.
+
+GRUPO 1 — depende só de redação do manual. Retorno consolidado até 18/09.
+- áreas molhadas: impermeabilização, bacia de contenção, sensor e solenoide;
+- redutor de pressão em bebedouros e máquinas de café;
+- objetivo da análise técnica e responsabilidade do locatário;
+- capítulo de obrigatoriedade da FAT;
+- adesivação padronizada no fechamento de obra de loja.
+
+GRUPO 2 — não é redação de manual, e por isso não consigo comprometer 18/09.
+- Custo da análise do consultor de incêndio: isso é contrato, não manual.
+  Vou levantar os contratos vigentes de cada empreendimento e o que cada um
+  pratica hoje, mas fixar tabela por faixa de metragem exige renegociar com
+  cada consultor, e eles são empresas diferentes por prédio. Te mando o
+  levantamento até 18/09 e, a partir dele, uma proposta de padronização com
+  prazo realista.
+- Auditoria trimestral de exaustão de cozinhas: incluir obrigação, penalidade
+  e o direito de o condomínio executar a correção mexe no regimento interno,
+  o que normalmente exige assembleia. Vou verificar em cada prédio o que já
+  está previsto e o que falta; onde depender de assembleia, o prazo passa a
+  ser o do calendário de assembleias, não o nosso.
+
+Três pontos que preciso de você antes de fechar:
+
+1. Adesivação padronizada — o texto diz "conforme modelo definido pelo
+   Condomínio". A BGRE tem um modelo único para o portfólio, ou cada
+   empreendimento define o seu? Se a intenção é padronizar de fato, faz mais
+   sentido um modelo só, e aí precisamos dele para referenciar no manual.
+
+2. Tabela do consultor de incêndio — a padronização é para valer entre
+   empreendimentos com consultores diferentes, ou dentro de cada contrato? E a
+   negociação é conduzida por nós, prédio a prédio, ou a BGRE quer centralizar?
+
+3. Auditoria de exaustão — a contratação da Arplac é por conta do condomínio ou
+   do locatário? Isso muda o texto que vai para o regimento.
+
+Por fim, um aviso de agenda: estarei de férias de 05/09 a 27/09. A equipe da
+DF Síndicos, em cópia, segue conduzindo o levantamento e envia o consolidado
+de 18/09 normalmente.
+
+Atenciosamente,
+
+Caio Gavioli
+DF Síndicos
+```
+
+### O que esta versão faz diferente do rascunho antigo
+
+- **Separa o que você controla do que você não controla.** Os cinco itens de
+  redação ganham data; os dois que dependem de terceiro (consultor de incêndio,
+  assembleia) ganham um levantamento com data e uma proposta depois. Prometer
+  18/09 para renegociar contrato com dez consultores diferentes seria promessa
+  que quebra.
+- **Devolve três perguntas.** A mais útil é a da adesivação: o texto dele diz
+  "modelo definido pelo Condomínio", o que, aplicado a dez prédios, produz dez
+  padrões diferentes — que é o oposto de padronizar. Vale ele decidir agora.
+- **Avisa as férias dentro da thread do assunto**, não só no comunicado geral.
+
+### ⛔ Este envio está bloqueado hoje
+
+Nenhum dos três destinatários está na allowlist do `guard-destinatario.sh`:
+
+| Endereço | Quem |
+|---|---|
+| `felipe.camacho@bgre.com` | o próprio Felipe |
+| `mauricio.savassa@bgre.com` | Savassa, em cópia no original |
+| `rmazarotto@insindicos.com.br` | Ronaldo Mazarotto, IN Síndicos |
+
+Em 31/08 eu liberei só o `gabriel.fernandes@` e o `alex.trindade@` da BGRE, que
+eram os da Pesquisa de Satisfação. **Me autorize e eu acrescento os três.** O
+Ronaldo é de outra empresa (IN Síndicos) — se preferir responder sem ele, digo
+na hora, mas ele estava no "Para" do Felipe e sumir da thread é estranho.
 
 ## 3. Prazo — precisa da sua decisão
 
