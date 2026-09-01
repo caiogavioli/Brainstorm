@@ -5,9 +5,18 @@
 #
 # 1. A ROTINA AUTOMÁTICA (assunto "[Triagem] …" ou "[Relatório de Triagem] …")
 #    roda sozinha, de madrugada, sem ninguém conferindo. Ela só pode escrever
-#    para o próprio usuário. Qualquer outro destinatário é recusado, mesmo que
-#    esteja na lista de mapeados. Uma rotina não supervisionada não deve
-#    ganhar o direito de falar com o contratante ou com administradora.
+#    para dentro da DF Síndicos — o usuário e os cinco colegas listados em
+#    INTERNOS. Qualquer outro destinatário é recusado, mesmo que esteja na
+#    lista de mapeados. Uma rotina não supervisionada não deve ganhar o
+#    direito de falar com o contratante ou com administradora.
+#
+#    A camada 1 foi de um endereço para seis em 31/08/2026, a pedido do
+#    usuário: ele quer que a equipe da DF receba as duas triagens em cópia.
+#    A propriedade que interessa não mudou — o que muda é a fronteira. Antes
+#    era "só o usuário", agora é "só a casa dele". O contratante (bgre.com,
+#    brookfieldproperties.com) e as administradoras (cbre, cushwake, innova)
+#    seguem recusados para a rotina, mesmo estando liberados em MAPEADOS para
+#    o envio pontual. É essa assimetria que o hook existe para manter.
 #
 # 2. ENVIO PONTUAL, pedido pelo usuário numa conversa, pode ir para os
 #    endereços já confirmados em rotina-safetydocs/mapeamento-predios.md —
@@ -42,6 +51,16 @@
 set -uo pipefail
 
 USUARIO="caio@dfsindicos.com.br"
+
+# Camada 1 — quem a rotina automática pode copiar. Só gente de dentro da DF.
+INTERNOS="
+caio@dfsindicos.com.br
+denise@dfsindicos.com.br
+amanda@dfsindicos.com.br
+andre@dfsindicos.com.br
+anapaula@dfsindicos.com.br
+controladoria@dfsindicos.com.br
+"
 
 # Endereços confirmados no mapeamento de prédios, em minúsculas.
 MAPEADOS="
@@ -109,13 +128,14 @@ destinatarios=$(printf '%s' "$payload" | jq -r '
 
 assunto=$(printf '%s' "$payload" | jq -r '.tool_input.subject // ""' 2>/dev/null)
 
-# Camada 1 — mensagem da própria rotina: só o usuário, sem exceção.
+# Camada 1 — mensagem da própria rotina: só gente de dentro da DF, sem exceção.
 case "$assunto" in
   "[Triagem]"*|"[Relatório de Triagem]"*|"[Relatorio de Triagem]"*)
-    intrusos=$(printf '%s\n' "$destinatarios" | grep -v -x -F "$USUARIO" || true)
+    internos=$(printf '%s\n' "$INTERNOS" | grep -v '^[[:space:]]*$' | tr -d ' ')
+    intrusos=$(printf '%s\n' "$destinatarios" | grep -v -x -F "$internos" || true)
     if [ -n "$intrusos" ]; then
       lista=$(printf '%s' "$intrusos" | tr '\n' ' ')
-      nega "Bloqueado: mensagem da rotina automatica (assunto ${assunto}) so pode ir para ${USUARIO}. A liberacao para enderecos mapeados nao vale para a rotina, que roda sem supervisao. Destinatario recusado: ${lista}"
+      nega "Bloqueado: mensagem da rotina automatica (assunto ${assunto}) so pode ir para a equipe da DF Sindicos. A liberacao para enderecos mapeados (contratante, administradoras) NAO vale para a rotina, que roda sem supervisao. Destinatario recusado: ${lista}"
     fi
     exit 0
     ;;
