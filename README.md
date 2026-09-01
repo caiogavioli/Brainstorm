@@ -286,6 +286,38 @@ separação sob daltonismo e contraste contra a superfície, **em claro e escuro
 Os tokens estão em `src/app/globals.css`; os gráficos os leem em runtime
 (`src/components/dashboard/tokens.ts`) e reagem à troca de tema do sistema.
 
+## API de leitura (`/api/relatorio-executivo`)
+
+Endpoint só de leitura para montar o **relatório executivo mensal** fora do
+navegador (ex.: uma sessão do Claude buscando os números do mês) — não usa o
+cookie de sessão do app, e sim um token próprio.
+
+```
+GET /api/relatorio-executivo?de=2026-09-01&ate=2026-09-30[&condominioId=1]
+Authorization: Bearer <RELATORIO_API_TOKEN>
+```
+
+Devolve o mesmo agregado que alimenta `/dashboard` (`carregarDashboard`), mais
+a lista de condomínios e as ocorrências abertas no período (para a tabela
+completa do relatório):
+
+```json
+{
+  "geradoEm": "2026-09-01T12:00:00.000Z",
+  "filtro": { "de": "2026-09-01", "ate": "2026-09-30", "condominioId": null },
+  "dashboard": { "kpis": { /* ... */ }, "porSetor": [/* ... */], "..." : "..." },
+  "condominios": [{ "id": 1, "nome": "Atrium Office", "...": "..." }],
+  "ocorrencias": [{ "id": 90, "condominio": { "nome": "..." }, "...": "..." }]
+}
+```
+
+Configure `RELATORIO_API_TOKEN` (40+ caracteres aleatórios, `openssl rand
+-hex 32`) nas variáveis de ambiente. **Sem essa variável definida, o endpoint
+recusa toda requisição** — não existe um estado "token não configurado =
+liberado". `condominioId` restringe a um prédio; omitido, devolve todos, sem
+o recorte por usuário que o `/dashboard` aplica (quem tem o token já precisa
+ser confiável com o negócio inteiro).
+
 ## Notas de produção
 
 - **Migrações** — o build roda `prisma migrate deploy`, então publicar já aplica
