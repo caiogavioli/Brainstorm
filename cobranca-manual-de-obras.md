@@ -221,15 +221,16 @@ de segurança contra incêndio habilitada pelo Condomínio. Os custos relacionad
 ao processo da FAT são de responsabilidade do locatário da respectiva unidade."
 
 5. CONSULTOR DE INCÊNDIO — CUSTO DA ANÁLISE
-Esta é diferente das anteriores: não é redação de manual, é contrato. Preciso
-que verifiquem no contrato do consultor de incêndio do [CONDOMÍNIO] e me
-informem:
+Peço que analisem o contrato do consultor de incêndio do [CONDOMÍNIO] e me
+respondam, com os valores praticados hoje:
    a) o valor da análise de projeto está tabelado por faixa de metragem
-      (ex.: 0 a 1.000 m² = R$ x; 1.001 a 2.000 m² = R$ y)?
-   b) ou já está incluso no valor mensal pago ao consultor?
-   c) o custo de análise adicional e de vistoria está fixado?
-Se não houver tabela, precisamos negociar uma com o consultor e padronizar
-entre os empreendimentos. Me enviem o contrato vigente para que eu avalie.
+      (ex.: 0 a 1.000 m² = R$ x; 1.001 a 2.000 m² = R$ y)? Se sim, transcrevam
+      a tabela vigente.
+   b) ou já está incluso no valor mensal pago ao consultor? Se sim, informem o
+      valor mensal e o que ele cobre.
+   c) o custo de análise adicional e o de vistoria estão fixados? Quais são?
+Se não houver tabela, peço que negociem uma com o consultor e me apresentem a
+proposta, já por faixa de metragem e contemplando análise adicional e vistoria.
 
 Estes itens valem tanto para as lajes corporativas quanto para as lojas.
 
@@ -249,8 +250,8 @@ início da obra e permanecer em boas condições até sua conclusão."
    a) existe hoje alguma orientação no manual sobre limpeza de coifas e dutos
       das cozinhas?
    b) a BGRE quer implantar auditoria trimestral do sistema de exaustão de
-      cozinhas (a Arplac executa esse escopo). Preciso saber se o regimento
-      interno do [CONDOMÍNIO] já prevê: a obrigação do locatário, a penalidade
+      cozinhas. Preciso saber se o regimento interno do [CONDOMÍNIO] já
+      prevê: a obrigação do locatário, a penalidade
       pelo descumprimento, e a possibilidade de o condomínio executar a
       correção e cobrar do locatário.
    c) se não previr, me informem o que é necessário para incluir — alteração de
