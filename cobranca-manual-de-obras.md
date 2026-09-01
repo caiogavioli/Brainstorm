@@ -142,17 +142,10 @@ entre os empreendimentos. Me enviem o contrato vigente para que eu avalie.
 
 Estes itens valem tanto para as lajes corporativas quanto para as lojas.
 
-Retorno até 11/09, por favor. Me copiem a equipe da DF Síndicos nas respostas.
+Os dois itens seguintes tratam de lojas. Se o empreendimento não tiver lojas
+nem praça de alimentação, basta responder "não aplicável" nos dois.
 
-Atenciosamente,
-
-Caio Gavioli
-DF Síndicos
-```
-
-**Bloco adicional — só para os prédios com loja:**
-```
-6. ADESIVAÇÃO PADRONIZADA EM OBRA DE LOJA ( ) consta ( ) não consta
+6. ADESIVAÇÃO PADRONIZADA EM OBRA DE LOJA ( ) consta ( ) não consta ( ) N/A
 "Durante a execução de obras ou reformas, é obrigatória a utilização de
 fechamento com adesivação padronizada, conforme modelo definido pelo
 Condomínio. Não é permitida a utilização de papelão, sacos plásticos, lonas
@@ -161,7 +154,7 @@ estabelecido. O objetivo desta exigência é preservar a estética, a organizaç
 e a identidade visual do empreendimento. A instalação deverá ocorrer antes do
 início da obra e permanecer em boas condições até sua conclusão."
 
-7. COIFAS, DUTOS E AUDITORIA DE EXAUSTÃO
+7. COIFAS, DUTOS E AUDITORIA DE EXAUSTÃO ( ) N/A
    a) existe hoje alguma orientação no manual sobre limpeza de coifas e dutos
       das cozinhas?
    b) a BGRE quer implantar auditoria trimestral do sistema de exaustão de
@@ -172,60 +165,73 @@ início da obra e permanecer em boas condições até sua conclusão."
    c) se não previr, me informem o que é necessário para incluir — alteração de
       regimento interno costuma depender de assembleia, e preciso dessa
       informação para dar o prazo real à BGRE.
+
+Retorno até 11/09, por favor. Me copiem a equipe da DF Síndicos nas respostas.
+
+Atenciosamente,
+
+Caio Gavioli
+DF Síndicos
 ```
 
-## 5. A lista de prédios — para você validar
+## 5. A lista de prédios — definida em 01/09
 
-Origem: `rotina-safetydocs/mapeamento-predios.md`, confirmado por você em
-11/08/2026. **11 envios** (Centenário e Panamerica são um e-mail cada, com os
-dois blocos juntos, como na rotina do SafetyDocs).
+Decisões suas: **PL Extrema entra, Alphaville entra, O Parque entra, Atrium
+Century Plaza NÃO entra.** Ficam **10 envios** (Centenário e Panamerica são um
+e-mail cada, com os dois blocos juntos, como na rotina do SafetyDocs).
 
-| # | Condomínio | Para | Cc do prédio | Bloco de loja? |
-|---|---|---|---|---|
-| 1 | 17.007 Nações | `17007@cbre.com` | `17007.oper@cbre.com` | ❓ |
-| 2 | TNU | `marcus.martinez@cbre.com` | `paloma.pedrosa@cbre.com` | ❓ |
-| 3 | Centenário (B1+B2) | `adriano.camilo@cbre.com` | `daiane.silva1@cbre.com` · `jose.ferreira@cbre.com` | ❓ |
-| 4 | Panamerica (B2+B5) | `kelly.dangelis@cbre.com` | `suneimy.brito@cbre.com` | ❓ |
-| 5 | JKB | `pedro.perozzi@cbre.com` · `jose.perozzi@cbre.com` | `lenilde.costa@cbre.com` | ❓ |
-| 6 | Alphaville | `abner.nogueira@cbre.com` | — | ❓ |
-| 7 | **Passeio Paulista** | `sandra.alquimin@cushwake.com` | `ederson.silva@cushwake.com` | ✅ **sim** |
-| 8 | **Arquipeo** | `helena.borges@cushwake.com` · `guilherme.larucci@cushwake.com` | `ricardo.lugli@cushwake.com` | ✅ **sim** |
-| 9 | O Parque T07 | `oparquecorporate.gerente@innova.net.br` | `oparquecorporate.analista@innova.net.br` | ❓ |
-| 10 | Atrium Office | `atriumcomercial.gerente@innova.net.br` | `atriumcomercial.supervisor@innova.net.br` | ❓ |
-| 11 | PL Extrema | `plextrema.gerente@innova.net.br` | `plextrema.supervisor@innova.net.br` | ❌ **não** |
+**Só administração.** Nenhum contato de loja ou de locatário entra em nenhum
+e-mail. Quem responde sobre a loja é a administradora do prédio.
 
-**Cc fixo em todos:** equipe DF (`denise@`, `amanda@`, `andre@`, `anapaula@`,
-`controladoria@dfsindicos.com.br`).
+Origem dos endereços: `rotina-safetydocs/mapeamento-predios.md`, confirmado por
+você em 11/08/2026 — **agora a lista completa**, não a versão reduzida que eu
+tinha montado antes. Nenhum endereço foi inventado nem deduzido.
 
-### Três coisas para você decidir
+| # | Condomínio | Para | Cc do prédio |
+|---|---|---|---|
+| 1 | 17.007 Nações | `17007@cbre.com` · `17007.oper@cbre.com` | `marco.gimenez@cbre.com` · `katia.oliveira@cbre.com` · `cristiane.cavalcanti@cbre.com` |
+| 2 | TNU | `marcus.martinez@cbre.com` · `paloma.pedrosa@cbre.com` | `marco.gimenez@cbre.com` · `katia.oliveira@cbre.com` · `cristiane.cavalcanti@cbre.com` |
+| 3 | Centenário (B1+B2) | `adriano.camilo@cbre.com` · `daiane.silva1@cbre.com` · `jose.ferreira@cbre.com` | `marco.gimenez@cbre.com` · `katia.oliveira@cbre.com` · `cristiane.cavalcanti@cbre.com` |
+| 4 | Panamerica (B2+B5) | `kelly.dangelis@cbre.com` · `suneimy.brito@cbre.com` | `marco.gimenez@cbre.com` · `katia.oliveira@cbre.com` · `cristiane.cavalcanti@cbre.com` |
+| 5 | JKB | `pedro.perozzi@cbre.com` · `jose.perozzi@cbre.com` · `lenilde.costa@cbre.com` | — |
+| 6 | Alphaville | `abner.nogueira@cbre.com` | `marco.gimenez@cbre.com` · `katia.oliveira@cbre.com` · `cristiane.cavalcanti@cbre.com` |
+| 7 | Passeio Paulista | `sandra.alquimin@cushwake.com` · `ederson.silva@cushwake.com` | `marcelo.durazzo@sa.cushwake.com` · `ricardo.lugli@cushwake.com` |
+| 8 | Arquipeo | `helena.borges@cushwake.com` · `guilherme.larucci@cushwake.com` | `ricardo.lugli@cushwake.com` · `marcelo.durazzo@sa.cushwake.com` |
+| 9 | O Parque T07 | `oparquecorporate.gerente@innova.net.br` · `oparquecorporate.manutencao@innova.net.br` · `oparquecorporate.analista@innova.net.br` · `oparquecorporate.assistente@innova.net.br` | `thomaz.bastos@innova.net.br` |
+| 10 | PL Extrema | `plextrema.gerente@innova.net.br` · `plextrema.supervisor@innova.net.br` | `geraldo.ferreira@innova.net.br` · `luis.baptista@innova.net.br` |
 
-**a) Quais prédios têm loja?** Marquei ✅ só onde tenho evidência na sua caixa:
-Passeio Paulista (thread "Passeio Paulista - Lojas FUP", "AR CONDICIONADO LOJA
-6") e Arquipeo (a Helena citou "os 2 restaurantes em operação"). Os ❓ eu não
-sei. Onde tiver loja, entra o bloco 6-7; onde não tiver, o e-mail termina no
-item 5. **Me diga quais são e eu ajusto** — mandar pergunta sobre coifa de
-cozinha para prédio sem loja queima crédito à toa.
+**Cc fixo nos dez, além do Cc do prédio:** equipe DF — `denise@`, `amanda@`,
+`andre@`, `anapaula@`, `controladoria@dfsindicos.com.br`.
 
-**b) O PL Extrema entra?** É parque logístico, não laje corporativa. Os itens
-1, 2, 3 e 5 fazem sentido lá; o 4 (FAT) provavelmente também; o bloco de loja
-não. Se o "manual de obras" dele for um documento de natureza diferente,
-melhor tirar da lista e tratar à parte.
+O critério do corte: no "Para" vão as pessoas do prédio, que respondem; no "Cc"
+vão os coordenadores e gerentes regionais da administradora, que acompanham.
+Isso mantém claro de quem é a resposta.
 
-**c) O Alphaville, o O Parque e o Atrium entram?** São os mesmos três que
-ficaram de fora da lista do Gabriel na Pesquisa de Satisfação. Aqui o Felipe
-escreveu "todos os condomínios" sem listar, então a dúvida é a mesma e continua
-sendo sua.
+### Duas observações sobre a lista
 
-**Não vou copiar o Felipe nem o Savassa nestes onze e-mails.** Ele pediu que
-*você* confirmasse com os condomínios e voltasse — copiá-lo em onze cobranças
-transforma um retorno consolidado em onze threads na caixa dele. O caminho é
+**O bloco de loja virou pergunta condicional em todos os dez.** Como você
+mandou esquecer o contato de loja e falar só com a administração, os itens 6 e
+7 passam a ter opção **N/A** e vão em todos os e-mails, com uma linha dizendo
+que basta responder "não aplicável" se o prédio não tiver loja nem praça de
+alimentação. Assim eu não preciso adivinhar quais prédios têm loja, e a
+administradora responde o que sabe. No PL Extrema, que é parque logístico, a
+resposta esperada é N/A nos dois.
+
+**JKB vai para os dois endereços do Perozzi.** O mapeamento tem só o
+`pedro.perozzi@cbre.com`; o `jose.perozzi@cbre.com` foi o que você liberou em
+31/08 na Pesquisa de Satisfação. Mandar para os dois custa nada.
+
+**Não vou copiar o Felipe nem o Savassa nestes dez e-mails.** Ele pediu que
+*você* confirmasse com os condomínios e voltasse — copiá-lo em dez cobranças
+transforma um retorno consolidado em dez threads na caixa dele. O caminho é
 responder o rascunho da seção 2 agora e mandar o consolidado depois.
 
 ## 6. Trava de envio
 
-Todos os endereços do "Para" e do "Cc do prédio" já estão na allowlist do
+Todos os 26 endereços distintos da tabela acima estão na allowlist do
 `guard-destinatario.sh`, e a equipe da DF entrou em 31/08. **Nenhum envio seria
 recusado.**
 
-Nada foi enviado. Aguardando sua validação da lista, do bloco de loja e do
-prazo.
+Nada foi enviado. Falta só o seu aval sobre o **prazo** (recomendado 11/09, com
+a equipe da DF consolidando durante suas férias) e sobre responder o Felipe
+antes ou depois.
