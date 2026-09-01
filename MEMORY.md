@@ -90,10 +90,53 @@ Consequências para a rotina:
 
 > Lição de processo: antes de chamar um dado estranho de "corrompido", perguntar. Este ficou dois dias sendo relatado como defeito do Outlook, quando era o usuário trabalhando.
 
+### As duas triagens passaram a copiar a equipe da DF (2026-09-01)
+
+A pedido do usuário, `[Triagem]` (BGRE) e `[Relatório de Triagem]` (caixa dele)
+agora vão para `caio@` com cinco em cópia: `denise@`, `amanda@`, `andre@`,
+`anapaula@`, `controladoria@dfsindicos.com.br` — Denise Ferreira, Amanda Tigre,
+André Ferreira da Silva, Ana Paula e Claudia De Santi. **A Claudia é
+`controladoria@`, não segue o padrão `nome@`**; foi confirmado por citação
+literal na caixa, não deduzido.
+
+A camada 1 do `guard-destinatario.sh` mudou de "só o usuário" para "só a DF
+Síndicos". A propriedade que interessa não mudou: contratante e administradoras
+seguem **recusados para as rotinas automáticas**, mesmo estando liberados na
+camada 2 para envio pontual conferido pelo usuário. Essa assimetria é o desenho,
+não um efeito colateral.
+
+Verificado em produção em 01/09, nas duas:
+
+| Rotina | Enviado | Destinatários |
+|---|---|---|
+| `[Relatório de Triagem] terça-feira 01/09 — 3 Alta(s)` | 00h49 | caio + 5 DF |
+| `[Triagem] Terça 01/09 — nenhum pedido novo · 19 em aberto` | 01h02 | caio + 5 DF |
+
+> Lição de operação: **Routine criada pela interface do claude.ai
+> (`created_via: http_api`) não aceita `update_trigger` nem `fire_trigger` de
+> um agente.** A Triagem Contratante é uma dessas — a correção do prompt teve
+> que ser colada à mão pelo usuário. Duas saídas quando isso acontecer: (a)
+> escrever a regra no playbook do repositório, que a rotina carrega e que vence
+> o prompt por decisão do próprio prompt; (b) entregar o texto pronto para
+> colar. Foram usadas as duas. Detalhe: **salvar o prompt na interface dispara
+> a rotina na hora** — foi o que produziu o teste.
+
 ## Em aberto
 
 - Repositórios novos devem nascer **públicos ou privados**? Confirmar no primeiro fechamento.
-- Nada em aberto. Próximo problema quando o usuário trouxer.
+- **Contagem de itens em aberto na `[Triagem]` não bate com o quadro.** Em
+  31/08 a mensagem disse 20, em 01/09 disse 19, e a contagem manual do
+  `group_mm637vs0` deu 15 depois de fechar os itens 1 e 3. Não investigado.
+- **Pesquisa de Satisfação 2026 (BGRE), prazo 02/09.** Sete cobranças enviadas
+  em 31/08; só o Arquipeo tinha entregue. Como o Gabriel pediu resposta apenas
+  para ele e para o Alex, "não respondeu" significa "não respondeu com o Caio
+  em cópia". Ficaram em aberto: o Grupo B (Alphaville, O Parque, Atrium fora da
+  lista dele) e o Grupo C (17 endereços não mapeados).
+- **Cobrança de rondas e jardinagem** (`cobranca-rondas-jardinagem.md`): 3
+  prédios, redigida em 20/08, **nunca enviada**.
+- **Licença de funcionamento**: o status consolidado para a Thassia nunca foi
+  enviado, e 4 prédios seguem sem resposta.
+- Nada mais em aberto. Próximo problema quando o usuário trouxer.
 - Pendência que viaja para a sessão de desenvolvimento de `triagem-contratante`: a **linguagem de implementação** não foi decidida — a spec fecha arquitetura, não stack de código.
 
 ## Preferências de comunicação observadas
