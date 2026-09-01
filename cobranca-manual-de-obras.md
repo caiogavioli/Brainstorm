@@ -324,6 +324,37 @@ Todos os 26 endereços distintos da tabela acima estão na allowlist do
 `guard-destinatario.sh`, e a equipe da DF entrou em 31/08. **Nenhum envio seria
 recusado.**
 
-Nada foi enviado. Falta só o seu aval sobre o **prazo** (recomendado 11/09, com
-a equipe da DF consolidando durante suas férias) e sobre responder o Felipe
-antes ou depois.
+## 7. Enviados — 01/09/2026, 11h31–11h37 (BRT)
+
+Autorizado pelo usuário e disparado. Dez mensagens, conferidas na Sent Items
+com `folderName: "Sent Items"` + data, e as listas de destinatários batem uma a
+uma com a tabela da seção 5.
+
+| # | Prédio | Enviado | Destinatários |
+|---|---|---|---|
+| 1 | 17.007 Nações | 11h31m25 | 10 |
+| 2 | TNU | 11h31m44 | 10 |
+| 3 | Centenário | 11h31m57 | 11 |
+| 4 | Panamerica | 11h32m14 | 10 |
+| 5 | JKB | 11h32m34 | 8 |
+| 6 | Alphaville | 11h33m30 | 9 |
+| 7 | Passeio Paulista | 11h33m35 | 9 |
+| 8 | Arquipeo | 11h33m43 | 9 |
+| 9 | O Parque | 11h35m04 | 10 |
+| 10 | PL Extrema | 11h37m37 | 9 |
+
+Corpo em `bodyType: "html"` explícito. No Centenário e no Panamerica entrou uma
+frase a mais, pedindo que a verificação cubra os dois blocos (B1/B2 e B2/B5) —
+são um e-mail só para dois rótulos.
+
+### O que fica aberto
+
+- **Prazo 11/09** para os dez retornos. O Caio entra de férias em 05/09 e volta
+  em 28/09; a equipe da DF está em cópia nos dez e recebe as respostas.
+- **A resposta ao Felipe Camacho ainda não foi enviada.** O texto está pronto na
+  seção 2-A, mas o envio esbarra na allowlist: `felipe.camacho@bgre.com`,
+  `mauricio.savassa@bgre.com` e `rmazarotto@insindicos.com.br` não estão
+  liberados no hook. Falta a autorização para incluí-los.
+- **Os itens 5 e 7 devem voltar mais devagar** que os itens 1 a 4: um exige
+  analisar contrato e eventualmente negociar tabela com o consultor de
+  incêndio; o outro pode depender de assembleia.
