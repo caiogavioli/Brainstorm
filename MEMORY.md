@@ -28,7 +28,7 @@ O conteúdo de um branch **não é puxado de volta** para `main` — evita mistu
 | `claude/condominio-boletim-gestao-ougoqd` | **Código de produto** (Next.js/Prisma) | App de boletim/gestão condominial — "quadro de preenchimento na escala de 50 prédios" | Fora do padrão geral deste repositório (`CLAUDE.md` proíbe código de produto aqui), mas o usuário decidiu conscientemente **manter aqui** (2026-08-12) — não migra para repositório próprio |
 | `claude/safetydocs-automation-4rq592` | **Código de produto** + rotina | O mesmo app acima, mais `rotina-safetydocs/` (playbook da rotina agendada "Cobrança SafetyDocs") | Mesma decisão acima — fica aqui. A Routine `trig_01TdEoP9RFiL1uADLHitmSWF` lê `rotina-safetydocs/*.md` **deste branch** — cuidado ao mover ou apagar, quebra automação em produção |
 | ~~`claude/python-sql-database-planning-k95885`~~ | Vazio | Sem nenhum commit de conteúdo útil (CLAUDE.md e roadmap.md foram adicionados e depois excluídos) | **Descarte aprovado pelo usuário (2026-08-12).** `git push --delete` voltou 403 — a integração não tem permissão pra apagar branch. Falta a exclusão manual no GitHub |
-| `claude/manual-formulario-aprovacoes-b7k2xr` | Brainstorming em andamento | P-001 — Manual de preenchimento do formulário de aprovações que o funcionário do usuário usa antes dele assinar contratos e quadros de concorrência (regras vêm dos procedimentos de compliance do cliente dele, a Brookfield Properties) | **Rodada 1 aberta** — perguntas feitas, aguardando respostas do usuário |
+| `claude/manual-formulario-aprovacoes-b7k2xr` | Brainstorming completo | P-001 — Manual de preenchimento do formulário de aprovações que o funcionário do usuário usa antes dele assinar contratos e quadros de concorrência (regras vêm dos procedimentos de compliance do cliente dele, a Brookfield Properties) | **Fechado.** Não virou repositório novo — os dois manuais (Markdown + PDF) foram publicados direto em [`caiogavioli/aprovacoes-contratos-concorrencia`](https://github.com/caiogavioli/aprovacoes-contratos-concorrencia)`/docs/` (privado), o repositório do sistema de aprovações que eles documentam |
 
 ## Problemas
 
@@ -39,6 +39,7 @@ _Cada branch de brainstorming mantém sua própria tabela de problemas em detalh
 | Projeto | Origem | Repositório | Data |
 |---|---|---|---|
 | `triagem-contratante` | P-001 (branch `claude/client-email-task-tracking-0bcy0q`) | [caiogavioli/triagem-contratante](https://github.com/caiogavioli/triagem-contratante) (privado) | 2026-08-10 |
+| `manual-preenchimento-aprovacoes` | P-001 (branch `claude/manual-formulario-aprovacoes-b7k2xr`) | Não é repositório próprio — entregue em [caiogavioli/aprovacoes-contratos-concorrencia](https://github.com/caiogavioli/aprovacoes-contratos-concorrencia)`/docs/` (privado), commit `94e59a7` | 2026-09-02 |
 
 ## Decisões sobre o processo
 
@@ -59,6 +60,8 @@ _Cada branch de brainstorming mantém sua própria tabela de problemas em detalh
 - Já paga e usa Microsoft 365 e Monday — preferir encaixar no que já existe a subir peça nova.
 - A integração do GitHub **não tem permissão de admin** (`Administration: write`) — não consegue criar repositório, trocar o branch default, nem apagar branch (`git push --delete` e a ausência de ferramenta MCP para isso confirmam). Essas ações precisam ser feitas à mão pelo usuário.
 - Aceita ter código de produto neste repositório quando é uma decisão consciente (caso do app de boletim/gestão condominial e da automação SafetyDocs) — a regra do `CLAUDE.md` vale por padrão, não é absoluta.
+- É auditado pelas regras de compliance de um cliente seu, a Brookfield Properties (administradora de ativos imobiliários) — procedimentos anexados em P-001 do branch `claude/manual-formulario-aprovacoes-b7k2xr`. Tem outro sistema próprio (fora deste repositório): [`caiogavioli/aprovacoes-contratos-concorrencia`](https://github.com/caiogavioli/aprovacoes-contratos-concorrencia), que registra o checklist de conferência antes de ele assinar contratos e quadros de concorrência dos 11 condomínios da carteira, administrados por CBRE/Cushman/Innova/HFlex.
+- Quando o pedido é um documento (não software), aceita bem a entrega ir direto para dentro do repositório que ele documenta, sem abrir repositório novo no Brainstorm nem em outro lugar (decisão de P-001, 2026-09-02) — mesmo raciocínio de custo/peça-móvel que já vinha aparecendo nas decisões anteriores.
 
 ## Em aberto
 
