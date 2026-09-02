@@ -2,7 +2,7 @@
 
 Estado vivo do brainstorming — visão do hub. Ler no início de **toda** sessão, seja qual for o branch, e atualizar ao fim de qualquer rodada ou decisão.
 
-**Última atualização:** 2026-09-02 (cópia local do branch `claude/manual-formulario-aprovacoes-b7k2xr`)
+**Última atualização:** 2026-09-02 (cópia local do branch `claude/manual-formulario-aprovacoes-b7k2xr`) — **P-001 fechado.**
 
 ---
 
@@ -37,7 +37,7 @@ Neste branch (`claude/manual-formulario-aprovacoes-b7k2xr`):
 
 | ID | Título | Fase | Desfecho |
 |---|---|---|---|
-| P-001 | Manual de preenchimento do formulário de aprovações | **rodada 1** — perguntas feitas em `sessoes/S-001-*.md`, aguardando respostas do usuário | em aberto |
+| P-001 | Manual de preenchimento do formulário de aprovações | **fechado** | virou o par de manuais em `projetos/manual-preenchimento-aprovacoes.md`, publicado direto no repositório [`aprovacoes-contratos-concorrencia`](https://github.com/caiogavioli/aprovacoes-contratos-concorrencia) |
 
 Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` / `virou script`
 
@@ -46,6 +46,7 @@ Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` 
 | Projeto | Origem | Repositório | Data |
 |---|---|---|---|
 | `triagem-contratante` | P-001 (branch `claude/client-email-task-tracking-0bcy0q`) | [caiogavioli/triagem-contratante](https://github.com/caiogavioli/triagem-contratante) (privado) | 2026-08-10 |
+| `manual-preenchimento-aprovacoes` | P-001 (branch `claude/manual-formulario-aprovacoes-b7k2xr`) | Não é repositório próprio — entregue em [caiogavioli/aprovacoes-contratos-concorrencia](https://github.com/caiogavioli/aprovacoes-contratos-concorrencia)`/docs/` (privado), commit `94e59a7` | 2026-09-02 |
 
 ## Decisões sobre o processo
 

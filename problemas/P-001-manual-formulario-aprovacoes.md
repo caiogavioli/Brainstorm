@@ -1,6 +1,6 @@
 # P-001 — Manual de preenchimento do formulário de aprovações
 
-**Fase:** rodada 2 — propostas em `sessoes/S-002-manual-formulario-aprovacoes-rodada-2.md`
+**Fase:** fechado — virou `projetos/manual-preenchimento-aprovacoes.md`
 **Apresentado em:** 2026-09-02
 
 ## Apresentação do usuário (palavras dele)
@@ -58,7 +58,11 @@ O sistema de aprovações com os dois formulários já existe e está em uso (hi
 
 ## Como saberíamos que resolveu
 
-_A fechar na Rodada 2 — candidato natural: menos itens reprovados por preenchimento incorreto (não por reprovação legítima do fornecedor/processo), medido pelo próprio dashboard do sistema de aprovações._
+O funcionário entender exatamente o que precisa ser analisado nos documentos para responder corretamente cada pergunta do formulário (critério do usuário, fechado em `sessoes/S-003-*.md`) — não uma métrica de dashboard.
+
+## Desfecho
+
+**Fechado em 2026-09-02.** Virou o par de manuais (Markdown + PDF) documentado em `projetos/manual-preenchimento-aprovacoes.md` — publicado direto no repositório do sistema, [`caiogavioli/aprovacoes-contratos-concorrencia`](https://github.com/caiogavioli/aprovacoes-contratos-concorrencia) (commit `94e59a7`), sem repositório novo.
 
 ## Restrições conhecidas
 
