@@ -190,8 +190,8 @@ export default async function PaginaRelatorioExecutivo({
       <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="titulo-secao mb-1">Relatório executivo</p>
-          <h1 className="text-xl font-bold">Boletim Diário de Operações — Condomínios</h1>
-          <p className="text-sm" style={{ color: "var(--tinta-2)" }}>
+          <h1 className="text-3xl font-bold">Boletim Diário de Operações — Condomínios</h1>
+          <p className="text-base mt-1" style={{ color: "var(--tinta-2)" }}>
             {nomeCondominio} · {dados.periodo.rotulo}
           </p>
         </div>
