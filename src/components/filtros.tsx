@@ -84,6 +84,13 @@ export function FiltrosGlobais({
   const [painelAberto, setPainelAberto] = useState(false);
   const painelRef = useRef<HTMLDivElement>(null);
 
+  // Seleção provisória: os cliques nos checkboxes só mudam este estado local.
+  // A URL (e a busca dos dados) só muda quando o usuário clica em "Aplicar
+  // filtros" — cada condomínio marcado, um por um, disparava uma nova
+  // navegação e refazia a consulta inteira a cada clique, o que ficava lento
+  // com vários condomínios.
+  const [selecaoPendente, setSelecaoPendente] = useState<number[]>(idsSelecionados);
+
   useEffect(() => {
     if (!painelAberto) return;
     function aoClicarFora(evento: MouseEvent) {
@@ -95,11 +102,20 @@ export function FiltrosGlobais({
     return () => document.removeEventListener("mousedown", aoClicarFora);
   }, [painelAberto]);
 
-  function alternarCondominio(id: number) {
-    const novo = idsSelecionados.includes(id)
-      ? idsSelecionados.filter((v) => v !== id)
-      : [...idsSelecionados, id];
-    navegar({ condominio: novo.join(",") });
+  function abrirPainel() {
+    setSelecaoPendente(idsSelecionados);
+    setPainelAberto(true);
+  }
+
+  function alternarPendente(id: number) {
+    setSelecaoPendente((atual) =>
+      atual.includes(id) ? atual.filter((v) => v !== id) : [...atual, id],
+    );
+  }
+
+  function aplicarSelecao() {
+    navegar({ condominio: selecaoPendente.join(",") });
+    setPainelAberto(false);
   }
 
   const rotuloSelecaoCondominio =
@@ -148,7 +164,7 @@ export function FiltrosGlobais({
                 type="button"
                 id="filtro-condominio"
                 className="campo flex w-full items-center justify-between gap-2 text-left"
-                onClick={() => setPainelAberto((v) => !v)}
+                onClick={() => (painelAberto ? setPainelAberto(false) : abrirPainel())}
               >
                 <span className="truncate">{rotuloSelecaoCondominio}</span>
                 <span aria-hidden style={{ color: "var(--tinta-3)" }}>
@@ -157,37 +173,53 @@ export function FiltrosGlobais({
               </button>
               {painelAberto ? (
                 <div
-                  className="absolute z-10 mt-1 max-h-64 w-64 overflow-y-auto rounded-lg p-2"
+                  className="absolute z-10 mt-1 flex w-64 flex-col rounded-lg p-2"
                   style={{
                     background: "var(--superficie)",
                     border: "1px solid var(--borda)",
                     boxShadow: "var(--sombra)",
                   }}
                 >
-                  {idsSelecionados.length > 0 ? (
-                    <button
-                      type="button"
-                      className="mb-1 px-1 text-xs underline"
-                      style={{ color: "var(--tinta-3)" }}
-                      onClick={() => navegar({ condominio: "" })}
-                    >
-                      limpar seleção
-                    </button>
-                  ) : null}
-                  {condominios.map((c) => (
-                    <label
-                      key={c.id}
-                      className="flex items-center gap-2 rounded px-1 py-1 text-sm"
-                      style={{ cursor: "pointer" }}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={idsSelecionados.includes(c.id)}
-                        onChange={() => alternarCondominio(c.id)}
-                      />
-                      {c.nome}
-                    </label>
-                  ))}
+                  <div className="mb-1 flex items-center justify-between px-1">
+                    <span className="text-xs" style={{ color: "var(--tinta-3)" }}>
+                      {selecaoPendente.length === 0
+                        ? "Todos"
+                        : `${selecaoPendente.length} marcado(s)`}
+                    </span>
+                    {selecaoPendente.length > 0 ? (
+                      <button
+                        type="button"
+                        className="text-xs underline"
+                        style={{ color: "var(--tinta-3)" }}
+                        onClick={() => setSelecaoPendente([])}
+                      >
+                        limpar
+                      </button>
+                    ) : null}
+                  </div>
+                  <div className="max-h-56 overflow-y-auto">
+                    {condominios.map((c) => (
+                      <label
+                        key={c.id}
+                        className="flex items-center gap-2 rounded px-1 py-1 text-sm"
+                        style={{ cursor: "pointer" }}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={selecaoPendente.includes(c.id)}
+                          onChange={() => alternarPendente(c.id)}
+                        />
+                        {c.nome}
+                      </label>
+                    ))}
+                  </div>
+                  <button
+                    type="button"
+                    className="botao botao-primario mt-2 w-full justify-center text-sm"
+                    onClick={aplicarSelecao}
+                  >
+                    Aplicar filtros
+                  </button>
                 </div>
               ) : null}
             </div>
