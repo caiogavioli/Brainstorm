@@ -47,10 +47,23 @@ Ele quer saber onde isso mora e quem cuida quando a regra do cliente mudar.
 
 ## Respostas do usuário
 
-_Aguardando._
+> 1) é uma ferramenta própria que desenvolvi com voce aqui no Claude. Isso é preenchido num site que criamos. 2) busque o projeto para verificar o questionário (são 2, 1 para contratos e outro para Quadros de concorrencia). 3) Vem dos mapas e contratos, depois da avaliação do meu funcionário. 4) o formulário é somente uma base para permitir a aprovação do meu funcionario no sistema da administradora (cada uma tem o seu sistema). 5) não, não existe. 6) equipe direta, a Controladoria. 7) varias vezes por dia. 8) valor da proposta diferente do valor do contrato, data de inicio posterior a data de assinatura. 9) As duas. as adminsitradoras erram em todos os pontos, não tem um erro mais comum. 10) ele consulta o manual toda vez. 11) num PDF solto. 12) não, são revisados pontualmente. 13) eu consigo 14) é para todos os condomínios da carteira
+
+### O que a resposta 2 revelou
+
+O "sistema de aprovações" é o repositório `caiogavioli/aprovacoes-contratos-concorrencia` (Next.js + Prisma + Postgres), já em produção, substituto de dois quadros do Monday.com. Adicionado a esta sessão e clonado para conferência. Ele tem **dois formulários**, cada um com um checklist fixo definido em código:
+
+- **`/contratos/novo`** — checklist `CT.1` a `CT.16` (`lib/checklists/contratos.ts`), mais os campos livres Condomínio, Administradora, Fornecedor, Escopo do Contrato, Data da Análise, Exceção/Emergencial e Status (Aprovado/Recusado).
+- **`/concorrencia/novo`** — checklist `CP.1` a `CP.26` (`lib/checklists/concorrencia.ts`), condicional: `CP.4` (Produto ou Serviço) muda o bloco de perguntas seguinte (`CP_PRODUTO` x `CP_SERVICO`), e `CP.20` (faixa de valor do QC: até R$5 mil / R$5 mil a R$30 mil / acima de R$30 mil) define qual pergunta de alçada (`CP.21`/`CP.21b`/`CP.22`) aparece. Mais os campos Condomínio, Administradora, Número do QC/Contrato, Descrição, Data da Análise, Exceções, Observações/Evidências, Anexos (link) e Status.
+
+Cada pergunta do checklist é sim/não/não-se-aplica (ou sim/não) — o funcionário só marca; o formulário **não explica o que cada pergunta quer dizer, nem qual documento comprova, nem qual é a regra por trás**. É exatamente essa lacuna que gera o pedido do manual.
+
+O README do repositório confirma o resposta 4: o resultado desse formulário (aprovado/recusado + respostas) é registrado para dashboard e histórico — **não é ele quem aprova de fato no sistema da administradora**, é um registro/checklist de conferência prévio à aprovação real.
+
+Carteira (via `lib/options.ts`): 11 condomínios (17.007 Nações, Alphaville Tower, Arquipélago, Centenário Plaza, Extrema, JKB, Panamérica Park, Passeio Paulista, TNU, O Parque Geral, O Parque T07) e 4 administradoras (CBRE, Cushman, Innova, HFlex) — confirma a resposta 14 (vale para toda a carteira, várias administradoras, não só a Brookfield que assinou os procedimentos anexados).
 
 ---
 
 ## Estado
 
-Rodada 1 aberta. Rodada 2 (decisão e propostas) só depois das respostas.
+Rodada 1 fechada. Rodada 2 (decisão e propostas) em `sessoes/S-002-manual-formulario-aprovacoes-rodada-2.md`.

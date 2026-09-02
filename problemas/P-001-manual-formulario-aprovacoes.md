@@ -1,6 +1,6 @@
 # P-001 — Manual de preenchimento do formulário de aprovações
 
-**Fase:** rodada 1 — aguardando respostas do usuário
+**Fase:** rodada 2 — propostas em `sessoes/S-002-manual-formulario-aprovacoes-rodada-2.md`
 **Apresentado em:** 2026-09-02
 
 ## Apresentação do usuário (palavras dele)
@@ -17,7 +17,17 @@ São os procedimentos de compliance do cliente do usuário (Brookfield Propertie
 - **Matriz de Contratos** — condições comerciais negociáveis (multa, prazo, seguro, foro etc.) e seus limites de exceção.
 - **Apresentação de Treinamento de Compliance (Out/24)** — versão resumida em slides dos quatro documentos acima, incluindo tabela de alçadas de aprovação de compras e de Due Diligence.
 
-Esses documentos são a fonte da verdade das regras; nenhum deles é, em si, o formulário do sistema de aprovações do usuário — esse formulário é uma ferramenta própria dele, ainda não documentada aqui.
+Esses documentos são a fonte da verdade das regras; nenhum deles é, em si, o formulário do sistema de aprovações do usuário.
+
+## O sistema de aprovações (achado na Rodada 1)
+
+É o repositório privado [`caiogavioli/aprovacoes-contratos-concorrencia`](https://github.com/caiogavioli/aprovacoes-contratos-concorrencia) — Next.js + Prisma + Postgres, já em produção, substituto de dois quadros do Monday.com. Detalhes completos em `sessoes/S-001-*.md`. Resumo:
+
+- **Formulário 1 — Aprovação de Contratos** (`/contratos/novo`): checklist fixo `CT.1`–`CT.16`.
+- **Formulário 2 — Aprovação de Quadro de Concorrência** (`/concorrencia/novo`): checklist fixo `CP.1`–`CP.26`, condicional (Produto x Serviço, faixa de valor do QC).
+- Cada pergunta é sim/não/não-se-aplica, sem explicação embutida do que ela significa, qual documento comprova, ou qual regra está por trás.
+- O resultado (aprovado/recusado) é um registro/checklist de conferência prévio — não é a aprovação final, que acontece no sistema próprio de cada administradora (CBRE, Cushman, Innova, HFlex).
+- Vale para os 11 condomínios da carteira do usuário, não só para ativos da Brookfield.
 
 ## Em uma frase
 
@@ -25,11 +35,12 @@ O funcionário que preenche o formulário de aprovação (para o usuário assina
 
 ## Como é hoje
 
-_A preencher na Rodada 1 — ainda não se sabe: quem é "o funcionário", o que é o "sistema de aprovações" (ferramenta, campos do formulário), nem que erros esse manual precisa evitar._
+O funcionário (Controladoria, equipe direta do usuário) recebe o Mapa de Cotação/contrato que a administradora preparou, avalia e preenche um dos dois formulários várias vezes por dia, marcando sim/não/não-se-aplica pergunta por pergunta, sem nenhum guia — só o que sabe de cabeça. Não há validação automática no sistema. O resultado é um registro de conferência prévio; a aprovação de fato acontece depois, no sistema da administradora.
 
 ## Frequência e volume
 
-_A preencher na Rodada 1._
+- Acontece: várias vezes por dia (2 formulários diferentes, 11 condomínios, 4 administradoras).
+- Cada preenchimento consulta o manual pretendido — não é treinamento único, é consulta recorrente.
 
 ## Quem sofre
 
@@ -37,13 +48,22 @@ O funcionário, que preenche sem um guia. E o usuário, que assina o que foi pre
 
 ## O que já foi tentado
 
-O "sistema de aprovações" com formulário já existe e está em uso. Falta uma camada de instrução para quem preenche.
+O sistema de aprovações com os dois formulários já existe e está em uso (histórico de 51 contratos e ~147 quadros de concorrência migrados do Monday). Falta a camada de instrução: nenhuma pergunta do checklist vem com explicação, documento de referência ou regra por trás.
+
+## Erros reais já observados
+
+- Valor da proposta comercial diferente do valor final do contrato (bate com `CT.12`).
+- Data de início de vigência posterior à data de assinatura (bate com `CT.13`).
+- Segundo o usuário, **não há um erro mais comum** — as administradoras erram em todos os pontos do checklist, então o manual precisa cobrir cada pergunta, não só as duas acima.
 
 ## Como saberíamos que resolveu
 
-_A preencher na Rodada 1/2._
+_A fechar na Rodada 2 — candidato natural: menos itens reprovados por preenchimento incorreto (não por reprovação legítima do fornecedor/processo), medido pelo próprio dashboard do sistema de aprovações._
 
 ## Restrições conhecidas
 
-- O cliente do usuário é a Brookfield Properties (ou um condomínio/ativo sob administração dela) — as regras vêm dos procedimentos anexados.
-- O usuário aprova/assina; não é ele quem preenche o formulário.
+- O cliente cujas regras valem é a Brookfield Properties — as regras vêm dos 5 documentos anexados.
+- O usuário aprova/assina; não é ele quem preenche o formulário — é a Controladoria.
+- Manual final: PDF solto (decisão do usuário, resposta 11 da Rodada 1).
+- Procedimentos do cliente são revisados pontualmente, sem calendário fixo — o usuário mesmo consegue manter o manual atualizado.
+- Vale para toda a carteira (11 condomínios, 4 administradoras), não só ativos formalmente da Brookfield.
