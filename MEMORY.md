@@ -2,7 +2,7 @@
 
 Estado vivo do brainstorming — visão do hub. Ler no início de **toda** sessão, seja qual for o branch, e atualizar ao fim de qualquer rodada ou decisão.
 
-**Última atualização:** 2026-08-12
+**Última atualização:** 2026-09-02
 
 ---
 
@@ -28,6 +28,7 @@ O conteúdo de um branch **não é puxado de volta** para `main` — evita mistu
 | `claude/condominio-boletim-gestao-ougoqd` | **Código de produto** (Next.js/Prisma) | App de boletim/gestão condominial — "quadro de preenchimento na escala de 50 prédios" | Fora do padrão geral deste repositório (`CLAUDE.md` proíbe código de produto aqui), mas o usuário decidiu conscientemente **manter aqui** (2026-08-12) — não migra para repositório próprio |
 | `claude/safetydocs-automation-4rq592` | **Código de produto** + rotina | O mesmo app acima, mais `rotina-safetydocs/` (playbook da rotina agendada "Cobrança SafetyDocs") | Mesma decisão acima — fica aqui. A Routine `trig_01TdEoP9RFiL1uADLHitmSWF` lê `rotina-safetydocs/*.md` **deste branch** — cuidado ao mover ou apagar, quebra automação em produção |
 | ~~`claude/python-sql-database-planning-k95885`~~ | Vazio | Sem nenhum commit de conteúdo útil (CLAUDE.md e roadmap.md foram adicionados e depois excluídos) | **Descarte aprovado pelo usuário (2026-08-12).** `git push --delete` voltou 403 — a integração não tem permissão pra apagar branch. Falta a exclusão manual no GitHub |
+| `claude/manual-formulario-aprovacoes-b7k2xr` | Brainstorming em andamento | P-001 — Manual de preenchimento do formulário de aprovações que o funcionário do usuário usa antes dele assinar contratos e quadros de concorrência (regras vêm dos procedimentos de compliance do cliente dele, a Brookfield Properties) | **Rodada 1 aberta** — perguntas feitas, aguardando respostas do usuário |
 
 ## Problemas
 
