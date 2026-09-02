@@ -60,7 +60,14 @@ export default async function PaginaRelatorioExecutivo({
   const params = await searchParams;
 
   const condominios = await condominiosDaSessao(sessao);
-  const condominioId = params.condominio ? Number(params.condominio) : null;
+  const condominioIds: number[] | null = (() => {
+    if (!params.condominio) return null;
+    const ids = params.condominio
+      .split(",")
+      .map((v) => Number(v))
+      .filter((n) => Number.isInteger(n) && n > 0);
+    return ids.length > 0 ? ids : null;
+  })();
 
   // Padrão: o mês anterior completo — o ritmo natural de um relatório
   // executivo, diferente do dashboard operacional (que abre em "hoje").
@@ -74,16 +81,16 @@ export default async function PaginaRelatorioExecutivo({
   const anterior = periodoAnteriorEquivalente(de, ate);
 
   const [dados, dadosAnterior, ocorrenciasPeriodo] = await Promise.all([
-    carregarDashboard({ condominioId, de, ate, escopo: escopoCondominios(sessao) }),
+    carregarDashboard({ condominioId: condominioIds, de, ate, escopo: escopoCondominios(sessao) }),
     carregarDashboard({
-      condominioId,
+      condominioId: condominioIds,
       de: anterior.de,
       ate: anterior.ate,
       escopo: escopoCondominios(sessao),
     }),
     prisma.ocorrencia.findMany({
       where: {
-        ...filtroCondominio(sessao, condominioId),
+        ...filtroCondominio(sessao, condominioIds),
         dataAbertura: { gte: inicioDoDiaLocal(de), lt: inicioDoDiaLocal(somarDias(ate, 1)) },
       },
       orderBy: [{ dataAbertura: "asc" }],
@@ -94,16 +101,23 @@ export default async function PaginaRelatorioExecutivo({
     }),
   ]);
 
-  const nomeCondominio = condominioId
-    ? (condominios.find((c) => c.id === condominioId)?.nome ?? "Condomínio")
-    : "Todos os condomínios";
+  const condominiosSelecionados = condominioIds
+    ? condominios.filter((c) => condominioIds.includes(c.id))
+    : condominios;
+  const nomeCondominio = !condominioIds
+    ? "Todos os condomínios"
+    : condominiosSelecionados.length === 1
+      ? condominiosSelecionados[0].nome
+      : condominiosSelecionados.length === 0
+        ? "Nenhum condomínio no filtro"
+        : `${condominiosSelecionados.length} condomínios selecionados`;
 
   const { kpis } = dados;
 
   // ---- Correção de dias úteis (ver lib/dias-uteis.ts) --------------------
   const nDiasUteis = diasUteisEntre(de, ate).length;
   const nDiasUteisAnterior = diasUteisEntre(anterior.de, anterior.ate).length;
-  const condominiosNoEscopo = condominioId ? 1 : condominios.length;
+  const condominiosNoEscopo = condominiosSelecionados.length;
 
   const boletinsEsperadosUteis = condominiosNoEscopo * nDiasUteis;
   const coberturaUtil =
@@ -203,6 +217,7 @@ export default async function PaginaRelatorioExecutivo({
         dePadrao={de}
         atePadrao={ate}
         hoje={hoje}
+        multiploCondominio
       />
 
       {/* ------------------------------------------------------------ KPIs -- */}

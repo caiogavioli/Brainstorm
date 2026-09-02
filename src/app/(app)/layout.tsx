@@ -8,6 +8,7 @@ import { sairAction } from "@/app/login/actions";
 // acessível por /inicio para quem quiser ver o que o preenchedor vê.
 const NAV_ADMIN: ItemNav[] = [
   { href: "/dashboard", rotulo: "Dashboard", icone: "▦" },
+  { href: "/relatorio-executivo", rotulo: "Relatório executivo", icone: "▤" },
   { href: "/boletim", rotulo: "Boletins", icone: "☑" },
   { href: "/ocorrencias", rotulo: "Ocorrências", icone: "⚑" },
   { href: "/planos", rotulo: "Planos", icone: "◷" },

@@ -144,9 +144,14 @@ export function escopoCondominios(sessao: Sessao): number[] | null {
  */
 export function filtroCondominio(
   sessao: Sessao,
-  condominioId?: number | null,
+  condominioId?: number | number[] | null,
 ): { condominioId?: number | { in: number[] } } {
   const escopo = escopoCondominios(sessao);
+
+  if (Array.isArray(condominioId)) {
+    const ids = escopo ? condominioId.filter((id) => escopo.includes(id)) : condominioId;
+    return { condominioId: { in: ids } };
+  }
 
   if (condominioId != null) {
     if (escopo === null) return { condominioId };

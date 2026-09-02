@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { primeiroDiaDoMes, somarDias, ultimoDiaDoMes } from "@/lib/datas";
 
@@ -28,6 +28,7 @@ export function FiltrosGlobais({
   atePadrao,
   hoje,
   extras,
+  multiploCondominio = false,
 }: {
   condominios: { id: number; nome: string }[];
   mostrarPeriodo?: boolean;
@@ -45,6 +46,11 @@ export function FiltrosGlobais({
     rotulo: string;
     opcoes: { valor: string; rotulo: string }[];
   }[];
+  /** Campo de condomínio vira seleção múltipla (checkboxes) em vez de um único
+   *  `<select>`. Escreve a mesma chave `?condominio=`, como lista separada por
+   *  vírgula — quem não usa este modo continua lendo um valor único, sem
+   *  quebrar. */
+  multiploCondominio?: boolean;
 }) {
   const router = useRouter();
   const caminho = usePathname();
@@ -64,6 +70,44 @@ export function FiltrosGlobais({
     },
     [caminho, parametros, router],
   );
+
+  // --------------------------------------------- Seleção múltipla de condomínio
+  const idsSelecionados = useMemo(() => {
+    const bruto = parametros.get("condominio");
+    if (!bruto) return [] as number[];
+    return bruto
+      .split(",")
+      .map((v) => Number(v))
+      .filter((n) => Number.isInteger(n));
+  }, [parametros]);
+
+  const [painelAberto, setPainelAberto] = useState(false);
+  const painelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!painelAberto) return;
+    function aoClicarFora(evento: MouseEvent) {
+      if (painelRef.current && !painelRef.current.contains(evento.target as Node)) {
+        setPainelAberto(false);
+      }
+    }
+    document.addEventListener("mousedown", aoClicarFora);
+    return () => document.removeEventListener("mousedown", aoClicarFora);
+  }, [painelAberto]);
+
+  function alternarCondominio(id: number) {
+    const novo = idsSelecionados.includes(id)
+      ? idsSelecionados.filter((v) => v !== id)
+      : [...idsSelecionados, id];
+    navegar({ condominio: novo.join(",") });
+  }
+
+  const rotuloSelecaoCondominio =
+    idsSelecionados.length === 0
+      ? "Todos"
+      : idsSelecionados.length === 1
+        ? (condominios.find((c) => c.id === idsSelecionados[0])?.nome ?? "1 selecionado")
+        : `${idsSelecionados.length} selecionados`;
 
   /**
    * Um intervalo invertido devolveria zero resultados e pareceria um sistema
@@ -98,19 +142,70 @@ export function FiltrosGlobais({
           <label className="rotulo" htmlFor="filtro-condominio">
             Condomínio
           </label>
-          <select
-            id="filtro-condominio"
-            className="campo"
-            value={parametros.get("condominio") ?? ""}
-            onChange={(e) => navegar({ condominio: e.target.value })}
-          >
-            <option value="">Todos</option>
-            {condominios.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.nome}
-              </option>
-            ))}
-          </select>
+          {multiploCondominio ? (
+            <div className="relative" ref={painelRef}>
+              <button
+                type="button"
+                id="filtro-condominio"
+                className="campo flex w-full items-center justify-between gap-2 text-left"
+                onClick={() => setPainelAberto((v) => !v)}
+              >
+                <span className="truncate">{rotuloSelecaoCondominio}</span>
+                <span aria-hidden style={{ color: "var(--tinta-3)" }}>
+                  ▾
+                </span>
+              </button>
+              {painelAberto ? (
+                <div
+                  className="absolute z-10 mt-1 max-h-64 w-64 overflow-y-auto rounded-lg p-2"
+                  style={{
+                    background: "var(--superficie)",
+                    border: "1px solid var(--borda)",
+                    boxShadow: "var(--sombra)",
+                  }}
+                >
+                  {idsSelecionados.length > 0 ? (
+                    <button
+                      type="button"
+                      className="mb-1 px-1 text-xs underline"
+                      style={{ color: "var(--tinta-3)" }}
+                      onClick={() => navegar({ condominio: "" })}
+                    >
+                      limpar seleção
+                    </button>
+                  ) : null}
+                  {condominios.map((c) => (
+                    <label
+                      key={c.id}
+                      className="flex items-center gap-2 rounded px-1 py-1 text-sm"
+                      style={{ cursor: "pointer" }}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={idsSelecionados.includes(c.id)}
+                        onChange={() => alternarCondominio(c.id)}
+                      />
+                      {c.nome}
+                    </label>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          ) : (
+            <select
+              id="filtro-condominio"
+              className="campo"
+              value={parametros.get("condominio") ?? ""}
+              onChange={(e) => navegar({ condominio: e.target.value })}
+            >
+              <option value="">Todos</option>
+              {condominios.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.nome}
+                </option>
+              ))}
+            </select>
+          )}
         </div>
 
         {mostrarPeriodo ? (

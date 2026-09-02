@@ -16,8 +16,8 @@ import {
 } from "@/lib/datas";
 
 export type FiltroDashboard = {
-  /** null = todos os condomínios do escopo do usuário. */
-  condominioId: number | null;
+  /** null = todos os condomínios do escopo do usuário. Array = seleção múltipla. */
+  condominioId: number | number[] | null;
   /**
    * Intervalo analisado, "YYYY-MM-DD" nas duas pontas, inclusive.
    *
@@ -44,6 +44,12 @@ export type DadosDashboard = Awaited<ReturnType<typeof carregarDashboard>>;
  * `?condominio=` fora do escopo não pode ampliar o que ele enxerga.
  */
 function whereCondominio(filtro: FiltroDashboard) {
+  if (Array.isArray(filtro.condominioId)) {
+    const ids = filtro.escopo
+      ? filtro.condominioId.filter((id) => filtro.escopo!.includes(id))
+      : filtro.condominioId;
+    return { condominioId: { in: ids } };
+  }
   if (filtro.condominioId != null) {
     if (filtro.escopo === null) return { condominioId: filtro.condominioId };
     return filtro.escopo.includes(filtro.condominioId)
@@ -160,10 +166,12 @@ export async function carregarDashboard(filtro: FiltroDashboard) {
   // Só os dias já decorridos contam como esperados: um intervalo que avança
   // para o futuro não gera dívida de boletim.
   const diasDoPeriodo = diasDoIntervalo(filtro.de, filtro.ate).filter((d) => d <= hoje);
-  const condominiosNoFiltro = filtro.condominioId
-    ? 1
-    : (filtro.escopo?.length ??
-      (await prisma.condominio.count({ where: { ativo: true } })));
+  const condominiosNoFiltro = Array.isArray(filtro.condominioId)
+    ? filtro.condominioId.length
+    : filtro.condominioId
+      ? 1
+      : (filtro.escopo?.length ??
+        (await prisma.condominio.count({ where: { ativo: true } })));
   const boletinsEsperados = Math.max(diasDoPeriodo.length * condominiosNoFiltro, 1);
   const coberturaBoletins = Math.min((totalBoletins / boletinsEsperados) * 100, 100);
 
