@@ -2,7 +2,7 @@
 
 Estado vivo do brainstorming — visão do hub. Ler no início de **toda** sessão, seja qual for o branch, e atualizar ao fim de qualquer rodada ou decisão.
 
-**Última atualização:** 2026-08-12
+**Última atualização:** 2026-09-02 (cópia local do branch `claude/manual-formulario-aprovacoes-b7k2xr`)
 
 ---
 
@@ -33,6 +33,14 @@ O conteúdo de um branch **não é puxado de volta** para `main` — evita mistu
 
 _Cada branch de brainstorming mantém sua própria tabela de problemas em detalhe — ver o catálogo acima para saber qual branch abrir._
 
+Neste branch (`claude/manual-formulario-aprovacoes-b7k2xr`):
+
+| ID | Título | Fase | Desfecho |
+|---|---|---|---|
+| P-001 | Manual de preenchimento do formulário de aprovações | **rodada 1** — perguntas feitas em `sessoes/S-001-*.md`, aguardando respostas do usuário | em aberto |
+
+Fases: `apresentado` → `rodada 1` → `rodada 2` → `fechado` / `descartado` / `virou script`
+
 ## Projetos fechados
 
 | Projeto | Origem | Repositório | Data |
@@ -58,6 +66,7 @@ _Cada branch de brainstorming mantém sua própria tabela de problemas em detalh
 - Já paga e usa Microsoft 365 e Monday — preferir encaixar no que já existe a subir peça nova.
 - A integração do GitHub **não tem permissão de admin** (`Administration: write`) — não consegue criar repositório, trocar o branch default, nem apagar branch (`git push --delete` e a ausência de ferramenta MCP para isso confirmam). Essas ações precisam ser feitas à mão pelo usuário.
 - Aceita ter código de produto neste repositório quando é uma decisão consciente (caso do app de boletim/gestão condominial e da automação SafetyDocs) — a regra do `CLAUDE.md` vale por padrão, não é absoluta.
+- É auditado pelas regras de compliance de um cliente seu, a Brookfield Properties (administradora de ativos imobiliários) — ver os procedimentos anexados em P-001 do branch `claude/manual-formulario-aprovacoes-b7k2xr`. No fluxo de aprovação descrito, a administradora prepara o processo e o usuário aprova/assina (contratos e quadros de concorrência); tem ao menos um funcionário próprio que preenche o formulário do sistema de aprovações dele antes da assinatura.
 
 ## Em aberto
 
