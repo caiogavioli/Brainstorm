@@ -3,6 +3,7 @@ import "server-only";
 import type { Criticidade, StatusOcorrencia } from "@prisma/client";
 
 import { prisma } from "@/lib/db";
+import { dataReferenciaDe } from "@/lib/datas";
 
 /**
  * Ocorrências ainda em aberto, por condomínio, para o boletim do dia carregá-las.
@@ -72,10 +73,16 @@ export async function pendenciasAbertas(
       criticidade: o.criticidade,
       status: o.status,
       planoAcao: o.planoAcao,
+      // `previsaoFinalizacao` é gravada ao meio-dia UTC (ver dataEscolhidaParaDate
+      // em @/lib/datas) só para sobreviver a um corte ingênuo como este — em
+      // qualquer fuso do mundo ainda é o mesmo dia. `dataAbertura`, por ser o
+      // instante real do lançamento, não tem essa folga: cortar em UTC faz
+      // qualquer boletim preenchido entre 21h e 23h59 em Brasília (UTC-3)
+      // aparecer aberto no dia seguinte. Por isso passa pelo fuso de operação.
       previsaoFinalizacao: o.previsaoFinalizacao
         ? o.previsaoFinalizacao.toISOString().slice(0, 10)
         : "",
-      desde: o.dataAbertura.toISOString().slice(0, 10),
+      desde: dataReferenciaDe(o.dataAbertura),
       totalRecorrencias: o.totalRecorrencias,
     });
   }
