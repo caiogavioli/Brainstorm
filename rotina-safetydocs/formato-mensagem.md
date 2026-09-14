@@ -97,6 +97,12 @@ Centenário Plaza B2 - Robocop
 O `<n>` no cabeçalho da seção é a soma dos dois; o assunto usa o nome do
 grupo ("Centenário", não "Centenário Plaza B1 - Flórida").
 
+Se um dos rótulos do grupo tiver zero documentos naquela seção específica
+(por exemplo, B1 sem nenhum vencido enquanto B2 tem), omitir o subtítulo e a
+tabela daquele rótulo nessa seção — não mostrar um subtítulo seguido de
+tabela vazia. Isso não é "resumir a lista" (nenhum documento é omitido); é só
+não criar uma subseção sem conteúdo algum.
+
 ## Regras
 
 - **Nunca resumir a lista.** Cada documento pendente daquele condomínio entra
