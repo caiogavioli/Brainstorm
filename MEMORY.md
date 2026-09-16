@@ -2,7 +2,7 @@
 
 Estado vivo do brainstorming — visão do hub. Ler no início de **toda** sessão, seja qual for o branch, e atualizar ao fim de qualquer rodada ou decisão.
 
-**Última atualização:** 2026-09-02
+**Última atualização:** 2026-09-16
 
 ---
 
@@ -29,6 +29,7 @@ O conteúdo de um branch **não é puxado de volta** para `main` — evita mistu
 | `claude/safetydocs-automation-4rq592` | **Código de produto** + rotina | O mesmo app acima, mais `rotina-safetydocs/` (playbook da rotina agendada "Cobrança SafetyDocs") | Mesma decisão acima — fica aqui. A Routine `trig_01TdEoP9RFiL1uADLHitmSWF` lê `rotina-safetydocs/*.md` **deste branch** — cuidado ao mover ou apagar, quebra automação em produção |
 | ~~`claude/python-sql-database-planning-k95885`~~ | Vazio | Sem nenhum commit de conteúdo útil (CLAUDE.md e roadmap.md foram adicionados e depois excluídos) | **Descarte aprovado pelo usuário (2026-08-12).** `git push --delete` voltou 403 — a integração não tem permissão pra apagar branch. Falta a exclusão manual no GitHub |
 | `claude/manual-formulario-aprovacoes-b7k2xr` | Brainstorming completo | P-001 — Manual de preenchimento do formulário de aprovações que o funcionário do usuário usa antes dele assinar contratos e quadros de concorrência (regras vêm dos procedimentos de compliance do cliente dele, a Brookfield Properties) | **Fechado.** Não virou repositório novo — os dois manuais (Markdown + PDF) foram publicados direto em [`caiogavioli/aprovacoes-contratos-concorrencia`](https://github.com/caiogavioli/aprovacoes-contratos-concorrencia)`/docs/` (privado), o repositório do sistema de aprovações que eles documentam |
+| `claude/clinic-popup-design-qmebur` | Brainstorming em andamento | P-001 — Pop-up para clínica de atendimento e vacinas (objetivo exato ainda não definido — apresentação inicial muito enxuta) | **Rodada 1 aberta** — perguntas feitas, aguardando respostas do usuário |
 
 ## Problemas
 
