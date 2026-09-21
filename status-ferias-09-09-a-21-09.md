@@ -109,13 +109,36 @@ Como as cobranças saíram hoje à tarde, ainda não há retorno para medir.
 
 ### 6.1 🔴 Carros elétricos nas garagens (IT 41/2026) — prazo 17/09, vencido
 
-Felipe Camacho pediu em 14/09 o **plano de ação por condomínio** para adequação
-dos carregadores de veículos elétricos, com prazo em 17/09. A CBRE (Pedro
-Perozzi) reencaminhou a mesma cobrança em 18/09.
+**Origem:** apresentação da BGRE em reunião Teams de **19/08/2026**, 15h–16h.
+Em 20/08 o Felipe Camacho circulou o PDF (`Carros elétricos nos estacionamentos
+19.08.2026.pdf`, 2,3 MB) pedindo que **cada condomínio elabore seu plano de ação
+com seus consultores**. Em 14/09 reforçou com prazo: *"O prazo acordado para
+envio é 17/09/2026"* e *"fundamental para a segurança dos Condomínios."*
 
-**Ninguém da DF enviou.** Este é o único item em que a equipe não pegou a
-demanda — e é entregável da DF, não do gerente predial. Citação do Felipe:
-*"fundamental para a segurança dos Condomínios."*
+**A cobrança é pública dentro da BGRE:** o e-mail do Felipe tem dez pessoas em
+cópia — Alex Martins, Emerson Felipone, Mauricio Savassa, Thassia Bispo, Gabriel
+Fernandes, Fábio Freire, Felipe Brasil, Bárbara Barbosa, Rafael Lourenço e Alex
+Trindade.
+
+**Quem já entregou (direto ao Felipe, não via DF):**
+
+| Empreendimento | Quem | Quando | O que |
+|---|---|---|---|
+| **TNU** | Marcus Martinez (CBRE) | 17/09 20h13 | planilha `TNU - Adequação dos carregadores elétricos IT 41-2026.xlsx` |
+| **JKB** | Pedro Perozzi (CBRE) | 17/09 | encaminhado ao Felipe; avisou a DF em 18/09 |
+
+**Quem falta:** todos os demais empreendimentos.
+
+**A natureza do problema não é omissão da equipe, é falta de consolidação.** Os
+prédios estão respondendo direto ao Felipe e copiando a DF; ninguém da DF está
+mantendo o placar de quem entregou e quem não. Como o pedido é "plano de ação de
+**cada** Condomínio", a BGRE vai medir pela lista completa, não por prédio solto.
+
+**Por que o prazo é duro:** a exigência não é só documental. Em 17/09 a Alta
+Regularização escreveu no processo de AVCB do Monreale que *"instalações de
+carregadores para veículos elétricos deverão possuir projeto aprovado junto ao
+Corpo de Bombeiros e atender às adequações exigidas para renovação do AVCB"* —
+ou seja, carregador irregular trava renovação de AVCB.
 
 ### 6.2 🟠 Reforma Tributária — Fundo de Reserva (Rafael Lourenço)
 
