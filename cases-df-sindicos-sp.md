@@ -7,6 +7,10 @@ Contexto · Situação inicial · Ações Implementadas · Ações Realizadas ·
 **Fontes:** e-mails, relatórios gerenciais (RGM), action logs e propostas comerciais no
 OneDrive/SharePoint. Áreas vêm do próprio deck de portfólio.
 
+> **Aviso posterior (ver `carteira-df-sindicos.md`):** Habitat Bradesco, LED Corporate e CA Rio
+> Negro **não constam** na planilha da carteira ativa e suas pastas estão em `_ARQUIVO`.
+> Confirme que ainda são clientes antes de usar os cases 4, 5 e 8.
+
 **Legenda:** `[confirmar]` = dado que não achei ou que as fontes contradizem. Não preenchi
 no chute. Tudo que está sem marca tem fonte.
 
