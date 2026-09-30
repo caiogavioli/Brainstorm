@@ -22,8 +22,8 @@
 | 2 | Detalhamento da carga horária dedicada ao contrato e da frequência de atuação presencial em cada unidade | ✅ aprovado |
 | 3 | Definição dos SLAs para atendimento das demandas, por criticidade (crítica, urgente, ordinária e pareceres complexos) | ✅ aprovado |
 | 4 | Prazos para emissão de pareceres técnicos, segregados por criticidade | ✅ aprovado |
-| 5 | Metodologia para análise e validação dos rateios condominiais | aguardando resposta |
-| 6 | Plano de mobilização e atuação inicial do contrato | pendente |
+| 5 | Metodologia para análise e validação dos rateios condominiais | ✅ aprovado |
+| 6 | Plano de mobilização e atuação inicial do contrato | aguardando resposta |
 | 7 | Declaração formal de independência e inexistência de conflitos de interesse com condomínios, administradoras ou fornecedores | pendente |
 | 8 | Comprovação de experiências e cases similares, de porte e complexidade equivalentes | pendente |
 | 9 | Confirmação formal de aceitação de todos os entregáveis previstos na RFP | pendente |
@@ -156,3 +156,19 @@ _Menu de etapas enviado (A–T)._
 - Alertas levantados: "subsídio cruzado" e "dashboard" estão escritos na RFP; confirmar se entram por outro caminho.
 
 _Metodologia consolidada enviada para aprovação._
+
+> 1. concordo. 2. ok, podemos incluir isso.
+
+**Status: aprovado.**
+
+#### Metodologia final — item 5
+
+1. **Diagnóstico inicial (mobilização):** levantamento documental (convenção, especificação, frações ideais, regimento, contratos, orçamento, 12 últimos balancetes); entrevistas com administradora, síndico geral e Facilities Einstein; visita técnica (áreas, uso, medidores); levantamento das medições individualizadas existentes e faltantes; matriz de critério por conta com fundamento na convenção, de forma a identificar e evitar subsídios cruzados entre setores; relatório de diagnóstico situação atual x situação correta.
+2. **Rotina mensal:** revisão do balancete (orçamento e contratos); conferência da pasta de prestação de contas por amostragem; parecer com recomendação sempre que uma conta variar ±5% do previsto; resultados alimentam o relatório executivo mensal e o dashboard.
+3. **Previsão orçamentária, eventos e anual:** revisão da matriz na elaboração da Previsão Orçamentária ou quando necessário; apoio à Previsão Orçamentária com simulação do rateio por setor; revisão do rateio em contrato novo, obra, mudança de ocupação ou alteração de convenção; proposta formal de correção em assembleia e acompanhamento da implantação; validação da prestação de contas anual antes da AGO.
+
+Casos: revisão do rateio do SPHQ I e do 17007.
+
+### Item 6 — Plano de mobilização
+
+_Pergunta feita; aguardando resposta._
