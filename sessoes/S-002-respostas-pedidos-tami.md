@@ -19,8 +19,8 @@
 | # | Pedido | Status |
 |---|---|---|
 | 1 | Indicação do profissional titular que atuará como responsável pela conta e pela representação das unidades | ✅ aprovado |
-| 2 | Detalhamento da carga horária dedicada ao contrato e da frequência de atuação presencial em cada unidade | aguardando resposta |
-| 3 | Definição dos SLAs para atendimento das demandas, por criticidade (crítica, urgente, ordinária e pareceres complexos) | pendente |
+| 2 | Detalhamento da carga horária dedicada ao contrato e da frequência de atuação presencial em cada unidade | ✅ aprovado |
+| 3 | Definição dos SLAs para atendimento das demandas, por criticidade (crítica, urgente, ordinária e pareceres complexos) | aguardando resposta |
 | 4 | Prazos para emissão de pareceres técnicos, segregados por criticidade | pendente |
 | 5 | Metodologia para análise e validação dos rateios condominiais | pendente |
 | 6 | Plano de mobilização e atuação inicial do contrato | pendente |
@@ -83,4 +83,15 @@ Diretor de Operações da DF Síndicos Profissionais. Engenheiro eletricista pel
 Fora da conta: assembleias (AGO/AGE), reunião mensal de acompanhamento com o Einstein, plantão 24x7.
 
 Valor/hora implícito no preço atual (fase de implantação): PG R$ 541/h; Pinheiros R$ 331/h; Artur de Azevedo R$ 750/h.
+
+> 1. sim, mas veja que essas horas devem constar separadas para cada prédio. 2. valor fechado que foi indicado. não vamos mudar o valor agora. 3. preço único pelo periodo completo
+
+**Status: aprovado.**
+- Horas aprovadas; cada proposta (uma por prédio) traz só as horas do seu prédio.
+- **Preços mantidos:** PG R$ 24.900, Pinheiros R$ 15.900, Artur de Azevedo R$ 10.500 — preço único pelos 36 meses.
+- Consequência: trocar na comercial o texto "2 visitas mensais ou conforme necessidade" pela frequência nova de cada prédio.
+
+### Item 3 — SLAs por criticidade
+
+_Pergunta feita; aguardando resposta._
 
