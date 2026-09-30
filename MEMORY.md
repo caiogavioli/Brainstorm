@@ -123,6 +123,14 @@ Verificado em produção em 01/09, nas duas:
 
 ## Em aberto
 
+- **Cases DF Síndicos (carteira BGRE)**: relatório vivo em Claude Doc
+  (https://claude.ai/code/artifact/a7acdcc3-6490-4179-9ca7-94d13f965f42), dez
+  cases no formato dos slides do RJ, cada um com bloco "CAPEX / Investimentos"
+  (2024, 2025, 2026; concluído, em execução, a iniciar). Posição: atas de AGO até
+  28/04/2026 e deck CBRE de 22/05/2026. Lacunas: capex de Alphaville e PL Extrema
+  (2024–25) e O Parque (2026); ata da AGO do JKB de set/2026 não lida; arranjo
+  jurídico preposta/síndica e anos de início por confirmar. Apoio em
+  `carteira-df-sindicos.md`, `cases-df-sindicos-sp.md` e `pesquisa-publica-carteira.md`.
 - Repositórios novos devem nascer **públicos ou privados**? Confirmar no primeiro fechamento.
 - **Contagem de itens em aberto na `[Triagem]` não bate com o quadro.** Em
   31/08 a mensagem disse 20, em 01/09 disse 19, e a contagem manual do
