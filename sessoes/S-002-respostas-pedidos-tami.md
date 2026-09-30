@@ -21,8 +21,8 @@
 | 1 | Indicação do profissional titular que atuará como responsável pela conta e pela representação das unidades | ✅ aprovado |
 | 2 | Detalhamento da carga horária dedicada ao contrato e da frequência de atuação presencial em cada unidade | ✅ aprovado |
 | 3 | Definição dos SLAs para atendimento das demandas, por criticidade (crítica, urgente, ordinária e pareceres complexos) | ✅ aprovado |
-| 4 | Prazos para emissão de pareceres técnicos, segregados por criticidade | aguardando resposta |
-| 5 | Metodologia para análise e validação dos rateios condominiais | pendente |
+| 4 | Prazos para emissão de pareceres técnicos, segregados por criticidade | ✅ aprovado |
+| 5 | Metodologia para análise e validação dos rateios condominiais | aguardando resposta |
 | 6 | Plano de mobilização e atuação inicial do contrato | pendente |
 | 7 | Declaração formal de independência e inexistência de conflitos de interesse com condomínios, administradoras ou fornecedores | pendente |
 | 8 | Comprovação de experiências e cases similares, de porte e complexidade equivalentes | pendente |
@@ -118,11 +118,26 @@ Valor/hora implícito no preço atual (fase de implantação): PG R$ 541/h; Pinh
 |---|---|---|---|
 | Crítica | Telefonema, 24x7 | até 30 min | presença em até 6 h, se necessário |
 | Urgente | Telefonema | até 2 h úteis | posicionamento em até 24 h; presença em até 6 h, se necessário |
-| Ordinária e pareceres | E-mail / canal oficial Einstein | até 2 dias úteis | presença fora da rotina em até 3 dias úteis; pareceres em até 5 dias úteis |
+| Ordinária e pareceres | E-mail / canal oficial Einstein | até 2 dias úteis | presença fora da rotina em até 3 dias úteis; pareceres conforme item 4 (padrão: 5 dias úteis) |
 
 - Plantão: sequência de telefones Denise → Amanda → Caio → demais membros da DF.
 - Horário comercial: segunda a sexta, 8h às 18h.
 
 ### Item 4 — Prazos de pareceres por criticidade
+
+> sim, estão bons
+
+**Status: aprovado.**
+
+| Tipo de parecer | Exemplo | Prazo |
+|---|---|---|
+| Urgente | Cobrança extraordinária com vencimento próximo, notificação com prazo | até 2 dias úteis |
+| Para assembleia | Análise da pauta com recomendação de voto | até 3 dias úteis após o edital, e no mínimo 5 dias úteis antes da assembleia |
+| Padrão | Reajuste de contrato, despesa fora do orçamento, análise de rateio | até 5 dias úteis |
+| Complexo | Revisão completa de rateio, renegociação relevante, alteração de convenção, obra | até 10 dias úteis, com prévia em 5 |
+
+Na tabela do item 3, "pareceres em até 5 dias úteis" passa a ler "pareceres conforme item 4 (padrão: 5 dias úteis)".
+
+### Item 5 — Metodologia de rateio
 
 _Pergunta feita; aguardando resposta._
