@@ -147,4 +147,12 @@ Na tabela do item 3, "pareceres em até 5 dias úteis" passa a ler "pareceres co
 - Exemplo de Pinheiros: usar de forma **genérica** (sem citar JLL).
 - Casos reais de revisão de rateio: **SPHQ I**, **17007**, entre outros (detalhar no item 8).
 
-_Menu de etapas enviado; aguardando escolha._
+_Menu de etapas enviado (A–T)._
+
+> a, b, c, d, f, h (apenas o diagnostico da situação atual x situação correta). i(revisão do balancete), m (por amostragem), n, p (durante a elaboração da Previsão Orçamentária, ou quando necessário), q, r, s, t.
+
+- Escolhidas: A, B, C, D, F, H (só diagnóstico atual x correto, sem valor a recuperar), I (revisão do balancete), M (amostragem), N, P (na Previsão Orçamentária ou quando necessário), Q, R, S, T.
+- Fora: E (mapa de centros de custo), G (retroativo), J, K, L (subsídio cruzado), O (dashboard).
+- Alertas levantados: "subsídio cruzado" e "dashboard" estão escritos na RFP; confirmar se entram por outro caminho.
+
+_Metodologia consolidada enviada para aprovação._
