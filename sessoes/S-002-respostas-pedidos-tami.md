@@ -93,5 +93,17 @@ Valor/hora implícito no preço atual (fase de implantação): PG R$ 541/h; Pinh
 
 ### Item 3 — SLAs por criticidade
 
-_Pergunta feita; aguardando resposta._
+> antes de responder suas perguntas: Critico e Urgente devem ser comunicados via telefonema. Ordinária e Parecer podem ser fundidos no memso item
+
+- Crítica e Urgente: comunicação por telefonema.
+- Ordinária e Parecer fundidos num único nível.
+- Ressalva levantada: a Tami citou "pareceres complexos" como nível próprio — manter a palavra "pareceres" no nome do nível fundido e remeter os prazos ao item 4.
+
+#### Tabela v2 (aguardando respostas às perguntas 1–4 da rodada anterior)
+
+| Nível | Exemplos | Canal | Primeira resposta | Presença / posicionamento |
+|---|---|---|---|---|
+| Crítica | Ocorrência que afeta a operação hospitalar | Telefonema, 24x7 | até 30 min | presença em até 4 h, se necessário |
+| Urgente | Risco relevante de custo ou prazo | Telefonema | até 2 h úteis | posicionamento em até 24 h |
+| Ordinária e pareceres | Rotina e análises técnicas | E-mail / canal oficial Einstein | até 1 dia útil (confirma recebimento e prazo) | rotina em até 3 dias úteis; pareceres conforme item 4 |
 
