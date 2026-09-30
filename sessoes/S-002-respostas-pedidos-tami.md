@@ -192,4 +192,11 @@ Casos: revisão do rateio do SPHQ I e do 17007.
 
 ### Item 7 — Declaração de independência
 
-_Pergunta feita; aguardando resposta._
+> a: a DF não trabalha com a JLL. b) não, não temos nehuma relaçao. c)nenhuma relação. d) nenhum e) não temos conhecimento f) não.
+
+- Nenhum vínculo com JLL, administradoras de PG e Artur de Azevedo, proprietários/incorporadoras/gestoras, condomínios dentro do PG.
+- Fornecedores: não é do conhecimento da DF — declaração com verificação na mobilização.
+- Caio: sem relação passada de CBRE/Cushman com os três empreendimentos.
+- Formato: documento separado, papel timbrado, assinado pela Denise (recomendação; usuário não se opôs).
+
+_Minuta da declaração enviada para aprovação._
