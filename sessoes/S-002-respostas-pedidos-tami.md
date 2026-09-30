@@ -23,8 +23,8 @@
 | 3 | Definição dos SLAs para atendimento das demandas, por criticidade (crítica, urgente, ordinária e pareceres complexos) | ✅ aprovado |
 | 4 | Prazos para emissão de pareceres técnicos, segregados por criticidade | ✅ aprovado |
 | 5 | Metodologia para análise e validação dos rateios condominiais | ✅ aprovado |
-| 6 | Plano de mobilização e atuação inicial do contrato | aguardando resposta |
-| 7 | Declaração formal de independência e inexistência de conflitos de interesse com condomínios, administradoras ou fornecedores | pendente |
+| 6 | Plano de mobilização e atuação inicial do contrato | ✅ aprovado |
+| 7 | Declaração formal de independência e inexistência de conflitos de interesse com condomínios, administradoras ou fornecedores | aguardando resposta |
 | 8 | Comprovação de experiências e cases similares, de porte e complexidade equivalentes | pendente |
 | 9 | Confirmação formal de aceitação de todos os entregáveis previstos na RFP | pendente |
 | 10 | Despesas contempladas e não contempladas na remuneração (e valores na planilha, se houver extras) | pendente |
@@ -170,5 +170,26 @@ _Metodologia consolidada enviada para aprovação._
 Casos: revisão do rateio do SPHQ I e do 17007.
 
 ### Item 6 — Plano de mobilização
+
+> 1. sim, são viáveis. 2. a previsao orçamentaria 2027 será revisada pela DF, caso ainda não tenha sido aprovada em assembleia. 3. ata de eleição, procurações aplicaveis, contratos, documentos, pastas de prestação de contas, etc. 4. o Dashboard não ficará online, ele será apresentado em formato de relatório mensal a partir de D_90
+
+**Status: aprovado.**
+
+#### Plano final — item 6
+
+| Fase | Prazo | O que a DF faz | O que o Einstein recebe |
+|---|---|---|---|
+| Kick-off | Semana 1 | Reunião com Facilities e Suprimentos; interlocutores, canais, alçadas e temas que exigem autorização | Ata do kick-off + matriz de contatos e escalonamento |
+| Apresentação e acessos | Semanas 1–2 | Apresentação à administradora, síndico geral e condôminos; solicitação de documentos | Lista de documentos solicitados x recebidos |
+| Imersão | Semanas 2–4 | Primeira visita a cada prédio (Denise + Caio), entrevistas, leitura dos documentos | Primeiro relatório executivo mensal (D+30) |
+| Diagnóstico | Até D+60 | Matriz de critérios, diagnóstico atual x correto, matriz de riscos v1 | Relatório de diagnóstico + matriz de riscos + plano de ação |
+| Operação plena | A partir de D+90 | Rotina mensal completa | Dashboard em formato de relatório mensal (não online) |
+
+- Prazos valem para as três unidades em paralelo.
+- Previsão Orçamentária 2027: revisada pela DF **caso ainda não tenha sido aprovada em assembleia**.
+- Insumos do Einstein para começar: ata de eleição, procurações aplicáveis, contratos, documentos, pastas de prestação de contas, contatos da administradora e do síndico geral.
+- **Dashboard não será online** — apresentado como relatório mensal a partir de D+90.
+
+### Item 7 — Declaração de independência
 
 _Pergunta feita; aguardando resposta._
