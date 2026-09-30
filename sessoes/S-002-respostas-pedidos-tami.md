@@ -140,4 +140,11 @@ Na tabela do item 3, "pareceres em até 5 dias úteis" passa a ler "pareceres co
 
 ### Item 5 — Metodologia de rateio
 
-_Pergunta feita; aguardando resposta._
+> 1. não. vamos falar sobre etapas na proxima resposta para não deixar essa aqui tão comprida. me faça a pergunta novamente, dando mais ipções para as etapas. 2) diferença de 5% a mais ou a menos do que o previsto. 3) generico. 4) sim. temos alguns casos (revisão do rateio do SPHQ I, revisão do rateio do 17007, entre outros)
+
+- Etapas: a rediscutir — usuário pediu mais opções.
+- Gatilho de parecer: desvio de **±5% em relação ao previsto**.
+- Exemplo de Pinheiros: usar de forma **genérica** (sem citar JLL).
+- Casos reais de revisão de rateio: **SPHQ I**, **17007**, entre outros (detalhar no item 8).
+
+_Menu de etapas enviado; aguardando escolha._
