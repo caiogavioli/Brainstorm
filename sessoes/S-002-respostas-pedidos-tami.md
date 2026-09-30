@@ -20,8 +20,8 @@
 |---|---|---|
 | 1 | Indicação do profissional titular que atuará como responsável pela conta e pela representação das unidades | ✅ aprovado |
 | 2 | Detalhamento da carga horária dedicada ao contrato e da frequência de atuação presencial em cada unidade | ✅ aprovado |
-| 3 | Definição dos SLAs para atendimento das demandas, por criticidade (crítica, urgente, ordinária e pareceres complexos) | aguardando resposta |
-| 4 | Prazos para emissão de pareceres técnicos, segregados por criticidade | pendente |
+| 3 | Definição dos SLAs para atendimento das demandas, por criticidade (crítica, urgente, ordinária e pareceres complexos) | ✅ aprovado |
+| 4 | Prazos para emissão de pareceres técnicos, segregados por criticidade | aguardando resposta |
 | 5 | Metodologia para análise e validação dos rateios condominiais | pendente |
 | 6 | Plano de mobilização e atuação inicial do contrato | pendente |
 | 7 | Declaração formal de independência e inexistência de conflitos de interesse com condomínios, administradoras ou fornecedores | pendente |
@@ -107,3 +107,22 @@ Valor/hora implícito no preço atual (fase de implantação): PG R$ 541/h; Pinh
 | Urgente | Risco relevante de custo ou prazo | Telefonema | até 2 h úteis | posicionamento em até 24 h |
 | Ordinária e pareceres | Rotina e análises técnicas | E-mail / canal oficial Einstein | até 1 dia útil (confirma recebimento e prazo) | rotina em até 3 dias úteis; pareceres conforme item 4 |
 
+
+> 1. ok, porém presencialmente se necessário em até 6h. 2) Plantão: terá sequência de telefones (Denise -> Amanda -> Caio -> Outros membros da DF). 3. não, 6h. 4) isso. Observação: Primeira resposta em até 2 dias úteis. Presença fora da rotina em até 3 dias úteis e Pareceres com até 5 dias úteis.
+
+**Status: aprovado.**
+
+#### Tabela final — item 3
+
+| Nível | Canal | Primeira resposta | Presença / posicionamento |
+|---|---|---|---|
+| Crítica | Telefonema, 24x7 | até 30 min | presença em até 6 h, se necessário |
+| Urgente | Telefonema | até 2 h úteis | posicionamento em até 24 h; presença em até 6 h, se necessário |
+| Ordinária e pareceres | E-mail / canal oficial Einstein | até 2 dias úteis | presença fora da rotina em até 3 dias úteis; pareceres em até 5 dias úteis |
+
+- Plantão: sequência de telefones Denise → Amanda → Caio → demais membros da DF.
+- Horário comercial: segunda a sexta, 8h às 18h.
+
+### Item 4 — Prazos de pareceres por criticidade
+
+_Pergunta feita; aguardando resposta._
