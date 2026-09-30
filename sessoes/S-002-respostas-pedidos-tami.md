@@ -43,11 +43,17 @@ _(registradas item a item, nas palavras dele)_
 - Ninguém foi indicado à Tami antes.
 - LinkedIn e site da DF bloqueados pelo proxy da sessão; rascunhos montados com trechos de busca + deck da DF. **Aguardando aprovação do usuário.**
 
-#### Rascunho — Denise Ferreira (titular)
-Sócia-diretora e fundadora da DF Síndicos Profissionais. Advogada, pós-graduada em Direito Imobiliário pela PUC-SP, atua como síndica profissional desde 2000. Antes de fundar a DF, foi por 16 anos responsável pela divisão imobiliária do Grupo Hindiana (family office de acionistas do Itaú), gerindo edifícios comerciais e logísticos — ou seja, conhece a gestão condominial também do lado do investidor. Hoje responde pela sindicância de empreendimentos corporativos e logísticos AAA em São Paulo e no Rio de Janeiro. No contrato: interlocutora oficial do Einstein, representação em assembleias e condução do fluxo de alinhamento e autorização de votos.
+> segue um print do nosso site. use esse texto tambem
 
-#### Rascunho — Amanda Tigre (substituta — governança e jurídico)
-Sócia fundadora da DF Síndicos Profissionais. Advogada, pós-graduada em Direito Imobiliário pela PUC-SP. Atuou em escritórios da área cível e imobiliária (entre eles Maluf Geraigire Advogados) e, antes da DF, foi advogada sênior em multinacional, responsável pelos contratos de facilities e por pareceres imobiliários. No contrato: substitui a titular em assembleias e reuniões; responde por pareceres jurídicos, análise de contratos de fornecedores e interpretação da convenção.
+(Prints das biografias do site da DF: Denise — CEO; Amanda — Sócia Diretora; Caio — Diretor de Operações.)
 
-#### Rascunho — Caio Gavioli (substituto — técnico, operação e infraestrutura)
-Diretor de Operações da DF Síndicos Profissionais desde 2023. Engenheiro eletricista e de segurança do trabalho, formado pelo Mackenzie, com mais de 10 anos em property management de empreendimentos corporativos, com passagem por CBRE, Cushman & Wakefield e SYN antes da DF. No contrato: substitui a titular no acompanhamento operacional; responde pela avaliação técnica de sistemas prediais críticos (energia, geradores, climatização, elevadores, SDAI), contratos de manutenção e rateio de custos de infraestrutura.
+#### Rascunho v2 — Denise Ferreira (titular) — CEO
+Fundadora e CEO da DF Síndicos Profissionais. Advogada, pós-graduada em Direito Imobiliário pela PUC-SP, atua como síndica profissional desde 2000, com carreira consolidada na gestão de empreendimentos corporativos e logísticos em São Paulo e no Rio de Janeiro. Antes de fundar a DF, foi por 16 anos responsável pela divisão imobiliária do Grupo Hindiana (family office de acionistas do Itaú), o que lhe dá leitura dos dois lados da mesa: condôminos e investidores. Reconhecida pelo domínio da legislação condominial e pela atuação pautada em transparência, ética e busca de soluções que equilibram os interesses das partes. **No contrato:** interlocutora oficial do Einstein, representação nas assembleias das três unidades e condução do fluxo de alinhamento e autorização de votos.
+
+#### Rascunho v2 — Amanda Tigre (substituta — jurídico e contratos) — Sócia Diretora
+Sócia Diretora da DF Síndicos Profissionais. Advogada, pós-graduada em Direito Imobiliário pela PUC-SP, com ampla experiência em negociação, análise e acompanhamento de contratos da área imobiliária e de facilities. Atuou em escritórios das áreas cível e imobiliária e foi advogada sênior em multinacional, responsável pelos contratos de facilities e por pareceres imobiliários. Combina visão jurídica e administrativa da gestão condominial, com foco em conformidade legal e segurança para condôminos e gestores. **No contrato:** substitui a titular em assembleias e reuniões; responde por pareceres jurídicos, análise e renegociação de contratos de fornecedores e interpretação da convenção.
+
+#### Rascunho v2 — Caio Gavioli (substituto — técnico, operação e infraestrutura) — Diretor de Operações
+Diretor de Operações da DF Síndicos Profissionais. Engenheiro eletricista pela Universidade Mackenzie e pós-graduado em Engenharia de Segurança do Trabalho pelas Faculdades Oswaldo Cruz, com mais de 10 anos em gestão operacional e administração de condomínios, desenvolvidos em grandes multinacionais de property management. Atua com foco em otimização de processos, liderança de equipes e relacionamento com clientes e fornecedores. **No contrato:** substitui a titular no acompanhamento operacional; responde pela avaliação técnica dos sistemas prediais críticos (energia, geradores, climatização, elevadores, SDAI), contratos de manutenção e rateio dos custos de infraestrutura.
+
+Status: aguardando aprovação da v2.
