@@ -234,4 +234,26 @@ Sócia-diretora – DF Síndicos Profissionais Ltda.
 
 ### Item 8 — Cases e comprovação de experiência
 
-_Pergunta feita; aguardando resposta._
+> Você fazer de outros condomínios, todos os cases, analise e veja qual case cabe melhor. Então, a atestado de capacidade técnica, sim, eu tenho, eu vou separar esses atestados depois. Então, deixe só como citação aos atestados de capacidade técnica e eu mando ele no e-mail. Sobre a confidencialidade, sim, a gente pode citar os nomes, não tem problema nenhum.
+
+(Anexo: `posts_linkedin_condominios.xlsx` — 71 posts de LinkedIn sobre 17 condomínios da carteira, pesquisados em 30/09/2026.)
+
+- Atestados de capacidade técnica: só citar; o usuário envia no e-mail.
+- Pode citar nomes de empreendimentos e clientes.
+
+#### Análise da planilha — aderência de cada condomínio à RFP
+
+| Condomínio | O que os posts mostram | Aderência |
+|---|---|---|
+| **O Parque (Torre Orvalho)** | Complexo multiuso (escritórios, residencial, varejo); torre corporativa convertida em unidade do **Hospital Sírio-Libanês** (9 andares, ~10 mil m²) + clínicas e consultórios; primeiro ativo de saúde da Brookfield no Brasil | **Altíssima** — hospital dentro de condomínio multiuso (diferencial da RFP) |
+| **17007 Nações** | Complexo com 2 torres corporativas + mall (Nações Open Mall) + estação CPTM integrada; ocupantes Roche e Nestlé; revisão de rateio feita pela DF | **Altíssima** — torre + mall, igual a Pinheiros; multissegmento como PG |
+| **SPHQ I** | Sem posts; 64.489 m²; revisão de rateio feita pela DF | Alta — rateio |
+| **Passeio Paulista** | Uso misto: torre AAA + lojas + lofts residenciais; 46 mil m² locáveis | Alta — multissegmento |
+| **Centenário** | Complexo de duas torres, 112 mil m², retrofit, fachada ativa | Média-alta — porte e múltiplas torres |
+| **Arquipeo** | Built-to-suit de 57 mil m² para ocupante único (WPP, ~4.000 pessoas); artigo da DF sobre **contingência real** (set/2025) | Média-alta — ocupante dominante (como Einstein em Pinheiros) e contingência (RFP 10.1) |
+| TNU | Certificação WELL Health-Safety | Baixa |
+| Demais (Faria Lima Tower, Atrium, Seculum, JKB, Alphaville, Panamérica, Atlas, Jacarandá, Morumbi Plaza, Port Corporate) | Sem posts | Sem dado |
+
+Recomendação: 3 cases principais (17007 Nações, O Parque, SPHQ I) + 2 de apoio (Passeio Paulista, Arquipeo).
+
+_Aguardando detalhes dos cases._
