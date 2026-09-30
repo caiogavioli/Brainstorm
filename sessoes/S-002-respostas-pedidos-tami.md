@@ -62,5 +62,25 @@ Diretor de Operações da DF Síndicos Profissionais. Engenheiro eletricista pel
 
 ### Item 2 — Carga horária e presença por unidade
 
-_Pergunta feita; aguardando resposta._
+> 1. as visitas estão de acordo. 2. quero considerar um periodo de 6 horas para a visita presencial. faça a conta novamente considerando algumas horas remoto. 3. Titular sempre. Caio faz visitas técnicas em paralelo. 4. sim, se a presença aumentar, aumenta o valor
+
+- Frequência aceita: PG semanal; Pinheiros semanal até jun/2027 e depois quinzenal; Artur de Azevedo mensal; + assembleias.
+- Visita presencial = 6 h, sempre com a titular (Denise).
+- Caio faz visitas técnicas em paralelo.
+- Aumento de presença → aumento de valor.
+
+#### Conta refeita (proposta v1 — aguardando aprovação)
+
+| Unidade | Titular presencial | Titular remoto | Caio técnico | Total h/mês |
+|---|---|---|---|---|
+| Parque Global | 4 × 6 h = 24 h | 16 h | 1 × 6 h = 6 h | 46 h |
+| Pinheiros (até jun/27) | 4 × 6 h = 24 h | 12 h | 2 × 6 h = 12 h | 48 h |
+| Pinheiros (após jun/27) | 2 × 6 h = 12 h | 10 h | 1 × 6 h = 6 h | 28 h |
+| Artur de Azevedo | 1 × 6 h = 6 h | 6 h | 6 h por trimestre (~2 h/mês) | 14 h |
+| **Total (implantação)** | 54 h | 34 h | 20 h | **108 h** |
+| **Total (após jun/27)** | 42 h | 32 h | 14 h | **88 h** |
+
+Fora da conta: assembleias (AGO/AGE), reunião mensal de acompanhamento com o Einstein, plantão 24x7.
+
+Valor/hora implícito no preço atual (fase de implantação): PG R$ 541/h; Pinheiros R$ 331/h; Artur de Azevedo R$ 750/h.
 
