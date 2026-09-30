@@ -18,8 +18,8 @@
 
 | # | Pedido | Status |
 |---|---|---|
-| 1 | Indicação do profissional titular que atuará como responsável pela conta e pela representação das unidades | aguardando resposta |
-| 2 | Detalhamento da carga horária dedicada ao contrato e da frequência de atuação presencial em cada unidade | pendente |
+| 1 | Indicação do profissional titular que atuará como responsável pela conta e pela representação das unidades | ✅ aprovado |
+| 2 | Detalhamento da carga horária dedicada ao contrato e da frequência de atuação presencial em cada unidade | aguardando resposta |
 | 3 | Definição dos SLAs para atendimento das demandas, por criticidade (crítica, urgente, ordinária e pareceres complexos) | pendente |
 | 4 | Prazos para emissão de pareceres técnicos, segregados por criticidade | pendente |
 | 5 | Metodologia para análise e validação dos rateios condominiais | pendente |
@@ -56,4 +56,11 @@ Sócia Diretora da DF Síndicos Profissionais. Advogada, pós-graduada em Direit
 #### Rascunho v2 — Caio Gavioli (substituto — técnico, operação e infraestrutura) — Diretor de Operações
 Diretor de Operações da DF Síndicos Profissionais. Engenheiro eletricista pela Universidade Mackenzie e pós-graduado em Engenharia de Segurança do Trabalho pelas Faculdades Oswaldo Cruz, com mais de 10 anos em gestão operacional e administração de condomínios, desenvolvidos em grandes multinacionais de property management. Atua com foco em otimização de processos, liderança de equipes e relacionamento com clientes e fornecedores. **No contrato:** substitui a titular no acompanhamento operacional; responde pela avaliação técnica dos sistemas prediais críticos (energia, geradores, climatização, elevadores, SDAI), contratos de manutenção e rateio dos custos de infraestrutura.
 
-Status: aguardando aprovação da v2.
+> aprovado, desde 2000, mantem 16 anos no grupo Hindiana
+
+**Status: v2 aprovada** (síndica desde 2000; 16 anos no Grupo Hindiana).
+
+### Item 2 — Carga horária e presença por unidade
+
+_Pergunta feita; aguardando resposta._
+
