@@ -26,9 +26,9 @@
 | 6 | Plano de mobilização e atuação inicial do contrato | ✅ aprovado |
 | 7 | Declaração formal de independência e inexistência de conflitos de interesse com condomínios, administradoras ou fornecedores | ✅ aprovado |
 | 8 | Comprovação de experiências e cases similares, de porte e complexidade equivalentes | ✅ aprovado |
-| 9 | Confirmação formal de aceitação de todos os entregáveis previstos na RFP | aguardando resposta |
-| 10 | Despesas contempladas e não contempladas na remuneração (e valores na planilha, se houver extras) | aguardando resposta |
-| 11 | Modelo de governança, fluxo de alinhamento e processo de autorização de manifestações e votos em assembleias | pendente |
+| 9 | Confirmação formal de aceitação de todos os entregáveis previstos na RFP | ✅ aprovado |
+| 10 | Despesas contempladas e não contempladas na remuneração (e valores na planilha, se houver extras) | ✅ aprovado |
+| 11 | Modelo de governança, fluxo de alinhamento e processo de autorização de manifestações e votos em assembleias | aguardando resposta |
 | 12 | Composição da equipe de retaguarda, incluindo especialistas disponíveis para suporte ao contrato | pendente |
 
 ## Respostas do usuário
@@ -354,8 +354,17 @@ A DF Síndicos Profissionais tem hoje **mais de 40 contratos, com mais de 40 con
 
 ### Item 9 — Aceite formal dos entregáveis
 
-_Rascunho enviado junto com o item 10; aguardando aprovação._
+> O item 9 está ok e o item 10 está ok. É, nós vamos mandar um preço final, não vamos mandar um preço aberto, não.
+
+**Status: aprovado.** Aceite integral dos 6 entregáveis da RFP (6.1) e dos indicadores (6.2): relatório executivo mensal (D+30); dashboard como relatório gráfico mensal (D+90); pareceres sob demanda nos prazos do item 4; matriz de riscos (D+60, atualização trimestral ou por risco novo relevante); registro de deliberações até 5 dias úteis após cada assembleia; plano de ação (D+60, acompanhamento mensal).
 
 ### Item 10 — Despesas contempladas e não contempladas
 
-_Rascunho enviado junto com o item 9; aguardando aprovação._
+**Status: aprovado.**
+- Incluídas na mensalidade: honorários (titular, substitutos, retaguarda); visitas presenciais e técnicas; deslocamento, estacionamento e alimentação na Grande SP; AGO e AGE (inclusive emergenciais); plantão 24x7; relatórios, dashboard, matriz de riscos e plano de ação; pareceres da equipe DF; seguro RC profissional e geral; tributos.
+- Não incluídas (só com autorização prévia e por escrito): laudos/perícias/ensaios de terceiros; escritórios externos e contencioso; auditoria independente; custas cartoriais; viagens fora da Grande SP. Não alteram o valor mensal.
+- **Planilha de custos: preço final fechado, sem abertura de composição.**
+
+### Item 11 — Governança, alinhamento e autorização de votos
+
+_Rascunho enviado; aguardando resposta._
