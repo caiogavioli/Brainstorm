@@ -238,3 +238,11 @@ Conferidos com script descartável fora dos repositórios (`openpyxl`, `python-p
 
 Fluxo gravado em `docs/fluxo-por-condominio.md` e no `CLAUDE.md` do repositório novo (commit seguinte a `a17a2b0`).
 
+### Raiz localizada e estado do Atrium gravado — 2026-10-01
+
+O usuário mandou um print: pasta **Claude › Análise de previsão orçamentária**, criada por ele e compartilhada. O conector a achou como `Operacional/Claude/Análise de previsão orçamentária` no OneDrive do Marco (`personal/marco_dfsindicos_com_br`).
+
+Criado nela: `Atrium Century Plaza - Setor Office/2027/{Rodada-1, Material recebido}`. Gravados `2027/estado.json` (rodada 1, `em_validacao`, hash dos dois arquivos analisados, 17 apontamentos com chave estável) e `Rodada-1/achados.json` (texto completo dos apontamentos), ambos conferidos pelo tamanho exato em bytes, e `estado.json` relido pelo conector. **Não gravados:** relatório `.docx` e questionário `.xlsx` (o conector exige base64 dentro da chamada; frágil); o usuário os coloca na pasta.
+
+Identificadores e regra em `docs/fluxo-por-condominio.md` do repositório novo (commit seguinte a `444fa98`).
+
