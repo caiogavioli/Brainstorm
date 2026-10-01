@@ -29,7 +29,7 @@
 | 9 | Confirmação formal de aceitação de todos os entregáveis previstos na RFP | ✅ aprovado |
 | 10 | Despesas contempladas e não contempladas na remuneração (e valores na planilha, se houver extras) | ✅ aprovado |
 | 11 | Modelo de governança, fluxo de alinhamento e processo de autorização de manifestações e votos em assembleias | ✅ aprovado |
-| 12 | Composição da equipe de retaguarda, incluindo especialistas disponíveis para suporte ao contrato | aguardando resposta |
+| 12 | Composição da equipe de retaguarda, incluindo especialistas disponíveis para suporte ao contrato | ✅ aprovado |
 
 ## Respostas do usuário
 
@@ -385,4 +385,10 @@ A DF Síndicos Profissionais tem hoje **mais de 40 contratos, com mais de 40 con
 
 ### Item 12 — Equipe de retaguarda
 
-_Pergunta feita; aguardando resposta._
+> Podemos citar que a gente tem o Marco Murilo, que é nosso gerente financeiro, e a Cláudia De Santi, que é nossa diretora de LGPD.
+
+**Status: aprovado.**
+- Retaguarda nomeada: **Marco Murilo** (Gerente Financeiro) e **Cláudia De Santi** (Diretora de LGPD), além de Denise, Amanda e Caio.
+- Perguntas 2–4 (demais membros do plantão, parceiros externos, ferramenta de continuidade) sem resposta — redigido de forma genérica: "demais gestores da DF", "rede de parceiros especializados contratados sob demanda" e "repositório digital único, nos canais autorizados pelo Einstein".
+
+**Todos os 12 itens aprovados.** Próximo passo: montar a proposta técnica completa (uma por unidade) e o texto corrigido das três comerciais — em `entregas/`.
