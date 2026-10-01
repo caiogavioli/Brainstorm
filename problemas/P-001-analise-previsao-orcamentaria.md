@@ -13,20 +13,24 @@ Esboço inicial (a confirmar na Rodada 1):
 Ferramentas: Excel e PowerPoint (do lado das administradoras); o formato do relatório final ainda não foi dito.
 
 ## Frequência e volume
-- Acontece: _a confirmar_ (hipótese: ciclo anual, por condomínio)
-- Tempo gasto por vez: _a confirmar_
-- Volume: _a confirmar_ — o usuário já tem um prompt anterior, feito para outra IA, que será usado como base
+- Acontece: ciclo anual, a partir do 2º trimestre
+- Tempo gasto por vez: "alguns dias" por previsão (tempo corrido)
+- Volume: ~30 condomínios por ciclo; arquivos de até 50 MB; formatos variados (Excel, apresentações, outros); plano de contas próprio de cada administradora e de cada condomínio
 
 ## Quem sofre
-O usuário (faz a análise e assina o parecer). Quem recebe o relatório: _a confirmar_.
+O usuário e a equipe dele (4 pessoas). O relatório vai para o **proprietário**, por email ou apresentação presencial.
 
 ## O que já foi tentado
-Um prompt escrito para outra IA fazer a análise. O usuário vai enviá-lo para servir de base. O que funcionou e o que não funcionou: _a confirmar_.
+Nada. O prompt que o usuário achava ter era de outro tema — não existe prompt nem modelo de relatório anterior. Tudo é feito do zero.
 
 ## Como saberíamos que resolveu
-_A confirmar._ Hipótese de trabalho: o usuário joga os arquivos da previsão aqui e recebe de volta o relatório com parecer, com os achados rastreáveis (linha, valor, motivo).
+Hipótese de trabalho (a confirmar na Rodada 2): o usuário joga os arquivos da previsão aqui e recebe de volta o relatório com parecer, com os achados rastreáveis (linha, valor, motivo).
 
 ## Restrições conhecidas
 - Os documentos vêm das administradoras em formatos variados.
 - O pedido do usuário é por um "espaço no Code" (este ambiente) + um prompt, não por um sistema à parte.
-- Dados de terceiros (orçamentos de condomínios) — sensibilidade e onde podem ficar guardados: _a confirmar_.
+- Dados de terceiros (orçamentos de condomínios): o usuário aceita que os arquivos fiquem em OneDrive ou Google Drive; não citou GitHub.
+- Não há contratos para cruzar; a conferência de reajuste só pode ser contra o índice informado na planilha.
+- O "realizado do ano anterior" vem copiado e colado dentro da planilha da administradora — não há fonte independente.
+- Erro que mais importa: valor calculado errado contra o ano anterior e contra o índice de reajuste.
+- Não existe controle/tracking dessas previsões hoje.
