@@ -2,7 +2,7 @@
 
 Estado vivo do brainstorming — visão do hub. Ler no início de **toda** sessão, seja qual for o branch, e atualizar ao fim de qualquer rodada ou decisão.
 
-**Última atualização:** 2026-09-30
+**Última atualização:** 2026-10-01
 
 ---
 
@@ -32,6 +32,7 @@ O conteúdo de um branch **não é puxado de volta** para `main` — evita mistu
 | `claude/clinic-popup-design-qmebur` | Brainstorming em andamento | P-001 — Pop-up para clínica de atendimento e vacinas (objetivo exato ainda não definido — apresentação inicial muito enxuta) | **Rodada 1 aberta** — perguntas feitas, aguardando respostas do usuário |
 | `claude/contract-approval-system-mo09qm` | Não usou o processo deste repositório | Pedido: importação mensal, sob demanda, dos dados do Monday no sistema de aprovações | **Não é um problema deste repositório.** O usuário pediu direto para implementar em [`caiogavioli/aprovacoes-contratos-concorrencia`](https://github.com/caiogavioli/aprovacoes-contratos-concorrencia) (fora daqui) — perguntado explicitamente se queria seguir o processo Marina/Rafael/Tomás ou ir direto ao repo do sistema; escolheu ir direto. Sem Rodada 1/2, sem `problemas/`/`sessoes/` neste branch. Entregue: `/admin/import` agora busca os dois boards ao vivo na API do Monday a cada clique (antes lia um snapshot estático), commit `18a8525` |
 | `claude/einstein-rfp-representante-condominial` | Análise de concorrência (não é software) | P-001 — Concorrência do Einstein para Representante Condominial (subsíndico profissional) das unidades Artur de Azevedo, Pinheiros e Parque Global, disputada pela DF Síndicos | **Proposta revisada montada (S-002).** 12 pedidos do Einstein respondidos e aprovados; textos finais em `entregas/`. Falta diagramar e enviar (prazo 01/10/2026) |
+| `claude/budget-forecast-analysis-ujaw4z` | Brainstorming completo | P-001 — Análise e parecer das previsões orçamentárias de condomínios enviadas pelas administradoras (conferência de reajuste, índices, somas e fórmulas) | **Fechado (2026-10-01).** Virou [`caiogavioli/analise-previsao-orcamentaria`](https://github.com/caiogavioli/analise-previsao-orcamentaria) (privado). Cada rodada gera **dois arquivos** (relatório de apontamentos ao condomínio, com matriz de riscos, e planilha de respostas à administradora); o parecer final ao proprietário só sai com zero críticos abertos. Prédio novo = análise independente; revisão = retoma o estado do condomínio no OneDrive (`Operacional/Claude/Análise de previsão orçamentária`). Primeiro caso (Atrium Santo André, PO 2027): rodada 1 gerada, **envio à administradora pendente (do usuário)** |
 
 ## Problemas
 
@@ -43,6 +44,7 @@ _Cada branch de brainstorming mantém sua própria tabela de problemas em detalh
 |---|---|---|---|
 | `triagem-contratante` | P-001 (branch `claude/client-email-task-tracking-0bcy0q`) | [caiogavioli/triagem-contratante](https://github.com/caiogavioli/triagem-contratante) (privado) | 2026-08-10 |
 | `manual-preenchimento-aprovacoes` | P-001 (branch `claude/manual-formulario-aprovacoes-b7k2xr`) | Não é repositório próprio — entregue em [caiogavioli/aprovacoes-contratos-concorrencia](https://github.com/caiogavioli/aprovacoes-contratos-concorrencia)`/docs/` (privado), commit `94e59a7` | 2026-09-02 |
+| `analise-previsao-orcamentaria` | P-001 (branch `claude/budget-forecast-analysis-ujaw4z`) | [caiogavioli/analise-previsao-orcamentaria](https://github.com/caiogavioli/analise-previsao-orcamentaria) (privado), commit inicial `9d6ebca` | 2026-10-01 |
 
 ## Decisões sobre o processo
 
@@ -56,6 +58,10 @@ _Cada branch de brainstorming mantém sua própria tabela de problemas em detalh
 
 ## Preferências do usuário observadas
 
+- Relatórios que acusam erro de terceiro: quer mostrar **primeiro ao condomínio** o que está errado, com **matriz de riscos** (crítico / moderado / baixo), e só depois emitir o relatório final ao proprietário. Valida o rascunho antes de qualquer envio; o envio é sempre dele (2026-10-01).
+- Equipe de 4 pessoas, mas **só o usuário tem Claude Code pago** (2026-10-01). Soluções que dependem de a equipe rodar Claude Code não servem; a equipe consome saídas (arquivos no OneDrive). O analista confere **apenas as respostas da administradora**, não a estrutura dos relatórios.
+- Para a análise de previsões orçamentárias: **só computador**, celular fora do escopo. Arquivos de condomínios ficam em OneDrive, nunca no GitHub.
+- O conector Microsoft 365 lê anexos de email e arquivos do OneDrive/SharePoint **como texto com valores, sem fórmulas**, não abre links web e só grava arquivos de até 1 MB; para auditar fórmula, o arquivo precisa chegar **anexado** à conversa.
 - Idioma: português do Brasil.
 - Quer clareza sobre **quando** cada artefato é criado — não gosta de passo implícito. Ser explícito sobre gatilhos.
 - GitHub: conta `caiogavioli`.
