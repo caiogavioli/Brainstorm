@@ -157,3 +157,24 @@ Numeração D1–D9, contínua entre as três.
 3. **Celular (Android)?** Não respondido (baixa prioridade).
 4. **"Fecha o projeto"?** Ainda não dito. Pelo CLAUDE.md, fim de Rodada 2 não é gatilho.
 
+---
+
+## Fechamento — 2026-10-01
+
+> 1. As 4 pessoas devem ter acesso ao material, mas não tem acesso ao Claude Code pago. 2.melhor usar só no computador. 3.pode executar já.      Segue um print do email que recebi com o material da Previsão Orçamentária 2027 do Atrium Santo André
+
+(O usuário anexou o print do email "ATRIUM BCP OFFICE - Prévia PO 2027", da Innova, de 29/09/2026, com a planilha de previsão e a apresentação.)
+
+**Leitura:**
+- **1:** as outras 3 pessoas **não têm Claude Code pago** ⇒ a condição do D8 não se cumpre como desenhada. Ajuste feito na spec: só o usuário opera; a equipe lê as saídas no OneDrive.
+- **2:** só no computador; celular fora do escopo.
+- **3:** é o gatilho "**fecha o projeto**" (era o item 3 da lista de pendências). Disparou os quatro passos do `CLAUDE.md`.
+
+**Piloto localizado.** O email original foi achado na caixa do usuário; o conector Microsoft 365 leu a planilha anexa (9 abas) — como **texto com valores, sem fórmulas**. Isso muda o desenho: auditar fórmula exige o arquivo em disco ⇒ execução **local** (Windows + OneDrive sincronizado) como modo recomendado; sessão web + conector fica como plano B.
+
+**Execução do fechamento:**
+1. `projetos/analise-previsao-orcamentaria.md` escrito, completo.
+2. **Criação do repositório falhou: 403.** `POST /user/repos` → "Resource not accessible by integration". Limitação já registrada neste `MEMORY.md` (integração sem `Administration: write`). **O usuário precisa criar o repositório vazio à mão** — ver "Em aberto" em `MEMORY.md`.
+3. Esqueleto preparado em `projetos/analise-previsao-orcamentaria.esqueleto/` **de forma temporária** neste branch (README, CLAUDE.md, .gitignore, pyproject.toml, config.exemplo.toml, `dados/indices.csv`, `prompts/analise.md`, `prompts/parecer.md`, `docs/casos-piloto-atrium-2027.md`, `src/`, `tests/`). Sai deste branch quando for empurrado ao repositório novo.
+4. `MEMORY.md` e catálogo atualizados.
+

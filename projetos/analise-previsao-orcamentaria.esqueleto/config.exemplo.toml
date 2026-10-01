@@ -1,0 +1,8 @@
+# Copiar para config.local.toml (ignorado pelo git) e ajustar.
+
+# Pasta do OneDrive sincronizada no Windows, onde ficam os condomínios.
+# Estrutura esperada: <raiz>/<condominio>/<ano>/
+raiz_onedrive = 'C:\Users\SEU_USUARIO\OneDrive - EMPRESA\Previsoes'
+
+# Quantos dias a data-base de dados/indices.csv pode ficar velha antes de o verificador recusar rodar.
+validade_indices_dias = 45

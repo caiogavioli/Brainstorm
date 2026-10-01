@@ -1,0 +1,30 @@
+# Dado de condomínio nunca entra no git
+entrada/
+saida/
+config.local.toml
+*.xlsx
+*.xlsm
+*.xls
+*.pptx
+*.ppt
+*.pdf
+*.docx
+*.doc
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# Sistema e editor
+.DS_Store
+Thumbs.db
+~$*
+.vscode/
+.idea/

@@ -32,7 +32,7 @@ O conteúdo de um branch **não é puxado de volta** para `main` — evita mistu
 | `claude/clinic-popup-design-qmebur` | Brainstorming em andamento | P-001 — Pop-up para clínica de atendimento e vacinas (objetivo exato ainda não definido — apresentação inicial muito enxuta) | **Rodada 1 aberta** — perguntas feitas, aguardando respostas do usuário |
 | `claude/contract-approval-system-mo09qm` | Não usou o processo deste repositório | Pedido: importação mensal, sob demanda, dos dados do Monday no sistema de aprovações | **Não é um problema deste repositório.** O usuário pediu direto para implementar em [`caiogavioli/aprovacoes-contratos-concorrencia`](https://github.com/caiogavioli/aprovacoes-contratos-concorrencia) (fora daqui) — perguntado explicitamente se queria seguir o processo Marina/Rafael/Tomás ou ir direto ao repo do sistema; escolheu ir direto. Sem Rodada 1/2, sem `problemas/`/`sessoes/` neste branch. Entregue: `/admin/import` agora busca os dois boards ao vivo na API do Monday a cada clique (antes lia um snapshot estático), commit `18a8525` |
 | `claude/einstein-rfp-representante-condominial` | Análise de concorrência (não é software) | P-001 — Concorrência do Einstein para Representante Condominial (subsíndico profissional) das unidades Artur de Azevedo, Pinheiros e Parque Global, disputada pela DF Síndicos | **Proposta revisada montada (S-002).** 12 pedidos do Einstein respondidos e aprovados; textos finais em `entregas/`. Falta diagramar e enviar (prazo 01/10/2026) |
-| `claude/budget-forecast-analysis-ujaw4z` | Brainstorming em andamento | P-001 — Análise e parecer das previsões orçamentárias de condomínios enviadas pelas administradoras (Excel, apresentações, documentos) — conferência linha a linha vs. realizado do ano anterior, índices, fórmulas, reajuste | **Rodada 2 decidida (D1–D8 aceitos; script desde o dia 1; parecer conclui "pode ser aprovado" ou "não").** Recorte: 1 projeto (`analise-previsao-orcamentaria`, kit de análise, sem app). Aguardando: arquivo-piloto do Atrium Santo André, resposta sobre as 4 pessoas terem Claude Code, e o gatilho "fecha o projeto". Repositório **ainda não criado** |
+| `claude/budget-forecast-analysis-ujaw4z` | Brainstorming completo | P-001 — Análise e parecer das previsões orçamentárias de condomínios enviadas pelas administradoras (conferência de reajuste, índices, somas e fórmulas) | **Spec fechada (2026-10-01):** `analise-previsao-orcamentaria`. **Repositório ainda não existe** — a criação via API deu 403; o usuário precisa criar `caiogavioli/analise-previsao-orcamentaria` (privado, vazio) à mão. Esqueleto pronto em `projetos/analise-previsao-orcamentaria.esqueleto/` neste branch, temporário, para ser empurrado depois |
 
 ## Problemas
 
@@ -44,6 +44,7 @@ _Cada branch de brainstorming mantém sua própria tabela de problemas em detalh
 |---|---|---|---|
 | `triagem-contratante` | P-001 (branch `claude/client-email-task-tracking-0bcy0q`) | [caiogavioli/triagem-contratante](https://github.com/caiogavioli/triagem-contratante) (privado) | 2026-08-10 |
 | `manual-preenchimento-aprovacoes` | P-001 (branch `claude/manual-formulario-aprovacoes-b7k2xr`) | Não é repositório próprio — entregue em [caiogavioli/aprovacoes-contratos-concorrencia](https://github.com/caiogavioli/aprovacoes-contratos-concorrencia)`/docs/` (privado), commit `94e59a7` | 2026-09-02 |
+| `analise-previsao-orcamentaria` | P-001 (branch `claude/budget-forecast-analysis-ujaw4z`) | `caiogavioli/analise-previsao-orcamentaria` (privado) — **a criar à mão**, spec em `projetos/analise-previsao-orcamentaria.md` | 2026-10-01 (spec) |
 
 ## Decisões sobre o processo
 
@@ -57,6 +58,9 @@ _Cada branch de brainstorming mantém sua própria tabela de problemas em detalh
 
 ## Preferências do usuário observadas
 
+- Equipe de 4 pessoas, mas **só o usuário tem Claude Code pago** (2026-10-01). Soluções que dependem de a equipe rodar Claude Code não servem; a equipe consome saídas (arquivos no OneDrive).
+- Para a análise de previsões orçamentárias: **só computador**, celular fora do escopo (2026-10-01). Já aceitou que arquivos de condomínios fiquem em OneDrive/Drive (não GitHub).
+- O conector Microsoft 365 desta sessão lê anexos de email e arquivos do OneDrive/SharePoint **como texto com valores, sem fórmulas**, e não baixa o arquivo; para auditar fórmula, o arquivo precisa estar em disco (execução local).
 - Idioma: português do Brasil.
 - Quer clareza sobre **quando** cada artefato é criado — não gosta de passo implícito. Ser explícito sobre gatilhos.
 - GitHub: conta `caiogavioli`.
@@ -69,6 +73,8 @@ _Cada branch de brainstorming mantém sua própria tabela de problemas em detalh
 
 ## Em aberto
 
+- **Ação pendente do usuário:** criar o repositório vazio e **privado** `caiogavioli/analise-previsao-orcamentaria` no GitHub (a integração recebeu 403 ao tentar). Depois disso, empurrar o esqueleto de `projetos/analise-previsao-orcamentaria.esqueleto/` (branch `claude/budget-forecast-analysis-ujaw4z`) e remover a pasta temporária daqui.
+- Piloto de `analise-previsao-orcamentaria`: Atrium Santo André (setor Office), PO 2027, Innova, recebida em 29/09/2026. Casos preliminares em `docs/casos-piloto-atrium-2027.md` do esqueleto — **confirmar com o script**, não com leitura manual.
 - **Ação pendente do usuário:** trocar o branch default do repositório para `main` em Settings → Branches no GitHub — a integração não tem permissão para fazer isso via API.
 - **Ação pendente do usuário:** apagar o branch `claude/python-sql-database-planning-k95885` no GitHub (Settings → Branches, ou a lista de branches do repositório) — já aprovado, só falta a permissão que a integração não tem.
 - Repositórios novos devem nascer **públicos ou privados**? (Pergunta antiga, ainda não confirmada — o único fechamento até aqui, `triagem-contratante`, nasceu privado.)
