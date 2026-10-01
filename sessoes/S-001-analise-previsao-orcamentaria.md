@@ -228,3 +228,13 @@ Conferidos com script descartável fora dos repositórios (`openpyxl`, `python-p
 
 **Requisito novo, em validação:** (a) prédio novo ⇒ análise e relatórios **independentes** dos de outros condomínios; (b) material revisado de um condomínio ⇒ **retomar a última análise daquele condomínio** e atualizar análise e relatório. Em validação: onde o estado de cada condomínio é guardado, como a sessão decide "nova" × "revisão" e o que o usuário envia em cada caso. A explicação foi enviada ao usuário; **nada foi implementado** antes do aval.
 
+### Fluxo por condomínio validado — 2026-10-01
+
+> 1. Segue o link do onedrive https://dfsindicos365-my.sharepoint.com/:f:/g/personal/marco_dfsindicos_com_br/IgAucvLMPGUmRYwovXow5siiAcx8xLd61_-OqsIt8cq7kqk?e=IzCufv 2. Serve 3. Prefiro fazer conforme sua sugestão mais fácil.
+
+- **1:** raiz das pastas no OneDrive do Marco (`personal/marco_dfsindicos_com_br`). O conector não abre links web e a busca por nome não achou a pasta: falta o nome ou o caminho.
+- **2:** se o material revisado chegar sem o questionário preenchido, reconferir o arquivo e listar os "Esclarecer" sem resposta; o usuário responde por ID no chat.
+- **3:** leitura minha, a confirmar: "sugestão mais fácil" = analisar o próximo prédio já, com scripts na hora; extrator e verificador do repositório ficam para depois.
+
+Fluxo gravado em `docs/fluxo-por-condominio.md` e no `CLAUDE.md` do repositório novo (commit seguinte a `a17a2b0`).
+
