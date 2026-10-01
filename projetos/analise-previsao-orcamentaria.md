@@ -12,7 +12,7 @@ As administradoras mandam a previsão orçamentária de cada condomínio em Exce
 
 Entra:
 - Extração das tabelas de planilhas (`.xlsx`), apresentações (`.pptx`) e PDFs com texto, **avisando** o que não conseguiu ler (imagem/escaneado) em vez de ignorar em silêncio.
-- **Verificador determinístico** que recalcula e confere (ver "Arquitetura"): reajuste de cada linha, % declarado vs. % efetivo, somas e subtotais, total anual, custo por m² (CMQ), fundos, consistência entre abas, variação vs. ano anterior, percentuais citados no texto das observações, erros de planilha (`#REF!`, rótulo desalinhado de valor).
+- **Verificador determinístico** que recalcula e confere (ver "Arquitetura"): reajuste de cada linha, % declarado vs. % efetivo, somas e subtotais, total anual, custo por m² (CMQ), fundos, consistência entre abas, **apresentação × planilha** (total, CMQ, fundos, % de reajuste, área), % ou base digitados dentro de fórmula, variação vs. ano anterior, percentuais citados no texto das observações, erros de planilha (`#REF!`, rótulo desalinhado de valor).
 - Mapeamento de contas para categorias comuns, **uma vez por condomínio**, aprovado pelo usuário e reaproveitado no ano seguinte.
 - Tabela de índices (IPCA, IGP-M) mantida pelo time, com valor, fonte e data-base.
 - Prompt de análise: a IA interpreta os achados do verificador, avalia razoabilidade (variação grande sem justificativa, linha nova, mudança de escopo) e redige.
@@ -101,19 +101,27 @@ Custo recorrente: nenhum além da assinatura do Claude Code que o usuário já u
 | Saída em Word + Excel | Markdown, PDF ou apresentação | O usuário já envia por email ou apresenta; Word se edita antes de enviar. PDF pode ser exportado depois |
 | Sem OCR na v1 | Incluir OCR | Peça móvel a mais; o extrator avisa o arquivo ilegível e o usuário decide |
 
-## Casos reais do piloto (leitura manual preliminar)
+## Casos reais do piloto
 
-Previsão **PO 2027 do Atrium Santo André (setor Office), Innova**, recebida em 29/09/2026 (planilha de 9 abas + apresentação). Leitura à mão a partir do conector, **sem fórmulas**. Estes casos devem virar teste do verificador, e cada um precisa ser **confirmado pelo script** antes de entrar em parecer. Detalhe em `docs/casos-piloto-atrium-2027.md` no repositório novo.
+Previsão **PO 2027 do Atrium Santo André (setor Office), Innova**, recebida em 29/09/2026: planilha de 9 abas e apresentação de 22 slides. Conferida em 2026-10-01 **no arquivo real, com fórmulas**, por script descartável (a leitura anterior, por conector, só tinha texto).
 
-1. **Premissa × linha:** Limpeza tem premissa de 9% (com nota de que o acordo aprovado é maior por prêmio de assiduidade), mas a linha "Serviços de Limpeza" usa 8%.
-2. **% declarado × % efetivo:** "Serviços — Manutenção de Bombas/Motores" declara 5%, mas os valores mensais sobem 6% (730 → 773,80).
-3. **Subtotal com % errado:** o "% de Reajuste" dos grupos na aba analítica é a média simples das linhas, não a variação real do grupo (ex.: concessionárias −37,3% na aba analítica × −39,7% na aba comparativa).
-4. **Texto × número:** a observação de "Despesas Gerais" diz "aumento de 14,3% em relação ao realizado", mas a variação da própria planilha é ~7,9%.
-5. **Área inconsistente entre abas:** 17.115,66 m² nas premissas e 17.155,66 m² na aba "Inclusões PO 2027".
-6. **`#REF!`** em várias linhas da aba "Principais Alterações", e rótulos desalinhados dos valores (ex.: "Contrato de Serviços de Bombeiro Civil" com os valores de "Manutenção Predial") — parece bloco de modelo de outro ano.
-7. **Narrativa × número:** Telefone/Internet justificam "saving", mas contra o realizado de 2026 a variação é **positiva** (+5,6% e +8,5%); o saving só existe contra a previsão de 2026.
-8. **Aba "Inclusões PO 2027"** lista total de acréscimos zero, embora a proposta suba ~9,1%.
-9. **Realizado do ano em curso:** o "Realizado 2026" aparece num documento de setembro de 2026; não está dito se é realizado parcial + projeção. Vira pergunta à administradora.
+**Resultado:** dos 9 casos levantados à mão, **8 se confirmaram** e 1 não é verificável no arquivo ("Realizado 2026" sem rótulo de período, que segue como pedido de esclarecimento). A conferência por fórmula achou **mais 8**, entre eles a divergência **apresentação × planilha**: total mensal ~0,14% acima, CMQ 16,22 × 16,20, reajuste 9,25% × 9,10%, e área privativa citada de dois jeitos na mesma apresentação.
+
+Os casos mais relevantes, em uma linha cada (detalhe com endereço de célula em `docs/casos-piloto-atrium-2027.md` do repositório novo):
+
+1. **Premissa × aplicado:** Limpeza com premissa de 9% e linha usando 8%, digitado dentro da fórmula.
+2. **% declarado × efetivo:** Bombas/Motores declara 5% e a fórmula aplica 6%; Materiais Hidráulicos declara 0% e sobe 5%.
+3. **% de grupo é média simples** das linhas, não a variação do grupo.
+4. **Texto × número:** observação cita +14,3%, a planilha calcula +7,9%.
+5. **Área privativa divergente** (17.115,66 × 17.155,66 m²), inclusive dentro da própria apresentação.
+6. **`#REF!`** e referências para linha errada em "Principais Alterações" (bloco de modelo antigo).
+7. **"Saving" que só existe contra a previsão do ano anterior**; contra o realizado a variação é positiva.
+8. **Apresentação × planilha** divergem em total, CMQ e % de reajuste.
+9. **Portaria +13,4%** com observação "dentro das premissas" (8%).
+
+**Passou limpo** (o verificador não pode acusar): total anual = soma dos meses nas 56 linhas, 14 grupos fecham com os itens, fundos e CMQ conferem com as premissas.
+
+**Para a decisão:** o teste mostrou que o piloto é um caso em que o verificador teria achado coisa relevante, e que parte dos achados (comparar apresentação com planilha) só aparece se o extrator de `.pptx` entrar na v1.
 
 ## Riscos
 
@@ -123,13 +131,13 @@ Previsão **PO 2027 do Atrium Santo André (setor Office), Innova**, recebida em
 4. **Tabela de índices velha.** O verificador recusa rodar com data-base vencida, em vez de conferir contra número velho.
 5. **Conclusão binária mal calibrada.** Regra inicial proposta, **a calibrar no piloto com o usuário**: "não pode ser aprovado" se houver erro de conta, ou inconsistência que altere o total ou o CMQ; "pode ser aprovado" se restarem só observações e pedidos de esclarecimento que não alterem valor. O parecer sempre lista o que condiciona a conclusão.
 6. **Dado de terceiro.** Arquivos ficam no OneDrive e fora do git; o conteúdo analisado passa pela IA.
-7. **Verificar o que o piloto "viu".** Os 9 casos acima foram lidos à mão a partir de texto; podem conter falso positivo.
+7. **Tabelas como imagem nos slides.** No piloto, os slides 8 e 10–14 são figuras de tabelas; sem OCR (fora da v1) o extrator só avisa, e a comparação apresentação × planilha fica limitada ao texto dos slides. É o maior ponto cego conhecido.
 8. **Realizado não conferível.** Nenhuma regra pode validar o realizado; o parecer declara a limitação em toda previsão.
 
 ## Critério de pronto (v1)
 
 - [ ] O piloto (Atrium Santo André, PO 2027) roda de ponta a ponta no Windows do usuário, lendo do OneDrive sincronizado
-- [ ] O verificador reproduz, com teste, os casos 1 a 8 do piloto que se confirmarem e descarta os que não
+- [ ] O verificador reproduz, com teste sintético, os casos confirmados do piloto **e não acusa** o que passou limpo
 - [ ] `achados.xlsx` cobre cada achado com aba/célula, valor declarado, valor recalculado e regra
 - [ ] O usuário aprova o modelo de parecer (1–2 páginas, conclusão binária) feito a partir do piloto
 - [ ] O mesmo arquivo reprocessado gera achados idênticos (hash do arquivo e versão dos índices no cabeçalho)

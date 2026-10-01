@@ -73,7 +73,7 @@ _Cada branch de brainstorming mantém sua própria tabela de problemas em detalh
 
 ## Em aberto
 
-- Piloto de `analise-previsao-orcamentaria`: Atrium Santo André (setor Office), PO 2027, Innova, recebida em 29/09/2026. Casos preliminares em `docs/casos-piloto-atrium-2027.md` do repositório novo — **confirmar com o script**, não com leitura manual.
+- Piloto de `analise-previsao-orcamentaria`: Atrium Santo André (setor Office), PO 2027, Innova, recebida em 29/09/2026. Casos **confirmados no arquivo real, com fórmulas** (8 de 9 + 8 novos, incluindo apresentação × planilha) em `docs/casos-piloto-atrium-2027.md` do repositório novo, commit `342f92d`. Falta virar verificador com teste.
 - **Ação pendente do usuário:** trocar o branch default do repositório para `main` em Settings → Branches no GitHub — a integração não tem permissão para fazer isso via API.
 - **Ação pendente do usuário:** apagar o branch `claude/python-sql-database-planning-k95885` no GitHub (Settings → Branches, ou a lista de branches do repositório) — já aprovado, só falta a permissão que a integração não tem.
 - Repositórios novos devem nascer **públicos ou privados**? (Pergunta antiga, ainda não confirmada — o único fechamento até aqui, `triagem-contratante`, nasceu privado.)

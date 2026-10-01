@@ -184,3 +184,9 @@ Numeração D1–D9, contínua entre as três.
 
 O usuário criou `caiogavioli/analise-previsao-orcamentaria` (privado, vazio). O esqueleto foi empurrado para `main` (commit `9d6ebca`, 11 arquivos, sem nenhum dado de condomínio) e a pasta temporária foi removida deste branch. Passo 4 do `CLAUDE.md` concluído.
 
+### Arquivos reais do piloto — 2026-10-01
+
+O usuário anexou à sessão a planilha (`00 - PREVISÃO ORÇAMENTÁRIA 2027 - ATRIUM_Vs.01_Rev.Cleber_Rev.Joao.xlsx`) e a apresentação (`1 - Apresentação - Previsão orçamentária manutenções e investimentos 2027-01.pptx`), sem texto.
+
+Conferidos com script descartável fora dos repositórios (`openpyxl`, `python-pptx`). Resultado: 8 dos 9 casos da leitura por texto confirmados; 8 novos; divergência apresentação × planilha (total mensal, CMQ, % de reajuste, área); tabelas de slide em imagem não lidas. Detalhe em `docs/casos-piloto-atrium-2027.md` do repositório novo (commit `342f92d`), que ganhou as regras C10 (apresentação × planilha) e C11 (% digitado dentro de fórmula). Os arquivos não foram copiados para nenhum repositório.
+
