@@ -1,5 +1,21 @@
 # Entregas — proposta revisada Einstein (prazo 01/10/2026)
 
+## Prontos para imprimir (padrão visual DF)
+
+Gerados sobre o modelo `Relatorio_Apuracao_Passeio_Paulista_Vazamento_Diesel.docx` (logo, rodapé, cores e tipografia DF):
+
+| Word (.docx) | PDF |
+|---|---|
+| `DF_Proposta_Tecnica_Einstein_Parque_Global.docx` | `.pdf` |
+| `DF_Proposta_Tecnica_Einstein_Pinheiros.docx` | `.pdf` |
+| `DF_Proposta_Tecnica_Einstein_Artur_de_Azevedo.docx` | `.pdf` |
+| `DF_Proposta_Comercial_Einstein_Parque_Global.docx` | `.pdf` |
+| `DF_Proposta_Comercial_Einstein_Pinheiros.docx` | `.pdf` |
+| `DF_Proposta_Comercial_Einstein_Artur_de_Azevedo.docx` | `.pdf` |
+| `DF_Declaracao_Independencia_Einstein.docx` | `.pdf` |
+
+Os `.md` abaixo são a fonte do texto; `_gerador/` refaz os .docx (`gera.py` → .md; `build_df.py` → .docx). O PDF foi renderizado com Carlito (equivalente métrico do Calibri) — no Word, com Calibri, a paginação fica igual.
+
 Textos finais montados a partir das respostas aprovadas em `sessoes/S-002-respostas-pedidos-tami.md`. Servem de base para diagramar no modelo visual da DF.
 
 | Arquivo | O que é |
