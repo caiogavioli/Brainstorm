@@ -305,4 +305,18 @@ _Sem pedido de ajuste; mantidos o nome do Sírio-Libanês (nomes liberados) e a 
 **Por que é relevante para o Einstein:** é exatamente a estrutura prevista na convenção das unidades desta RFP (subsíndico por setor, autonomia dos setores e segregação de despesas comuns e específicas).
 
 **Comprovação:** atestado de capacidade técnica (enviado em anexo ao e-mail).
+> Sobre o 17.007, é, não tem o número do rateio aqui, mas é, foi, foi revisado o rateio que melhorou o pagamento do subcondomínio garagem, que pagava despesas altíssimas e passou a pagar despesas reais dele. Isso foi dividido entre as torres Sigma e Torre Alpha, que são as ocupantes. É, esse valor não foi dividido pelo mall, que não utiliza o estacionamento. Em relação ao mall, ele não entrou na revisão do rateio, porque a área do mall ela é uma área fixa e ele só tem área privativa, ele não tem área comum. É, a troca de administradora não aconteceu, a CBRE continua sendo administradora lá até hoje. O que foi feito foi a reorganização da gestão com relatórios de análise da operação e dos cargos que estavam ali, É, e da recomendação da contratação de profissionais com é, perfis diferentes, com escolas diferentes, com capacidades diferentes.
+
+#### Rascunho v2 — Case 17007 Nações
+
+**Complexo 17007 Nações** · São Paulo (Chácara Santo Antônio) · Torre Sigma e Torre Alpha (corporativas AAA) + subcondomínio garagem + mall (Nações Open Mall, só área privativa) + acesso integrado à estação João Dias da CPTM · ocupantes como Roche e Nestlé · DF síndica desde 2025
+
+**Desafio:** assumir a sindicância de um complexo multissegmento cuja gestão estava estruturada havia oito anos com a mesma administradora, com necessidade de revisar o rateio, os fornecedores, a estrutura da equipe de operação e a proximidade com os locatários.
+
+**O que a DF fez:** diagnóstico integrado com as frentes de engenharia (gaps e oportunidades de melhoria), financeira e jurídica (revisão da convenção e dos documentos); relatórios de análise da operação e dos cargos existentes, com recomendação de contratação de profissionais com perfis, formações e capacidades diferentes; revisão de fornecedores; reorganização da gestão mantendo a administradora (CBRE).
+
+**Resultado:** o rateio não seguia a convenção — o **subcondomínio garagem arcava com despesas muito acima das suas despesas reais**, subsidiando as torres. Com a revisão, a garagem passou a pagar apenas o que é seu, e a diferença foi redistribuída entre as Torres Sigma e Alpha, que são as ocupantes. O mall, que tem apenas área privativa e não utiliza o estacionamento, não foi onerado.
+
+**Comprovação:** atestado de capacidade técnica (enviado em anexo ao e-mail).
+
 _Aguardando aprovação._
