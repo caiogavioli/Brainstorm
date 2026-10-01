@@ -266,3 +266,13 @@ Identificadores e regra em `docs/fluxo-por-condominio.md` do repositório novo (
 
 **Pendente:** o **envio à Innova** é do usuário e ainda não aconteceu; os três `.docx`/`.xlsx` precisam ser colocados por ele na pasta `Rodada-1`. Quando enviar, `situacao` passa a `aguardando_administradora`.
 
+### Duas mudanças depois da versão final — 2026-10-01
+
+> duas mudanças que eu quero que você faça. É, o, quando vier tabelas em imagem, ele precisa mandar a tabela em Excel também para a gente conferir e fazer a conferência. Então não é um item de baixa criticidade, é um item de alta criticidade, porque ele pode ter feito o copia e cola de algum lugar errado. Então eu preciso corrigir isso no relatório número 1. Já no relatório número 2, no item número 2, é, eu não acho que o analista precise concordar ou discordar do seu apontamento. Você deu os apontamentos e o analista vai analisar todos eles. Pode remover essa opção de concordar.
+
+**1. Tabelas em imagem → crítico.** O apontamento passou de baixo para **crítico** (impacto alto, ação *Enviar*): a administradora envia as tabelas **em Excel** (ou o arquivo-fonte), com a aba e a versão de origem. Contagem: 3 críticos, 9 moderados, 5 baixos. Como os IDs seguem a ordem de criticidade, o item **A-17 virou A-03** e os de A-03 a A-16 subiram uma posição (A-04 a A-17). A chave estável não mudou. Vale como regra para todos os condomínios.
+
+**2. Sem "concordar" com os apontamentos.** Minha leitura de "item número 2": a tabela de análise dos apontamentos do arquivo 2 (seção 5), que tinha *Concordo / Ajustar / Retirar*. Agora é só **Ajustar / Retirar**; sem marcação, o apontamento segue. O *Concordo / Não concordo* **continua** na planilha, mas é sobre a **resposta da administradora** (decisão anterior do usuário: "só o meu Concordo fecha o item"). **Leitura a confirmar.**
+
+**Registro:** o ajuste do A-17→A-03 consta no arquivo 2 (☑ Ajustar) e em `estado.json` (`ajustes`, `revisao_analista`). Repositório novo, commit `b84ebdd`.
+
