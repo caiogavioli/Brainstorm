@@ -246,3 +246,13 @@ Criado nela: `Atrium Century Plaza - Setor Office/2027/{Rodada-1, Material receb
 
 Identificadores e regra em `docs/fluxo-por-condominio.md` do repositório novo (commit seguinte a `444fa98`).
 
+### Revisão do modelo: três arquivos por rodada — 2026-10-01
+
+> Eu quero que você faça uma revisão no projeto e que você, ao invés de criar dois arquivos, que você crie três arquivos. O primeiro arquivo vai ser uma análise, o relatório em si, o qual vão ter todos os apontamentos, todas as indicações, etc. O segundo arquivo, ele vai ser o arquivo de orientação ao meu analista, é, que vai ser, na verdade, você vai separar o arquivo anterior que você fez em duas partes. E o terceiro é a planilha.
+
+**Decidido:** cada rodada passa a gerar **três arquivos**: (1) **Relatório de Apontamentos**, só a análise, para o condomínio e a administradora; (2) **Orientação ao Analista**, interno, o antigo anexo interno separado; (3) **Planilha de Respostas** (antigo questionário).
+
+**Interpretação minha, a confirmar:** "meu analista" é quem conduz a rodada (validar, enviar, avaliar respostas), então o arquivo 2 foi escrito de forma autossuficiente, em terceira pessoa, e ganhou conteúdo novo além do antigo anexo: passo a passo, critérios de fechamento, **critério de aceite por apontamento** ("concordar quando…") e situações frequentes.
+
+**Entregue:** os três arquivos do Atrium (rodada 1), fora do git; no repositório novo (commit seguinte a `4585193`), `prompts/orientacao-analista.md`, `prompts/planilha-respostas.md`, `docs/criterios-de-aceite.md` e os demais textos atualizados.
+
