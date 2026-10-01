@@ -220,3 +220,11 @@ Conferidos com script descartável fora dos repositórios (`openpyxl`, `python-p
 
 **Entregue:** relatório v2 (`.docx`) e `Questionario-Administradora-Atrium-PO2027.xlsx` (2 abas, 17 linhas, 3 listas suspensas), ambos fora do git por conterem valores do condomínio. Repositório novo, commit `6487396`: `prompts/relatorio-apontamentos.md`, `CLAUDE.md`, `README.md` e `docs/matriz-de-risco.md` atualizados.
 
+### Modelo encerrado — 2026-10-01
+
+> Sim, só o meu Concordo fecha o item. As perguntas estão ótimas. Pode encerrar a criacao do modelo, e manter esse padrão para o futuro. Cada vez que eu te mandar um novo material e pedir uma nova análise, de um novo prédio, você vai faze-la e criar novos relatórios, independentes dos anteriores de outros condomínios. Mas, cada vez que eu te mandar material revisado pelo condomínio, você deve retomar a última análise feita para o condomínio em questão, e atualizar análise e o relatório. Você entendeu minha necessidade? Me explique o que eu preciso e como você vai fazer, e eu vou validar
+
+**Decidido:** (1) só o *Concordo* do usuário fecha um apontamento "Esclarecer"; (2) o questionário está aprovado; (3) o **modelo v1 está encerrado** e vira o padrão de todos os condomínios (repositório novo, commit seguinte a `6487396`).
+
+**Requisito novo, em validação:** (a) prédio novo ⇒ análise e relatórios **independentes** dos de outros condomínios; (b) material revisado de um condomínio ⇒ **retomar a última análise daquele condomínio** e atualizar análise e relatório. Em validação: onde o estado de cada condomínio é guardado, como a sessão decide "nova" × "revisão" e o que o usuário envia em cada caso. A explicação foi enviada ao usuário; **nada foi implementado** antes do aval.
+
