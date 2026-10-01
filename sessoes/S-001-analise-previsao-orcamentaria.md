@@ -256,3 +256,13 @@ Identificadores e regra em `docs/fluxo-por-condominio.md` do repositório novo (
 
 **Entregue:** os três arquivos do Atrium (rodada 1), fora do git; no repositório novo (commit seguinte a `4585193`), `prompts/orientacao-analista.md`, `prompts/planilha-respostas.md`, `docs/criterios-de-aceite.md` e os demais textos atualizados.
 
+### Validação e versão final da rodada 1 do Atrium — 2026-10-01
+
+> Está validado. Pode gerar a versão final dos três relatórios, dos três arquivos, na verdade.
+
+**Leitura:** os 17 apontamentos foram validados em bloco (Concordo); nenhum ajustado ou retirado. Se algum item mereceria outra decisão, é regenerar.
+
+**Gerado:** os três arquivos finais. O relatório (arquivo 1) saiu **sem a marca de rascunho**, com cabeçalho neutro; a orientação (arquivo 2) registra a validação (☑ Concordo em 17 linhas); a planilha (arquivo 3) não mudou. `estado.json` no OneDrive: `pronto_para_envio`, `validado_em` 2026-10-01 e `validacao_analista` = concordo em cada apontamento.
+
+**Pendente:** o **envio à Innova** é do usuário e ainda não aconteceu; os três `.docx`/`.xlsx` precisam ser colocados por ele na pasta `Rodada-1`. Quando enviar, `situacao` passa a `aguardando_administradora`.
+
