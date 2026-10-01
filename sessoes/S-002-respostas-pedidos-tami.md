@@ -340,6 +340,12 @@ _Aguardando aprovação._
 
 A DF Síndicos Profissionais tem hoje **mais de 40 contratos, com mais de 40 condomínios sob sua gestão**, que somam **mais de 2 milhões de m² de área locável**, **mais de R$ 24 milhões mensais de OPEX** e **mais de R$ 35 milhões em CAPEX** sob sua gestão. A carteira reúne empreendimentos corporativos AAA, complexos multiuso e condomínios com subcondomínios, em São Paulo e no Rio de Janeiro. Os cases abaixo foram escolhidos por reproduzirem as situações das unidades desta RFP; os atestados de capacidade técnica de cada empreendimento seguem anexos.
 
+> sobre a pergunta 2 que você fez, qual o papel da DF no passeio paulista no arquipel, a DF ela é síndica dos dois condomínios. O arquipel nós entramos em 2024 e o passeio paulista em 2025. É, ambos os condomínios eles são, são geridos por administradoras e a ADF é a síndica responsável pela gestão completa do condomínio. É, sobre o atestado, é, ele não é atestado para o condomínio, não é um atestado do condomínio. Eu tenho atestados de capacidade técnica que clientes mandam para a gente, então, para os proprietários, por exemplo. Então, acho que não é bom citar que tem atestado de capacidade técnica para cada um desses condomínios. É, deixe citado que a gente tem atestado de capacidade técnica pelos nossos clientes.
+
+- Arquipeo: DF síndica desde 2024. Passeio Paulista: DF síndica desde 2025. Ambos com administradora; DF responsável pela gestão completa.
+- Atestados: são emitidos por clientes (proprietários), não por condomínio. Retirar as linhas "Comprovação" de cada case; citar só na introdução: "atestados de capacidade técnica emitidos por nossos clientes, anexos".
+- CAPEX: pergunta (anual x acumulado) sem resposta — mantido "mais de R$ 35 milhões em CAPEX".
+
 ### Item 9 — Aceite formal dos entregáveis
 
 _Rascunho enviado junto com o item 10; aguardando aprovação._
