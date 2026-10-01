@@ -47,4 +47,13 @@ _Perguntas feitas; aguardando respostas do usuário._
 
 ## Respostas do usuário
 
-_Ainda não respondidas._
+### Bloco 1 — 2026-10-01 (transcrição de áudio, respostas parciais)
+
+> A resposta da pergunta número um é, ele vem em todos os formatos, geral, é, variado. A resposta número dois, ele vem dentro, do, dentro da planilha copiado e colado. É, os índices são IPCA, IGPM, etc., ou de sírio de categoria que é informado.
+
+**Leitura provisória (a confirmar — não é a fala do usuário):**
+- **1:** formatos variados, sem padrão. Ainda não disse se as fórmulas do Excel vêm vivas ou como valores colados, nem se PDFs/apresentações têm texto nativo ou são imagem.
+- **2:** o realizado do ano anterior vem **dentro da planilha da administradora, copiado e colado** — ou seja, hoje não há fonte independente para conferir esse número. Isso significa que "comparar com o realizado" é comparar contra o que a própria administradora declarou.
+- **3:** índices citados: IPCA, IGP-M, etc., mais o reajuste da categoria (provável "dissídio", transcrição de áudio), "que é informado". Não ficou claro quem informa nem em que data-base.
+
+**Ainda sem resposta:** 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14. O prompt anterior continua pendente.
