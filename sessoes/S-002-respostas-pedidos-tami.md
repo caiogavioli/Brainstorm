@@ -288,4 +288,21 @@ _Usuário seguiu para o próximo case sem pedir ajuste; perguntas opcionais (nú
 
 **Comprovação:** atestado de capacidade técnica (enviado em anexo ao e-mail).
 
+_Sem pedido de ajuste; mantidos o nome do Sírio-Libanês (nomes liberados) e a frase "Por que é relevante para o Einstein" até objeção do usuário._
+
+> Para o Condomínio São Paulo Headquarters 1, a DF é síndica desde 2014. É, o rateio do condomínio ele foi feito baseado na convenção condominial, é, a qual não foi feita é, olhando para as instalações do condomínio como um todo. É, o condomínio ele tem quatro subcondomínios, é, na verdade são três subcondomínios e o condomínio geral. e os itens são divididos entre esses subcondomínios de geral. Então, cada um tem a sua receita, cada um tem a sua despesa específica, e a convenção que foi criada, ela não previa isso, ela era uma convenção que mantinha um rateio único, dividido em fração ideal, sem considerar as peculiaridades de cada condomínio. A DF revisou cada área, cada prédio, cada estrutura, a necessidade dos locatários, os equipamentos instalados, o tamanho do local, né, das subcondomínios, e refez a, o rateio do condomínio, né, recriou o rateio do condomínio e foi aprovado numa nova convenção posterior. Isso permitiu que cada condomínio tivesse a sua despesa específica lançada para ele, sem ser onerado por despesas de outros condomínios, ou sem ter as suas despesas pagas pelo outro subcondomínio.
+
+#### Rascunho — Case SPHQ I
+
+**Condomínio São Paulo Headquarters I (SPHQ I)** · São Paulo · 64.489 m² construídos · condomínio geral + três subcondomínios, cada um com receitas e despesas próprias · DF síndica desde 2014
+
+**Desafio:** a convenção original previa rateio único por fração ideal, sem refletir a estrutura real do empreendimento — três subcondomínios e um condomínio geral, com instalações, equipamentos e necessidades distintas. Resultado: subcondomínios pagando despesas uns dos outros.
+
+**O que a DF fez:** levantou cada área, prédio, estrutura e equipamento instalado, o tamanho de cada subcondomínio e a necessidade dos locatários; recriou o modelo de rateio com segregação entre despesas do condomínio geral e despesas específicas de cada subcondomínio; conduziu a aprovação do novo modelo em uma nova convenção.
+
+**Resultado:** cada subcondomínio passou a arcar apenas com suas despesas específicas, sem ser onerado por despesas de outro e sem ter as suas pagas por terceiros — fim do subsídio cruzado, com respaldo formal na convenção.
+
+**Por que é relevante para o Einstein:** é exatamente a estrutura prevista na convenção das unidades desta RFP (subsíndico por setor, autonomia dos setores e segregação de despesas comuns e específicas).
+
+**Comprovação:** atestado de capacidade técnica (enviado em anexo ao e-mail).
 _Aguardando aprovação._
