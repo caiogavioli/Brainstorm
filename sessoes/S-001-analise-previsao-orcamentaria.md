@@ -175,6 +175,12 @@ Numeração D1–D9, contínua entre as três.
 **Execução do fechamento:**
 1. `projetos/analise-previsao-orcamentaria.md` escrito, completo.
 2. **Criação do repositório falhou: 403.** `POST /user/repos` → "Resource not accessible by integration". Limitação já registrada neste `MEMORY.md` (integração sem `Administration: write`). **O usuário precisa criar o repositório vazio à mão** — ver "Em aberto" em `MEMORY.md`.
-3. Esqueleto preparado em `projetos/analise-previsao-orcamentaria.esqueleto/` **de forma temporária** neste branch (README, CLAUDE.md, .gitignore, pyproject.toml, config.exemplo.toml, `dados/indices.csv`, `prompts/analise.md`, `prompts/parecer.md`, `docs/casos-piloto-atrium-2027.md`, `src/`, `tests/`). Sai deste branch quando for empurrado ao repositório novo.
+3. Esqueleto preparado **de forma temporária** neste branch (README, CLAUDE.md, .gitignore, pyproject.toml, config.exemplo.toml, `dados/indices.csv`, `prompts/analise.md`, `prompts/parecer.md`, `docs/casos-piloto-atrium-2027.md`, `src/`, `tests/`). Sai deste branch quando for empurrado ao repositório novo.
 4. `MEMORY.md` e catálogo atualizados.
+
+### Repositório criado — 2026-10-01
+
+> Criei o repositório, pode empurrar o esqueleto
+
+O usuário criou `caiogavioli/analise-previsao-orcamentaria` (privado, vazio). O esqueleto foi empurrado para `main` (commit `9d6ebca`, 11 arquivos, sem nenhum dado de condomínio) e a pasta temporária foi removida deste branch. Passo 4 do `CLAUDE.md` concluído.
 

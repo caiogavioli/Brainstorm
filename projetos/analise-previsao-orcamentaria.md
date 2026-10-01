@@ -1,8 +1,8 @@
 # analise-previsao-orcamentaria
 
 **Origem:** P-001 (branch `claude/budget-forecast-analysis-ujaw4z`)
-**Status:** spec fechada em 2026-10-01 — repositório **a criar** (a integração do GitHub não tem permissão; ver "Pendências de fechamento")
-**Repositório:** `caiogavioli/analise-previsao-orcamentaria` (privado) — ainda não existe
+**Status:** fechado em 2026-10-01 — esqueleto publicado; desenvolvimento segue no repositório novo
+**Repositório:** [caiogavioli/analise-previsao-orcamentaria](https://github.com/caiogavioli/analise-previsao-orcamentaria) (privado), commit inicial `9d6ebca`
 
 ## Problema que resolve
 
@@ -148,7 +148,8 @@ Previsão **PO 2027 do Atrium Santo André (setor Office), Innova**, recebida em
 - Painel/controle de status das ~30 previsões por ciclo
 - Busca automática de IPCA/IGP-M como complemento à tabela do time (proposta do Tomás)
 
-## Pendências de fechamento
+## Como o fechamento aconteceu
 
-- **Repositório não criado:** o `POST /user/repos` voltou **403** (a integração não tem `Administration: write`, limitação já registrada em `MEMORY.md`). O usuário cria o repositório vazio à mão; em seguida o esqueleto é empurrado. O esqueleto está pronto em `projetos/analise-previsao-orcamentaria.esqueleto/` neste branch, **de forma temporária**, e sai quando o repositório existir.
-- **Visibilidade:** privado, como o padrão do `CLAUDE.md`. O repositório não guarda dados de condomínio.
+- A criação do repositório pela integração do GitHub voltou **403** (sem `Administration: write`, limitação já registrada em `MEMORY.md`). O usuário criou o repositório vazio e privado à mão e o esqueleto foi empurrado em seguida.
+- Visibilidade: privado, padrão do `CLAUDE.md`. O repositório não guarda dados de condomínio.
+- Nesta spec os "Casos reais do piloto" são resumos; o detalhe vive em `docs/casos-piloto-atrium-2027.md` do repositório novo.
