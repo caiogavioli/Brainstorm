@@ -276,3 +276,16 @@ Identificadores e regra em `docs/fluxo-por-condominio.md` do repositório novo (
 
 **Registro:** o ajuste do A-17→A-03 consta no arquivo 2 (☑ Ajustar) e em `estado.json` (`ajustes`, `revisao_analista`). Repositório novo, commit `b84ebdd`.
 
+### Volta a dois arquivos; sem "Limites" no relatório — 2026-10-01
+
+> Analisando os documentos, eu quero que você faça algumas modificações. No documento número 1, eu quero que você remova o item 6, limites. Eu não quero que esse item limites apareça no documento. Já no o item, o documento número 2, eu acho que ele está sendo inútil nesse momento. Então, eu acho que a gente não precisa ter ele, porque o analista não vai conferir O primeiro, a estrutura do primeiro item. O analista vai conferir as respostas da administradora apenas.
+
+**Decidido:** (1) o **relatório não tem mais a seção "Limites desta análise"**; (2) a **Orientação ao Analista foi descontinuada**. Cada rodada gera **dois arquivos**: Relatório de Apontamentos e Planilha de Respostas (agora `2-Planilha…`). O analista confere **apenas as respostas da administradora**.
+
+**Consequências que assumi (a confirmar):**
+- O aval antes do envio passa a ser do **usuário, no chat**; nada sai sem ele.
+- O que antes estava em "Limites" e dizia respeito ao que a extração não leu continua no relatório **como apontamento** (tabela em imagem = crítico). O que é "não verificável" (realizado e índice da categoria informados pela administradora; contratos não analisados) fica **só no parecer final**, que mantém a seção de limites. Se o usuário quiser tirá-la também do parecer, é um ajuste.
+- Os critérios de aceite por apontamento deixaram de ser entregues; ficam em `docs/criterios-de-aceite.md`, e a sessão os usa para **propor no chat** se uma resposta da administradora merece *Concordo*. Quem marca é o analista.
+
+**Entregue:** os dois arquivos finais do Atrium (fora do git). Repositório novo, commit `fa102c8`: o prompt antigo foi para `prompts/descontinuados/`.
+
