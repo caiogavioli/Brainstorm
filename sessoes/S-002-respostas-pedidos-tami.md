@@ -332,6 +332,14 @@ _Aguardando aprovação._
 
 - Case SPHQ I corrigido: CRD aprovado em assembleia, substituindo o formato de rateio da convenção (não houve nova convenção).
 
+> Sobre o texto de introdução do item 8, é, utilize o print que eu te mandei agora, que tem uns números aqui da DF Síndicos, para aumentar ali a nossa capacidade técnica. Não precisa colocar a data, por exemplo, 2025 que aparece ali, é, coloca só os números, a quantidade de metros quadrados, os milhões de reais em OPEX, os milhões de reais em CAPEX, eu acho que isso é importante. E pode citar que a gente tem mais de 40 contratos, com mais de 40 condomínios sob nossa gestão.
+
+(Print do site da DF: +2 milhões de m² de área locável sob gestão; +R$ 24 milhões mensais de OPEX sob gestão; +R$ 35 milhões em CAPEX em 2025 sob gestão.)
+
+#### Introdução v2 — item 8
+
+A DF Síndicos Profissionais tem hoje **mais de 40 contratos, com mais de 40 condomínios sob sua gestão**, que somam **mais de 2 milhões de m² de área locável**, **mais de R$ 24 milhões mensais de OPEX** e **mais de R$ 35 milhões em CAPEX** sob sua gestão. A carteira reúne empreendimentos corporativos AAA, complexos multiuso e condomínios com subcondomínios, em São Paulo e no Rio de Janeiro. Os cases abaixo foram escolhidos por reproduzirem as situações das unidades desta RFP; os atestados de capacidade técnica de cada empreendimento seguem anexos.
+
 ### Item 9 — Aceite formal dos entregáveis
 
 _Rascunho enviado junto com o item 10; aguardando aprovação._
