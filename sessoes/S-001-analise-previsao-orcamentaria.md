@@ -125,3 +125,35 @@ Numeração D1–D9, contínua entre as três.
 5. Fórmulas do Excel vêm vivas ou coladas? PDFs e apresentações têm texto nativo ou imagem?
 6. Quem informa o índice da categoria e qual a data-base?
 7. Você tem alguma previsão real em mãos agora, mesmo com dados trocados, para o piloto?
+
+---
+
+## Decisões do usuário sobre a Rodada 2 — 2026-10-01
+
+> Aceito D1 a D8, vamos com o script desde o dia 1. O parecer termina com a opinião de pode ser aprovado ou não. 5. Vem de todos os jeitos, não tem um padrão. 6. A própria administradora, nos arquivos da previsão orçamentária. 7. Sim, separei um exemplo real do condomínio Atrium Santo André
+
+**Decidido:**
+
+| Item | Decisão |
+|---|---|
+| D1 | Script determinístico extrai e recalcula; a IA interpreta e redige |
+| D2 | Tabela de índices mantida pelo time, com valor, fonte e data-base (lado da Marina no desacordo com o Tomás) |
+| D3 | Mapeamento de contas uma vez por condomínio, aprovado pelo usuário, salvo para o ano seguinte |
+| D4 | Parecer curto para o proprietário + anexo de achados rastreáveis. **Conclusão do parecer: "pode ser aprovado" ou "não"** (binária) |
+| D5 | Piloto com casos reais — mas **com o script desde o dia 1** (lado da Marina no desacordo com o Rafael) |
+| D6 | Reajuste acima do índice, sem contrato, vira pedido de esclarecimento, não erro |
+| D7 | Arquivos no OneDrive/SharePoint, lidos pelo conector Microsoft 365; dados fora do GitHub. **Risco ainda não validado:** o conector trazer um .xlsx de até 50 MB inteiro |
+| D8 | Repositório privado novo, sem dados — **condicionado** a as 4 pessoas terem acesso ao Claude Code (ver pendências) |
+| D9 | Consequência de D1: o script extrai só as tabelas; arquivo de 50 MB não vai inteiro para a conversa |
+
+**Respostas às pendências:**
+- **Formatos (pergunta 5):** "vem de todos os jeitos, não tem um padrão" — o extrator não pode assumir fórmula viva nem PDF com texto nativo; precisa tratar os dois casos e avisar quando não consegue ler.
+- **Índice da categoria (pergunta 6):** quem informa é a própria administradora, nos arquivos da previsão. Logo não há fonte externa para o reajuste da categoria — o parecer só pode conferir a **conta**, não o valor do índice informado. IPCA e IGP-M seguem pela tabela do time (D2).
+- **Piloto (pergunta 7):** o usuário diz ter separado um exemplo real do **Atrium Santo André**.
+
+**Pendências abertas:**
+1. **O arquivo do Atrium não chegou.** Busquei no OneDrive e no Drive e achei muito material do Atrium, mas nada que se identifique, sem dúvida, como a previsão orçamentária "separada" — ver mensagem de abertura da sessão. Preciso do caminho exato (ou do arquivo na conversa).
+2. **As 4 pessoas da equipe têm acesso ao Claude Code?** Não respondido; condiciona D8.
+3. **Celular (Android)?** Não respondido (baixa prioridade).
+4. **"Fecha o projeto"?** Ainda não dito. Pelo CLAUDE.md, fim de Rodada 2 não é gatilho.
+
