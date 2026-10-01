@@ -289,3 +289,9 @@ Identificadores e regra em `docs/fluxo-por-condominio.md` do repositório novo (
 
 **Entregue:** os dois arquivos finais do Atrium (fora do git). Repositório novo, commit `fa102c8`: o prompt antigo foi para `prompts/descontinuados/`.
 
+### Catálogo em `main` atualizado — 2026-10-01
+
+> Pode atualizar o catálogo em main
+
+Autorização explícita do usuário para escrever em `main` (as instruções da sessão restringem o push a este branch). Commit `7553734` em `main`: linha do catálogo para este branch, linha em "Projetos fechados", data de atualização e quatro preferências globais. Não foi trazido nenhum conteúdo do branch (nem `problemas/`, `sessoes/`, `projetos/`).
+
