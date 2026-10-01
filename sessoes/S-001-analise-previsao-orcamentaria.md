@@ -190,3 +190,18 @@ O usuário anexou à sessão a planilha (`00 - PREVISÃO ORÇAMENTÁRIA 2027 - A
 
 Conferidos com script descartável fora dos repositórios (`openpyxl`, `python-pptx`). Resultado: 8 dos 9 casos da leitura por texto confirmados; 8 novos; divergência apresentação × planilha (total mensal, CMQ, % de reajuste, área); tabelas de slide em imagem não lidas. Detalhe em `docs/casos-piloto-atrium-2027.md` do repositório novo (commit `342f92d`), que ganhou as regras C10 (apresentação × planilha) e C11 (% digitado dentro de fórmula). Os arquivos não foram copiados para nenhum repositório.
 
+---
+
+## Mudança de desenho — 2026-10-01 (depois do fechamento)
+
+> Quero que você, nesse prompt, nesse projeto, você crie um relatório e a primeira coisa é que ele me mostre todos os problemas encontrados, sejam eles técnicos, sejam eles da parte de números, sejam eles da parte de conceito. É, faça uma lista de problemas encontrados com uma matriz de riscos. Isso é crítico, isso não é crítico. É, sugira algumas coisas para mim para que eu possa falar se está certo ou não. O que eu preciso mostrar primeiro é para o condomínio que a análise foi feita e que existem coisas erradas e que ele precisa corrigir. Depois, quando o condomínio corrigir tudo isso, a gente vai emitir um relatório final para o proprietário falando que está tudo certo.
+
+**O que muda:** o ciclo passa de um parecer a **dois documentos em sequência**: (1) **relatório de apontamentos** ao condomínio e à administradora, com matriz de riscos, que repete a cada reapresentação; (2) **parecer final** ao proprietário, só quando tudo estiver corrigido. Isso promove a **comparação entre versões** de v2+ para v1, com chave estável por apontamento.
+
+**Interpretação de "sugira algumas coisas para eu validar":** o relatório nasce como **rascunho com anexo interno** (critérios, perguntas V1–V11 com sugestão, e checklist Concordo/Ajustar/Retirar por apontamento). O usuário valida e só então sai a versão ao condomínio. Se a leitura estava errada, o ajuste é pequeno.
+
+**Entregue:**
+- Repositório novo (commit `3b06727`): `prompts/relatorio-apontamentos.md`, `prompts/parecer-final.md` (antes `parecer.md`), `docs/matriz-de-risco.md`, e `CLAUDE.md`, `README.md` e `prompts/analise.md` atualizados.
+- **Rascunho do relatório do Atrium (rodada 1):** 17 apontamentos — 2 críticos, 9 moderados, 6 baixos — enviado ao usuário como `.docx`. **Fora do git** (valores reais do condomínio). Não foi possível renderizar o arquivo neste ambiente (o LibreOffice não abre nem um `.docx` trivial); o arquivo abre no `python-docx`, mas o layout não teve conferência visual.
+- Esta spec atualizada: D4 revisado, critério de criticidade, ciclo de rodadas, novos riscos 9 e 10.
+
