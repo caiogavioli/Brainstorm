@@ -272,4 +272,20 @@ _Aguardando detalhes dos cases._
 
 **Comprovação:** atestado de capacidade técnica (enviado em anexo ao e-mail).
 
+_Usuário seguiu para o próximo case sem pedir ajuste; perguntas opcionais (número, mall no rateio, troca de administradora) ficaram sem resposta — texto mantido como está._
+
+> Condomínio Parque, a DF é síndica também, desde 2026, começo do ano de 2026. É, ele é um prédio em implantação, é, os ocupantes estão entrando agora, e o desafio é fazer a sincronia das operações entre uma torre de escritórios, a torre do Círio Libanês, a uma, duas torres residenciais que têm moradores que têm problemas com obras, com horários, etc. Então, é um condomínio que ainda está em implantação, ainda está em obras, e a DF é a gestora, é a empresa que faz a coordenação da operação do condomínio para zelar pelo bem-estar de todos os ocupantes. É, a mudança que vai ser gerada com a chegada do hospital é a ocupação, é, é o tipo de público que vai ser recebido e o fluxo de operação que a gente tem dentro do complexo, né, com as pessoas vindo para atendimentos, estacionamento, a parte de gestão de elevadores, geradores, água, tudo isso entra para um processo crítico de operação.
+
+#### Rascunho — Case O Parque
+
+**Complexo O Parque** · São Paulo (Av. Roque Petroni Jr., Brooklin) · complexo multiuso AAA: torre de escritórios, torre hospitalar do Hospital Sírio-Libanês (~10 mil m² em 9 andares, com clínicas e consultórios), duas torres residenciais e varejo · DF síndica desde o início de 2026
+
+**Desafio:** conduzir a implantação de um condomínio multissegmento ainda em obras, com ocupantes entrando, e sincronizar a operação de usos com necessidades opostas: escritórios, hospital e moradores sensíveis a obras, ruídos e horários. A chegada do hospital muda o perfil do público, o fluxo de pessoas (pacientes e acompanhantes), o estacionamento e transforma elevadores, geradores e abastecimento de água em sistemas de operação crítica.
+
+**O que a DF faz:** coordena a operação do complexo como gestora do condomínio, compatibilizando as regras e rotinas de cada segmento (obras, horários, acessos, estacionamento) e estruturando a gestão dos sistemas críticos para a operação hospitalar, sempre com foco no bem-estar de todos os ocupantes.
+
+**Por que é relevante para o Einstein:** é a mesma combinação das unidades desta RFP — hospital dentro de condomínio multiuso (Parque Global) e implantação simultânea à entrada em operação (Pinheiros).
+
+**Comprovação:** atestado de capacidade técnica (enviado em anexo ao e-mail).
+
 _Aguardando aprovação._
