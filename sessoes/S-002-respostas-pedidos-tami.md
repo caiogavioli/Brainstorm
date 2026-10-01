@@ -28,8 +28,8 @@
 | 8 | Comprovação de experiências e cases similares, de porte e complexidade equivalentes | ✅ aprovado |
 | 9 | Confirmação formal de aceitação de todos os entregáveis previstos na RFP | ✅ aprovado |
 | 10 | Despesas contempladas e não contempladas na remuneração (e valores na planilha, se houver extras) | ✅ aprovado |
-| 11 | Modelo de governança, fluxo de alinhamento e processo de autorização de manifestações e votos em assembleias | aguardando resposta |
-| 12 | Composição da equipe de retaguarda, incluindo especialistas disponíveis para suporte ao contrato | pendente |
+| 11 | Modelo de governança, fluxo de alinhamento e processo de autorização de manifestações e votos em assembleias | ✅ aprovado |
+| 12 | Composição da equipe de retaguarda, incluindo especialistas disponíveis para suporte ao contrato | aguardando resposta |
 
 ## Respostas do usuário
 
@@ -367,4 +367,22 @@ A DF Síndicos Profissionais tem hoje **mais de 40 contratos, com mais de 40 con
 
 ### Item 11 — Governança, alinhamento e autorização de votos
 
-_Rascunho enviado; aguardando resposta._
+> 1. fluxo ok. 2. todo voto com autorização. 3. concordo
+
+**Status: aprovado.**
+
+| Etapa | O que acontece | Prazo |
+|---|---|---|
+| 1. Classificação | Ao receber o edital, a DF classifica cada item da pauta: A (rotina) ou B (estratégico, lista do item 11.1 da RFP) | até 1 dia útil após o edital |
+| 2. Análise | Itens A: nota com recomendação de voto. Itens B: parecer completo com análise, riscos, alternativas e recomendação | até 3 dias úteis após o edital e mínimo 5 dias úteis antes da assembleia |
+| 3. Alinhamento | Reunião ou call com Facilities Einstein | antes da autorização |
+| 4. Autorização | Orientação de voto por escrito, **para todos os itens**, conforme alçadas do Einstein; procuração específica quando necessária | antes da assembleia |
+| 5. Assembleia | DF vota exatamente conforme a autorização | na assembleia |
+| 6. Registro | Registro de deliberações com recomendações (entregável 5) | até 5 dias úteis após |
+
+- **Todo voto exige autorização escrita do Einstein** — inclusive rotina.
+- Imprevistos (tema fora de pauta ou proposta diferente da analisada): DF não vota em nome do Einstein — abstém-se, pede ressalva em ata ou adiamento, e comunica o Einstein no mesmo dia.
+
+### Item 12 — Equipe de retaguarda
+
+_Pergunta feita; aguardando resposta._
