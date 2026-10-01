@@ -25,9 +25,9 @@
 | 5 | Metodologia para análise e validação dos rateios condominiais | ✅ aprovado |
 | 6 | Plano de mobilização e atuação inicial do contrato | ✅ aprovado |
 | 7 | Declaração formal de independência e inexistência de conflitos de interesse com condomínios, administradoras ou fornecedores | ✅ aprovado |
-| 8 | Comprovação de experiências e cases similares, de porte e complexidade equivalentes | aguardando resposta |
-| 9 | Confirmação formal de aceitação de todos os entregáveis previstos na RFP | pendente |
-| 10 | Despesas contempladas e não contempladas na remuneração (e valores na planilha, se houver extras) | pendente |
+| 8 | Comprovação de experiências e cases similares, de porte e complexidade equivalentes | ✅ aprovado |
+| 9 | Confirmação formal de aceitação de todos os entregáveis previstos na RFP | aguardando resposta |
+| 10 | Despesas contempladas e não contempladas na remuneração (e valores na planilha, se houver extras) | aguardando resposta |
 | 11 | Modelo de governança, fluxo de alinhamento e processo de autorização de manifestações e votos em assembleias | pendente |
 | 12 | Composição da equipe de retaguarda, incluindo especialistas disponíveis para suporte ao contrato | pendente |
 
@@ -284,7 +284,7 @@ _Usuário seguiu para o próximo case sem pedir ajuste; perguntas opcionais (nú
 
 **O que a DF faz:** coordena a operação do complexo como gestora do condomínio, compatibilizando as regras e rotinas de cada segmento (obras, horários, acessos, estacionamento) e estruturando a gestão dos sistemas críticos para a operação hospitalar, sempre com foco no bem-estar de todos os ocupantes.
 
-**Por que é relevante para o Einstein:** é a mesma combinação das unidades desta RFP — hospital dentro de condomínio multiuso (Parque Global) e implantação simultânea à entrada em operação (Pinheiros).
+**Case semelhante à RFP Einstein:** combina as duas situações desta concorrência — hospital dentro de condomínio multiuso, como no Parque Global, e implantação simultânea à entrada em operação, como em Pinheiros.
 
 **Comprovação:** atestado de capacidade técnica (enviado em anexo ao e-mail).
 
@@ -302,7 +302,7 @@ _Sem pedido de ajuste; mantidos o nome do Sírio-Libanês (nomes liberados) e a 
 
 **Resultado:** cada subcondomínio passou a arcar apenas com suas despesas específicas, sem ser onerado por despesas de outro e sem ter as suas pagas por terceiros — fim do subsídio cruzado, com respaldo formal na convenção.
 
-**Por que é relevante para o Einstein:** é exatamente a estrutura prevista na convenção das unidades desta RFP (subsíndico por setor, autonomia dos setores e segregação de despesas comuns e específicas).
+**Case semelhante à RFP Einstein:** é exatamente a estrutura prevista na convenção das unidades desta RFP (subsíndico por setor, autonomia dos setores e segregação de despesas comuns e específicas).
 
 **Comprovação:** atestado de capacidade técnica (enviado em anexo ao e-mail).
 > Sobre o 17.007, é, não tem o número do rateio aqui, mas é, foi, foi revisado o rateio que melhorou o pagamento do subcondomínio garagem, que pagava despesas altíssimas e passou a pagar despesas reais dele. Isso foi dividido entre as torres Sigma e Torre Alpha, que são as ocupantes. É, esse valor não foi dividido pelo mall, que não utiliza o estacionamento. Em relação ao mall, ele não entrou na revisão do rateio, porque a área do mall ela é uma área fixa e ele só tem área privativa, ele não tem área comum. É, a troca de administradora não aconteceu, a CBRE continua sendo administradora lá até hoje. O que foi feito foi a reorganização da gestão com relatórios de análise da operação e dos cargos que estavam ali, É, e da recomendação da contratação de profissionais com é, perfis diferentes, com escolas diferentes, com capacidades diferentes.
@@ -320,3 +320,18 @@ _Sem pedido de ajuste; mantidos o nome do Sírio-Libanês (nomes liberados) e a 
 **Comprovação:** atestado de capacidade técnica (enviado em anexo ao e-mail).
 
 _Aguardando aprovação._
+
+> Em relação ao texto do parque, eu faria uma adequação. Ao invés de estar escrito por que importa para um Einstein e o texto em seguida, eu colocaria como case semelhante do, da RFP do Einstein. E aí explicaria o porquê eles são semelhantes. É, citar o Sírio-Libanês pode ser citado sem problema nenhum, porque a locação ela é pública. É, e é isso.
+
+**Status: aprovado.**
+- Rótulo "Por que é relevante para o Einstein" trocado por **"Case semelhante à RFP Einstein"** (O Parque e, por consistência, SPHQ I).
+- Sírio-Libanês citado pelo nome — a locação é pública.
+- Ordem final: SPHQ I, 17007 Nações (v2), O Parque; apoio: Passeio Paulista e Arquipeo.
+
+### Item 9 — Aceite formal dos entregáveis
+
+_Rascunho enviado junto com o item 10; aguardando aprovação._
+
+### Item 10 — Despesas contempladas e não contempladas
+
+_Rascunho enviado junto com o item 9; aguardando aprovação._
