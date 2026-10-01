@@ -295,3 +295,31 @@ Identificadores e regra em `docs/fluxo-por-condominio.md` do repositório novo (
 
 Autorização explícita do usuário para escrever em `main` (as instruções da sessão restringem o push a este branch). Commit `7553734` em `main`: linha do catálogo para este branch, linha em "Projetos fechados", data de atualização e quatro preferências globais. Não foi trazido nenhum conteúdo do branch (nem `problemas/`, `sessoes/`, `projetos/`).
 
+
+### Segunda análise: condomínio 17007 Nações, 2027 (rev 6) — 2026-10-01
+
+> nova análise, condomínio 17007, ano 2027. Informação importante: o 17007 tem 5 centros de custo, conforme a planilha. Estou lhe enviando o regimento interno e a convenção condominial.
+
+> a planilha orçamentária não foi pelo upload. mas eu recebi ela por e-mail. segue o print do email para voce buscar os arquivos.
+
+> analise apenas a rev 6
+
+> a convenção está no caminho do ONEDRIVE: Operacional\Condomínios\Nações 17007\Convenção, Regulamento Interno, Procedimentos e Manuais
+
+**Roteamento:** prédio novo, análise independente da do Atrium. Material buscado por mim no e-mail "budget 17007 - 2027" (CBRE) pelo conector. Analisada **só a rev 6**, como pedido; a rev 7 (OI) e a Planilha Resumo ficaram de fora.
+
+**Resultado da rodada 1:** 17 apontamentos (4 críticos, 8 moderados, 5 baixos). Críticos: CMQ do Sigma com três valores e duas bases de área (A-01); duas tabelas de rateio do Geral, a rotulada "Convenção - Alterado" não usada, com efeito de R$ 5,06 milhões/ano na Garagem se for a vigente (A-02); vigilância do Geral +26%, excedente de R$ 726 mil/ano sobre o índice (A-03); nota da Usina do Alpha (R$ 1,00/m², R$ 390 mil/ano) sem linha nem base (A-04). Total anual da previsão: R$ 36.070.521,58 (soma dos 5 centros).
+
+**Decisões minhas, a confirmar com o usuário:**
+- **Materialidade** sobre o total anual da previsão inteira (soma dos 5 centros), não por centro. Alternativa não adotada.
+- Nova regra **C12 (rateio × convenção)** e campo **centro** em cada apontamento; chave estável passa a incluir o centro/aba.
+- Análise **só de valores**: o conector não devolve fórmulas, então C7/C11 não foram auditadas. Pendência: o usuário anexar o `.xlsx` da rev 6.
+- **Convenção não lida:** o PDF do OneDrive (24,9 MB) é escaneado e não devolve texto. A-01 e A-02 ficaram "a esclarecer" (a administradora cita o artigo). O regimento interno é uma minuta de 2013 e não trata de rateio. Pendência: o usuário anexar as páginas de área e rateio.
+
+### Validação e versão final do 17007 — 2026-10-01
+
+> pode gerar a versão final
+
+**Leitura:** os 17 apontamentos foram validados em bloco, sem ajustes nem retiradas. **Gerado:** os dois arquivos finais, sem marca de rascunho, fora do git. `estado.json` no OneDrive: `pronto_para_envio`, `validado_em` 2026-10-01. **Pendente:** o envio à CBRE é do usuário; os arquivos são colocados por ele em `17007 Nações/2027/Rodada-1`.
+
+**Repositório novo:** commit `2811743` com o gerador `src/previsao/rodada.py` (`python -m previsao.rodada achados.json pasta/`, schema 2 do `achados.json`) e a documentação da regra C12, do campo `centro` e do estado. Nenhum dado de condomínio entrou no git.
