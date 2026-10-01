@@ -205,3 +205,18 @@ Conferidos com script descartável fora dos repositórios (`openpyxl`, `python-p
 - **Rascunho do relatório do Atrium (rodada 1):** 17 apontamentos — 2 críticos, 9 moderados, 6 baixos — enviado ao usuário como `.docx`. **Fora do git** (valores reais do condomínio). Não foi possível renderizar o arquivo neste ambiente (o LibreOffice não abre nem um `.docx` trivial); o arquivo abre no `python-docx`, mas o layout não teve conferência visual.
 - Esta spec atualizada: D4 revisado, critério de criticidade, ciclo de rodadas, novos riscos 9 e 10.
 
+### Validação do rascunho — 2026-10-01
+
+> Concordo com V1 a V5. V6 a V9 devem ser respondidas pela administradora. V10 e V11 podem ser retiradas do material. Além disso, eu quero que você crie um questionário para que a administradora responda, para me dar base para responder as, as respostas de concordo ou não concordo. Outro ponto que eu acho que é importante é que tenha uma lista, uma tabela resumida dos itens que precisam ser é, corrigidos pela administradora para que tenha um índice fácil de ser analisado.
+
+**Decidido:**
+- **V1 a V5 aprovados:** três níveis de criticidade; crítico a partir de 1% ou divergência no número deliberado; moderado de 0,1% a 1%; parecer final só com zero críticos abertos; seção "o que foi conferido e está correto"; baixos ficam na lista.
+- **V6 a V9 viram perguntas à administradora** (área correta → A-02; acordo da Limpeza → A-04; defeitos do modelo da Innova → A-07 e A-10; convenção do bombeiro → A-08).
+- **V10 e V11 retiradas** (destinatários e prazo; assinatura). O campo "Analista responsável" também saiu do cabeçalho.
+- **Novo: questionário** à administradora, em planilha, que dá base ao *Concordo / Não concordo* do usuário.
+- **Novo: resumo dos itens a corrigir** logo depois da conclusão: 17 itens, 10 a corrigir, 6 a esclarecer, 1 a enviar.
+
+**Regra derivada (a confirmar com o usuário):** resposta da administradora não fecha apontamento sozinha; um "Esclarecer" só vira resolvido quando o usuário marca *Concordo*. Foi a leitura que dei de "base para responder concordo ou não concordo".
+
+**Entregue:** relatório v2 (`.docx`) e `Questionario-Administradora-Atrium-PO2027.xlsx` (2 abas, 17 linhas, 3 listas suspensas), ambos fora do git por conterem valores do condomínio. Repositório novo, commit `6487396`: `prompts/relatorio-apontamentos.md`, `CLAUDE.md`, `README.md` e `docs/matriz-de-risco.md` atualizados.
+
