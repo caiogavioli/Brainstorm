@@ -257,3 +257,19 @@ Sócia-diretora – DF Síndicos Profissionais Ltda.
 Recomendação: 3 cases principais (17007 Nações, O Parque, SPHQ I) + 2 de apoio (Passeio Paulista, Arquipeo).
 
 _Aguardando detalhes dos cases._
+
+> No 17.007, a DF Síndicos ela é síndica desde 2025. É, o desafio era fazer uma mudança da gestão do condomínio é, com uma administradora que está lá há oito anos, e inclusive revisão de rateio, troca de fornecedores e o acompanhamento e proximidade com os locatários. É, a DF fez toda essa revisão, trabalhou com o time de engenharia para identificar os gaps e as oportunidades de melhoria. e com o time financeiro, em conjunto, o time jurídico, revisando convenção, documentos, e aí, consequentemente, é, ajustando o rateio, que era feito de uma forma não, que não seguia a convenção do condomínio e beneficiava a ocupação de uma torre.
+
+#### Rascunho — Case 17007 Nações
+
+**Complexo 17007 Nações** · São Paulo (Chácara Santo Antônio) · 2 torres corporativas AAA (entre elas a Torre Sigma) + mall (Nações Open Mall) + acesso integrado à estação João Dias da CPTM · ocupantes como Roche e Nestlé · DF síndica desde 2025
+
+**Desafio:** assumir a sindicância de um complexo multissegmento cuja gestão estava com a mesma administradora havia oito anos, com necessidade de revisar o rateio, renovar fornecedores e aproximar a gestão dos locatários.
+
+**O que a DF fez:** diagnóstico integrado com as frentes de engenharia (gaps e oportunidades de melhoria nos sistemas e contratos), financeira e jurídica (revisão da convenção e dos documentos do condomínio); conduziu a troca de fornecedores e a reaproximação com os locatários.
+
+**Resultado:** identificou que o rateio **não seguia a convenção e beneficiava a ocupação de uma das torres** — subsídio cruzado entre setores — e o ajustou ao critério correto da convenção.
+
+**Comprovação:** atestado de capacidade técnica (enviado em anexo ao e-mail).
+
+_Aguardando aprovação._
