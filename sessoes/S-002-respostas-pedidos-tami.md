@@ -298,9 +298,9 @@ _Sem pedido de ajuste; mantidos o nome do Sírio-Libanês (nomes liberados) e a 
 
 **Desafio:** a convenção original previa rateio único por fração ideal, sem refletir a estrutura real do empreendimento — três subcondomínios e um condomínio geral, com instalações, equipamentos e necessidades distintas. Resultado: subcondomínios pagando despesas uns dos outros.
 
-**O que a DF fez:** levantou cada área, prédio, estrutura e equipamento instalado, o tamanho de cada subcondomínio e a necessidade dos locatários; recriou o modelo de rateio com segregação entre despesas do condomínio geral e despesas específicas de cada subcondomínio; conduziu a aprovação do novo modelo em uma nova convenção.
+**O que a DF fez:** levantou cada área, prédio, estrutura e equipamento instalado, o tamanho de cada subcondomínio e a necessidade dos locatários; criou um **Coeficiente de Rateio de Despesas (CRD)** que separa as despesas do condomínio geral das despesas específicas de cada subcondomínio; conduziu a aprovação do CRD em assembleia, que passou a substituir o formato de rateio previsto na convenção.
 
-**Resultado:** cada subcondomínio passou a arcar apenas com suas despesas específicas, sem ser onerado por despesas de outro e sem ter as suas pagas por terceiros — fim do subsídio cruzado, com respaldo formal na convenção.
+**Resultado:** cada subcondomínio passou a arcar apenas com suas despesas específicas, sem ser onerado por despesas de outro e sem ter as suas pagas por terceiros — fim do subsídio cruzado, com respaldo formal em deliberação de assembleia.
 
 **Case semelhante à RFP Einstein:** é exatamente a estrutura prevista na convenção das unidades desta RFP (subsíndico por setor, autonomia dos setores e segregação de despesas comuns e específicas).
 
@@ -327,6 +327,10 @@ _Aguardando aprovação._
 - Rótulo "Por que é relevante para o Einstein" trocado por **"Case semelhante à RFP Einstein"** (O Parque e, por consistência, SPHQ I).
 - Sírio-Libanês citado pelo nome — a locação é pública.
 - Ordem final: SPHQ I, 17007 Nações (v2), O Parque; apoio: Passeio Paulista e Arquipeo.
+
+> o case do São Paulo Headquarters precisa de uma mudança. É, na verdade, não foi uma nova convenção que foi feita. Foi feito um coeficiente de rateio de despesas, é um CRD, que foi aprovado em assembleia e, a partir daí, ele substituiu o formato de rateio que a convenção previa.
+
+- Case SPHQ I corrigido: CRD aprovado em assembleia, substituindo o formato de rateio da convenção (não houve nova convenção).
 
 ### Item 9 — Aceite formal dos entregáveis
 
