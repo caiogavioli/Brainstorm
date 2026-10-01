@@ -392,3 +392,12 @@ A DF Síndicos Profissionais tem hoje **mais de 40 contratos, com mais de 40 con
 - Perguntas 2–4 (demais membros do plantão, parceiros externos, ferramenta de continuidade) sem resposta — redigido de forma genérica: "demais gestores da DF", "rede de parceiros especializados contratados sob demanda" e "repositório digital único, nos canais autorizados pelo Einstein".
 
 **Todos os 12 itens aprovados.** Próximo passo: montar a proposta técnica completa (uma por unidade) e o texto corrigido das três comerciais — em `entregas/`.
+
+### Complemento do item 12
+
+> Os outros membros da DF são os nossos prepostos. É, nós temos uma equipe que conta com diversas pessoas, entre elas administradores, engenheiros, advogados, é, especialistas externos ou parceiros. A DF costuma trabalhar com empresas que têm nome no mercado, como escritório de advocacia, empresas de engenharia, empresas de consultoria. É, todas elas são parceiras que temos no mercado, mas não são empresas exclusivas. A DF trabalha com diversas empresas e costuma fazer concorrência para contratar uma empresa para um serviço específico. Em relação à ferramenta de garantia de continuidade, a DF ela utiliza um servidor de OneDrive da Microsoft.
+
+- Plantão: Denise → Amanda → Caio → **prepostos da DF** (administradores, engenheiros, advogados).
+- Parceiros: escritórios de advocacia, engenharia e consultorias com nome no mercado, **não exclusivos**; contratação por concorrência para cada serviço, com aprovação prévia do Einstein.
+- Continuidade: **OneDrive (Microsoft 365)** da DF, acesso restrito ao time do contrato.
+- Textos em `entregas/` regenerados com esses ajustes.

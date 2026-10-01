@@ -53,7 +53,7 @@ Além das horas acima, estão cobertos: participação em assembleias ordinária
 | **Urgente** — risco relevante de custo ou prazo | Telefonema | até 2 horas úteis | posicionamento em até 24 horas; presença em até 6 horas, se necessário |
 | **Ordinária e pareceres** — rotina e análises técnicas | E-mail / canal oficial do Einstein | até 2 dias úteis | presença fora da rotina em até 3 dias úteis; pareceres conforme item 4 (padrão: 5 dias úteis) |
 
-**Plantão 24x7:** sequência de acionamento Denise Ferreira → Amanda Tigre → Caio Gavioli → demais gestores da DF.
+**Plantão 24x7:** sequência de acionamento Denise Ferreira → Amanda Tigre → Caio Gavioli → prepostos da DF.
 **Horário comercial:** segunda a sexta, das 8h às 18h.
 
 ---
@@ -224,13 +224,14 @@ Esses itens **não alteram o valor mensal proposto**. Quando necessários, serã
 | Substituto — engenharia, operação e sistemas críticos | Caio Gavioli (Diretor de Operações) |
 | Financeiro — balancetes, orçamento, rateio e prestação de contas | Marco Murilo (Gerente Financeiro) |
 | Proteção de dados e segurança da informação (LGPD) | Cláudia De Santi (Diretora de LGPD) |
-| Plantão 24x7 — escalonamento | Denise → Amanda → Caio → demais gestores da DF |
+| Prepostos — equipe de apoio com administradores, engenheiros e advogados | Equipe DF |
+| Plantão 24x7 — escalonamento | Denise → Amanda → Caio → prepostos da DF |
 
 **Plano de contingência e continuidade (RFP 10.1):**
 - Titular e dois substitutos qualificados, com substituição imediata em férias, afastamentos ou emergências.
-- Todo o histórico do contrato — documentos, pareceres, decisões e assuntos em andamento — mantido em repositório digital único, nos canais autorizados pelo Einstein, garantindo continuidade em qualquer substituição.
+- Todo o histórico do contrato — documentos, pareceres, decisões e assuntos em andamento — mantido em repositório corporativo da DF no OneDrive (Microsoft 365), com acesso restrito aos profissionais do contrato, garantindo continuidade imediata em qualquer substituição. Documentos do Einstein circulam também pelos canais por ele autorizados.
 - Escalonamento telefônico para situações críticas, 24x7, e disponibilidade para assembleias e reuniões extraordinárias, inclusive emergenciais.
-- Rede de parceiros especializados (jurídico contencioso, engenharia e laudos, auditoria), acionados sob demanda conforme o item 10.
+- Rede de parceiros especializados com nome no mercado — escritórios de advocacia, empresas de engenharia e consultorias —, não exclusivos. Quando um serviço específico é necessário, a DF conduz concorrência entre parceiros e submete a contratação à aprovação prévia do Einstein, conforme o item 10.
 
 **LGPD e segurança da informação (RFP 9.2):** a DF observa integralmente a LGPD e as políticas de Segurança da Informação do Einstein, sob coordenação da sua Diretora de LGPD. Atas, relatórios, pareceres, dashboards e documentos financeiros circulam exclusivamente pelos canais autorizados pelo Einstein, com acesso restrito aos profissionais do contrato, e qualquer incidente é comunicado imediatamente.
 
