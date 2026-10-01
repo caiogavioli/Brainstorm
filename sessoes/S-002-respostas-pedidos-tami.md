@@ -346,6 +346,12 @@ A DF Síndicos Profissionais tem hoje **mais de 40 contratos, com mais de 40 con
 - Atestados: são emitidos por clientes (proprietários), não por condomínio. Retirar as linhas "Comprovação" de cada case; citar só na introdução: "atestados de capacidade técnica emitidos por nossos clientes, anexos".
 - CAPEX: pergunta (anual x acumulado) sem resposta — mantido "mais de R$ 35 milhões em CAPEX".
 
+> O que é para estar escrito são 40, mais de 40 condomínios. Sobre o CAPEX, realmente, vai ser mais de 35 milhões de CAPEX por ano.
+
+**Status: aprovado.**
+- Número oficial: **mais de 40 condomínios** — o deck institucional ("mais de 20 empreendimentos") precisa ser atualizado se for reenviado.
+- CAPEX: **mais de R$ 35 milhões em CAPEX por ano**.
+
 ### Item 9 — Aceite formal dos entregáveis
 
 _Rascunho enviado junto com o item 10; aguardando aprovação._
