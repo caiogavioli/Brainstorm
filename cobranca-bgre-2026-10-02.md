@@ -154,95 +154,95 @@ Cc, se mantiver a decisão de 31/08: `gabriel.fernandes@bgre.com`,
 
 ## 6. WhatsApp pronto, um por prédio
 
-Síndico preenchido com o seu nome, como a Kelly fez no Panamérica. Se preferir a BRPR A, troque a frase.
+Tom direto, prazo hoje às 17h. Síndico preenchido com o seu nome, como a Kelly fez no Panamérica; se preferir a BRPR A, troque a frase.
 
 ### Arquipeo
 ```
-Bom dia, Helena! Aqui é o Caio, da DF Síndicos.
+Oi, Helena, tudo bem? Aqui é o Caio, da DF.
 
-O Gabriel (BGRE) mandou na sexta, 11h17, o formulário de cadastro da Pesquisa de Satisfação 2026. Para o Arquipeo, é o "Formulário de cadastro - Empreendimentos novos", que veio anexo no e-mail dele.
+O Gabriel, da BGRE, mandou hoje às 11h17 o formulário de cadastro da Pesquisa de Satisfação 2026. Para o Arquipeo, é o "Formulário de cadastro - Empreendimentos novos", que está anexo no e-mail dele.
 
-Precisa voltar preenchido para o Alex Trindade (alex.trindade@bgre.com), com os dados de faturamento, o responsável pelo financeiro e os líderes: gestor predial, gerente regional e síndico. No síndico, pode colocar meu nome e e-mail: Caio Gavioli, caio@dfsindicos.com.br.
+Preciso da resposta para a BGRE ainda hoje, até as 17h. Manda preenchido para o Alex Trindade (alex.trindade@bgre.com) e me coloca em cópia. Tem que ter os dados de faturamento, o responsável pelo financeiro e os líderes (gestor predial, gerente regional e síndico). No síndico, pode colocar meu nome: Caio Gavioli, caio@dfsindicos.com.br.
 
-A BGRE avisa os locatários na segunda (05/10) e a pesquisa dispara na quarta (07/10). Consegue enviar até segunda, meio-dia, com cópia para mim?
+A pesquisa dispara na quarta (07/10) e eles precisam fechar o cadastro antes disso.
 
-Se você já mandou, me avisa que eu dou baixa. Obrigado!
+Se você já enviou, me avisa que eu dou baixa. Obrigado!
 ```
 
 ### Passeio Paulista
 ```
-Bom dia, Sandra! Aqui é o Caio, da DF Síndicos.
+Oi, Sandra, tudo bem? Aqui é o Caio, da DF.
 
-O Gabriel (BGRE) mandou na sexta, 11h17, o formulário de cadastro da Pesquisa de Satisfação 2026. Para o Passeio Paulista, é o "Formulário de cadastro - Empreendimentos novos", que veio anexo no e-mail dele.
+O Gabriel, da BGRE, mandou hoje às 11h17 o formulário de cadastro da Pesquisa de Satisfação 2026. Para o Passeio Paulista, é o "Formulário de cadastro - Empreendimentos novos", que está anexo no e-mail dele.
 
-Precisa voltar preenchido para o Alex Trindade (alex.trindade@bgre.com), com os dados de faturamento, o responsável pelo financeiro e os líderes: gestor predial, gerente regional e síndico. No síndico, pode colocar meu nome e e-mail: Caio Gavioli, caio@dfsindicos.com.br.
+Preciso da resposta para a BGRE ainda hoje, até as 17h. Manda preenchido para o Alex Trindade (alex.trindade@bgre.com) e me coloca em cópia. Tem que ter os dados de faturamento, o responsável pelo financeiro e os líderes (gestor predial, gerente regional e síndico). No síndico, pode colocar meu nome: Caio Gavioli, caio@dfsindicos.com.br.
 
-A BGRE avisa os locatários na segunda (05/10) e a pesquisa dispara na quarta (07/10). Consegue enviar até segunda, meio-dia, com cópia para mim?
+A pesquisa dispara na quarta (07/10) e eles precisam fechar o cadastro antes disso.
 
-Se você já mandou, me avisa que eu dou baixa. Obrigado!
+Se você já enviou, me avisa que eu dou baixa. Obrigado!
 ```
 
 ### PL Extrema
 ```
-Bom dia, Marcelo! Aqui é o Caio, da DF Síndicos.
+Oi, Marcelo, tudo bem? Aqui é o Caio, da DF.
 
-O Gabriel (BGRE) mandou na sexta, 11h17, o formulário de cadastro da Pesquisa de Satisfação 2026. Para o PL Extrema, é o "Formulário de cadastro - Empreendimentos novos", que veio anexo no e-mail dele.
+O Gabriel, da BGRE, mandou hoje às 11h17 o formulário de cadastro da Pesquisa de Satisfação 2026. Para o PL Extrema, é o "Formulário de cadastro - Empreendimentos novos", que está anexo no e-mail dele.
 
-Precisa voltar preenchido para o Alex Trindade (alex.trindade@bgre.com), com os dados de faturamento, o responsável pelo financeiro e os líderes: gestor predial, gerente regional e síndico. No síndico, pode colocar meu nome e e-mail: Caio Gavioli, caio@dfsindicos.com.br.
+Preciso da resposta para a BGRE ainda hoje, até as 17h. Manda preenchido para o Alex Trindade (alex.trindade@bgre.com) e me coloca em cópia. Tem que ter os dados de faturamento, o responsável pelo financeiro e os líderes (gestor predial, gerente regional e síndico). No síndico, pode colocar meu nome: Caio Gavioli, caio@dfsindicos.com.br.
 
-A BGRE avisa os locatários na segunda (05/10) e a pesquisa dispara na quarta (07/10). Consegue enviar até segunda, meio-dia, com cópia para mim?
+A pesquisa dispara na quarta (07/10) e eles precisam fechar o cadastro antes disso.
 
-Se você já mandou, me avisa que eu dou baixa. Obrigado!
+Se você já enviou, me avisa que eu dou baixa. Obrigado!
 ```
 
 ### 17.007 Nações
 ```
-Bom dia, Paulo! Aqui é o Caio, da DF Síndicos.
+Oi, Paulo, tudo bem? Aqui é o Caio, da DF.
 
-O Gabriel (BGRE) mandou na sexta, 11h17, o formulário de cadastro da Pesquisa de Satisfação 2026. Para o 17.007 Nações, é o "Formulário de cadastro - Empreendimentos recorrentes", que veio anexo no e-mail dele.
+O Gabriel, da BGRE, mandou hoje às 11h17 o formulário de cadastro da Pesquisa de Satisfação 2026. Para o 17.007 Nações, é o "Formulário de cadastro - Empreendimentos recorrentes", que está anexo no e-mail dele.
 
-Precisa voltar preenchido para o Alex Trindade (alex.trindade@bgre.com), com os dados de faturamento, o responsável pelo financeiro e os líderes: gestor predial, gerente regional e síndico. No síndico, pode colocar meu nome e e-mail: Caio Gavioli, caio@dfsindicos.com.br.
+Preciso da resposta para a BGRE ainda hoje, até as 17h. Manda preenchido para o Alex Trindade (alex.trindade@bgre.com) e me coloca em cópia. Tem que ter os dados de faturamento, o responsável pelo financeiro e os líderes (gestor predial, gerente regional e síndico). No síndico, pode colocar meu nome: Caio Gavioli, caio@dfsindicos.com.br.
 
-A BGRE avisa os locatários na segunda (05/10) e a pesquisa dispara na quarta (07/10). Consegue enviar até segunda, meio-dia, com cópia para mim?
+A pesquisa dispara na quarta (07/10) e eles precisam fechar o cadastro antes disso.
 
-Se você já mandou, me avisa que eu dou baixa. Obrigado!
+Se você já enviou, me avisa que eu dou baixa. Obrigado!
 ```
 
 ### TNU
 ```
-Bom dia, Marcus! Aqui é o Caio, da DF Síndicos.
+Oi, Marcus, tudo bem? Aqui é o Caio, da DF.
 
-O Gabriel (BGRE) mandou na sexta, 11h17, o formulário de cadastro da Pesquisa de Satisfação 2026. Para o TNU, é o "Formulário de cadastro - Empreendimentos recorrentes", que veio anexo no e-mail dele.
+O Gabriel, da BGRE, mandou hoje às 11h17 o formulário de cadastro da Pesquisa de Satisfação 2026. Para o TNU, é o "Formulário de cadastro - Empreendimentos recorrentes", que está anexo no e-mail dele.
 
-Precisa voltar preenchido para o Alex Trindade (alex.trindade@bgre.com), com os dados de faturamento, o responsável pelo financeiro e os líderes: gestor predial, gerente regional e síndico. No síndico, pode colocar meu nome e e-mail: Caio Gavioli, caio@dfsindicos.com.br.
+Preciso da resposta para a BGRE ainda hoje, até as 17h. Manda preenchido para o Alex Trindade (alex.trindade@bgre.com) e me coloca em cópia. Tem que ter os dados de faturamento, o responsável pelo financeiro e os líderes (gestor predial, gerente regional e síndico). No síndico, pode colocar meu nome: Caio Gavioli, caio@dfsindicos.com.br.
 
-A BGRE avisa os locatários na segunda (05/10) e a pesquisa dispara na quarta (07/10). Consegue enviar até segunda, meio-dia, com cópia para mim?
+A pesquisa dispara na quarta (07/10) e eles precisam fechar o cadastro antes disso.
 
-Se você já mandou, me avisa que eu dou baixa. Obrigado!
+Se você já enviou, me avisa que eu dou baixa. Obrigado!
 ```
 
 ### Centenário
 ```
-Bom dia, Adriano! Aqui é o Caio, da DF Síndicos.
+Oi, Adriano, tudo bem? Aqui é o Caio, da DF.
 
-O Gabriel (BGRE) mandou na sexta, 11h17, o formulário de cadastro da Pesquisa de Satisfação 2026. Para o Centenário, é o "Formulário de cadastro - Empreendimentos recorrentes", que veio anexo no e-mail dele.
+O Gabriel, da BGRE, mandou hoje às 11h17 o formulário de cadastro da Pesquisa de Satisfação 2026. Para o Centenário, é o "Formulário de cadastro - Empreendimentos recorrentes", que está anexo no e-mail dele.
 
-Precisa voltar preenchido para o Alex Trindade (alex.trindade@bgre.com), com os dados de faturamento, o responsável pelo financeiro e os líderes: gestor predial, gerente regional e síndico. No síndico, pode colocar meu nome e e-mail: Caio Gavioli, caio@dfsindicos.com.br.
+Preciso da resposta para a BGRE ainda hoje, até as 17h. Manda preenchido para o Alex Trindade (alex.trindade@bgre.com) e me coloca em cópia. Tem que ter os dados de faturamento, o responsável pelo financeiro e os líderes (gestor predial, gerente regional e síndico). No síndico, pode colocar meu nome: Caio Gavioli, caio@dfsindicos.com.br.
 
-A BGRE avisa os locatários na segunda (05/10) e a pesquisa dispara na quarta (07/10). Consegue enviar até segunda, meio-dia, com cópia para mim?
+A pesquisa dispara na quarta (07/10) e eles precisam fechar o cadastro antes disso.
 
-Se você já mandou, me avisa que eu dou baixa. Obrigado!
+Se você já enviou, me avisa que eu dou baixa. Obrigado!
 ```
 
 ### JKB
 ```
-Bom dia, Pedro! Aqui é o Caio, da DF Síndicos.
+Oi, Pedro, tudo bem? Aqui é o Caio, da DF.
 
-O Gabriel (BGRE) mandou na sexta, 11h17, o formulário de cadastro da Pesquisa de Satisfação 2026. Para o JKB, é o "Formulário de cadastro - Empreendimentos recorrentes", que veio anexo no e-mail dele.
+O Gabriel, da BGRE, mandou hoje às 11h17 o formulário de cadastro da Pesquisa de Satisfação 2026. Para o JKB, é o "Formulário de cadastro - Empreendimentos recorrentes", que está anexo no e-mail dele.
 
-Precisa voltar preenchido para o Alex Trindade (alex.trindade@bgre.com), com os dados de faturamento, o responsável pelo financeiro e os líderes: gestor predial, gerente regional e síndico. No síndico, pode colocar meu nome e e-mail: Caio Gavioli, caio@dfsindicos.com.br.
+Preciso da resposta para a BGRE ainda hoje, até as 17h. Manda preenchido para o Alex Trindade (alex.trindade@bgre.com) e me coloca em cópia. Tem que ter os dados de faturamento, o responsável pelo financeiro e os líderes (gestor predial, gerente regional e síndico). No síndico, pode colocar meu nome: Caio Gavioli, caio@dfsindicos.com.br.
 
-A BGRE avisa os locatários na segunda (05/10) e a pesquisa dispara na quarta (07/10). Consegue enviar até segunda, meio-dia, com cópia para mim?
+A pesquisa dispara na quarta (07/10) e eles precisam fechar o cadastro antes disso.
 
-Se você já mandou, me avisa que eu dou baixa. Obrigado!
+Se você já enviou, me avisa que eu dou baixa. Obrigado!
 ```
