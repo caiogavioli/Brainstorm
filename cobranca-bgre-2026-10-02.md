@@ -32,7 +32,7 @@ Busca na sua caixa às respostas à thread, a partir das 11h17 de 02/10.
 
 | Prédio | Responsável | Formulário | Retorno |
 |---|---|---|---|
-| **Panamérica** | Kelly D'Angelis (CBRE) | novo | ✅ **02/10, 12h04**, planilha `Cadastro_Faturamento_e_Lideres_.xlsx`. Disse que o faturamento já foi feito e que inseriu só os contatos do regional e do síndico. Você está em Cc. |
+| **Panamérica** | Kelly D'Angelis (CBRE) | novo | ✅ **02/10, 12h04**, planilha `Cadastro_Faturamento_e_Lideres_.xlsx`, em resposta ao e-mail do Gabriel das 11h17. Conferi o anexo: é o formulário de *novos* (setup R$ 2.680 + entrevistas R$ 1.764,55 = R$ 4.444,55), com razão social, CNPJ, IE, endereço, responsável financeiro e três líderes (Kelly, Marco Aurélio e você). Você está em Cc. |
 | **Arquipeo** | Helena Borges (C&W) | novo | ⏳ sem retorno |
 | **Passeio Paulista** | Sandra Alquimin (C&W) | novo | ⏳ sem retorno |
 | **PL Extrema** | Marcelo Santos (Innova) | novo ("Extrema") | ⏳ sem retorno |
