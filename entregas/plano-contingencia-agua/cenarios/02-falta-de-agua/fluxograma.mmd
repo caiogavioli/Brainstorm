@@ -1,0 +1,35 @@
+flowchart TD
+  S(["<b>ALERTA</b><br/>Aviso da concessionária · queda de pressão · reservatório baixo · bomba ou boia falhando<br/>Vazamento grande · consumo anormal · torneiras secas"]):::start
+  S --> C1
+  C1["<b>1 · CONTER AGORA</b><br/>① FECHAR a reposição do chiller / torre ao potável (a queda de pressão pode puxar químico)<br/>② NENHUMA mangueira entre o potável e circuito, torre ou reservatório<br/>③ RESERVA DE INCÊNDIO INTOCÁVEL · não ligar bomba a seco · cortar usos não essenciais"]:::red
+  C1 --> ESC["<b>2 · ESCALONAR E AVISAR</b> nível 1 → 2 → 3 · concessionária ⚠ · fornecedores da ficha<br/>Aviso escrito a ocupantes e restaurantes · registrar nível e hora · síndico decide"]:::blue
+  ESC --> Q{"<b>Qual a causa provável?</b><br/>Diagnóstico: da rua até o ponto<br/>(procedimento, fase 3)"}
+  Q -- "Rua sem água<br/>hidrômetro parado" --> A["<b>RAMO A</b><br/>Sem abastecimento<br/>externo (concessionária)"]:::branch
+  Q -- "Cisterna com água<br/>caixa vazia" --> B["<b>RAMO B</b><br/>Recalque · bomba · boia<br/>(cenário 5)"]:::branch
+  Q -- "Nível cai rápido<br/>hidrômetro gira" --> Cc["<b>RAMO C</b><br/>Vazamento ou<br/>consumo anormal (cenário 4)"]:::branch
+  Q -- "Água suja<br/>tampa aberta" --> D["<b>RAMO D</b><br/>Reservatório impróprio<br/>(cenário 9)"]:::branch
+  Q -- "Não sei" --> E["<b>RAMO E</b><br/>Causa indefinida<br/>= ramo mais restritivo"]:::branch
+  A --> P
+  B --> P
+  Cc --> P
+  D --> P
+  E --> P
+  P["<b>3 · PRIORIZAR O CONSUMO</b> (o síndico ajusta)<br/>Cortar primeiro: irrigação, lavagem, fontes, descargas de teste<br/>Manter: pontos críticos · banheiros · restaurantes<br/>Ar-condicionado: parada controlada da torre / chiller<br/>Reserva de incêndio: só o síndico decide, por escrito"]:::orange
+  P --> Q2{"<b>Autonomia restante</b> cobre<br/>até o retorno previsto?<br/>(não sei = NÃO)"}
+  Q2 -- Não --> ALT["<b>4 · ABASTECIMENTO ALTERNATIVO</b><br/>Caminhão-pipa de origem certificada ⚠ · garrafões para beber e cozinhar<br/>Receber em ponto fixo ACIMA do nível (folga de ar) · cloro e amostra na chegada<br/>NUNCA mangueira dentro da boca de visita"]:::blue
+  Q2 -- Sim --> FIX
+  ALT --> FIX
+  FIX["<b>5 · CORRIGIR A CAUSA E MONITORAR</b><br/>Nível registrado na ronda · reparar bomba, boia ou vazamento<br/>Acompanhar a concessionária · reposição do chiller / torre segue FECHADA"]:::blue
+  FIX --> REP["<b>6 · VOLTA DA ÁGUA = RISCO DE CONTAMINAÇÃO</b> (cenários 1, 3 e 9)<br/>Reposições ao potável ainda FECHADAS · reabrir devagar · purgar o ar · evitar golpe de aríete<br/>Descarga dos pontos · fechar torneiras esquecidas abertas · procurar vazamentos novos"]:::orange
+  REP --> Q3{"<b>7 · Cloro residual, cor e odor OK</b><br/>na sentinela e no ponto mais distante,<br/>sem traçador (rosa / azul)?"}
+  Q3 -- Não --> DESC["<b>Descarregar mais e rever</b><br/>Cor do traçador = cenário 1<br/>Fora do padrão = cenário 3"]:::red
+  DESC --> REP
+  Q3 -- Sim --> AUT["<b>8 · AUTORIZAÇÃO ESCRITA DO SÍNDICO</b><br/>Parecer técnico se houve esvaziamento total, caminhão-pipa ou dúvida<br/>Religar chiller / torre só com proteção na reposição e com o fornecedor"]:::green
+  AUT --> LIB["<b>9 · NORMALIZAR POR ETAPAS</b> · avisar ocupantes<br/>Repor o nível da reserva de incêndio · sentinela reforçada ⚠<br/>Registrar o incidente · atualizar a ficha"]:::green
+
+  classDef start fill:#1f2937,color:#fff,stroke:#111,stroke-width:2px
+  classDef red fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c,stroke-width:3px
+  classDef orange fill:#ffedd5,color:#7c2d12,stroke:#c2410c,stroke-width:3px
+  classDef branch fill:#fef9c3,color:#713f12,stroke:#a16207,stroke-width:2px
+  classDef blue fill:#dbeafe,color:#1e3a8a,stroke:#1d4ed8,stroke-width:2px
+  classDef green fill:#dcfce7,color:#14532d,stroke:#15803d,stroke-width:3px

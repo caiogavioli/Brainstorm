@@ -1,0 +1,37 @@
+flowchart TD
+  S(["<b>ALERTA</b><br/>Falta de energia · gerador não partiu · QTA/ATS falhou · disjuntor desarmado · diesel baixo<br/>Bomba em falha, sem recalcar, com ruído ou aquecimento · nível do poço subindo · pressão caindo"]):::start
+  S --> Q{"Fumaça, cheiro de queimado,<br/>quadro molhado<br/>ou pessoa em risco?"}
+  Q -- Sim --> SEG["<b>SEGURANÇA ELÉTRICA</b><br/>Afastar pessoas · NÃO tocar no quadro nem na vítima antes de desenergizar<br/>Só pessoa HABILITADA desliga · Fogo: Bombeiros 193 · Choque ou mal-estar: SAMU 192"]:::red
+  Q -- Não --> C1
+  SEG --> C1
+  C1["<b>1 · CONTER E REGISTRAR</b><br/>Hora · o que parou · o que ainda funciona<br/>NÃO forçar rearme repetido · NÃO manobrar quadro sem habilitação ou molhado"]:::orange
+  C1 --> ESC["<b>2 · ESCALONAR</b> nível 1 → 2 → 3 + fornecedor (elétrica, gerador, bombas)<br/>Avisar ocupantes e restaurantes · Síndico decide o que mexe em proteção de incêndio"]:::blue
+  ESC --> R{"Qual a falha?<br/>(ficha: o que o gerador atende)<br/>Pode ser mais de uma"}
+  R -- "Rede caiu<br/>gerador roda" --> A["<b>RAMO A</b><br/>Rede caiu<br/>gerador OPERANDO<br/>cargas · diesel · ordem de partida"]:::branch
+  R -- "Gerador não parte<br/>QTA/ATS falhou" --> B["<b>RAMO B</b><br/>Gerador NÃO parte<br/>ou transferência falhou<br/>manual só habilitado"]:::branch
+  R -- "Incêndio" --> Cc["<b>RAMO C</b><br/>Bomba de INCÊNDIO<br/>indisponível<br/>+ Cenário 6"]:::branch
+  R -- "Subsolo<br/>esgoto" --> D["<b>RAMO D</b><br/>Drenagem / esgoto<br/>indisponível<br/>+ Cenário 4"]:::branch
+  R -- "Pressão<br/>recalque" --> E["<b>RAMO E</b><br/>Recalque / pressurização<br/>indisponível<br/>+ Cenário 2"]:::branch
+  R -- "Não sei<br/>outro" --> F["<b>RAMO F</b><br/>Quadro · inversor · comando<br/>bomba com defeito<br/>ou causa indefinida"]:::branch
+  A --> K
+  B --> K
+  Cc --> K
+  D --> K
+  E --> K
+  F --> K
+  K["<b>3 · MODO DEGRADADO — CARGAS CRÍTICAS PRIMEIRO</b><br/>Vida → incêndio → drenagem de subsolo → recalque → esgoto → conforto<br/>Bomba RESERVA (partida manual só habilitado) · bomba portátil ou de aluguel · gerador de aluguel<br/>Ronda no nível e na pressão · PROIBIDO mangueira improvisada entre potável e circuito"]:::orange
+  K --> DIAG["<b>4 · DIAGNOSTICAR A CAUSA</b> (habilitado ou fornecedor)<br/>Quadro · disjuntor · gerador · QTA/ATS · motor · sentido de giro · sucção · válvulas<br/>Anotar hora e o que foi feito · NÃO rearmar em sequência"]:::blue
+  DIAG --> Q4{"<b>5 · Causa eliminada<br/>e energia estável?</b>"}
+  Q4 -- Não --> K
+  Q4 -- Sim --> REST["<b>6 · RESTABELECER EM PARTIDA ORDENADA</b> (habilitado)<br/>Sucção cheia · registros · sentido de giro · UM motor por vez, com intervalo ⚠<br/>Evitar pico, golpe de aríete, bomba a seco e ar na linha · Incêndio e drenagem primeiro"]:::blue
+  REST --> PRESS["<b>7 · ANTES DE RELIGAR BOMBA DE CIRCUITO QUÍMICO</b> (água gelada · torre)<br/>Reposição fechada, sem mangueira nem jumper · Ler pressão do circuito × potável<br/>Circuito ≥ potável: NÃO conectar nada (Cenário 1) · Olhar a sentinela"]:::orange
+  PRESS --> TEST{"<b>8 · Bombas estáveis?</b><br/>pressão · nível · corrente · ruído<br/>vibração · temperatura"}
+  TEST -- Não --> K
+  TEST -- Sim --> FIM["<b>9 · NORMALIZAR</b> · reserva e modo automático conferidos · avisar ocupantes e síndico<br/>Registrar incidente · atualizar a ficha · rever plano de cargas críticas ⚠"]:::green
+
+  classDef start fill:#1f2937,color:#fff,stroke:#111,stroke-width:2px
+  classDef red fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c,stroke-width:3px
+  classDef orange fill:#ffedd5,color:#7c2d12,stroke:#c2410c,stroke-width:3px
+  classDef branch fill:#fef9c3,color:#713f12,stroke:#a16207,stroke-width:2px
+  classDef blue fill:#dbeafe,color:#1e3a8a,stroke:#1d4ed8,stroke-width:2px
+  classDef green fill:#dcfce7,color:#14532d,stroke:#15803d,stroke-width:3px

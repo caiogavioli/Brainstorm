@@ -12,7 +12,7 @@
 
 ## Como preencher
 
-- Responda **S** (sim), **N** (não) ou **?** (não sei, não consegui ver).
+- Responda **S** (sim), **N** (não) ou **?** (não sei, não consegui ver). Use **NA** (não se aplica) só quando o próprio item disser, por exemplo o 1.4 quando há folga de ar.
 - **"?" vale como pior caso.** Se não dá para ver ou ninguém sabe, trate como se **não houvesse proteção**.
 - **Fotografe** cada ponto, com a plaqueta legível, e anote o número da foto.
 - Itens com **★** são críticos: qualquer resposta de risco (**S** onde se espera **N**, ou **N/?** onde se espera **S**) vira **ESCALAR AO SÍNDICO** na hora.
@@ -95,7 +95,7 @@ Escalar **imediatamente** se houver qualquer um destes:
 | 5.4 ★ | No **disconector/BPV**, o **dreno está livre e visível**? (**N** = obstruído ou ligado direto ao esgoto, ou submerso: risco) | | | | | |
 | 5.5 | Há **torneira com bico para mangueira** (garagem, jardim, DML, casa de máquinas) **sem quebra-vácuo**? (**S** = risco) | | | | | |
 | 5.6 | Há **mangueira deixada conectada ou mergulhada** (balde, tanque, ralo)? (**S** = risco) | | | | | |
-| 5.7 | Existe ponto de **risco alto** (reposição de circuito, reúso, incêndio, piscina) **sem nenhum dispositivo**? (**S** = escalar) | | | | | |
+| 5.7 ★ | Existe ponto de **risco alto** (reposição de circuito, reúso, incêndio, piscina) **sem nenhum dispositivo**? (**S** = escalar) | | | | | |
 
 ---
 
