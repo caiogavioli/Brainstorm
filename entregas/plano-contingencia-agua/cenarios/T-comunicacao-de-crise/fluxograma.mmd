@@ -1,0 +1,29 @@
+flowchart TD
+  S(["<b>ALERTA</b><br/>Qualquer cenário 1 a 9 acionado com impacto em ocupantes, locatários ou proprietário<br/>OU nível 2 ou 3 acionado"]):::start
+  S --> G{"Qual o grau?<br/>(em dúvida, suba um)"}
+  G -- "G3 · alguém passou mal<br/>contaminação · fogo · esgoto" --> E["<b>EMERGÊNCIA PRIMEIRO</b><br/>SAMU 192 · Bombeiros 193<br/>Instrução imediata no ponto"]:::red
+  G -- "G2 · risco potencial" --> A
+  G -- "G1 · informativo" --> I
+  E --> A
+  A["<b>1 · INSTRUÇÃO DE SEGURANÇA AOS OCUPANTES</b> (ronda)<br/>Não beba · afaste-se · não use o elevador<br/>Sem explicar causa nem prever hora"]:::red
+  A --> N["<b>2 · ESCALAR</b> nível 1 → 2 → 3<br/>Síndico designa o PORTA-VOZ<br/>Gestão abre o registro de comunicações"]:::blue
+  N --> F["<b>3 · FATOS CONFIRMADOS</b> com o nível 1 e o RT<br/>O que se sabe · quem é afetado · o que se faz<br/>Sem causa, sem culpado"]:::blue
+  F --> P["<b>4 · PRIMEIRO AVISO ESCRITO</b> com hora<br/>G3: em até 15 min ⚠ · G2: em até 1 h ⚠<br/>Inclui: próxima atualização às [hora]"]:::orange
+  I["<b>AVISO COM ANTECEDÊNCIA</b> (G1)<br/>Interrupção programada · modelo 9.5"]:::blue
+  P --> D{"<b>5 · Notificar fora?</b><br/>Vigilância · concessionária<br/>Bombeiros · seguradora · ambiental"}
+  D -- "Síndico decide ⚠<br/>(regra local e jurídico)" --> X["Esboços 9.9 e 9.10<br/>Registrar a quem, hora e por quê"]:::branch
+  D -- "Não" --> R
+  X --> R
+  R["<b>6 · MANTER O RITMO</b><br/>Atualização na cadência da ficha ⚠, mesmo sem novidade<br/>Proprietário: resumo no mesmo dia e relatório periódico ⚠"]:::blue
+  R --> Q{"<b>7 · Autorização escrita do síndico</b><br/>para encerrar?<br/>(critério de retorno do cenário em curso)"}
+  Q -- "Não" --> R
+  Q -- "Sim" --> L["<b>8 · AVISO DE ENCERRAMENTO</b> · modelo 9.4<br/>O que mudou e o que continua (restrições, monitoramento)"]:::green
+  I --> L
+  L --> V["<b>9 · REGISTRAR E APRENDER</b><br/>Linha do tempo no relatório do incidente · relatório final ao proprietário depois do laudo<br/>O que atrasou, o que faltou, o que melhorar"]:::green
+
+  classDef start fill:#1f2937,color:#fff,stroke:#111,stroke-width:2px
+  classDef red fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c,stroke-width:3px
+  classDef orange fill:#ffedd5,color:#7c2d12,stroke:#c2410c,stroke-width:3px
+  classDef branch fill:#fef9c3,color:#713f12,stroke:#a16207,stroke-width:2px
+  classDef blue fill:#dbeafe,color:#1e3a8a,stroke:#1d4ed8,stroke-width:2px
+  classDef green fill:#dcfce7,color:#14532d,stroke:#15803d,stroke-width:3px

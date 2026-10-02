@@ -4,9 +4,10 @@ Kit **genérico** de contingência, manutenção e monitoramento dos sistemas de
 
 | Pasta / arquivo | O que é |
 |---|---|
-| `revisao-tecnica/pacote-de-revisao-tecnica` | **Comece por aqui para revisar.** 20 itens de segurança e saúde, 20 valores a fixar, 14 decisões de política e as referências a confirmar, com folha de resposta (A / J / N / ?) |
+| `revisao-tecnica/pacote-de-revisao-tecnica` | **Comece por aqui para revisar.** 20 itens de segurança e saúde, 20 valores a fixar, 16 decisões de política e as referências a confirmar, com folha de resposta (A / J / N / ?) |
 | `catalogo/catalogo-v2.md` | Catálogo de 195 sistemas, 16 famílias de manutenção, 18 interligações críticas |
 | `planilha-mestre/planilha-mestre.xlsx` | Ficha por condomínio (em branco): catálogo S/N/?, matriz item × cenário, manutenção, autovistoria, contatos, incidentes, resumo |
+| `cenarios/T-comunicacao-de-crise/` | Cenário T (transversal): quem comunica o quê, a quem e quando; graus G1/G2/G3; modelos de aviso; relatório ao proprietário; fluxograma A3/A4 |
 | `cenarios/01-contaminacao-cruzada/` | Cenário 1: procedimento, fluxograma A3/A4, checklist de autovistoria |
 | `cenarios/02-falta-de-agua/` | Cenário 2: procedimento, fluxograma A3/A4 |
 | `cenarios/03-agua-fora-do-padrao/` | Cenário 3: procedimento, fluxograma A3/A4 |
@@ -19,7 +20,7 @@ Kit **genérico** de contingência, manutenção e monitoramento dos sistemas de
 | `rotinas/checklist-relatorio-mensal-fornecedores` | Checklist padrão para anexar ao relatório mensal dos fornecedores, com os 5 itens críticos semanais e carta-modelo à administradora |
 | `rotinas/checklist-ronda-sentinela` | Checklist da ronda 24h com torneira sentinela e pontos fixos, ligando cada achado ao cenário |
 
-**Faltam** a comunicação de crise (cenário T) e o piloto.
+**Falta** o piloto (validar os ramos do cenário 1 contra um prédio real), mais a revisão técnica e jurídica de tudo.
 
 **Fontes editáveis:** os `.md` e os `.mmd` (Mermaid). PDF, Word e a planilha são **gerados**; edite a fonte e regere.
 

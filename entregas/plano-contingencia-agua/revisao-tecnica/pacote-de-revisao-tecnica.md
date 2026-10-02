@@ -2,7 +2,7 @@
 
 **Projeto:** plano-contingencia-agua · **Versão do pacote:** 0.1 · **Data:** 2026-10-02
 **Para:** responsável técnico (engenheiro ou consultor especialista) e síndico
-**Material sob revisão:** catálogo v2, cenários 1 a 9 (falta só o **T**, comunicação de crise), checklists e planilha-mestre, todos em **rascunho v0.1**
+**Material sob revisão:** catálogo v2, cenários 1 a 9 e o **T** (comunicação de crise), checklists e planilha-mestre, todos em **rascunho v0.1**
 
 > **O que se pede.** Que o responsável técnico responda, item por item, se **aprova, ajusta ou não se aplica**. Nada neste material é oficial antes dessa revisão. O kit **orienta e organiza**; **não substitui** responsável técnico, laudo nem projeto. A decisão de adotar é do síndico.
 >
@@ -12,7 +12,7 @@
 
 Para cada item, marque na coluna **Resposta**: **A** = aprovo como está · **J** = ajusto (escreva como, na coluna Obs.) · **N** = não se aplica a este prédio · **?** = preciso de mais informação. Pode responder neste arquivo (Word) ou por voz ao usuário, citando o código do item (por exemplo "R-04: J, tempo de contato é X").
 
-**Ordem de leitura sugerida (1 hora):** (1) este pacote, partes 1 e 2; (2) os **fluxogramas A3** dos oito cenários (1 página cada); (3) o **procedimento do Cenário 1** e o **checklist de autovistoria**; (4) o **mapa de interconexões críticas** do catálogo; (5) o restante, conforme os itens abaixo apontarem.
+**Ordem de leitura sugerida (1 hora):** (1) este pacote, partes 1 e 2; (2) os **fluxogramas A3** dos dez cenários (1 página cada); (3) o **procedimento do Cenário 1** e o **checklist de autovistoria**; (4) o **mapa de interconexões críticas** do catálogo; (5) o restante, conforme os itens abaixo apontarem.
 
 ---
 
@@ -21,7 +21,7 @@ Para cada item, marque na coluna **Resposta**: **A** = aprovo como está · **J*
 | Camada | O que é | Onde |
 |---|---|---|
 | **Catálogo** | 195 sistemas de água que podem existir em prédio comercial ou logístico, com mecanismo de falha, cenários em que entra, 16 famílias de manutenção e **18 interligações críticas** (o que não pode se tocar e o que o dispositivo de proteção **não** garante) | `catalogo/catalogo-v2.md` |
-| **Cenários** | Procedimento por fases e ramos condicionais, mais fluxograma de 1 página: **1** contaminação cruzada · **2** falta de água · **3** água fora do padrão · **4** vazamento e alagamento · **5** falha de bomba ou energia · **6** incêndio com reserva indisponível · **7** refluxo de esgoto · **8** falha do tratamento químico · **9** contaminação do reservatório | `cenarios/` |
+| **Cenários** | Procedimento por fases e ramos condicionais, mais fluxograma de 1 página: **T** comunicação de crise · **1** contaminação cruzada · **2** falta de água · **3** água fora do padrão · **4** vazamento e alagamento · **5** falha de bomba ou energia · **6** incêndio com reserva indisponível · **7** refluxo de esgoto · **8** falha do tratamento químico · **9** contaminação do reservatório | `cenarios/` |
 | **Checklists** | Autovistoria dos 5 tipos de ponto de contaminação cruzada (42 itens); relatório mensal padrão dos fornecedores; ronda com torneira sentinela | `cenarios/01-.../`, `rotinas/` |
 | **Planilha-mestre** | Ficha por condomínio (em branco): catálogo S/N/?, matriz item × cenário, manutenção por família, autovistoria, contatos, incidentes e resumo | `planilha-mestre/` |
 
@@ -109,6 +109,8 @@ Preencher na **ficha** de cada condomínio (ou no padrão do portfólio, quando 
 | **Q-12** | **Abono e indenização a locatários afetados** (alagamento, esgoto, água suspensa) e **responsabilidade pela caixa de gordura do locatário** (contrato) | Os Cenários 4 e 7 deixam em aberto | |
 | **Q-13** | **Seguro:** prazo e procedimento de comunicação conforme a **apólice** de cada condomínio; o que fotografar e guardar | Os procedimentos mandam ler a apólice e não citam prazo | |
 | **Q-14** | **Vazamento antes do hidrômetro ou do cavalete:** responsabilidade da concessionária e contato de emergência na ficha | Cen. 4 | |
+| **Q-15** | **Comunicação de crise (Cenário T):** classificação **G1, G2, G3** e quem pode reclassificar; **prazos** de primeiro aviso (G3 em até 15 min, G2 em até 1 h são sugestões), de atualização e de relatório ao proprietário; **quem é o porta-voz** e o substituto | Sem isso os avisos ficam sem dono nem prazo | |
+| **Q-16** | **Dados pessoais de saúde** de quem passou mal (LGPD), **política com imprensa e redes sociais**, e **aprovação jurídica dos modelos** 9.1 a 9.11 do Cenário T, inclusive as respostas curtas ("posso lavar as mãos?") que dependem do responsável técnico | Risco legal e de saúde | |
 
 ---
 
@@ -135,7 +137,7 @@ Preencher na **ficha** de cada condomínio (ou no padrão do portfólio, quando 
 
 ## Parte 6 — Pendências conhecidas do próprio material
 
-1. **Cenário que ainda não existe, mas é citado:** **T** (comunicação de crise). Os procedimentos já remetem a ele; os cenários 4, 6 e 7 foram escritos depois dos outros e **ainda não foram conferidos contra os cenários 1 a 3, 5, 8 e 9** quanto a divergências de linguagem ou de limites.
+1. **Os cenários 4, 6, 7 e T foram escritos depois dos outros e ainda não foram conferidos contra os cenários 1 a 3, 5, 8 e 9** quanto a divergências de linguagem ou de limites. Os modelos de comunicação de cada cenário **não foram alinhados** com os modelos 9.1 a 9.11 do Cenário T.
 2. **Período do monitoramento reforçado** é diferente entre cenários (ver V-07). O Cenário 7 também sugere 30 dias.
    **Disque-Intoxicação:** o número aparece só no Cenário 1; nos demais ficou "a confirmar na ficha" (V-15). Convém o Cenário 1 ficar igual aos outros.
 3. **Cores dos traçadores** (rosa = água gelada; azul = reúso) aparecem como **exemplo do condomínio de referência**; cada ficha define as suas.
