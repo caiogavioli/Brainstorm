@@ -1,5 +1,7 @@
 # P-001 — Sistemas de água do prédio: contaminação cruzada e falta de plano de contingência
 
+**Status:** virou o projeto [`plano-contingencia-agua`](../projetos/plano-contingencia-agua.md) (spec fechada em 2026-10-02, sem repositório novo)
+
 ## Em uma frase
 Dois episódios de contaminação cruzada no mesmo prédio (reúso misturado com potável; água do circuito do chiller saindo na torneira de alguns andares) mostram que não há mapa nem controle dos sistemas de água — e não existe plano de contingência, manutenção e monitoramento que cubra todos eles.
 

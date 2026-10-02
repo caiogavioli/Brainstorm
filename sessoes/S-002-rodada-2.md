@@ -281,3 +281,11 @@ D2, D3, D4 e D5′ decididas. **D1 e D6 aguardam o usuário.** Depois delas, a R
 - **Gatilho 1:** o usuário diz "fecha o projeto" → escreve-se `projetos/plano-contingencia-agua.md` (escopo dentro e fora, decisões, riscos, critério de pronto). Com D6-A, **não** se cria repositório.
 - **Gatilho 2:** só depois da spec começa-se a produzir o cenário 1.
 - **Perguntas ainda em aberto:** a verba para intervenção física que o usuário não tem não bloqueia; o piloto depende de ele conseguir os arquivos (kit mínimo na seção acima).
+
+### Gatilho 1 disparado
+
+Em 2026-10-02 o usuário disse:
+
+> fecha o projeto
+
+Foi escrita `projetos/plano-contingencia-agua.md`. Conforme a D6, **nenhum repositório foi criado** — o usuário não pediu para rever essa decisão. A produção do cenário 1 ainda não começou.
