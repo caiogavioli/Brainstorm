@@ -55,4 +55,32 @@ Os desacordos vão para a Rodada 2.
 
 ## Respostas do usuário
 
-_Aguardando._
+Respondidas por áudio, uma por uma (transcrição sem edição). **Respostas 1–5 (Marina) recebidas em 2026-10-02. Respostas 6–14 (Rafael e Tomás) ainda virão em outro áudio.**
+
+**1.** Existe projeto, memorial e isométrico?
+> Número um, é, existe projeto memorial e isométrico das instalações de ar-condicionado de todos os prédios. O problema é que eu não vou conseguir te mandar tudo. Eu acho que tem que ser algo mais genérico aí, é, colocando todas as opções possíveis, imaginárias, e aí cada condomínio eu vou, eu vou ticando e vou deixando é, certinho.
+
+**2.** Que registros existem hoje?
+> Número dois, que registros existem hoje? É, existe limpeza de reservatório, laudo de potabilidade, relatório do tratamento químico, tem PMOC, é, quem produz são os fornecedores contratados pela administração e tudo isso fica com a própria administradora lá no servidor do condomínio. Eu não tenho acesso em tempo real. Eu preciso pedir é, os documentos e eles me mandam.
+
+**3.** Que medição e alarme existem?
+> Número 3, é, nem todos os condomínios têm medição e alarme. É, nem todos os condomínios têm um sistema de BMS, de automação, que atenda a todos esses sistemas.
+
+**4.** Como os dois episódios foram descobertos e qual a causa raiz?
+> 4, é, nos dois episódios, eles foram descobertos com o usuário abrindo a torneira e vendo a água com corante. Né? No primeiro caso, era água de reuso, tinha um corante azul, e no segundo caso, era água da água gelada, que tinha um corante rosa. É, a causa raiz está confirmada em laudo, é, no primeiro item, e no segundo item, é, segundo acontecimento, ela está confirmada presencialmente por mim, é o erro que aconteceu ali de operação.
+
+**5.** Quem decide quando as fontes discordam?
+> O 5... Há uma decisão da sindicância. É, a gente contrata normalmente um consultor especialista que vai analisar o problema, vai dar um diagnóstico, vai dar o resultado, e aí a sindicância que faz a decisão. Agora eu vou responder em outro áudio o Rafael e o Tomás.
+
+### O que essas respostas já mudam (anotado pelo time, sem decidir nada — a decisão é da Rodada 2)
+
+- **Escopo é portfólio, não um prédio.** O usuário trata "cada condomínio" como uma instância a ticar. Isso aponta para um **modelo genérico com todas as opções possíveis** (o catálogo) e uma **ficha por condomínio** — e não para a leitura de projetos reais, que ele não consegue enviar. Parte da pergunta 6 do Rafael já está respondida; ele confirma quando o usuário responder.
+- **Fonte dos registros é terceira e sem acesso em tempo real** (Marina): laudos, limpezas, tratamento químico e PMOC ficam com a administradora, que envia sob pedido. Qualquer plano de monitoramento precisa partir de **pedido periódico de documentos**, não de painel.
+- **Instrumentação desigual** (Marina): nem todo condomínio tem medição, alarme ou BMS. O plano não pode depender de sensor; precisa de uma versão "com BMS" e uma "sem BMS" por sistema.
+- **Detecção hoje é o ocupante** (Marina): nos dois episódios a água saiu colorida na torneira — azul no reúso, rosa na água gelada. A cor é o único alarme que existiu. O plano precisa de detecção anterior ao ocupante.
+- **Causa do episódio 2 foi erro de operação**, confirmado presencialmente pelo usuário — não falha de projeto nem de obra. Isso muda o plano: o foco passa a ser **procedimento de operação e barreira física contra refluxo**, não só inspeção de interligação. O usuário ainda não disse **qual foi o erro**; ele pode contar na próxima resposta, se quiser.
+- **Quem decide é o condomínio**, apoiado por consultor especialista contratado caso a caso (o usuário escreveu "sindicância"; leitura do time: o órgão de decisão do condomínio, o síndico). O papel do usuário é montar o dossiê e o plano, não decidir a causa técnica.
+
+### Pendente
+
+Respostas 6–10 (Rafael) e 11–14 (Tomás). Só depois disso a Rodada 1 fecha e a Rodada 2 começa.
