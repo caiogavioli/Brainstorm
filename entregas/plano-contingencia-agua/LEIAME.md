@@ -8,9 +8,14 @@ Kit **genérico** de contingência, manutenção e monitoramento dos sistemas de
 | `planilha-mestre/planilha-mestre.xlsx` | Ficha por condomínio (em branco): catálogo S/N/?, matriz item × cenário, manutenção, autovistoria, contatos, incidentes, resumo |
 | `cenarios/01-contaminacao-cruzada/` | Cenário 1: procedimento, fluxograma A3/A4, checklist de autovistoria |
 | `cenarios/02-falta-de-agua/` | Cenário 2: procedimento, fluxograma A3/A4 |
+| `cenarios/03-agua-fora-do-padrao/` | Cenário 3: procedimento, fluxograma A3/A4 |
 | `cenarios/05-falha-de-bomba-ou-energia/` | Cenário 5: procedimento, fluxograma A3/A4 |
+| `cenarios/08-falha-do-tratamento-quimico/` | Cenário 8: procedimento, fluxograma A3/A4 |
+| `cenarios/09-contaminacao-do-reservatorio/` | Cenário 9: procedimento, fluxograma A3/A4 |
+| `rotinas/checklist-relatorio-mensal-fornecedores` | Checklist padrão para anexar ao relatório mensal dos fornecedores, com os 5 itens críticos semanais e carta-modelo à administradora |
+| `rotinas/checklist-ronda-sentinela` | Checklist da ronda 24h com torneira sentinela e pontos fixos, ligando cada achado ao cenário |
 
-**Faltam** os cenários 3 (água fora do padrão), 4 (vazamento e alagamento), 6 (incêndio com reserva indisponível), 7 (refluxo de esgoto), 8 (falha do tratamento químico), 9 (contaminação do reservatório) e a comunicação de crise (T), e o piloto.
+**Faltam** os cenários 4 (vazamento e alagamento), 6 (incêndio com reserva indisponível), 7 (refluxo de esgoto) e a comunicação de crise (T), e o piloto.
 
 **Fontes editáveis:** os `.md` e os `.mmd` (Mermaid). PDF, Word e a planilha são **gerados**; edite a fonte e regere.
 

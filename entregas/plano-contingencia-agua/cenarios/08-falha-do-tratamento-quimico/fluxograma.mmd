@@ -1,0 +1,41 @@
+flowchart TD
+  S(["<b>ALERTA</b><br/>Dosadora parada · sem produto · controlador ou sonda com falha · purga travada · biocida não aplicado<br/>Produto errado ou dosagem errada · derrame · espuma · odor · torre parada ou seca<br/>Água turva, com limo ou odor · incrustação · laudo ou alarme do fornecedor"]):::start
+  S --> Q{"Pessoa exposta, derrame grande,<br/>vapor ou odor forte, fogo?"}
+  Q -- Sim --> SEG["<b>SEGURANÇA QUÍMICA</b><br/>Afastar pessoas · ventilar · lava-olhos pelo tempo da FISPQ · SAMU 192<br/>Fogo, vapor ou derrame grande: Bombeiros 193 · sem EPI da FISPQ: NÃO entrar"]:::red
+  Q -- Não --> C1
+  SEG --> C1
+  C1["<b>1 · CONTER SEM IMPROVISAR QUÍMICA</b> (a ronda contém, avisa e aciona)<br/>Só o que a ficha autoriza: isolar a área · ventilar · parar a dosadora se estiver dosando errado<br/>NÃO misturar produtos · NÃO dar choque · NÃO drenar · NÃO lavar para ralo ou pluvial<br/>Fotografar · anotar a leitura do controlador e o nível da bombona"]:::orange
+  C1 --> X{"Cor rosa, espuma ou odor químico<br/>na água potável (sentinela)?"}
+  X -- Sim --> CEN1["<b>CENÁRIO 1 EM PARALELO</b><br/>Suspender o consumo · fechar a reposição ao potável<br/>NENHUMA mangueira entre o potável e o circuito"]:::red
+  X -- Não --> ESC
+  CEN1 --> ESC
+  ESC["<b>2 · ESCALONAR E ACIONAR O FORNECEDOR DE TRATAMENTO (SEMPRE)</b><br/>Nível 1 → 2 → 3 · FISPQ · orientação imediata · visita no prazo do contrato ⚠<br/>Consultor: Legionella, exposição, derrame fora do circuito, causa indefinida<br/>Síndico decide a comunicação"]:::blue
+  ESC --> R{"Qual o sinal?<br/>(pode valer mais de um ramo)"}
+  R -- "Dosadora parada · sem produto<br/>biocida não aplicado · sonda · purga<br/>turva · limo · laudo" --> A["<b>RAMO A</b><br/>Subdosagem · biocida falhou<br/>Legionella (cenário 3, ramo D)"]:::branch
+  R -- "Espuma · odor forte<br/>produto errado · dose a mais" --> B["<b>RAMO B</b><br/>Sobredosagem<br/>ou produto errado"]:::branch
+  R -- "Poça · bombona vazando<br/>bacia com líquido" --> Cc["<b>RAMO C</b><br/>Derrame ou vazamento<br/>(contenção · catálogo C34)"]:::branch
+  R -- "Torre ou circuito<br/>parado ou seco" --> D["<b>RAMO D</b><br/>Parado ou seco por tempo<br/>(cenários 2 e 5)"]:::branch
+  R -- "Não sei" --> E["<b>RAMO E</b><br/>Causa indefinida<br/>= A + B juntos"]:::branch
+  A --> K
+  B --> K
+  Cc --> K
+  D --> K
+  E --> K
+  K["<b>3 · COLETAR ANTES DE MEXER</b><br/>Bacia da torre · circuito · reposição · produto da bombona se errado · sentinela se suspeito<br/>Lab ISO 17025 ⚠ · cadeia de custódia · fotos<br/>Histórico do registro semanal da dosagem"]:::blue
+  K --> P{"<b>4 · Parar a torre ou o chiller?</b><br/>Decide: responsável da manutenção + fornecedor<br/>Síndico informado · a ronda NÃO para sozinha"}
+  P -- Sim --> PAR["<b>PARADA CONTROLADA</b><br/>Avisar ANTES os pontos críticos (data center, clínicas) · conforto cai<br/>Chiller a água depende da torre · nunca ligar bomba a seco"]:::orange
+  P -- Não --> OPE["<b>OPERAR SOB ORIENTAÇÃO DO FORNECEDOR</b><br/>Ronda reforçada · nada de dose ou choque sem ele"]:::blue
+  PAR --> FIX
+  OPE --> FIX
+  FIX["<b>5 · CORRIGIR A CAUSA E TRATAR A ÁGUA (fornecedor)</b><br/>Produto certo · dosadora · controlador · sondas · purga · contenção reposta<br/>Drenar, lavar ou repor SEM mangueira entre potável e circuito: folga de ar + bomba<br/>Efluente: destino definido ANTES de drenar · nunca ralo ou pluvial ⚠"]:::orange
+  FIX --> AN{"<b>6 · Parâmetros da ficha OK e análise conforme?</b><br/>(microbiologia incluída) · controlador em automático<br/>Dosadora testada · sem vazamento"}
+  AN -- Não --> FIX
+  AN -- Sim --> AUT["<b>7 · PARECER E AUTORIZAÇÃO ESCRITA DO SÍNDICO</b><br/>Consultor se foi acionado · fornecedor presente na partida"]:::green
+  AUT --> LIB["<b>8 · RETORNAR POR ETAPAS</b> · circulação → dosagem automática → carga<br/>Avisar ocupantes e pontos críticos · registro reforçado ⚠ · registro semanal da dosagem<br/>Registrar o incidente · atualizar a ficha"]:::green
+
+  classDef start fill:#1f2937,color:#fff,stroke:#111,stroke-width:2px
+  classDef red fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c,stroke-width:3px
+  classDef orange fill:#ffedd5,color:#7c2d12,stroke:#c2410c,stroke-width:3px
+  classDef branch fill:#fef9c3,color:#713f12,stroke:#a16207,stroke-width:2px
+  classDef blue fill:#dbeafe,color:#1e3a8a,stroke:#1d4ed8,stroke-width:2px
+  classDef green fill:#dcfce7,color:#14532d,stroke:#15803d,stroke-width:3px

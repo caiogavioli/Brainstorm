@@ -1,7 +1,7 @@
 # plano-contingencia-agua
 
 **Origem:** P-001 — Sistemas de água do prédio: contaminação cruzada e falta de plano de contingência
-**Status:** spec fechada em 2026-10-02; produção em andamento (catálogo v2, planilha-mestre e cenários 1, 2 e 5 feitos)
+**Status:** spec fechada em 2026-10-02; produção em andamento (catálogo v2, planilha-mestre, cenários 1, 2, 3, 5, 8 e 9 e os checklists de rotina feitos)
 **Repositório:** nenhum, por decisão (D6). O modelo genérico vive **neste branch** (`claude/water-systems-contingency-plan-lmgx73`), em `entregas/plano-contingencia-agua/`. As fichas dos condomínios vivem no **OneDrive**. Se o usuário quiser repositório próprio para o modelo depois, é uma mudança de pasta, sem perda.
 
 ## Problema que resolve
@@ -135,10 +135,10 @@ Restrição conhecida: o conector do Microsoft 365 lê arquivos **sem fórmulas*
 - [x] Catálogo v2 publicado (rascunho, 195 itens), com mecanismo de falha e referência por item, e referências ◻ marcadas como "a confirmar" — **falta a revisão por responsável técnico das referências**
 - [x] Cenário 1 completo (v0.1): procedimento, fluxograma de 1 página (A3 e A4) e checklist de autovistoria dos 5 tipos de ponto
 - [ ] Cenário 1 revisado por responsável técnico habilitado (a critério do síndico)
-- [ ] Os demais cenários com procedimento e fluxograma — **feitos: 2 e 5 (rascunho)**; faltam 3, 4, 6, 7, 8, 9 e a comunicação de crise (T)
+- [ ] Os demais cenários com procedimento e fluxograma — **feitos (rascunho): 2, 3, 5, 8 e 9**; faltam 4, 6, 7 e a comunicação de crise (T)
 - [x] Planilha-mestre (em branco, rascunho) com as abas: catálogo, ficha, matriz sistema × cenário, manutenção por família, contatos e fornecedores, autovistoria, incidentes e resumo
-- [ ] Checklist padrão do relatório mensal dos fornecedores pronto para a administradora
-- [ ] Checklist de ronda com torneira sentinela pronto
+- [x] Checklist padrão do relatório mensal dos fornecedores pronto para a administradora (rascunho)
+- [x] Checklist de ronda com torneira sentinela pronto (rascunho)
 - [ ] Piloto: ficha de **um** condomínio preenchida e o cenário 1 conferido contra ela (testa se teria apontado os dois episódios)
 - [ ] Nenhum dado real de condomínio no GitHub
 
