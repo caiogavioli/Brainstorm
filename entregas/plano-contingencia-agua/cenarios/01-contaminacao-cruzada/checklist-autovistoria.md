@@ -115,6 +115,6 @@ Escalar **imediatamente** se houver qualquer um destes:
 | Providências e responsável | |
 | Data da próxima autovistoria | |
 
-**Assinaturas:** manutenção ______________  administração ______________  síndico ______________
+**Assinaturas:** manutenção …………………  administração …………………  síndico …………………
 
 > **Frequência sugerida** ⚠ (validar com o responsável técnico): na implantação, após **qualquer incidente** e **periodicamente** (por exemplo, semestral). Registrar cada rodada e **atualizar a ficha do condomínio**.
