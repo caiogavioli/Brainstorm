@@ -138,7 +138,12 @@ Verificado em produção em 01/09, nas duas:
 - **Contagem de itens em aberto na `[Triagem]` não bate com o quadro.** Em
   31/08 a mensagem disse 20, em 01/09 disse 19, e a contagem manual do
   `group_mm637vs0` deu 15 depois de fechar os itens 1 e 3. Não investigado.
-- **Pesquisa de Satisfação 2026 (BGRE), prazo 02/09.** Sete cobranças enviadas
+- **Cobranças BGRE de 02/10** (`cobranca-bgre-2026-10-02.md`): 4 pedidos em aberto
+  (formulário de cadastro da pesquisa, checklist de eficiência energética, faturamento
+  da pesquisa e rondas/jardinagem), tabela por prédio e textos de e-mail e WhatsApp.
+  Nada enviado; aguarda decisões (quem é o "síndico" no formulário, "Barueri", prazo,
+  Cc). Cobrança real hoje: Panamérica e Alphaville no checklist.
+- **Pesquisa de Satisfação 2026 (BGRE), fase de contatos, prazo 02/09 (fechada em 28/09).** Sete cobranças enviadas
   em 31/08; só o Arquipeo tinha entregue. Como o Gabriel pediu resposta apenas
   para ele e para o Alex, "não respondeu" significa "não respondeu com o Caio
   em cópia". Ficaram em aberto: o Grupo B (Alphaville, O Parque, Atrium fora da
