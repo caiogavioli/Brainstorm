@@ -1,0 +1,36 @@
+flowchart TD
+  S(["<b>ALERTA</b><br/>Cor, odor, sabor, turbidez ou espuma SEM a cor do traçador · cloro residual abaixo da ficha<br/>Análise não conforme · mal-estar coletivo · suspeita de Legionella · carro-pipa fora do critério · retorno após falta"]):::start
+  S --> Q1{"A cor do traçador<br/>aparece?<br/>(rosa / azul: ver ficha)"}
+  Q1 -- Sim --> CEN1["<b>VÁ PARA O CENÁRIO 1</b><br/>Contaminação cruzada<br/>Suspender o consumo agora"]:::red
+  Q1 -- Não --> Q2{"Alguém passou mal?<br/>Pneumonia entre ocupantes?"}
+  Q2 -- Sim --> SOC["<b>Acionar SAMU 192</b> se grave · avisar o síndico na hora<br/>Suspeita clínica: síndico + responsável técnico decidem<br/>a comunicação à vigilância sanitária ⚠"]:::red
+  Q2 -- Não --> C1
+  SOC --> C1
+  C1["<b>1 · CONTER NA MEDIDA DO RISCO</b><br/>Não sei = pior caso · suspender o consumo no ponto, no trecho ou no prédio (procedimento, seção 5)<br/>Restaurantes: parar alimento, gelo e lavagem · Sinalizar · Água alternativa · NÃO descarregar ainda"]:::red
+  C1 --> R{"Qual o sinal?<br/>(pode ser mais de um)"}
+  R -- "Cloro baixo<br/>desinfecção falhou" --> RA["<b>RAMO A</b><br/>Cloro residual baixo<br/>ou falha de desinfecção"]:::branch
+  R -- "Turva · cor · odor<br/>sedimento, sem traçador" --> RB["<b>RAMO B</b><br/>Turbidez, cor, odor<br/>(reservatório = cenário 9)"]:::branch
+  R -- "Coliformes · E. coli<br/>heterotróficos" --> RC["<b>RAMO C</b><br/>Suspeita<br/>microbiológica"]:::branch
+  R -- "Água quente morna · torre<br/>chuveiro · fonte · nebulização" --> RD["<b>RAMO D</b><br/>Suspeita de<br/>LEGIONELLA"]:::branch
+  R -- "Não sei" --> RE["<b>RAMO E</b><br/>Origem indefinida<br/>= A + B + C + D"]:::branch
+  RD --> AER["<b>Reduzir o aerossol</b> conforme orientação técnica ⚠<br/>Chuveiros, fontes, nebulização, torre (cenário 8)<br/>NÃO improvisar desinfecção de choque sem RT"]:::orange
+  RA --> ESC
+  RB --> ESC
+  RC --> ESC
+  AER --> ESC
+  RE --> ESC
+  ESC["<b>2 · ESCALONAR</b> nível 1 → 2 → 3 · fornecedores da ficha · consultor (síndico decide)<br/>Comunicar por escrito ocupantes e restaurantes · Síndico decide a vigilância sanitária ⚠"]:::blue
+  ESC --> COL["<b>3 · COLETAR ANTES DE DESCARREGAR</b> + medir em campo (cloro, cor, odor)<br/>Sentinela · ponto afetado · saída da caixa · cisterna · ponto mais distante · água quente e retorno<br/>Lab com acreditação ⚠ · cadeia de custódia · fotos · linha do tempo"]:::blue
+  COL --> DIAG["<b>4 · ACHAR A CAUSA</b> (perguntas do ramo, seção 6)<br/>Tratamento (clorador, UV, filtro) · reservatório · estagnação · água quente · torre · caminhão-pipa"]:::blue
+  DIAG --> FIX["<b>5 · CORRIGIR A CAUSA, LIMPAR E DESINFETAR</b> (profissional habilitado)<br/>Desinfecção só com procedimento do RT ⚠ · espaço confinado NR-33 · altura NR-35"]:::orange
+  FIX --> AN{"<b>6 · Nova análise conforme</b><br/>em TODOS os pontos coletados<br/>e causa corrigida?"}
+  AN -- Não --> DIAG
+  AN -- Sim --> AUT["<b>7 · PARECER TÉCNICO + AUTORIZAÇÃO ESCRITA DO SÍNDICO</b><br/>Cor voltar ao normal NÃO libera a água"]:::green
+  AUT --> LIB["<b>8 · LIBERAR POR ETAPAS</b> · comunicar · tirar sinalização<br/>Sentinela e cloro reforçados ⚠ · registrar o incidente · atualizar a ficha"]:::green
+
+  classDef start fill:#1f2937,color:#fff,stroke:#111,stroke-width:2px
+  classDef red fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c,stroke-width:3px
+  classDef orange fill:#ffedd5,color:#7c2d12,stroke:#c2410c,stroke-width:3px
+  classDef branch fill:#fef9c3,color:#713f12,stroke:#a16207,stroke-width:2px
+  classDef blue fill:#dbeafe,color:#1e3a8a,stroke:#1d4ed8,stroke-width:2px
+  classDef green fill:#dcfce7,color:#14532d,stroke:#15803d,stroke-width:3px
