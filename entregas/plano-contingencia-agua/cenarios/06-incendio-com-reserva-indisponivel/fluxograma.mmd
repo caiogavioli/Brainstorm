@@ -1,0 +1,35 @@
+flowchart TD
+  S(["<b>ALERTA</b><br/>RTI baixa ou vazia · bomba de incêndio indisponível · válvula fechada · setor seccionado<br/>Sprinkler disparado · hidrante ou siamesa bloqueada · central em falha · pressão da rede caindo"]):::start
+  S --> Q{"Fogo ou fumaça agora,<br/>ou pessoa em risco?"}
+  Q -- Sim --> EMG["<b>EMERGÊNCIA — BOMBEIROS 193</b> · alarme · plano de emergência · brigada · SAMU 192<br/>Com fogo no setor: NÃO fechar válvula, NÃO desligar bomba"]:::red
+  Q -- Não --> C1
+  EMG --> C1
+  C1["<b>1 · CONTER E REGISTRAR</b> — o prédio está com risco elevado<br/>Hora · o que está indisponível · olhar SEM manobrar: nível da RTI, válvulas, bomba, central<br/>NÃO desligar nem fechar proteção sem o síndico · RTI intocável · NUNCA ligar incêndio a potável"]:::orange
+  C1 --> VIG["<b>2 · VIGILÂNCIA REFORÇADA JÁ — sem esperar diagnóstico</b><br/>Ronda mais frequente com registro · brigada · extintores e saídas conferidos · acessos livres<br/>SUSPENDER TRABALHO A QUENTE · controle de ignição · frequência na ficha ⚠"]:::red
+  VIG --> ESC["<b>3 · ESCALONAR E COMUNICAR</b> nível 1 → 2 → 3 + fornecedor de incêndio<br/>Síndico e brigada: avisar já, com a hora · locatários por escrito (galpão primeiro)<br/>Síndico decide: Bombeiros e seguradora conforme a regra local e a apólice ⚠"]:::blue
+  ESC --> R{"O que está indisponível?<br/>(pode ser mais de um)"}
+  R -- "RTI baixa<br/>ou vazia" --> A["<b>RAMO A</b><br/>RTI baixa ou vazia<br/>reabastecer: ponto fixo<br/>ou caminhão-pipa"]:::branch
+  R -- "Bomba" --> B["<b>RAMO B</b><br/>Bomba indisponível<br/>+ Cenário 5, ramo C"]:::branch
+  R -- "Válvula fechada<br/>setor seccionado" --> Cc["<b>RAMO C</b><br/>Válvula · rede impedida<br/>reabrir só conforme a ficha"]:::branch
+  R -- "Sprinkler<br/>disparado" --> D["<b>RAMO D</b><br/>Sprinkler ou rede rompida<br/>isolar só o setor<br/>+ Cenário 4"]:::branch
+  R -- "Central<br/>em falha" --> E["<b>RAMO E</b><br/>Detecção · alarme<br/>ronda vira o detector"]:::branch
+  R -- "Não sei<br/>pressão caindo" --> F["<b>RAMO F</b><br/>A + B + C + D + E<br/>juntos"]:::branch
+  A --> ALT
+  B --> ALT
+  Cc --> ALT
+  D --> ALT
+  E --> ALT
+  F --> ALT
+  ALT["<b>4 · ALTERNATIVAS PROVISÓRIAS E REDUÇÃO DE RISCO</b> (síndico com o RT)<br/>Extintores adicionais · ronda com brigada · hidrante externo: avaliar com RT e Bombeiros ⚠<br/>GALPÃO ESFR: reduzir carga de incêndio ou restringir a operação do setor ⚠"]:::orange
+  ALT --> FIX["<b>5 · CORRIGIR E RESTABELECER</b> (fornecedor e habilitado)<br/>RTI: reabastecer SÓ por ponto fixo com folga de ar ou caminhão-pipa<br/>Água da RTI: nunca para consumo<br/>Válvula: conforme a ficha, registro e segunda pessoa · Rede: encher devagar e purgar o ar"]:::blue
+  FIX --> TEST{"<b>6 · Testado e conforme?</b><br/>bombas em automático · pressão · nível da RTI<br/>válvulas abertas e supervisionadas · siamesa · central"}
+  TEST -- Não --> ALT
+  TEST -- Sim --> AUT["<b>7 · PARECER DO RT (se couber) + AUTORIZAÇÃO ESCRITA DO SÍNDICO</b>"]:::green
+  AUT --> FIM["<b>8 · RETORNAR</b> · comunicar o retorno a quem foi avisado<br/>Restrições levantadas por decisão do síndico<br/>Vigilância reduzida só por decisão · registrar incidente · atualizar a ficha"]:::green
+
+  classDef start fill:#1f2937,color:#fff,stroke:#111,stroke-width:2px
+  classDef red fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c,stroke-width:3px
+  classDef orange fill:#ffedd5,color:#7c2d12,stroke:#c2410c,stroke-width:3px
+  classDef branch fill:#fef9c3,color:#713f12,stroke:#a16207,stroke-width:2px
+  classDef blue fill:#dbeafe,color:#1e3a8a,stroke:#1d4ed8,stroke-width:2px
+  classDef green fill:#dcfce7,color:#14532d,stroke:#15803d,stroke-width:3px

@@ -1,0 +1,38 @@
+flowchart TD
+  S(["<b>ALERTA</b><br/>Vazamento · infiltração · mancha · água no piso · rompimento · transbordo · chuva forte<br/>Poço alto · alarme de nível · consumo anormal no hidrômetro · sprinkler disparado"]):::start
+  S --> Q{"Choque, fogo ou fumaça,<br/>pessoa presa<br/>ou em área alagada?"}
+  Q -- Sim --> SEG["<b>SEGURANÇA ELÉTRICA E PESSOAS</b><br/>Choque: cortar a energia ANTES de tocar · SAMU 192 · Fogo ou fumaça: Bombeiros 193<br/>Pessoa presa em elevador: fornecedor · NÃO entrar em área alagada com energia"]:::red
+  Q -- Não --> C1
+  SEG --> C1
+  C1["<b>1 · DESENERGIZAR ANTES DA ÁGUA CHEGAR</b> (só pessoa HABILITADA)<br/>Quadros, bombas e equipamentos no caminho da água · NÃO tocar em quadro molhado<br/>Elevadores: cabines para cima e fora de serviço · Avisar data center e câmaras frias antes"]:::red
+  C1 --> C2["<b>2 · CORTAR A FONTE E CONTER</b><br/>Fechar o registro pelo mapa, atingindo o menor número de andares · Barreira · Bomba portátil<br/>Proteger: pessoas → quadros e elevadores → equipamentos críticos → estoque → acabamento<br/>Interditar e sinalizar · Fotos e linha do tempo"]:::orange
+  C2 --> R{"<b>Qual a origem?</b><br/>(ficha · pode ser mais de uma)"}
+  R -- "Água clara<br/>prumada · flexível" --> A["<b>RAMO A</b><br/>Rede potável<br/>prumada · flexível<br/>isolar poucos andares"]:::branch
+  R -- "Rosa · odor químico<br/>circuito" --> B["<b>RAMO B</b><br/>Água gelada · químico<br/>Cenários 1 e 8<br/>repor só com folga de ar"]:::branch
+  R -- "Chuva · pluvial<br/>poço alto" --> Cc["<b>RAMO C</b><br/>Chuva · pluvial<br/>drenagem<br/>Cenário 5 (ramo D)"]:::branch
+  R -- "Ladrão · boia<br/>transbordo" --> D["<b>RAMO D</b><br/>Reservatório<br/>boia · ladrão<br/>Cenários 2 e 9"]:::branch
+  R -- "Servida · esgoto<br/>odor · gordura" --> E["<b>RAMO E</b><br/>Água servida<br/>ou esgoto<br/>Cenário 7"]:::branch
+  R -- "Sprinkler<br/>rede de incêndio" --> F["<b>RAMO F</b><br/>Incêndio · sprinkler<br/>Cenário 6<br/>SÍNDICO decide isolar"]:::branch
+  R -- "Não sei" --> G["<b>RAMO G</b><br/>Origem indefinida<br/>ramo mais restritivo"]:::branch
+  A --> K
+  B --> K
+  Cc --> K
+  D --> K
+  E --> K
+  F --> K
+  G --> K
+  K["<b>3 · ESCALONAR</b> nível 1 → 2 → 3 + fornecedores (hidráulica, elétrica, elevadores, incêndio)<br/>Avisar locatários e restaurantes · Síndico decide: desligar áreas, isolar setor de incêndio, seguro ⚠<br/>Isolar setor de incêndio NUNCA sem decisão do síndico · Vigilância reforçada se isolar"]:::blue
+  K --> ID["<b>4 · FONTE E TIPO DE ÁGUA</b><br/>Potável · circuito com química · servida · esgoto · incêndio · pluvial<br/>O tipo define EPI, destino e contaminação · Não sei = tratar como esgoto ou química"]:::blue
+  ID --> DREN["<b>5 · DRENAR, DESTINAR ⚠ E SECAR</b><br/>Energia segura primeiro · Destino do efluente conforme o tipo (nunca esgoto no pluvial)<br/>Retirar o que não seca · Secar com método e prazo do RT ⚠ (risco de mofo)"]:::blue
+  DREN --> REP["<b>6 · REPARAR A CAUSA</b> (profissional habilitado)<br/>Guardar a peça rompida para o seguro · Circuito: repor só com folga de ar + bomba, NUNCA mangueira<br/>Rede de incêndio recolocada em serviço pelo fornecedor, com aviso à brigada"]:::orange
+  REP --> QR{"<b>7 · Energia verificada por habilitado,<br/>causa reparada, área limpa<br/>e seca (ou com plano do RT)?</b>"}
+  QR -- Não --> DREN
+  QR -- Sim --> AUT["<b>8 · AUTORIZAÇÃO ESCRITA DO SÍNDICO</b><br/>Religar energia em partida ordenada · liberar elevadores · retorno da água (Cenário 2)"]:::green
+  AUT --> FIM["<b>9 · REGISTRAR E APRENDER</b> · avisar locatários · comunicar a seguradora ⚠<br/>Ronda reforçada na área ⚠ · atualizar a ficha e o mapa de registros · fechar o incidente"]:::green
+
+  classDef start fill:#1f2937,color:#fff,stroke:#111,stroke-width:2px
+  classDef red fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c,stroke-width:3px
+  classDef orange fill:#ffedd5,color:#7c2d12,stroke:#c2410c,stroke-width:3px
+  classDef branch fill:#fef9c3,color:#713f12,stroke:#a16207,stroke-width:2px
+  classDef blue fill:#dbeafe,color:#1e3a8a,stroke:#1d4ed8,stroke-width:2px
+  classDef green fill:#dcfce7,color:#14532d,stroke:#15803d,stroke-width:3px
