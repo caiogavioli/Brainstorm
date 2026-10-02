@@ -1,58 +1,74 @@
 # Padrão visual da DF Síndicos (aplicado ao plano-contingencia-agua)
 
-**Origem:** extraído em 2026-10-02 do relatório *Blitz de Exaustão (BGRE)* em Word e da apresentação *Blitz de Exaustão* em PowerPoint, enviados pelo usuário como modelo. **Os originais não estão neste repositório**: contêm dados de condomínios e fotos. Aqui ficam só o logo e um modelo Word com estilos (sem corpo, sem imagens de condomínio).
+**Origem:** medido em 2026-10-02 nos dois relatórios-modelo enviados pelo usuário: *Relatório Consolidado — Sistemas de Exaustão (Blitz BGRE)* e *Relatório de Apuração de Ocorrência — Vazamento de Óleo Diesel (Passeio Paulista)*. **Os originais não estão neste repositório**: têm dados e fotos de condomínios. Aqui ficam só os logos e esta especificação.
+
+A regra do usuário: **todos os documentos do plano, de qualquer tipo, devem parecer saídos do mesmo molde**, principalmente a **capa**.
 
 ## Arquivos desta pasta
 
-| Arquivo | Para quê |
+| Arquivo | Uso |
 |---|---|
-| `modelo-df-sindicos.docx` | Modelo Word **só com estilos** (Calibri, títulos, tabelas, listas, numeração) copiado do relatório da DF. Base para qualquer documento novo |
-| `logo-df-sindicos-branco.png` | Logo DF Síndicos Profissionais, **branco com fundo transparente**: usar sobre azul-marinho |
+| `logo-df-sindicos-colorido.png` | Logo oficial (quadrado azul `2F4162`, "Síndicos Profissionais" em dourado). PNG com fundo transparente, 1084 × 686. **Usar sobre branco**, na capa |
+| `logo-df-sindicos-branco.png` | Versão branca com fundo transparente. Usar só sobre azul-marinho (apresentações) |
 
-## Paleta
+## Paleta (medida nos PDFs-modelo)
 
 | Uso | Cor |
 |---|---|
-| Azul-marinho do Word (títulos, cabeçalho de tabela) | `1F2A44` |
-| Azul-marinho da apresentação (fundo de capa, títulos) | `14213D` |
-| Azul-marinho mais claro (detalhes) | `1E2E52` |
-| Destaque cobre (rótulos, acentos) | `B85C12` |
-| Pêssego (rótulo sobre fundo escuro) | `F2C9A0` |
-| Texto secundário | `4A5568` |
-| Bege (cartões, divisórias) | `DCD8CE` (caixas de aviso usam o tom claro `EFEDE6`) |
-| Azul acinzentado | `BFC8D6` |
-| Vermelho de criticidade (texto/borda) | `7A2E1F`, com fundo `F4C7C3` |
-| Lilás de status | `D9C7EC` |
-| Fundo suave | `FBFBF8` |
+| Azul DF (títulos, números, cabeçalho de tabela) | `2F4162` |
+| Texto corrido | `1F2A37` |
+| Texto secundário, rótulos, rodapé | `5B6470` |
+| Filete dourado (capa, rodapé, barra das chamadas) | `D1AE6E` |
+| Rótulo dourado-escuro (acima do título de seção) | `9C7A35` |
+| Fundo da faixa de indicadores e das chamadas suaves | `FAF8F3` |
+| Borda de faixas e tabelas | `C9CCD3` |
+| Zebra de tabela | `F5F5F5` |
+| Etiqueta de status "em andamento" / rascunho | cobre `C25C26`, texto branco |
+| Etiqueta de status "concluído" | verde `2E7D5C`, texto branco |
+| Pontos de criticidade | vermelho `A83232`, cobre `C25C26`, azul `7D94B8`, verde `2E7D5C` |
+| Mapa de calor | alta `2F4162`, média `7D94B8`, baixa `CCD6E3`, não se aplica `F2EDE6` |
 
-## Word (relatórios e procedimentos)
+## Tipografia
 
-- **A4**, margens de **2 cm** (inferior 1,8 cm). Retrato; **paisagem** só quando a tabela é larga (catálogo, autovistoria, pacote de revisão).
-- **Calibri 10,5 pt**; parágrafo com 4 pt depois; entrelinha 1,15. Idioma pt-BR.
-- **Títulos** Calibri negrito `1F2A44`: **H1 18 pt** (numerado à mão: "1. …"), **H2 13 pt**, **H3 11 pt**. Em Markdown, `##` vira H1, `###` vira H2.
-- **Capa centralizada** (5 linhas em branco antes): título em maiúsculas 28 pt negrito → subtítulo do documento 20 pt negrito → linha 14 pt → "Aplicável a…" 11 pt → versão 10 pt → **"DF Síndicos Profissionais – Administração Condominial Especializada"** 11 pt negrito → nota de elaboração 9,5 pt. Quebra de página depois da capa; a capa **não tem rodapé**.
-- **Tabelas** "Table Grid" (grade preta 0,5 pt), **cabeçalho `1F2A44` com texto branco negrito 8,5 pt**, células em 8,5 pt com 1 pt depois do parágrafo, cabeçalho repetido a cada página, linha sem quebra.
-- **Caixas de aviso:** uma célula com fundo `EFEDE6` e filete esquerdo azul-marinho.
-- **Listas:** estilo "List Bullet" do modelo; numeradas à mão com recuo deslocado.
-- **Rodapé:** "DF Síndicos · Plano de Contingência da Água · <título>" à esquerda e "Página N" à direita, 8 pt `4A5568`.
-- Legenda de foto: centralizada, 8,5 pt (não usada neste projeto: sem fotos).
+**Arial / Helvetica** em todos os documentos (Liberation Sans no PDF gerado aqui). Corpo **10 pt**, **justificado**, entrelinha **14,2 pt**, 6,5 pt entre parágrafos.
 
-## PowerPoint (apresentações, se forem pedidas)
+## Capa (idêntica nos dois modelos; todos os documentos usam)
 
-16:9 (33,87 × 19,05 cm), **Arial**. Capa com fundo `14213D`, logo branco no canto superior esquerdo, rótulo em `F2C9A0` 13 pt negrito espaçado, título 54 pt branco negrito, subtítulo `BFC8D6` 15 pt. Slides internos: fundo branco, **rótulo `B85C12` 12 pt negrito espaçado**, título `14213D` 26 pt negrito, subtítulo `4A5568` 12,5 pt, cartões com cabeçalhos em maiúsculas, rodapé "DF SÍNDICOS · <assunto>" e número de página.
+1. **Logo colorido centralizado**, 87 pt de largura, no topo.
+2. **Filete dourado** de 1,4 pt abaixo do logo.
+3. **Título em duas linhas**, centralizado, **maiúsculas, 16,5 pt negrito azul**: linha 1 = tipo do documento (e número do cenário); linha 2 = assunto.
+4. **Subtítulo** itálico 11 pt cinza: "Plano de Contingência, Manutenção e Monitoramento da Água · Versão 0.1".
+5. **Etiqueta de status** centralizada, 188 × 24 pt, texto branco negrito 8,3 pt: **"RASCUNHO PARA REVISÃO TÉCNICA"** em cobre.
+6. **Faixa de 3 indicadores**: fundo `FAF8F3`, borda `C9CCD3`; número em 17 pt negrito azul e rótulo em 7,2 pt maiúsculas cinza. Estende-se 10 pt além da margem do texto.
+7. **Tabela de dados** (Documento, Aplicável a, Síndica profissional, Quem usa, Fluxograma, Material de apoio, Versão, Data de emissão): rótulo cinza negrito 9 pt, valor 9 pt, **zebra nas linhas ímpares**.
+8. **Nota** itálica 8,6 pt cinza.
+9. **Rodapé** em todas as páginas, inclusive a capa: filete dourado; à esquerda **"DF SÍNDICOS PROFISSIONAIS"** em negrito azul seguido de "· <documento> — Plano de Contingência da Água — Confidencial · www.dfsindicos.com.br" em itálico cinza (7,6 pt); à direita "Página N".
+
+## Miolo
+
+- A4 retrato (documentos largos: capa em retrato e miolo em paisagem). Margens de página 46 pt, mais 10 pt de recuo no texto; faixas, tabelas de dados e barras de chamada avançam esses 10 pt.
+- **Rótulo** da seção em 7,6 pt negrito dourado-escuro, maiúsculas ("LEITURA INICIAL").
+- **H1** 13,5 pt negrito azul, com **filete azul de 1 pt** embaixo. **H2** 11 pt negrito `1F2A37`. **H3** 10 pt negrito azul.
+- **Chamada** (aviso, regra de ouro): **barra dourada de 2,6 pt** à esquerda; a primeira chamada de cada documento em 10,5 pt negrito azul justificado; as demais (modelos de texto) em fundo suave 9,5 pt.
+- **Tabela de dados:** cabeçalho `2F4162` com texto branco negrito 7,8 pt; corpo 8,5 pt; grade `C9CCD3`; zebra nas linhas pares; primeira coluna em negrito azul; cabeçalho repetido a cada página.
+- **Listas:** marcador em azul, texto justificado.
 
 ## Fluxogramas (A3 e A4, retrato)
 
-Faixa superior `14213D` com o logo, rótulo "PLANO DE CONTINGÊNCIA DA ÁGUA · CENÁRIO N" em `F2C9A0` e título em branco; caixa de "REGRA DE OURO" em `F4C7C3` com borda `7A2E1F`; nós coloridos pela paleta (início `14213D`, perigo `F4C7C3`, ação `F2C9A0` com borda `B85C12`, ramos `DCD8CE`, passos `DDE3EC`, final `1E2E52`); fonte Arial (Liberation Sans no PDF).
+Cabeçalho com o logo colorido à esquerda, rótulo dourado-escuro, título em maiúsculas azul e a etiqueta de rascunho em cobre à direita; filete dourado; caixa de "REGRA DE OURO" com barra vermelha `A83232`; nós coloridos pela paleta (início azul, perigo vermelho claro, ação cobre claro, ramos bege, passos azul claro, final verde); rodapé como nos documentos.
 
 ## Planilha
 
-Calibri; cabeçalho `1F2A44` com texto branco; barras de seção `DCD8CE`; células de preenchimento em pêssego claro `FBE8D3` com texto azul (convenção de entrada); abas em azul-marinho e cobre.
+Arial; cabeçalho `2F4162` com texto branco; barras de seção `F2EDE6`; células de preenchimento em dourado claro `F6ECD3` com texto azul; abas em azul e cobre; logo na aba LEIAME.
+
+## Apresentações (modelo BGRE, se forem pedidas)
+
+16:9, Arial; capa em `14213D` com logo branco; rótulos em cobre `B85C12` espaçados; títulos 26 pt negrito; cartões com cabeçalhos em maiúsculas; rodapé "DF SÍNDICOS · assunto".
 
 ## Nomes de arquivo
 
-`cenario-<nº>-<assunto>-<tipo>` (tipo: `procedimento`, `fluxograma-A3`, `fluxograma-A4`, `checklist-autovistoria`). Fontes editáveis em Markdown e Mermaid ficam no branch; Word e PDF são **gerados** a partir delas.
+`cenario-<nº>-<assunto>-<tipo>` (tipo: `procedimento`, `fluxograma-A3`, `fluxograma-A4`, `checklist-autovistoria`). As fontes (Markdown e Mermaid) ficam no branch; Word e PDF são **gerados**.
 
 ## Como regerar
 
-O gerador (Python com `python-docx` sobre `modelo-df-sindicos.docx`; PDF por Chromium com a fonte Carlito, equivalente métrica do Calibri) **não está no repositório**, pela regra de não guardar código aqui. Pode ser recriado a partir desta especificação. Edite sempre o Markdown e regere; nunca edite o PDF.
+O gerador (Python com `python-docx` e Chromium, fonte Liberation Sans no PDF) **não está no repositório**, pela regra de não guardar código aqui. Recrie a partir desta especificação. Edite sempre o Markdown e regere; nunca edite o PDF.

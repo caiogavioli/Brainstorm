@@ -22,7 +22,7 @@ Kit **genérico** de contingência, manutenção e monitoramento dos sistemas de
 
 **Falta** o piloto (validar os ramos do cenário 1 contra um prédio real), mais a revisão técnica e jurídica de tudo.
 
-**Padrão visual:** todos os Word, PDF, fluxogramas e a planilha seguem o padrão da **DF Síndicos** (modelo, logo e especificação em `identidade/`).
+**Padrão visual:** todos os Word, PDF, fluxogramas e a planilha seguem o padrão dos dois relatórios-modelo da **DF Síndicos** (capa com logo, filete dourado, título em duas linhas, etiqueta de status, faixa de indicadores e tabela de dados; rodapé com "Confidencial"). Logos e especificação em `identidade/`.
 
 **Nomes dos arquivos:** todo arquivo se identifica sozinho, mesmo fora da pasta: `cenario-<nº>-<assunto>-<tipo>`, em que o tipo é `procedimento`, `fluxograma-A3`, `fluxograma-A4` ou `checklist-autovistoria` (por exemplo `cenario-4-vazamento-e-alagamento-fluxograma-A3.pdf`). Os demais já têm nome próprio: `catalogo-v2.md`, `planilha-mestre.xlsx`, `pacote-de-revisao-tecnica`, `checklist-relatorio-mensal-fornecedores`, `checklist-ronda-sentinela`.
 
