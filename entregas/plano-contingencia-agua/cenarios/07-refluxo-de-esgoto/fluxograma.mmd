@@ -1,0 +1,36 @@
+flowchart TD
+  S(["<b>ALERTA</b><br/>Esgoto saindo por ralo, vaso, pia ou caixa · odor de esgoto · poço cheio ou bomba parada<br/>Retorno no subsolo após chuva · coluna entupida · caixa de gordura transbordando"]):::start
+  S --> Q{"Alguém com mal-estar,<br/>tontura ou desmaio, ou caído<br/>em poço, caixa ou subsolo?"}
+  Q -- Sim --> SOC["<b>SAMU 192 · BOMBEIROS 193</b><br/>NÃO ENTRAR para socorrer · gás e falta de oxigênio<br/>Retirar só quem está consciente, sem se expor"]:::red
+  Q -- Não --> C1
+  SOC --> C1
+  C1["<b>1 · ISOLAR E PROTEGER</b> · bloquear acesso · sinalizar · EPI ⚠ · sem chama nem faísca<br/>NÃO abrir tampa de poço ou de caixa · NÃO entrar · ventilar só de fora<br/>Área alagada com energia: habilitado desenergiza antes (cenário 5)"]:::red
+  C1 --> R{"Qual o sinal?<br/>(ficha: colunas · retenção · poço)<br/>Pode ser mais de um"}
+  R -- "Sai por um ponto<br/>coluna · caixa" --> A["<b>RAMO A</b><br/>Entupimento interno<br/>coluna · ramal · caixa de gordura<br/>ou de inspeção"]:::branch
+  R -- "Após chuva<br/>pontos baixos" --> B["<b>RAMO B</b><br/>Rede pública<br/>sobrecarregada<br/>retenção · concessionária ⚠"]:::branch
+  R -- "Poço cheio<br/>bomba parada" --> Cc["<b>RAMO C</b><br/>Poço ou bomba de esgoto<br/>indisponível<br/>+ cenário 5, ramo D"]:::branch
+  R -- "Só odor<br/>sem líquido" --> D["<b>RAMO D</b><br/>Selo seco · ventilação<br/>reidratar ralos · dreno<br/>de condensado"]:::branch
+  R -- "Esgoto na água<br/>ou no ladrão" --> E["<b>RAMO E</b><br/>Água potável atingida<br/>SUSPENDER o consumo<br/>cenários 1 e 9"]:::branch
+  R -- "Não sei" --> F["<b>RAMO F</b><br/>A + B + C + D + E<br/>juntos"]:::branch
+  A --> K
+  B --> K
+  Cc --> K
+  D --> K
+  E --> K
+  F --> K
+  K["<b>2 · NÃO AGRAVAR · RESTRINGIR USO DE ÁGUA E DESCARGA A MONTANTE ⚠</b><br/>Avisar andares e lojas da mesma coluna · não lavar para o pluvial · interditar sanitários<br/>Restaurantes: parar preparo e lavagem · cortar o trecho só por decisão do nível 1"]:::orange
+  K --> ESC["<b>3 · ESCALONAR</b> nível 1 → 2 → 3 · desentupidora · sucção · hidráulica · elétrica e bombas<br/>Comunicar locatários e restaurantes por escrito · seguradora ⚠<br/>Síndico decide: concessionária, vigilância sanitária, interdição ⚠"]:::blue
+  ESC --> EVI["<b>4 · FOTOGRAFAR E DOCUMENTAR ANTES DE LIMPAR</b><br/>Origem · extensão · bens e materiais atingidos · nível do poço (leitura de fora)<br/>Água potável atingida: coletar antes de descarregar · lab ISO 17025 ⚠"]:::blue
+  EVI --> FIX["<b>5 · CORRIGIR A CAUSA</b> · empresa habilitada · a ronda NÃO desentope<br/>Sem produto químico improvisado · área segue interditada até corrigir"]:::orange
+  FIX --> LIM["<b>6 · RETIRAR, LIMPAR E DESINFETAR</b> · produto e tempo do RT ⚠<br/>Sucção com destino documentado ⚠ · descartar porosos e resíduos ⚠ · secar e ventilar"]:::blue
+  LIM --> AN{"<b>7 · Causa corrigida, local limpo e desinfetado,<br/>selo hídrico e ventilação OK?</b><br/>Se água atingida: análise conforme?"}
+  AN -- Não --> FIX
+  AN -- Sim --> AUT["<b>8 · PARECER TÉCNICO + AUTORIZAÇÃO ESCRITA DO SÍNDICO</b><br/>Restaurantes: liberação por escrito"]:::green
+  AUT --> LIB["<b>9 · LIBERAR POR ETAPAS</b> · avisar · tirar sinalização<br/>Ronda reforçada 30 dias ⚠ · registrar incidente · atualizar a ficha"]:::green
+
+  classDef start fill:#1f2937,color:#fff,stroke:#111,stroke-width:2px
+  classDef red fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c,stroke-width:3px
+  classDef orange fill:#ffedd5,color:#7c2d12,stroke:#c2410c,stroke-width:3px
+  classDef branch fill:#fef9c3,color:#713f12,stroke:#a16207,stroke-width:2px
+  classDef blue fill:#dbeafe,color:#1e3a8a,stroke:#1d4ed8,stroke-width:2px
+  classDef green fill:#dcfce7,color:#14532d,stroke:#15803d,stroke-width:3px
