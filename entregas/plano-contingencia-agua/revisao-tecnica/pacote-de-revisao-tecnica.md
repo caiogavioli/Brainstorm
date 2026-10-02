@@ -2,7 +2,7 @@
 
 **Projeto:** plano-contingencia-agua · **Versão do pacote:** 0.1 · **Data:** 2026-10-02
 **Para:** responsável técnico (engenheiro ou consultor especialista) e síndico
-**Material sob revisão:** catálogo v2, cenários 1, 2, 3, 5, 8 e 9, checklists e planilha-mestre, todos em **rascunho v0.1**
+**Material sob revisão:** catálogo v2, cenários 1 a 9 (falta só o **T**, comunicação de crise), checklists e planilha-mestre, todos em **rascunho v0.1**
 
 > **O que se pede.** Que o responsável técnico responda, item por item, se **aprova, ajusta ou não se aplica**. Nada neste material é oficial antes dessa revisão. O kit **orienta e organiza**; **não substitui** responsável técnico, laudo nem projeto. A decisão de adotar é do síndico.
 >
@@ -12,7 +12,7 @@
 
 Para cada item, marque na coluna **Resposta**: **A** = aprovo como está · **J** = ajusto (escreva como, na coluna Obs.) · **N** = não se aplica a este prédio · **?** = preciso de mais informação. Pode responder neste arquivo (Word) ou por voz ao usuário, citando o código do item (por exemplo "R-04: J, tempo de contato é X").
 
-**Ordem de leitura sugerida (1 hora):** (1) este pacote, partes 1 e 2; (2) os **fluxogramas A3** dos seis cenários (1 página cada); (3) o **procedimento do Cenário 1** e o **checklist de autovistoria**; (4) o **mapa de interconexões críticas** do catálogo; (5) o restante, conforme os itens abaixo apontarem.
+**Ordem de leitura sugerida (1 hora):** (1) este pacote, partes 1 e 2; (2) os **fluxogramas A3** dos oito cenários (1 página cada); (3) o **procedimento do Cenário 1** e o **checklist de autovistoria**; (4) o **mapa de interconexões críticas** do catálogo; (5) o restante, conforme os itens abaixo apontarem.
 
 ---
 
@@ -21,7 +21,7 @@ Para cada item, marque na coluna **Resposta**: **A** = aprovo como está · **J*
 | Camada | O que é | Onde |
 |---|---|---|
 | **Catálogo** | 195 sistemas de água que podem existir em prédio comercial ou logístico, com mecanismo de falha, cenários em que entra, 16 famílias de manutenção e **18 interligações críticas** (o que não pode se tocar e o que o dispositivo de proteção **não** garante) | `catalogo/catalogo-v2.md` |
-| **Cenários** | Procedimento por fases e ramos condicionais, mais fluxograma de 1 página: **1** contaminação cruzada · **2** falta de água · **3** água fora do padrão · **5** falha de bomba ou energia · **8** falha do tratamento químico · **9** contaminação do reservatório | `cenarios/` |
+| **Cenários** | Procedimento por fases e ramos condicionais, mais fluxograma de 1 página: **1** contaminação cruzada · **2** falta de água · **3** água fora do padrão · **4** vazamento e alagamento · **5** falha de bomba ou energia · **6** incêndio com reserva indisponível · **7** refluxo de esgoto · **8** falha do tratamento químico · **9** contaminação do reservatório | `cenarios/` |
 | **Checklists** | Autovistoria dos 5 tipos de ponto de contaminação cruzada (42 itens); relatório mensal padrão dos fornecedores; ronda com torneira sentinela | `cenarios/01-.../`, `rotinas/` |
 | **Planilha-mestre** | Ficha por condomínio (em branco): catálogo S/N/?, matriz item × cenário, manutenção por família, autovistoria, contatos, incidentes e resumo | `planilha-mestre/` |
 
@@ -57,6 +57,12 @@ Estes itens podem **machucar ou contaminar alguém** se estiverem errados. Revis
 | **R-12** | **Parada e retomada de torre e chiller:** sequência, purga, tratamento químico durante a parada, **Legionella no retorno**, **tempo de parada que exige limpeza ou amostra antes de religar**; plano alternativo dos pontos críticos (data center, clínicas); chiller a água depende da torre | Cen. 2 seções 6 e 8; Cen. 8 seção 6 | Fornecedor + RT | | |
 | **R-13** | **Proporcionalidade da suspensão do consumo:** quando suspender **só o ponto**, o **trecho** ou o **prédio** (tabela do Cenário 3, seção 5); **gravidade alta × média** do reservatório e o prazo de T+1 h para suspender; **restaurantes**: quando parar e voltar, descarte de gelo | Cen. 3 seção 5; Cen. 9 seções 1 e 4; Cen. 2 seção 6 | Síndico + RT + vigilância sanitária local | | |
 | **R-14** | **Abastecimento alternativo:** critério de **origem e de tanque** do caminhão-pipa (documento aceito, certificação), cloro na chegada, **contraprova**, ponto fixo de recebimento acima do nível com folga de ar | Cen. 2 seção 7 | RT | | |
+| **R-15** | **Isolar setor de incêndio para estancar alagamento** (sprinkler disparado, rede rompida): fechar a válvula do setor **tensiona** o princípio de nunca fechar proteção sem o síndico. Vale **pré-autorização do nível 1 na ficha** ou só decisão do síndico? Quem decide se o síndico não é localizado? Tempo máximo sem proteção? Recolocação por tipo de rede (seca, pré-ação) | Cen. 4 ramo F; Cen. 6 ramo D | Síndico + RT incêndio | | |
+| **R-16** | **Gases de esgoto e atmosfera em poço, caixa e subsolo:** a ronda tem detector? quem usa, como? EPI e proteção respiratória; conduta em contato com mucosa ou ferida. (A nota de que o gás pode ser tóxico e inflamável e que o cheiro deixa de ser percebido está **sem fonte** e precisa de confirmação) | Cen. 7 seção 3 | RT / segurança do trabalho | | |
+| **R-17** | **Restringir uso de água e descarga a montante** quando a coluna está entupida, e **quando cortar o abastecimento do trecho** em vez de só avisar (critério de "pavimentos a montante"); tamponar ralos do subsolo | Cen. 7 fase 1 e ramo B | RT + nível 1 | | |
+| **R-18** | **Desenergizar sem habilitado disponível** (isolar a área e esperar o fornecedor?) e **verificar e religar quadro ou motor molhado**: testes, quando recuperar, quando trocar. Lista de quadros no caminho da água por prédio | Cen. 4 seções 3 e 12 | RT elétrico | | |
+| **R-19** | **Higienização de área atingida por esgoto ou água contaminada** (produto, diluição, tempo de contato) e **descarte de materiais porosos e resíduo contaminado** (enquadramento, embalagem, comprovante) | Cen. 4; Cen. 7 seção 9 | RT | | |
+| **R-20** | **Rede de incêndio:** reabrir válvula fechada (ficha, registro, segunda pessoa), **encher a rede** (golpe de aríete, purga, rede seca e pré-ação), **troca de sprinkler**, o que a ronda pode **silenciar, habilitar e reabilitar** na central de alarme | Cen. 6 seções 5, 6 e 11 | RT incêndio / fornecedor | | |
 
 ## Parte 3 — Prioridade 2: valores que **nenhum documento traz** e precisam ser fixados
 
@@ -79,6 +85,11 @@ Preencher na **ficha** de cada condomínio (ou no padrão do portfólio, quando 
 | **V-13** | **Ensaio de estanqueidade** de reservatório e laje | Cen. 9 | RT | |
 | **V-14** | **Laboratório:** escopo da acreditação ISO/IEC 17025 (inclui Legionella?), conservação e prazo das amostras, temperatura de transporte, **contraprova** | Cen. 1, 3, 8, 9 | RT | |
 | **V-15** | **Telefones:** Disque-Intoxicação (0800 722 6001 **não confirmado**, aparece só no Cenário 1), centro toxicológico, concessionária, vigilância sanitária local | Cen. 1, 8; ficha | Administração | |
+| **V-16** | **Secagem e mofo:** método, equipamento, prazo para retirar material molhado e critério para dar por seco | Cen. 4 | RT | |
+| **V-17** | **Válvula de retenção e comporta** da rede de esgoto: instrução de manobra, teste e periodicidade; **limpeza de caixa de gordura e de inspeção** e **desentupimento**: método e periodicidade | Cen. 7 | RT / fornecedor | |
+| **V-18** | **RTI:** volume e nível mínimo; critério de **qualidade da água de reposição** (origem, tanque, cloro), estagnação e renovação; se se pode receber água pela siamesa | Cen. 6 | RT incêndio | |
+| **V-19** | **Flexíveis** (vida útil, critério de troca, registro de bloqueio nos equipamentos dos locatários) e **gatilho de ronda preventiva em chuva forte** (sem citar fonte de alerta) | Cen. 4 | RT / manutenção | |
+| **V-20** | **Vigilância reforçada de incêndio:** frequência da ronda (dupla à noite), intervalo de leitura do nível da RTI, período de vigilância reforçada após o retorno, escopo do **trabalho a quente** e quem autoriza o retorno | Cen. 6 | Síndico + RT incêndio | |
 
 ## Parte 4 — Prioridade 3: decisões de política (síndico e administração)
 
@@ -94,6 +105,10 @@ Preencher na **ficha** de cada condomínio (ou no padrão do portfólio, quando 
 | **Q-08** | **Quem executa e quem assina a autovistoria** (manutenção, administração, síndico) e o que acontece com um item **vermelho** | O checklist manda "escalar ao síndico" | |
 | **Q-09** | **Quem valida cada documento** (nome e registro profissional do RT) e **quando revisar** (após incidente, anualmente) | Sem isso o kit continua rascunho | |
 | **Q-10** | **Condomínio piloto**: qual, e quem junta o mapeamento (as-built, diagrama do ar-condicionado com o ponto de reposição, esquema da água fria e do reúso) | O piloto testa os ramos do cenário 1 contra um prédio real | |
+| **Q-11** | **Galpão logístico com ESFR:** quando **reduzir a carga de incêndio ou restringir a operação do setor** com proteção indisponível; papel do locatário e do contrato | Decisão que só o síndico (com o RT) pode tomar | |
+| **Q-12** | **Abono e indenização a locatários afetados** (alagamento, esgoto, água suspensa) e **responsabilidade pela caixa de gordura do locatário** (contrato) | Os Cenários 4 e 7 deixam em aberto | |
+| **Q-13** | **Seguro:** prazo e procedimento de comunicação conforme a **apólice** de cada condomínio; o que fotografar e guardar | Os procedimentos mandam ler a apólice e não citam prazo | |
+| **Q-14** | **Vazamento antes do hidrômetro ou do cavalete:** responsabilidade da concessionária e contato de emergência na ficha | Cen. 4 | |
 
 ---
 
@@ -120,8 +135,9 @@ Preencher na **ficha** de cada condomínio (ou no padrão do portfólio, quando 
 
 ## Parte 6 — Pendências conhecidas do próprio material
 
-1. **Cenários que ainda não existem, mas são citados:** **4** (vazamento e alagamento), **6** (incêndio com reserva indisponível), **7** (refluxo de esgoto) e **T** (comunicação de crise). Os procedimentos remetem a eles por número.
-2. **Período do monitoramento reforçado** é diferente entre cenários (ver V-07).
+1. **Cenário que ainda não existe, mas é citado:** **T** (comunicação de crise). Os procedimentos já remetem a ele; os cenários 4, 6 e 7 foram escritos depois dos outros e **ainda não foram conferidos contra os cenários 1 a 3, 5, 8 e 9** quanto a divergências de linguagem ou de limites.
+2. **Período do monitoramento reforçado** é diferente entre cenários (ver V-07). O Cenário 7 também sugere 30 dias.
+   **Disque-Intoxicação:** o número aparece só no Cenário 1; nos demais ficou "a confirmar na ficha" (V-15). Convém o Cenário 1 ficar igual aos outros.
 3. **Cores dos traçadores** (rosa = água gelada; azul = reúso) aparecem como **exemplo do condomínio de referência**; cada ficha define as suas.
 4. **Prioridade de atendimento** no Cenário 5 (vida > incêndio > drenagem de subsolo > recalque > esgoto > conforto), incluindo tratar poço de esgoto prestes a transbordar no subsolo como alagamento, é julgamento do projeto e precisa de confirmação (R-08).
 5. A coluna **"Cenários"** do catálogo foi preenchida por critério técnico geral e deve ser **revisada na primeira ficha real**.
