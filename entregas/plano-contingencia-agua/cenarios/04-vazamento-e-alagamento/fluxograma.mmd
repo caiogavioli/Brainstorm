@@ -21,10 +21,10 @@ flowchart TD
   E --> K
   F --> K
   G --> K
-  K["<b>3 · ESCALONAR</b> nível 1 → 2 → 3 + fornecedores (hidráulica, elétrica, elevadores, incêndio)<br/>Avisar locatários e restaurantes · Síndico decide: desligar áreas, isolar setor de incêndio, seguro ⚠<br/>Isolar setor de incêndio NUNCA sem decisão do síndico · Vigilância reforçada se isolar"]:::blue
+  K["<b>3 · ESCALONAR</b> nível 1 → 2 → 3 + fornecedores (hidráulica, elétrica, elevadores, incêndio)<br/>Avisar locatários e restaurantes · Síndico decide: desligar áreas, isolar incêndio, seguro ⚠<br/>Isolar setor de incêndio NUNCA sem decisão do síndico · Vigilância reforçada se isolar"]:::blue
   K --> ID["<b>4 · FONTE E TIPO DE ÁGUA</b><br/>Potável · circuito com química · servida · esgoto · incêndio · pluvial<br/>O tipo define EPI, destino e contaminação · Não sei = tratar como esgoto ou química"]:::blue
   ID --> DREN["<b>5 · DRENAR, DESTINAR ⚠ E SECAR</b><br/>Energia segura primeiro · Destino do efluente conforme o tipo (nunca esgoto no pluvial)<br/>Retirar o que não seca · Secar com método e prazo do RT ⚠ (risco de mofo)"]:::blue
-  DREN --> REP["<b>6 · REPARAR A CAUSA</b> (profissional habilitado)<br/>Guardar a peça rompida para o seguro · Circuito: repor só com folga de ar + bomba, NUNCA mangueira<br/>Rede de incêndio recolocada em serviço pelo fornecedor, com aviso à brigada"]:::orange
+  DREN --> REP["<b>6 · REPARAR A CAUSA</b> (profissional habilitado)<br/>Guardar a peça rompida (seguro) · Circuito: repor só com folga de ar + bomba, NUNCA mangueira<br/>Rede de incêndio recolocada em serviço pelo fornecedor, com aviso à brigada"]:::orange
   REP --> QR{"<b>7 · Energia verificada por habilitado,<br/>causa reparada, área limpa<br/>e seca (ou com plano do RT)?</b>"}
   QR -- Não --> DREN
   QR -- Sim --> AUT["<b>8 · AUTORIZAÇÃO ESCRITA DO SÍNDICO</b><br/>Religar energia em partida ordenada · liberar elevadores · retorno da água (Cenário 2)"]:::green
