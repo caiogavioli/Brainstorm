@@ -147,4 +147,64 @@ Isso **não é parte do projeto de documentação**: é contratar especialista. 
 
 ## Respostas do usuário
 
-_Aguardando._
+### Às perguntas a–e (recebidas em 2026-10-02, por áudio, transcrição sem edição)
+
+**a.** O que é mais urgente?
+> Bom, pergunta A. É, o mais importante hoje é ter o plano.
+
+**b.** O corante rosa é do produto ou adicionado?
+> É, corante, pergunta B, o corante da água, de, da água gelada, do tratamento, ele é um tratamento padrão. É, ele tem o tratamento lá com os produtos químicos e o corante já vai aplicado nela propositalmente para a gente ter essa diferença.
+
+**c.** Há verba para vistoria física?
+> É, C, não há verba para vistoria física, a vistoria física ela tem que ser realizada pelas equipes residentes, então equipe de manutenção, equipe de administração, a própria sindicância.
+
+**d.** Qual foi o erro de operação do episódio 2?
+> D, o erro de operação no episódio 2 foi o seguinte, a, o sistema de compensação de água, do sistema de água gelada, quebrou, ele parou de funcionar, e existia um micro vazamento numa válvula, e o sistema estava perdendo água. Para que o sistema não ficasse sem água, era preciso colocar água manualmente. Então a equipe de manutenção é, pegou uma mangueira, uma mangueira, ligou numa torneira de água potável e ligou essa mangueira em um ponto de entrada de água do sistema de água gelada. E aí eles ligavam a torneira, a água potável entrava no sistema de água gelada. O problema foi que eles deixaram essa mangueira conectada e o sistema de ar-condicionado passou a funcionar com uma pressão maior do que, o, do que o sistema de água potável. Então a água do sistema de ar-condicionado, a água gelada, por conta da pressão maior, ela retornou para o sistema de água potável e ficou na prumada.
+
+**e.** Dá para buscar o mapeamento de um condomínio para virar piloto?
+> É, letra E. Não sei se a gente consegue fazer um mapeamento de um condomínio para virar piloto. É, o que, que você precisa para esse mapeamento? É, quais são as informações necessárias? Quais são os arquivos? Dependendo da lista que você fizer, eu posso te orientar, eu posso verificar se a gente consegue.
+
+### O que essas respostas mudam (anotado pelo time)
+
+- **a → o plano vem antes** (Rafael). A prioridade declarada é ter o plano, não esperar a vistoria. Reforça D1-B (cenário 1 primeiro), agora com um caso real para escrever.
+- **b → o corante é traçador planejado** (Tomás). Já existe na água gelada, por decisão do tratamento padrão. A opção D3-C **já está feita** nesse circuito; o que falta é a ronda **conferir** (torneira sentinela) e estender a prática a outros circuitos. Sensor (D3-B) perde força: sem verba, só onde já existe BMS.
+- **c → a vistoria é das equipes residentes** (Rafael, Tomás). Sem verba para consultor, **D5 muda**: a vistoria deixa de ser contratação e passa a ser **autovistoria guiada** por checklist, feita por manutenção, administração e síndico. Isso a **traz para dentro do projeto** (o checklist é um entregável). Limite honesto (Marina): a autovistoria acha o que se enxerga — mangueira ligada, tubo direto, falta de separação atmosférica — mas **não certifica** teste de dispositivo antirretorno, que exige profissional habilitado. Esses casos ficam marcados "escalar ao síndico".
+- **d → a causa tem nome e é mecânica, não só humana** (Marina, Tomás). A reposição automática do circuito de água gelada quebrou; havia microvazamento numa válvula; a equipe improvisou reposição manual com **mangueira da torneira de potável direto no ponto de entrada do circuito**; a mangueira **ficou conectada**; o circuito, com pressão maior que a do potável, **empurrou a água para a prumada** (contrapressão).
+  - O elo que faltou não foi "esquecer a mangueira": foi **não existir um jeito seguro de repor à mão** quando o automático falha. A equipe fez o que a falta de procedimento mandava. O cenário 1 precisa de **procedimento de reposição manual sem ligação direta** (separação atmosférica: tanque ou funil com folga de ar, nunca mangueira ligada), de **regra de desconexão e registro de quem, quando e quanto**, e de **teste de pressão relativa** entre o circuito e o potável.
+  - O microvazamento era detectável: reposição de água de circuito fechado é um **indicador** (litros por dia). Um hidrômetro ou registro na reposição teria avisado do vazamento antes da improvisação. Candidato a item de monitoramento.
+  - Isto aparece no catálogo como **C3** (reposição), **C4** (tanque de expansão), **A13** (proteção contra refluxo) e **G10** (mangueira ligada a ponto de potável).
+- **e → piloto depende de arquivos** (Marina). O usuário pediu a lista. Está abaixo.
+
+### D5 reformulada (por causa de c)
+
+| Opção | O que é |
+|---|---|
+| **A′** | **Autovistoria guiada:** checklist de interligações e pontos de refluxo, preenchido pelas equipes residentes; o que não dá para certificar é marcado "escalar ao síndico" |
+| **B′** | Só procedimento; sem vistoria |
+
+O time ainda **não votou** nesta versão; a posição original (consultor) caiu por falta de verba.
+
+### Kit para o piloto (resposta ao usuário sobre a pergunta e)
+
+O que se precisa, em ordem de prioridade. **Arquivos de condomínio não entram no GitHub** (preferência do usuário): ficam anexados na conversa ou no OneDrive, e só o que for aprendizado genérico vai para este branch.
+
+**Mínimo (3 itens, já destravam o piloto):**
+1. O **mapeamento feito depois dos incidentes** (pergunta 13), no formato em que estiver.
+2. Diagrama de **princípio do ar-condicionado** mostrando chillers, bombas, torre, tanque de expansão e **onde entra a reposição de água**.
+3. Esquema vertical ou planta da **água fria e do reúso**: ramal da concessionária, cisterna, recalque, caixa(s), barrilete, prumadas, e onde passa o reúso.
+
+**Desejável:**
+4. Lista de equipamentos com capacidade (bombas, reservatórios, chillers, torres, aquecedores).
+5. Lista de fornecedores por sistema (quem, escopo, periodicidade) e a **escada de escalonamento** níveis 1-2-3 (só as funções; telefones pessoais não precisam vir).
+6. Último relatório mensal consolidado de cada fornecedor (limpeza de reservatório, potabilidade, tratamento químico, PMOC).
+7. Procedimentos de emergência e a **ficha de ronda** de hoje.
+
+**Quando não houver desenho:** fotos da casa de máquinas, do ponto de reposição do chiller, da cisterna, das caixas d'água e da torre, **com plaqueta legível**, substituem boa parte do desenho.
+
+**Escolha do piloto:** o time sugere o **prédio onde os episódios aconteceram**. Os fatos já são conhecidos e dá para testar se a ficha e o cenário 1 teriam apontado os dois episódios. Se for atípico demais para o portfólio, o usuário decide outro.
+
+**Alternativa sem arquivo nenhum:** entrevista guiada por áudio sobre o catálogo (S / N / ?). A resposta já é a ficha do piloto. Menos precisa, mais rápida.
+
+### Estado das decisões
+
+Respondidas as perguntas a–e. **D1, D2, D3, D4 e D6 seguem sem decisão do usuário**; D5 foi reformulada e também aguarda.
