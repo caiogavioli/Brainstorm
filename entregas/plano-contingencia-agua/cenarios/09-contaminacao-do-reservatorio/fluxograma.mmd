@@ -1,0 +1,39 @@
+flowchart TD
+  S(["<b>ALERTA</b><br/>Sujeira · animal · corpo estranho · odor ou gosto de mofo · sedimento na torneira<br/>Tampa aberta ou lacre rompido · infiltração · limpeza vencida<br/>Análise não conforme na saída da caixa · obra na cobertura"]):::start
+  S --> Q{"Alguém passou mal<br/>ou alguém está<br/>DENTRO do reservatório?"}
+  Q -- Sim --> SOC["<b>SAMU 192 · BOMBEIROS 193</b><br/>NÃO ENTRAR para socorrer · espaço confinado (NR-33) · altura (NR-35)"]:::red
+  Q -- Não --> C1
+  SOC --> C1
+  C1["<b>1 · CONTER</b> · ronda olha só POR FORA: não abrir a tampa, não entrar, não se debruçar<br/>Sinal na água (sujeira, odor, sedimento, animal): SUSPENDER o consumo do trecho<br/>Restaurantes: parar alimento, gelo e lavagem · sinalizar os pontos<br/>Tampa, obra ou limpeza vencida sem sinal na água: conter e coletar · síndico decide ⚠<br/>Sem decisão em 1 h ⚠ = suspender"]:::red
+  C1 --> R{"Qual o achado?<br/>(ficha: células · registros · RTI)"}
+  R -- "Animal ou<br/>corpo estranho" --> A["<b>RAMO A</b><br/>Retirada só por<br/>equipe habilitada"]:::branch
+  R -- "Sujeira · sedimento<br/>limpeza vencida" --> B["<b>RAMO B</b><br/>Limpeza e desinfecção<br/>por fornecedor"]:::branch
+  R -- "Infiltração<br/>água externa" --> Cc["<b>RAMO C</b><br/>Laje · calha · torre · ladrão<br/>(cenários 1 e 4)"]:::branch
+  R -- "Reúso · incêndio (RTI)<br/>compartilhado" --> D["<b>RAMO D</b><br/>RTI intocável (cenário 6)<br/>reúso NUNCA vai ao potável"]:::branch
+  R -- "Não sei" --> E["<b>RAMO E</b><br/>Causa indefinida<br/>= A + B + C + D"]:::branch
+  A --> K
+  B --> K
+  Cc --> K
+  D --> K
+  E --> K
+  K["<b>2 · ISOLAR O RESERVATÓRIO SUSPEITO</b> · avisar antes de fechar a saída<br/>Fechar entrada, saída e equalização · etiquetar e travar · desligar a bomba antes · RTI fechada"]:::orange
+  K --> Q2{"Há célula reserva<br/>que a ficha confirma?<br/>(não sei = NÃO)"}
+  Q2 -- Sim --> OP["<b>3a · OPERAR COM A CÉLULA LIMPA</b><br/>Conferir cor, odor, cloro · coletar · autonomia menor · priorizar (cenário 2)"]:::blue
+  Q2 -- Não --> C2["<b>3b · FALTA DE ÁGUA = CENÁRIO 2</b><br/>Caminhão-pipa em ponto fixo (nunca na boca de visita) · garrafões<br/>Reposição do chiller / torre fechada"]:::orange
+  OP --> ESC
+  C2 --> ESC
+  ESC["<b>4 · ESCALONAR</b> nível 1 → 2 → 3 · empresa de limpeza e RT · hidráulica · consultor<br/>Aviso escrito a ocupantes e restaurantes<br/>Síndico decide: vigilância sanitária e concessionária ⚠"]:::blue
+  ESC --> COL["<b>5 · FOTOGRAFAR E COLETAR ANTES DE ESVAZIAR</b><br/>Saída da caixa · sentinela · ponto distante · célula reserva · água externa<br/>Lab ISO 17025 ⚠ · cadeia de custódia · linha do tempo"]:::blue
+  COL --> FIX["<b>6 · ELIMINAR A CAUSA FÍSICA</b> (habilitado)<br/>Tampa · vedação · tela · ladrão · laje · calha · tubulação sobre a caixa<br/>Sem corrigir a causa o reservatório NÃO volta"]:::orange
+  FIX --> LIM["<b>7 · ESVAZIAR, LIMPAR E DESINFETAR</b> · só fornecedor habilitado com RT<br/>Permissão de trabalho · vigia · produto e tempo de contato do RT ⚠<br/>Destino da água: NÃO para pluvial sem orientação ⚠ · enxaguar · encher · descarregar"]:::blue
+  LIM --> AN{"<b>8 · Análise depois conforme</b><br/>em TODOS os pontos<br/>+ certificado de limpeza?"}
+  AN -- Não --> LIM
+  AN -- Sim --> AUT["<b>9 · PARECER TÉCNICO + AUTORIZAÇÃO ESCRITA DO SÍNDICO</b><br/>Causa corrigida · RTI conferida · cloro, cor e odor OK"]:::green
+  AUT --> LIB["<b>10 · LIBERAR POR ETAPAS</b> · avisar · tirar sinalização<br/>Sentinela diária por 30 dias ⚠ · registrar incidente · atualizar a ficha"]:::green
+
+  classDef start fill:#1f2937,color:#fff,stroke:#111,stroke-width:2px
+  classDef red fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c,stroke-width:3px
+  classDef orange fill:#ffedd5,color:#7c2d12,stroke:#c2410c,stroke-width:3px
+  classDef branch fill:#fef9c3,color:#713f12,stroke:#a16207,stroke-width:2px
+  classDef blue fill:#dbeafe,color:#1e3a8a,stroke:#1d4ed8,stroke-width:2px
+  classDef green fill:#dcfce7,color:#14532d,stroke:#15803d,stroke-width:3px
