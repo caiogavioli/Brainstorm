@@ -4,6 +4,7 @@ Kit **genérico** de contingência, manutenção e monitoramento dos sistemas de
 
 | Pasta / arquivo | O que é |
 |---|---|
+| `revisao-tecnica/pacote-de-revisao-tecnica` | **Comece por aqui para revisar.** 14 itens de segurança e saúde, 15 valores a fixar, 10 decisões de política e as referências a confirmar, com folha de resposta (A / J / N / ?) |
 | `catalogo/catalogo-v2.md` | Catálogo de 195 sistemas, 16 famílias de manutenção, 18 interligações críticas |
 | `planilha-mestre/planilha-mestre.xlsx` | Ficha por condomínio (em branco): catálogo S/N/?, matriz item × cenário, manutenção, autovistoria, contatos, incidentes, resumo |
 | `cenarios/01-contaminacao-cruzada/` | Cenário 1: procedimento, fluxograma A3/A4, checklist de autovistoria |
