@@ -2,7 +2,7 @@
 
 Estado vivo do brainstorming — visão do hub. Ler no início de **toda** sessão, seja qual for o branch, e atualizar ao fim de qualquer rodada ou decisão.
 
-**Última atualização:** 2026-10-01 (17007 Nações)
+**Última atualização:** 2026-10-02 (17007 Nações)
 
 ---
 
@@ -74,8 +74,8 @@ _Cada branch de brainstorming mantém sua própria tabela de problemas em detalh
 
 ## Em aberto
 
-- **17007 Nações 2027, rodada 1 (rev 6):** analisada, validada e com os dois arquivos finais gerados (2026-10-01; 4 críticos, 8 moderados, 5 baixos); `estado.json` em `pronto_para_envio`. Falta o usuário enviar à CBRE. Pendências: `.xlsx` da rev 6 para auditar fórmulas; páginas da convenção (PDF escaneado, não lido) para conferir A-01 e A-02; confirmar a base de materialidade (total dos 5 centros).
-- **Atrium 2027, rodada 1:** pronta, falta o usuário enviar à Innova.
+- **17007 Nações 2027, rodada 1 (rev 6):** enviada à CBRE em 2026-10-01 (17 apontamentos). Após o `.xlsx`, **revisão 1** (23 apontamentos: 6 críticos, 8 moderados, 9 baixos) validada em 2026-10-02 e com os dois arquivos finais gerados; falta o usuário reenviar à CBRE. Convenção dispensada; materialidade sobre o total dos 5 centros.
+- **Atrium 2027, rodada 1:** enviada à Innova em 2026-10-01; aguardando a reapresentação da previsão.
 
 - Piloto de `analise-previsao-orcamentaria`: Atrium Santo André (setor Office), PO 2027, Innova, recebida em 29/09/2026. Casos **confirmados no arquivo real, com fórmulas** (8 de 9 + 8 novos, incluindo apresentação × planilha) em `docs/casos-piloto-atrium-2027.md` do repositório novo, commit `342f92d`. Falta virar verificador com teste.
 - **Ação pendente do usuário:** trocar o branch default do repositório para `main` em Settings → Branches no GitHub — a integração não tem permissão para fazer isso via API.

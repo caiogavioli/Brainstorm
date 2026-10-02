@@ -323,3 +323,19 @@ Autorização explícita do usuário para escrever em `main` (as instruções da
 **Leitura:** os 17 apontamentos foram validados em bloco, sem ajustes nem retiradas. **Gerado:** os dois arquivos finais, sem marca de rascunho, fora do git. `estado.json` no OneDrive: `pronto_para_envio`, `validado_em` 2026-10-01. **Pendente:** o envio à CBRE é do usuário; os arquivos são colocados por ele em `17007 Nações/2027/Rodada-1`.
 
 **Repositório novo:** commit `2811743` com o gerador `src/previsao/rodada.py` (`python -m previsao.rodada achados.json pasta/`, schema 2 do `achados.json`) e a documentação da regra C12, do campo `centro` e do estado. Nenhum dado de condomínio entrou no git.
+
+### 17007 Nações: envio, .xlsx e revisão 1 da rodada 1 — 2026-10-01/02
+
+> Envio: mandei para a CBRE e para a INNOVA. Rev6 em xls, segue anexo. convençao: pode esquecer isso. Materialidade: mantem base do total dos5 centros.
+
+> está validado
+
+**Decisões do usuário:** a rodada 1 foi enviada à CBRE e ao Atrium (Innova); a materialidade segue sobre o total dos 5 centros; a convenção foi **dispensada** (A-01 e A-02 seguem "a esclarecer", com a administradora citando o artigo).
+
+**O que a auditoria do `.xlsx` mostrou (valores idênticos aos da leitura por conector em 785 linhas):** o orçamento de mão de obra é ligado à aba `Equipes`, e não à aba oculta `Equipes 2027`; a limpeza do Sigma exclui, por fórmula, 18 agentes "privativos" (R$ 1,71 milhão/ano); o aumento da vigilância do Geral vem de um acréscimo digitado de R$ 59.390,95/mês; o CMQ de 2026 do Sigma implica uma terceira área (62.231,61 m²); Energia e Água ficam R$ 483 mil/ano abaixo da "sugestão" das abas de apoio; mais erros de fórmula e `#DIV/0!`. **Miss meu:** na leitura só por valores eu não tinha visto o `#DIV/0!` e o conector tinha truncado a leitura em 9 das 13 abas (Energia, Agua, Agua (2) e Planilha1 ficaram de fora).
+
+**Gerado:** revisão 1 da rodada 1 com 23 apontamentos (6 críticos, 8 moderados, 9 baixos). IDs A-01 a A-17 mantidos porque já tinham sido enviados; 9 alterados (A-07 passou de moderado a crítico); A-18 a A-23 novos. Validada pelo usuário em 2026-10-02; versão final sem marca de rascunho. **Pendente:** o reenvio à CBRE é do usuário. `estado.json` em `revisao_pronta_para_reenvio`; `achados-revisao-1.json` gravado na `Rodada-1`.
+
+**Atrium:** `estado.json` passou a `aguardando_administradora` (envio do usuário à Innova em 2026-10-01).
+
+**Repositório novo:** gerador aceita revisão de rodada enviada (IDs preservados, rótulo e notas de revisão); regra C13 (abas ocultas, de apoio e vínculos) e auditoria de fórmulas documentadas.
