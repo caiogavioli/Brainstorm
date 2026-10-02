@@ -26,34 +26,25 @@ e os textos para você revisar.
 - **Cronograma:** segunda 05/10, o time de comunicação da BGRE avisa o início do
   projeto; quarta 07/10, a plataforma da Shop & Test dispara a pesquisa.
 
-## 2. Quem respondeu
+## 2. Quem respondeu (posição das 15h19 de 02/10)
 
-Busca na sua caixa às respostas à thread, a partir das 11h17 de 02/10.
+Controle editável no Claude Doc: https://claude.ai/code/artifact/4d12ed87-de66-4301-a224-c8687713ad69
 
-| Prédio | Responsável | Formulário | Retorno |
+| Prédio | Formulário | Enviado (BRT) | Observação |
 |---|---|---|---|
-| **Panamérica** | Kelly D'Angelis (CBRE) | novo | ✅ **02/10, 12h04**, planilha `Cadastro_Faturamento_e_Lideres_.xlsx`, em resposta ao e-mail do Gabriel das 11h17. Conferi o anexo: é o formulário de *novos* (setup R$ 2.680 + entrevistas R$ 1.764,55 = R$ 4.444,55), com razão social, CNPJ, IE, endereço, responsável financeiro e três líderes (Kelly, Marco Aurélio e você). Você está em Cc. |
-| **Arquipeo** | Helena Borges (C&W) | novo | ⏳ sem retorno |
-| **Passeio Paulista** | Sandra Alquimin (C&W) | novo | ⏳ sem retorno |
-| **PL Extrema** | Marcelo Santos (Innova) | novo ("Extrema") | ⏳ sem retorno |
-| **17.007 Nações** | Paulo Corrêa (CBRE) | recorrente | ⏳ sem retorno |
-| **TNU** | Marcus Martinez (CBRE) | recorrente | ⏳ sem retorno |
-| **Centenário** | Adriano Camilo (CBRE) | recorrente | ⏳ sem retorno |
-| **JKB** | José Pedro Perozzi (CBRE) | recorrente | ⏳ sem retorno |
-| Alphaville, O Parque, Atrium | — | — | não estão na lista do Gabriel |
+| Panamérica | novos | ✅ 12h04 | Foi para Gabriel e **Alex Martins**, não para o Alex Trindade. |
+| JKB | recorrentes | ✅ 12h50 | Completo; Caio como "Síndico". |
+| PL Extrema | novos | ✅ 12h59 e 13h34 | Completo, seis líderes; reenviou "em tempo". |
+| TNU | recorrentes | ✅ 13h00 | Inscrição estadual em branco. |
+| 17.007 Nações | recorrentes | ✅ 14h40 | Mandou os **dois** formulários; vale o de recorrentes (o de novos cobra setup de R$ 2.680). |
+| Arquipeo | novos | ✅ 15h19 | Enviado pela Andreia Silva (C&W). Completo. |
+| **Passeio Paulista** | novos | ⏳ pendente | Sem retorno na caixa. |
+| **Centenário** | recorrentes | ⏳ pendente | Sem retorno na caixa. |
 
-**Sete prédios sem retorno na sua caixa.** Duas ressalvas:
+Só **Passeio Paulista e Centenário** seguem pendentes; as mensagens da seção 6
+valem para eles. Quem enviou só ao Alex Trindade, sem copiar você, não aparece.
 
-1. **"Sem retorno" é "sem retorno com você em cópia".** O Gabriel pediu a
-   devolução ao Alex Trindade, então quem enviou só a ele não aparece. A Kelly
-   apareceu porque respondeu a todos. Cobrar a lista inteira pode atingir quem
-   já entregou, e a frase final dos textos cobre esse caso.
-2. **A Kelly enviou ao Gabriel e ao `alex.martins@brookfieldproperties.com`.**
-   O Gabriel pediu o envio ao Alex **Trindade** (`alex.trindade@bgre.com`). Pode
-   ser outro Alex. Vale confirmar com o Gabriel, antes que o Panamérica conte
-   como entregue.
-
-Não abri a planilha da Kelly para conferir se está completa.
+---
 
 ## 3. Decisões suas antes de enviar
 
