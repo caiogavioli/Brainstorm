@@ -2,7 +2,7 @@
 
 **Data:** 2026-10-02
 **Problema:** P-001 — Sistemas de água do prédio
-**Fase:** 1 (Apresentação) concluída; Rodada 1 aberta
+**Fase:** 1 (Apresentação) e Rodada 1 concluídas
 
 ---
 
@@ -55,7 +55,7 @@ Os desacordos vão para a Rodada 2.
 
 ## Respostas do usuário
 
-Respondidas por áudio, uma por uma (transcrição sem edição). **Respostas 1–5 (Marina) e 6–10 (Rafael) recebidas em 2026-10-02. Respostas 11–14 (Tomás) ainda virão em outro áudio.**
+Respondidas por áudio, uma por uma (transcrição sem edição). **Respostas 1–5 (Marina), 6–10 (Rafael) e 11–14 (Tomás) recebidas em 2026-10-02, em três áudios.**
 
 **1.** Existe projeto, memorial e isométrico?
 > Número um, é, existe projeto memorial e isométrico das instalações de ar-condicionado de todos os prédios. O problema é que eu não vou conseguir te mandar tudo. Eu acho que tem que ser algo mais genérico aí, é, colocando todas as opções possíveis, imaginárias, e aí cada condomínio eu vou, eu vou ticando e vou deixando é, certinho.
@@ -91,14 +91,21 @@ Respondidas por áudio, uma por uma (transcrição sem edição). **Respostas 1�
 
 _(A segunda metade da pergunta 10 — o que é mais urgente, o plano de contingência ou impedir o terceiro episódio — ficou sem resposta. A primeira metade virou um pedido de sugestão; as opções estão na resposta do chat desta data e voltam como proposta formal na Rodada 2.)_
 
-### O que as respostas 6–10 acrescentam
+**Respostas 11–14 (Tomás) recebidas em 2026-10-02, em novo áudio:**
 
-- **Escopo é replicável, portfólio inteiro** (Rafael): o usuário quer o levantamento **o mais completo possível, incluindo o que é "imaginário"**, para moldar por condomínio depois. O catálogo v1 (76 itens) é a base; fica combinado fazer uma **v2 ampliada** após o fechamento da Rodada 1.
-- **Quem executa já existe e funciona por escada de escalonamento** (Rafael, Marina): equipe de manutenção 24h com ronda executa contenção, aciona pessoas de nível 1, 2 e 3 e fornecedores. O plano **encaixa nessa estrutura**; não cria uma nova. Precisa dos nomes, níveis e contatos de cada condomínio (dado que o usuário tem, mas ainda não está registrado aqui).
-- **Locatários são escritório e lojas com restaurante** (Rafael): restaurantes usam água em cozinha, gelo e lavagem de alimento, e têm caixa de gordura — risco maior de a contaminação virar problema sanitário e de imagem. Diferença entre condomínios é real e entra na ficha.
-- **O episódio 1 mandou gente ao hospital** (Rafael): não é incidente de conforto, é de saúde. Isso pesa na ordem de prioridade (ver Rodada 2) e na linha de comunicação de crise.
-- **O proprietário cobra resultado o tempo todo** (Rafael): há pressão, mas **sem data fixa** informada. O que o proprietário recebe e quando é um insumo do plano.
-- **O formato do material fica em aberto**, por decisão do usuário, a partir de sugestões.
+**11.** Quem opera e mantém cada grupo?
+> Uma resposta para o Tomás. 11. Quem opera e mantém o tratamento químico, limpeza e tudo mais, são terceiros, são empresas contratadas pelo condomínio é, e são geridas pela administradora. É, a administradora do condomínio faz a gestão de todos os serviços.
+
+**12.** Que proteções contra refluxo existem? Há gerador?
+> Número 12. Que proteções contra refluxo você sabe que existem? Deixa eu ver. É, eu não sei, não sei, de verdade, cada condomínio é um condomínio diferente e cada condomínio tem sistemas diferentes, então a gente não tem de cabeça como saber. Eu acho que a gente precisa trabalhar com um processo mais genérico e completo, abrangendo todas as possibilidades, todas as soluções, e aí a gente vai adaptando para cada prédio. É, normalmente, sim, o, todos os condomínios têm gerador que atendem todo o sistema de recalque, incêndio, etc.,
+
+**13.** O que foi feito depois dos incidentes?
+> Número 13, é, depois, que foi, depois que aconteceram os acidentes, foi feita uma revisão completa dos sistemas de hidráulica, mapeamento ali de todos os itens, é, foram feitas adequações nos procedimentos e na operação do dia a dia de cada condomínio, é, principalmente a revisão de fornecedores também.
+
+**14.** Onde a manutenção preventiva é registrada?
+> 14, é, a manutenção preventiva de todos os itens é registrada via ordem de serviço de cada fornecedor, ou via sistema que cada fornecedor tem. E aí, no final do mês, eles entregam os relatórios consolidados.
+
+_(A pergunta 13 não teve resposta sobre custo ou verba para intervenção física.)_
 
 ### O que essas respostas já mudam (anotado pelo time, sem decidir nada — a decisão é da Rodada 2)
 
@@ -109,6 +116,27 @@ _(A segunda metade da pergunta 10 — o que é mais urgente, o plano de conting�
 - **Causa do episódio 2 foi erro de operação**, confirmado presencialmente pelo usuário — não falha de projeto nem de obra. Isso muda o plano: o foco passa a ser **procedimento de operação e barreira física contra refluxo**, não só inspeção de interligação. O usuário ainda não disse **qual foi o erro**; ele pode contar na próxima resposta, se quiser.
 - **Quem decide é o condomínio**, apoiado por consultor especialista contratado caso a caso (o usuário escreveu "sindicância"; leitura do time: o órgão de decisão do condomínio, o síndico). O papel do usuário é montar o dossiê e o plano, não decidir a causa técnica.
 
-### Pendente
+### O que as respostas 6–10 acrescentam
 
-Respostas 11–14 (Tomás). Só depois disso a Rodada 1 fecha e a Rodada 2 começa.
+- **Escopo é replicável, portfólio inteiro** (Rafael): o usuário quer o levantamento **o mais completo possível, incluindo o que é "imaginário"**, para moldar por condomínio depois. O catálogo v1 (76 itens) é a base; fica combinado fazer uma **v2 ampliada** após o fechamento da Rodada 1.
+- **Quem executa já existe e funciona por escada de escalonamento** (Rafael, Marina): equipe de manutenção 24h com ronda executa contenção, aciona pessoas de nível 1, 2 e 3 e fornecedores. O plano **encaixa nessa estrutura**; não cria uma nova. Precisa dos nomes, níveis e contatos de cada condomínio (dado que o usuário tem, mas ainda não está registrado aqui).
+- **Locatários são escritório e lojas com restaurante** (Rafael): restaurantes usam água em cozinha, gelo e lavagem de alimento, e têm caixa de gordura — risco maior de a contaminação virar problema sanitário e de imagem. Diferença entre condomínios é real e entra na ficha.
+- **O episódio 1 mandou gente ao hospital** (Rafael): não é incidente de conforto, é de saúde. Isso pesa na ordem de prioridade (ver Rodada 2) e na linha de comunicação de crise.
+- **O proprietário cobra resultado o tempo todo** (Rafael): há pressão, mas **sem data fixa** informada. O que o proprietário recebe e quando é um insumo do plano.
+- **O formato do material fica em aberto**, por decisão do usuário, a partir de sugestões.
+
+### O que as respostas 11–14 acrescentam
+
+- **Tudo é terceirizado e gerido pela administradora** (Tomás): o usuário não opera nem contrata direto. Qualquer exigência nova (formato de relatório, checklist, teste) passa pela administradora e pelos contratos dela com os fornecedores.
+- **Ninguém sabe de cabeça se há proteção contra refluxo** (Tomás, Marina): cada condomínio é diferente. Isso é, em si, um achado: no item A13 do catálogo a resposta honesta é **"?" em todos os prédios**, e esse "?" é exatamente o tipo de ponto que causou os dois episódios.
+- **Todos os condomínios têm gerador** para recalque, incêndio etc. (Tomás): a falta de energia deixa de ser a principal preocupação do grupo; fica o teste periódico.
+- **Houve uma revisão completa depois dos incidentes, com mapeamento de todos os itens** (Tomás): **já existe mapeamento por condomínio**, fora do alcance deste repositório. É melhor ponto de partida para a ficha de cada prédio do que partir do catálogo em branco. Também houve revisão de procedimentos, de operação e de fornecedores.
+- **Registro é pulverizado** (Marina, Tomás): ordem de serviço ou sistema de cada fornecedor, com **relatório consolidado só no fim do mês**. Não há registro único. Um desvio pode levar até 30 dias para aparecer em papel, e o relatório é a declaração do próprio fornecedor.
+
+---
+
+## Fechamento da Rodada 1
+
+As 14 respostas foram dadas. Ficaram **sem resposta**: (a) o que é mais urgente — plano ou impedir o terceiro episódio; (b) qual foi o erro de operação do episódio 2; (c) se o corante rosa da água gelada é do produto de tratamento ou foi adicionado de propósito; (d) verba para intervenção física. Entram como perguntas da Rodada 2 quando mudam a decisão.
+
+Rodada 2: `sessoes/S-002-rodada-2.md`.
