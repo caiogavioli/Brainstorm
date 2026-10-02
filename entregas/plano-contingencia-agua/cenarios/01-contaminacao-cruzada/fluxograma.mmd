@@ -1,0 +1,37 @@
+flowchart TD
+  S(["<b>ALERTA</b><br/>Água colorida, turva, odor ou sabor estranho · pessoa passou mal<br/>OU mangueira / ligação provisória entre potável e outro sistema"]):::start
+  S --> Q{"Alguém<br/>passou mal?"}
+  Q -- Sim --> SOC["<b>Acionar SAMU 192</b><br/>Disque-Intoxicação 0800 722 6001 ⚠"]:::red
+  Q -- Não --> C1
+  SOC --> C1
+  C1["<b>1 · SUSPENDER O CONSUMO</b><br/>Avisar o andar (e o prédio na dúvida): não beber, não cozinhar, não fazer gelo, não usar bebedouro<br/>Restaurantes: parar alimento e gelo · Sinalizar pontos · Água alternativa"]:::red
+  C1 --> R{"Qual o sinal?<br/>(cores: ver a ficha do condomínio)"}
+  R -- "Rosa / odor químico" --> A["<b>RAMO A</b><br/>Água gelada · torre<br/>caldeira"]:::branch
+  R -- "Azul" --> B["<b>RAMO B</b><br/>Reúso<br/>(risco microbiológico)"]:::branch
+  R -- "Sem cor · óleo<br/>espuma · incêndio" --> Cc["<b>RAMO C</b><br/>Incêndio<br/>ou outro"]:::branch
+  R -- "Água quente<br/>afetada" --> D["<b>RAMO D</b><br/>Trocador de<br/>parede única"]:::branch
+  R -- "Suja / terra" --> E["<b>RAMO E</b><br/>Reservatório<br/>+ cenário 9"]:::branch
+  R -- "Não sei" --> F["<b>RAMO F</b><br/>A + B + C<br/>juntos"]:::branch
+  A --> K
+  B --> K
+  Cc --> K
+  D --> K
+  E --> K
+  F --> K
+  K["<b>2 · CORTAR A FONTE — SEM DESCARREGAR</b><br/>① Fechar o registro do lado POTÁVEL e só depois desconectar mangueira / jumper<br/>② Fechar a reposição (potável → circuito) e reúso → potável<br/>③ Isolar prumada / andar pelo mapa de registros"]:::orange
+  K --> ESC["<b>3 · ESCALONAR</b> nível 1 → 2 → 3<br/>Fornecedor químico: <b>FISPQ</b>, composição, corante · Hidráulica · Consultor (síndico decide)<br/>Síndico decide: comunicação, vigilância sanitária, concessionária ⚠"]:::blue
+  ESC --> COL["<b>4 · COLETAR ANTES DE DESCARREGAR</b><br/>Torneira afetada · sentinela · saída da caixa · cisterna · reposição · água do circuito<br/>Lab ISO 17025 ⚠ · cadeia de custódia · fotos · linha do tempo"]:::blue
+  COL --> MAP["<b>5 · MAPEAR a extensão e ACHAR A CAUSA</b><br/>Perguntas do ramo (procedimento, seção 5)"]:::blue
+  MAP --> FIX["<b>6 · ELIMINAR A CAUSA FÍSICA</b> (profissional habilitado)<br/><b>A linha de reposição segue FECHADA até haver proteção</b>"]:::orange
+  FIX --> LIM["<b>7 · Drenar, limpar e desinfetar</b><br/>Reservatório = espaço confinado (NR-33) · cobertura = altura (NR-35)"]:::blue
+  LIM --> AN{"<b>8 · Nova análise conforme</b><br/>em TODOS os pontos,<br/>incluindo os parâmetros do produto?"}
+  AN -- Não --> LIM
+  AN -- Sim --> AUT["<b>9 · PARECER TÉCNICO + AUTORIZAÇÃO ESCRITA DO SÍNDICO</b>"]:::green
+  AUT --> LIB["<b>10 · LIBERAR</b> · comunicar · tirar sinalização<br/>Sentinela diária por 30 dias ⚠ · registrar incidente · atualizar a ficha"]:::green
+
+  classDef start fill:#1f2937,color:#fff,stroke:#111,stroke-width:2px
+  classDef red fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c,stroke-width:3px
+  classDef orange fill:#ffedd5,color:#7c2d12,stroke:#c2410c,stroke-width:3px
+  classDef branch fill:#fef9c3,color:#713f12,stroke:#a16207,stroke-width:2px
+  classDef blue fill:#dbeafe,color:#1e3a8a,stroke:#1d4ed8,stroke-width:2px
+  classDef green fill:#dcfce7,color:#14532d,stroke:#15803d,stroke-width:3px
