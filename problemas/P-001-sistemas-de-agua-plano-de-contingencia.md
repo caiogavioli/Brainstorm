@@ -6,8 +6,8 @@
 Dois episódios de contaminação cruzada no mesmo prédio (reúso misturado com potável; água do circuito do chiller saindo na torneira de alguns andares) mostram que não há mapa nem controle dos sistemas de água — e não existe plano de contingência, manutenção e monitoramento que cubra todos eles.
 
 ## Como é hoje
-- **Episódio 1:** água de reúso misturada com água potável por erro de instalação feito na obra, na construção do prédio, que ninguém viu.
-- **Episódio 2 (atual):** a água do sistema de ar-condicionado do chiller — com produtos químicos — saiu na torneira de alguns andares. Causa ainda não confirmada. Hipóteses levantadas pelo usuário: vazamento que caiu na caixa d'água; água voltando pela tubulação (refluxo).
+- **Episódio 1:** água de reúso misturada com água potável por erro de instalação feito na obra, na construção do prédio, que ninguém viu. Causa confirmada em laudo. Pessoas passaram mal e foram ao hospital. Descoberto pelo ocupante, pela água azul.
+- **Episódio 2:** a água do circuito de água gelada do chiller — com produtos químicos e corante rosa — saiu na torneira de alguns andares. **Causa confirmada em campo pelo usuário (erro de operação):** a reposição automática do circuito quebrou, havia microvazamento numa válvula, a equipe repôs à mão com mangueira da torneira de potável ligada direto na entrada do circuito e a deixou conectada; o circuito, com pressão maior, empurrou a água para a prumada (contrapressão).
 - Não há, até onde foi relatado, um levantamento de todos os sistemas de água existentes, nem procedimento de contingência, nem plano de manutenção e monitoramento que cubra todos.
 
 ## Frequência e volume
