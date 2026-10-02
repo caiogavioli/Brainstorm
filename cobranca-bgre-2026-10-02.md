@@ -116,23 +116,9 @@ Caio Gavioli
 DF Síndicos
 ```
 
-### 4.2. WhatsApp — para os 7 gestores
+### 4.2. WhatsApp
 
-```
-Bom dia, [NOME]! Aqui é o Caio, da DF Síndicos.
-
-O Gabriel (BGRE) mandou na sexta o formulário de cadastro da Pesquisa de
-Satisfação 2026 ("[FORMULÁRIO]"). Precisa voltar preenchido para o Alex
-Trindade, com dados de faturamento, responsável financeiro e os líderes
-(gestor predial, regional e síndico).
-
-A BGRE avisa os locatários hoje e a pesquisa dispara na quarta (07/10).
-Consegue enviar até meio-dia, com cópia para mim?
-
-Se você já mandou, me avisa que eu dou baixa. Obrigado!
-```
-
-(Texto para enviar na segunda 05/10; se for enviar antes, trocar "avisa os locatários hoje" por "avisa os locatários na segunda".)
+Versão final por prédio na seção 6.
 
 ## 5. Destinatários
 
