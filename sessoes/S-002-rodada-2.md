@@ -230,3 +230,26 @@ Antes dessa resposta, o time havia dito que, se o usuário delegasse, fecharia a
 ### Estado da Rodada 2
 
 D2, D3, D4 e D5′ decididas. **D1 e D6 aguardam o usuário.** Depois delas, a Rodada 2 fecha. O recorte proposto (1 projeto documental `plano-contingencia-agua`) segue de pé, com uma correção: a vistoria deixou de ser "ação fora do projeto" e passou para **dentro** dele, como checklist de autovistoria.
+
+### Dúvida do usuário e recomendação consolidada (2026-10-02)
+
+> Eu tô na dúvida do que decidir. Queria que você fizesse sugestão mais, é, de uma forma mais efetiva para me dizer quais são as melhores visões para você para esse projeto que é um projeto genérico, não vai ser um projeto específico para um prédio.
+
+**Visão do projeto genérico.** O kit tem três camadas: (1) o **catálogo** — o que pode existir; (2) os **cenários** — o que fazer quando falha, escritos de forma **condicional** ("se o circuito tem reposição automática…, se não tem…"), nunca para um prédio específico; (3) a **ficha por condomínio** — o que existe naquele prédio, mais contatos, fornecedores e registros, que seleciona quais ramos de cada cenário se aplicam. Genérico quer dizer: o procedimento se ramifica por configuração, e a ficha diz qual ramo vale.
+
+**D1 — recomendação: B, com catálogo v2 em paralelo e piloto depois, como validação.**
+- O modelo genérico não precisa de um prédio para ser escrito. O cenário 1 já tem um caso real para ancorar (a reposição manual por mangueira) e é o que o usuário disse ser mais importante: ter o plano.
+- A objeção da Marina (cenário sem mapa do prédio repete o erro) se resolve com o cenário condicional: ele traz os ramos, e a ficha escolhe. O piloto entra depois para **testar os ramos**, se os arquivos chegarem.
+- A objeção do Tomás (duas peças móveis) é sobre esforço do usuário. O catálogo v2 é pesquisa feita deste lado e não pede nada dele.
+- Ordem: **1.** cenário 1 completo (procedimento, fluxograma de 1 página, checklist de autovistoria dos 5 tipos de ponto) → **2.** catálogo v2, em paralelo → **3.** planilha-mestre (ficha) e os demais cenários por ordem de risco → **4.** piloto como validação.
+
+**D6 — recomendação: A, o modelo genérico neste branch; as fichas dos condomínios no OneDrive.**
+- O modelo vai ser revisado a cada incidente, e quem edita é o usuário, **o único com Claude Code** (preferência registrada). A fonte editável precisa ficar onde o Claude trabalha. O conector do Microsoft 365 lê arquivos sem fórmulas e só grava até 1 MB; manter a fonte só no OneDrive complica toda revisão.
+- O histórico git guarda o porquê de cada mudança (posição da Marina).
+- A equipe e as administradoras recebem **Word, Excel e PDF** gerados do modelo. Nunca precisam abrir o GitHub (posição do Rafael e do Tomás).
+- **Dados reais de condomínio (fichas, contatos, relatórios) não entram no GitHub**, só o modelo genérico.
+- Reversível: se depois o usuário quiser repositório próprio para o modelo, é uma mudança de pasta, sem perda.
+
+**Gatilhos (o usuário quer clareza sobre quando cada coisa é criada):** (1) o usuário confirma D1 e D6 → a Rodada 2 fecha; (2) o usuário diz "fecha o projeto" → escreve-se `projetos/plano-contingencia-agua.md` (e, com D6-A, **não** se cria repositório); (3) só então se começa a produzir o cenário 1.
+
+_Aguardando o "ok" do usuário às recomendações._
