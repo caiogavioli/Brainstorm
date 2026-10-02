@@ -68,7 +68,7 @@ Os tempos são **metas sugeridas** ⚠, contadas a partir do alerta (T+0).
 1. Registrar: **quem** relatou, **onde** (andar, ponto, água fria ou quente), **quando**, **o que** (cor, odor, sabor, turbidez, espuma), **quantas pessoas**, **se alguém passou mal**.
 2. **Olhar a água** contra fundo branco em recipiente transparente e **medir o cloro residual com o kit** (ponto afetado e torneira sentinela). Anotar valor, hora e ponto.
 3. **A cor do traçador apareceu?** Sim → **Cenário 1**, agora.
-4. **Há pessoa com sintoma?** Acionar socorro (**SAMU 192**) se grave. Para orientação toxicológica, ver o Disque-Intoxicação no **Cenário 1** (fase 0). Avisar o **síndico** de imediato (ver ramo D, suspeita clínica).
+4. **Há pessoa com sintoma?** Acionar socorro (**SAMU 192**) se grave. Para orientação toxicológica, ver o centro de informação toxicológica no **Cenário 1** (fase 0; telefone na ficha ⚠). Avisar o **síndico** de imediato (ver ramo D, suspeita clínica).
 5. Acionar o **nível 1** e abrir o **registro de incidente** (seção 13).
 
 ### Fase 1 — Contenção proporcional ao risco (T+0 a T+20 min) ⚠
@@ -82,6 +82,8 @@ Os tempos são **metas sugeridas** ⚠, contadas a partir do alerta (T+0).
 7. **Não descarregar, não drenar e não desinfetar** antes de coletar (Fase 3). **Exceção:** o responsável técnico ou o consultor orientar o contrário, **por escrito**, depois de a coleta ser feita.
 
 ### Fase 2 — Escalonar e comunicar (T+0 a T+30 min) ⚠
+
+**Comunicação:** classifique o grau da ocorrência (G1, G2 ou G3) e siga o **Cenário T**: quem avisa quem, em que prazo e com que modelo.
 
 1. Escalar **nível 1 → 2 → 3**, na ordem da ficha.
 2. **Gestão aciona:** fornecedor de tratamento de água, hidráulica, **laboratório** e, se o síndico decidir, o **consultor especialista**. Em suspeita de Legionella, o consultor é acionado **logo no início**.
@@ -121,7 +123,7 @@ Seguir as **perguntas de causa do ramo** (seção 6), anotando cada resposta. Ma
 2. Fechar o **relatório do incidente** (seção 13): linha do tempo, valores, laudos, decisões, quem autorizou.
 3. **Atualizar a ficha** (ponto morto descoberto, equipamento sem manutenção, cloro mínimo, ponto sem registro) e a **matriz sistema × cenário**.
 4. **Revisar este procedimento** com o que o incidente mostrou. Resumo ao proprietário (modelo, seção 11).
-5. **Monitoramento reforçado** por período definido pelo consultor ⚠ (ronda e cloro residual com registro).
+5. **Monitoramento reforçado** por período definido pelo responsável técnico ⚠ (sugestão: 30 dias, como nos demais cenários; ronda e cloro residual com registro).
 
 ## 5. Proporcionalidade: o que suspender, e quando
 
@@ -223,7 +225,7 @@ A **ficha** do condomínio diz qual ramo vale e quais equipamentos existem. Onde
 - **Suspeita clínica:** se há **caso de pneumonia entre ocupantes**, o **síndico, junto com o responsável técnico, decide a comunicação à vigilância sanitária ⚠**. A equipe **informa o síndico na hora** e **não** conclui "é Legionella" nem divulga diagnóstico: o diagnóstico é médico e laboratorial. Ocupante com sintoma procura atendimento médico e informa **onde esteve** no prédio. Registrar a linha do tempo (casos, datas, locais).
 - **Coleta** (Fase 3) com laboratório com acreditação ⚠: o **consultor define pontos e técnica** (água quente, retorno, ponto mais distante, chuveiros, torre). **Não coletar depois de descarregar, de desinfetar ou de trocar o equipamento.**
 - **Torre, condensador evaporativo, fluid cooler:** seguir o **Cenário 8** com o fornecedor de tratamento e o consultor; **não** religar torre parada ou seca sem a orientação do fornecedor ⚠.
-- **Retorno:** só pela seção 8 (parecer do consultor, nova análise conforme **da técnica e dos pontos que ele definir**, correção da causa, autorização escrita do síndico). Monitoramento reforçado por período definido pelo consultor ⚠.
+- **Retorno:** só pela seção 8 (parecer do consultor, nova análise conforme **da técnica e dos pontos que ele definir**, correção da causa, autorização escrita do síndico). Monitoramento reforçado por período definido pelo responsável técnico ⚠ (sugestão: 30 dias).
 
 **Sobre normas (para Legionella em água quente sanitária).** **Não encontramos norma brasileira específica de Legionella para água quente sanitária** nesta pesquisa; **confirmar com o responsável técnico e a vigilância sanitária local.** A NBR 5626:2020 trata de água fria e água quente em edifícios (existência e escopo conferidos; cláusula de água quente a ler). Para **torres**, o contexto brasileiro passa pelo **PMOC** (Lei 13.589/2018 e Portaria 3.523/1998; ver catálogo, C2, com o alerta sobre a Resolução RE 9/2003 e a NBR 17037:2023: ◻ conferir). **ASHRAE 188 e ASHRAE Guideline 12 são referências estrangeiras (◻)**, **não são norma brasileira**; servem de apoio ao consultor, não de exigência.
 
@@ -257,7 +259,7 @@ Vale para consumo humano. Retorno **por etapas**; cada etapa tem seus pontos.
 - [ ] **Parecer** do consultor ou do responsável técnico.
 - [ ] **Autorização escrita do síndico.**
 - [ ] **Comunicação** aos ocupantes, locatários e restaurantes; sinalização retirada **ponto a ponto**.
-- [ ] **Monitoramento reforçado** por período definido pelo consultor ⚠ (ronda diária na sentinela, cloro com registro).
+- [ ] **Monitoramento reforçado** por período definido pelo responsável técnico ⚠ (sugestão: 30 dias; ronda diária na sentinela, cloro com registro).
 
 **Liberação em etapas ⚠:** primeiro **descargas e limpeza**; depois **consumo humano**; **restaurantes** só com liberação **por escrito** (seção 9); **ponto com suspeita de Legionella** só com parecer do consultor.
 
@@ -289,6 +291,8 @@ Vale para consumo humano. Retorno **por etapas**; cada etapa tem seus pontos.
 | **Reabrir tudo de uma vez** depois de corrigir | Perde a rastreabilidade; liberar por etapas |
 
 ## 11. Modelos de comunicação
+
+Os **modelos-padrão** de aviso (9.1 a 9.11), a **classificação G1, G2 e G3** e a **matriz de destinatários** estão no **Cenário T**. Os modelos abaixo são **específicos deste cenário**.
 
 **Aviso ao ocupante (curto):**
 > **AVISO — Alteração na água.** Identificamos uma alteração na água do prédio em [andares/pontos]. Por precaução, **não beba, não cozinhe, não faça gelo e não use bebedouros nem máquinas de café** nesses locais até novo aviso. Água alternativa está disponível em [local]. Quem tiver passado mal deve procurar atendimento e avisar a administração. Próxima atualização às [hora].

@@ -91,6 +91,8 @@ Os tempos são **metas sugeridas** ⚠, contadas a partir do alerta (T+0).
 
 ### Fase 2 — Escalonar e comunicar (T+0 a T+30 min) ⚠
 
+**Comunicação:** classifique o grau da ocorrência (G1, G2 ou G3) e siga o **Cenário T**: quem avisa quem, em que prazo e com que modelo.
+
 1. Escalar pela escada **nível 1 → 2 → 3**, na ordem da ficha.
 2. **Gestão aciona** a **empresa de limpeza** e o **RT** (visita de emergência, plano, equipe habilitada), o **fornecedor de hidráulica** e, se o síndico decidir, o **consultor** e o **caminhão-pipa**.
 3. **Síndico decide** a comunicação aos locatários e as **notificações externas**: **vigilância sanitária** e, se a contaminação puder ter chegado ao ramal, a **concessionária** ⚠. Em dúvida jurídica, acionar o jurídico.
@@ -303,6 +305,8 @@ O **plano**, o **produto**, a **concentração** e o **tempo de contato** são d
 
 ## 10. Modelos de comunicação
 
+Os **modelos-padrão** de aviso (9.1 a 9.11), a **classificação G1, G2 e G3** e a **matriz de destinatários** estão no **Cenário T**. Os modelos abaixo são **específicos deste cenário**.
+
 **Aviso ao ocupante (curto):**
 > **AVISO — Água suspensa para consumo.** Identificamos uma alteração no reservatório que abastece [andares/pontos]. Por precaução, **não beba, não cozinhe, não faça gelo e não use bebedouros** até novo aviso. Água alternativa está disponível em [local]. [A água pode faltar entre [hora] e [hora] por causa dos serviços.] Quem tiver passado mal deve procurar atendimento e avisar a administração. Próxima atualização às [hora].
 
@@ -324,7 +328,7 @@ O **plano**, o **produto**, a **concentração** e o **tempo de contato** são d
 - [ ] **Parecer** do RT ou do consultor.
 - [ ] **Autorização escrita do síndico.**
 - [ ] **Comunicação** a ocupantes, locatários e **restaurantes**; sinalização retirada. **Restaurantes**: liberação por escrito (seção 7).
-- [ ] **Monitoramento reforçado** por período definido pelo RT ⚠ (sugestão: **ronda diária** na **torneira sentinela**, com registro, por **30 dias** ⚠).
+- [ ] **Monitoramento reforçado** por período definido pelo responsável técnico ⚠ (sugestão: **ronda diária** na **torneira sentinela**, com registro, por **30 dias** ⚠).
 
 **Retorno em etapas ⚠:** primeiro **descarga e limpeza**, depois **consumo humano**, conforme o Cenário 2 (seção 9). **Reabrir devagar**; **descartar as primeiras águas** de bebedouros, máquinas de gelo e filtros.
 

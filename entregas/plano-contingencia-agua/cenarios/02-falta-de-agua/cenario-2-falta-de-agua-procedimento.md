@@ -78,6 +78,8 @@ Os tempos são **metas sugeridas** ⚠, contadas a partir do alerta (T+0).
 
 ### Fase 2 — Escalonar e comunicar (T+0 a T+30 min) ⚠
 
+**Comunicação:** classifique o grau da ocorrência (G1, G2 ou G3) e siga o **Cenário T**: quem avisa quem, em que prazo e com que modelo.
+
 1. Escalar **nível 1 → 2 → 3**, na ordem da ficha.
 2. **Gestão aciona** a concessionária (previsão de retorno, abrangência: só o prédio ou a rua?), o fornecedor de hidráulica, o caminhão-pipa e, se o síndico decidir, o consultor.
 3. **Comunicar por escrito** (modelos na seção 10): ocupantes, **restaurantes e lojas de alimentos**, proprietário. Informar o que se sabe, o que se faz, o **uso restrito** da água e **quando haverá nova informação**.
@@ -267,6 +269,8 @@ A água que volta **não é água segura por ser água**. Tubos esvaziados ou de
 **Liberação em etapas ⚠:** primeiro **descargas e limpeza** (após purga), depois **consumo humano** (cloro, cor e odor conformes), depois **chiller e torre** (seção 8). Manter **sentinela reforçada** por período ⚠ definido pelo responsável técnico.
 
 ## 10. Modelos de comunicação
+
+Os **modelos-padrão** de aviso (9.1 a 9.11), a **classificação G1, G2 e G3** e a **matriz de destinatários** estão no **Cenário T**. Os modelos abaixo são **específicos deste cenário**.
 
 **Aviso ao ocupante (falta de água ou restrição):**
 > **AVISO — Falta de água.** Estamos com [falta / queda de pressão / interrupção programada pela concessionária] de água no prédio desde [hora]. Previsão de retorno: [hora ou "ainda sem previsão"]. Use a água **só para o essencial**. **Água para beber está disponível em [local]**. O ar-condicionado [pode ser desligado / será desligado de forma controlada] às [hora]. Feche as torneiras: quando a água voltar, **torneira aberta pode alagar**. Próxima atualização às [hora].

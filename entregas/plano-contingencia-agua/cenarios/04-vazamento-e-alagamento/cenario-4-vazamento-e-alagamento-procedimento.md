@@ -137,6 +137,8 @@ Os tempos são **metas sugeridas** ⚠, contadas a partir do alerta (T+0). As fa
 
 ### Fase 2 — Escalonar e comunicar (T+0 a T+30 min)
 
+**Comunicação:** classifique o grau da ocorrência (G1, G2 ou G3) e siga o **Cenário T**: quem avisa quem, em que prazo e com que modelo.
+
 1. Escalar pela escada **nível 1 → 2 → 3**, na ordem da ficha.
 2. **Acionar os fornecedores** da causa provável: hidráulica (rede, flexível, calha, boia), elétrica (quadro molhado), elevadores, incêndio (sprinkler, rede), ar-condicionado e tratamento (circuito). Se a ficha tem **contrato de emergência** (H21), acionar.
 3. **Síndico decide**, com a gestão: **desligar uma área ou equipamento crítico** que não esteja em risco imediato; **isolar um setor de incêndio** (ramo F); evacuar área; contratar secagem e limpeza; **comunicar a seguradora ⚠**; e as **notificações externas** (vigilância sanitária se houver esgoto ou alimento afetado; concessionária se o vazamento for **antes do hidrômetro ou do cavalete** ⚠ confirmar a responsabilidade). Em dúvida jurídica, acionar o jurídico.
@@ -427,7 +429,7 @@ Tratar como **A + B + C + D + E + F ao mesmo tempo** (ramo mais restritivo):
 - [ ] **Restaurantes e lojas** avisados; liberação **por escrito**.
 - [ ] **Evidências e fotos** arquivadas; **seguradora** comunicada, se o síndico decidiu ⚠.
 - [ ] **Autorização escrita do síndico.**
-- [ ] **Monitoramento reforçado** da área por período definido pelo RT ⚠ (nível, piso, forro, mofo, reincidência).
+- [ ] **Monitoramento reforçado** da área por período definido pelo responsável técnico ⚠ (sugestão: 30 dias, como nos demais cenários; nível, piso, forro, mofo, reincidência).
 
 ## 13. Quadro: o que não fazer
 
@@ -450,6 +452,8 @@ Tratar como **A + B + C + D + E + F ao mesmo tempo** (ramo mais restritivo):
 | **Afirmar a causa ou prometer indenização** antes da perícia | Gera passivo e perde credibilidade |
 
 ## 14. Modelos de comunicação
+
+Os **modelos-padrão** de aviso (9.1 a 9.11), a **classificação G1, G2 e G3** e a **matriz de destinatários** estão no **Cenário T**. Os modelos abaixo são **específicos deste cenário**.
 
 **Aviso ao ocupante (curto):**
 > **AVISO — Vazamento / alagamento.** Identificamos [vazamento / água no piso / transbordo] em [local] às [hora]. A equipe técnica está atuando. **Por segurança, [a água / a energia / o elevador] está desligado em [andares/áreas].** **Não entre na área sinalizada.** Use a escada [indicar]. Em emergência, procure [local/contato da central]. Próxima atualização às [hora].

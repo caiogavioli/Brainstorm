@@ -105,6 +105,8 @@ Os tempos são **metas sugeridas** ⚠, contadas a partir do alerta (T+0).
 
 ### Fase 2 — Escalonar, acionar o fornecedor e comunicar (T+0 a T+30 min)
 
+**Comunicação:** classifique o grau da ocorrência (G1, G2 ou G3) e siga o **Cenário T**: quem avisa quem, em que prazo e com que modelo.
+
 1. Escalar **nível 1 → 2 → 3**, na ordem da ficha.
 2. **Acionar o fornecedor de tratamento (sempre)** e pedir: **orientação imediata** por telefone, **FISPQ** de cada produto envolvido, **visita** no prazo do contrato ⚠ (SLA na ficha). Usar o modelo da seção 11.
 3. **Decidir com o fornecedor se a torre ou o chiller param** (seção 6), antes de qualquer outra mudança.
@@ -337,6 +339,8 @@ Tratar como **A + B ao mesmo tempo**, e como C ou D se houver derrame ou parada:
 | **Liberar o retorno porque a água "parece limpa"** | Falha de tratamento pode ser invisível; só análise e parecer liberam |
 
 ## 11. Modelos de comunicação
+
+Os **modelos-padrão** de aviso (9.1 a 9.11), a **classificação G1, G2 e G3** e a **matriz de destinatários** estão no **Cenário T**. Os modelos abaixo são **específicos deste cenário**.
 
 **Acionamento do fornecedor de tratamento (a ronda ou o nível 1 usa):**
 > Condomínio [nome], [torre / chiller / circuito], [hora]. **O que vimos:** [dosadora parada / bombona vazia / espuma / derrame / controlador em alarme / torre parada]. **Leitura do controlador:** [como mostrada]. **Produto envolvido:** [nome, lote]. **Há pessoa exposta?** [sim/não]. **O que foi feito:** [contenção, hora]. **Precisamos de:** orientação imediata, a FISPQ, e visita até [prazo do contrato]. Fotos enviadas em [canal]. Contato do nível 1: [nome e telefone da ficha].

@@ -93,6 +93,8 @@ Os tempos são **metas sugeridas** ⚠, contadas a partir do alerta (T+0). A **v
 
 ### Fase 2 — Escalonar e comunicar (T+0 a T+30 min) ⚠
 
+**Comunicação:** classifique o grau da ocorrência (G1, G2 ou G3) e siga o **Cenário T**: quem avisa quem, em que prazo e com que modelo.
+
 1. Escalar **nível 1 → 2 → 3**, na ordem da ficha. **Informar sem demora ao síndico e à brigada** que a proteção está indisponível e **desde quando**.
 2. **Acionar o fornecedor de incêndio** (e o de elétrica/diesel, se a causa é energia ou combustível; **Cenário 5**). Se a ficha tem **contrato de emergência** (H21), usar. Pedir **tempo de chegada** e registrar a hora.
 3. **O síndico decide, com a ficha e a regra local** (seção 8): comunicar o **Corpo de Bombeiros** e a **seguradora**? Avisar os **locatários** (sim, por escrito)? Alternativas provisórias (seção 9)? Restrição de operação em galpão (seção 10)?
@@ -404,6 +406,8 @@ A **ficha** define, por condomínio: **frequência da ronda reforçada**, **áre
 | **Afirmar a causa** antes de confirmada | Gera passivo e perde credibilidade |
 
 ## 13. Modelos de comunicação
+
+Os **modelos-padrão** de aviso (9.1 a 9.11), a **classificação G1, G2 e G3** e a **matriz de destinatários** estão no **Cenário T**. Os modelos abaixo são **específicos deste cenário**.
 
 **Ao síndico e à brigada (curto):**
 > **ALERTA — Proteção de incêndio indisponível** desde [hora]. O que está indisponível: [RTI / bomba / válvula / setor / central]. Local: [ ]. Motivo provável: [ ]. Medidas em curso: vigilância reforçada em [áreas], trabalho a quente suspenso, extintores conferidos, fornecedor acionado às [hora]. Previsão de normalização: [ ]. **Nenhuma proteção deve ser desligada sem decisão do síndico.** Em caso de fogo ou fumaça: alarme e **193**.

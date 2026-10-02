@@ -54,7 +54,7 @@ Os tempos são **metas sugeridas** ⚠, contadas a partir do alerta (T+0).
 ### Fase 0 — Receber o alerta (T+0 a T+5 min)
 
 1. Registrar: **quem** relatou, **onde** (andar, ponto), **quando**, **o que** (cor, odor, sabor), **quantas pessoas** afetadas, **se alguém passou mal**.
-2. **Há pessoa com sintoma** (náusea, vômito, diarreia, irritação, mal-estar)? → **acionar socorro** (SAMU 192) e informar o produto suspeito. Para orientação toxicológica, o Disque-Intoxicação da Anvisa (0800 722 6001 ⚠ confirmar o número vigente).
+2. **Há pessoa com sintoma** (náusea, vômito, diarreia, irritação, mal-estar)? → **acionar socorro** (SAMU 192) e informar o produto suspeito. Para orientação toxicológica, o **centro de informação toxicológica** (telefone na ficha ⚠).
 3. Acionar o **nível 1** e abrir o **registro de incidente** (modelo na seção 9).
 
 ### Fase 1 — Contenção imediata (T+0 a T+15 min)
@@ -70,6 +70,8 @@ Os tempos são **metas sugeridas** ⚠, contadas a partir do alerta (T+0).
 6. **Não descarregar, não drenar e não limpar** antes de coletar (Fase 3).
 
 ### Fase 2 — Escalonar e comunicar (T+0 a T+30 min)
+
+**Comunicação:** classifique o grau da ocorrência (G1, G2 ou G3) e siga o **Cenário T**: quem avisa quem, em que prazo e com que modelo.
 
 1. Escalar pela escada **nível 1 → 2 → 3**, na ordem da ficha.
 2. **Acionar o fornecedor de tratamento químico** e pedir: **FISPQ** de cada produto dosado, **composição**, **concentração** e **corante** usados no circuito.
@@ -105,7 +107,7 @@ Os tempos são **metas sugeridas** ⚠, contadas a partir do alerta (T+0).
 - [ ] **Parecer** do consultor ou do responsável técnico.
 - [ ] **Autorização escrita do síndico.**
 - [ ] **Comunicação** aos ocupantes e locatários; sinalização retirada.
-- [ ] **Monitoramento reforçado** por período definido pelo consultor ⚠ (sugestão: ronda diária na torneira sentinela, com registro, por 30 dias).
+- [ ] **Monitoramento reforçado** por período definido pelo responsável técnico ⚠ (sugestão: ronda diária na torneira sentinela, com registro, por 30 dias).
 
 ### Fase 6 — Registro e lições
 
@@ -201,6 +203,8 @@ Tratar como **A + B + C ao mesmo tempo**: **fechar todas as reposições e inter
 
 ## 7. Modelos de comunicação
 
+Os **modelos-padrão** de aviso (9.1 a 9.11), a **classificação G1, G2 e G3** e a **matriz de destinatários** estão no **Cenário T**. Os modelos abaixo são **específicos deste cenário**.
+
 **Aviso ao ocupante (curto):**
 > **AVISO — Água suspensa para consumo.** Identificamos uma alteração na água do prédio em [andares/pontos]. Por precaução, **não beba, não cozinhe, não faça gelo e não use bebedouros** até novo aviso. Água alternativa está disponível em [local]. Quem tiver passado mal deve procurar atendimento e avisar a administração. Próxima atualização às [hora].
 
@@ -245,6 +249,6 @@ Tratar como **A + B + C ao mesmo tempo**: **fechar todas as reposições e inter
 - **Tempos-alvo** das fases e **período do monitoramento reforçado**.
 - Procedimento de **desinfecção** (concentração, tempo de contato) e **destino do efluente**.
 - **Quando notificar** vigilância sanitária e concessionária (exigência local).
-- **Número do Disque-Intoxicação** e demais contatos.
+- **Telefone do centro de informação toxicológica** e demais contatos (na ficha).
 - A **reposição manual segura** (opções 1 e 2) em cada tipo de circuito: o responsável técnico confirma qual é viável em cada prédio.
 - **Referências:** NBR 5626:2020, NBR 16783:2019 e Portaria GM/MS nº 888/2021 tiveram existência e escopo conferidos; **as cláusulas específicas devem ser lidas no texto** antes de virarem exigência.

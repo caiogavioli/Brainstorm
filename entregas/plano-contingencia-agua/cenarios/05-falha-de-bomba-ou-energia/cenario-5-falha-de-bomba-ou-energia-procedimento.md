@@ -96,6 +96,8 @@ Os tempos são **metas sugeridas** ⚠, contadas a partir do alerta (T+0). As fa
 
 ### Fase 2 — Escalonar e comunicar (T+0 a T+30 min)
 
+**Comunicação:** classifique o grau da ocorrência (G1, G2 ou G3) e siga o **Cenário T**: quem avisa quem, em que prazo e com que modelo.
+
 1. Escalar pela escada **nível 1 → 2 → 3**, na ordem da ficha. **Informar ao nível 2 e ao síndico, sem demora, se a bomba de incêndio ou a drenagem estiver indisponível.**
 2. **Acionar o fornecedor** da falha provável: elétrica e gerador (ramos A, B, F), bombas (D, E, F), incêndio (C). Se a ficha tem **contrato de emergência** (H21), acionar. Se há dúvida sobre a causa, acionar o consultor, **por decisão do síndico**.
 3. **Consultar a concessionária** sobre a falta de energia (previsão de retorno): o contato está na ficha. Registrar o que for dito, **sem tratar a previsão como certa**.
@@ -358,6 +360,8 @@ A **ficha** do condomínio diz qual ramo vale (quais bombas existem, o que o ger
 | **Afirmar a causa** antes de confirmada | Gera passivo e perde credibilidade |
 
 ## 9. Modelos de comunicação
+
+Os **modelos-padrão** de aviso (9.1 a 9.11), a **classificação G1, G2 e G3** e a **matriz de destinatários** estão no **Cenário T**. Os modelos abaixo são **específicos deste cenário**.
 
 **Aviso ao ocupante (curto):**
 > **AVISO — Falha de energia / bomba.** Identificamos [falta de energia / falha em equipamento de água] em [local]. A equipe técnica está atuando. **Pode haver [falta de água / queda de pressão / elevadores parados / ar-condicionado desligado]** em [andares/áreas]. Por favor, **reduza o uso de água** e **não use os elevadores** até novo aviso. Em caso de emergência, procure [local/contato da central]. Próxima atualização às [hora].

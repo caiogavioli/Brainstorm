@@ -103,6 +103,8 @@ Os tempos são **metas sugeridas** ⚠, contadas a partir do alerta (T+0).
 
 ### Fase 2 — Escalonar e comunicar (T+0 a T+30 min)
 
+**Comunicação:** classifique o grau da ocorrência (G1, G2 ou G3) e siga o **Cenário T**: quem avisa quem, em que prazo e com que modelo.
+
 1. Escalar pela escada **nível 1 → 2 → 3**, na ordem da ficha.
 2. **Gestão aciona**, conforme o ramo: **desentupidora** (A), **empresa de sucção** e **elétrica/bombas** (C), **hidráulica** (D, E), **concessionária** se o síndico decidir (B; seção 12), **consultor** (E, F).
 3. **Síndico decide** a **interdição** (seção 7), as **notificações externas** (seção 12) e a comunicação. Em dúvida jurídica, acionar o jurídico.
@@ -348,7 +350,7 @@ A **decisão** é do **síndico**, com a **regra local** e o **jurídico** ⚠. 
 - [ ] **Parecer** do RT ou do consultor quando houve **contaminação de água ou alimento**, **área extensa** ou **reincidência** ⚠.
 - [ ] **Autorização escrita do síndico.**
 - [ ] **Comunicação** aos ocupantes e locatários; **sinalização retirada**; **restaurantes**: **liberação por escrito** (seção 10).
-- [ ] **Monitoramento reforçado** por período definido pelo RT ⚠ (sugestão: **ronda na área e no ponto de origem** a cada ronda, **com registro**, por **30 dias** ⚠; **após cada chuva forte** nos pontos baixos).
+- [ ] **Monitoramento reforçado** por período definido pelo responsável técnico ⚠ (sugestão: **ronda na área e no ponto de origem** a cada ronda, **com registro**, por **30 dias** ⚠; **após cada chuva forte** nos pontos baixos).
 
 **Retorno em etapas ⚠:** primeiro **acesso para limpeza e secagem**, depois **uso dos sanitários**, depois **reabertura de lojas e cozinhas**. **Reabrir devagar**; **ao primeiro sinal de refluxo ou de odor, interditar de novo**.
 
@@ -373,6 +375,8 @@ A **decisão** é do **síndico**, com a **regra local** e o **jurídico** ⚠. 
 | **Afirmar causa ou culpado** antes da apuração | Gera passivo e perde credibilidade |
 
 ## 15. Modelos de comunicação
+
+Os **modelos-padrão** de aviso (9.1 a 9.11), a **classificação G1, G2 e G3** e a **matriz de destinatários** estão no **Cenário T**. Os modelos abaixo são **específicos deste cenário**.
 
 **Aviso ao ocupante (curto):**
 > **AVISO — Esgoto / refluxo.** Identificamos retorno de esgoto em [local]. Por segurança, **[sanitário/área] está interditado**. **Não dê descarga, não lave louça nem piso e não abra chuveiro** em [andares/pontos] até novo aviso. **Não entre na área isolada.** Sanitário alternativo em [local]. Quem tiver passado mal deve procurar atendimento e avisar a administração. Próxima atualização às [hora].

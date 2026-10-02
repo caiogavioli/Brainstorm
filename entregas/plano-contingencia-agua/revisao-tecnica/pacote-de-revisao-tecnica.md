@@ -76,7 +76,7 @@ Preencher na **ficha** de cada condomínio (ou no padrão do portfólio, quando 
 | **V-04** | **Autonomia de diesel** (gerador e bomba de incêndio), das **baterias** (centrais, no-break, iluminação de emergência) e **como medi-la** | Cen. 5 | RT elétrico | |
 | **V-05** | **Faixas do tratamento químico** (dosagem, condutividade, pH, ORP, purga, biocida), **estoque mínimo** e **SLA** do fornecedor | Cen. 8 | Fornecedor + RT | |
 | **V-06** | **Tempos-alvo T+** das fases de cada cenário (hoje são sugestões marcadas ⚠) | Todos | RT + síndico | |
-| **V-07** | **Período do monitoramento reforçado** após incidente (Cenários 1 e 9 sugerem **30 dias**; o Cenário 3 deixa "definido pelo consultor": **uniformizar**) | Cen. 1, 3, 9 | RT | |
+| **V-07** | **Período do monitoramento reforçado** após incidente: os Cenários 1, 3, 4, 7 e 9 sugerem **30 dias**, igual em todos (uniformizado em 02/10/2026); falta o responsável técnico definir | Cen. 1, 3, 9 | RT | |
 | **V-08** | **Cadência de limpeza e desinfecção** de reservatórios por tipo de ocupação e a **regra local** (nenhum prazo legal está citado) | Cen. 9 | RT + regra local | |
 | **V-09** | **Frequência e método de testes:** gerador em carga, transferência, bomba reserva, alarme de nível, baterias; **qualidade do diesel** | Cen. 5 | RT elétrico / fornecedor | |
 | **V-10** | **Ordem e intervalo de partida de motores** (gerador e retorno da rede), por tipo de partida; **golpe de aríete e escorva** por tipo de bomba | Cen. 5 | RT elétrico / hidráulico | |
@@ -84,7 +84,7 @@ Preencher na **ficha** de cada condomínio (ou no padrão do portfólio, quando 
 | **V-12** | **Frequência da autovistoria** (sugestão: na implantação, após incidente e semestral) e da **torneira sentinela** (sugestão: a cada ronda; diária, com registro, por um período após incidente) | Autovistoria; Ronda | RT + síndico | |
 | **V-13** | **Ensaio de estanqueidade** de reservatório e laje | Cen. 9 | RT | |
 | **V-14** | **Laboratório:** escopo da acreditação ISO/IEC 17025 (inclui Legionella?), conservação e prazo das amostras, temperatura de transporte, **contraprova** | Cen. 1, 3, 8, 9 | RT | |
-| **V-15** | **Telefones:** Disque-Intoxicação (0800 722 6001 **não confirmado**, aparece só no Cenário 1), centro toxicológico, concessionária, vigilância sanitária local | Cen. 1, 8; ficha | Administração | |
+| **V-15** | **Telefones:** centro de informação toxicológica (nenhum número foi citado nos cenários, por não estar confirmado), concessionária, vigilância sanitária local | Cen. 1, 8; ficha | Administração | |
 | **V-16** | **Secagem e mofo:** método, equipamento, prazo para retirar material molhado e critério para dar por seco | Cen. 4 | RT | |
 | **V-17** | **Válvula de retenção e comporta** da rede de esgoto: instrução de manobra, teste e periodicidade; **limpeza de caixa de gordura e de inspeção** e **desentupimento**: método e periodicidade | Cen. 7 | RT / fornecedor | |
 | **V-18** | **RTI:** volume e nível mínimo; critério de **qualidade da água de reposição** (origem, tanque, cloro), estagnação e renovação; se se pode receber água pela siamesa | Cen. 6 | RT incêndio | |
@@ -137,9 +137,8 @@ Preencher na **ficha** de cada condomínio (ou no padrão do portfólio, quando 
 
 ## Parte 6 — Pendências conhecidas do próprio material
 
-1. **Os cenários 4, 6, 7 e T foram escritos depois dos outros e ainda não foram conferidos contra os cenários 1 a 3, 5, 8 e 9** quanto a divergências de linguagem ou de limites. Os modelos de comunicação de cada cenário **não foram alinhados** com os modelos 9.1 a 9.11 do Cenário T.
-2. **Período do monitoramento reforçado** é diferente entre cenários (ver V-07). O Cenário 7 também sugere 30 dias.
-   **Disque-Intoxicação:** o número aparece só no Cenário 1; nos demais ficou "a confirmar na ficha" (V-15). Convém o Cenário 1 ficar igual aos outros.
+1. **Os cenários 4, 6, 7 e T foram escritos depois dos outros e ainda não foram conferidos contra os cenários 1 a 3, 5, 8 e 9** quanto a divergências de linguagem ou de limites. A conferência de **conteúdo técnico** dos cenários 4, 6, 7 e T continua pendente.
+2. **Consistência entre cenários (conferida em 02/10/2026):** remissões entre cenários e ramos existem; o monitoramento reforçado sugere 30 dias em todos (V-07); nenhum cenário cita número de telefone de centro toxicológico (V-15); cada cenário aponta para o Cenário T na Fase 2 e na seção de modelos de comunicação.
 3. **Cores dos traçadores** (rosa = água gelada; azul = reúso) aparecem como **exemplo do condomínio de referência**; cada ficha define as suas.
 4. **Prioridade de atendimento** no Cenário 5 (vida > incêndio > drenagem de subsolo > recalque > esgoto > conforto), incluindo tratar poço de esgoto prestes a transbordar no subsolo como alagamento, é julgamento do projeto e precisa de confirmação (R-08).
 5. A coluna **"Cenários"** do catálogo foi preenchida por critério técnico geral e deve ser **revisada na primeira ficha real**.
