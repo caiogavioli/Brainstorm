@@ -158,7 +158,7 @@ Tom direto, prazo hoje às 17h. Síndico preenchido com o seu nome, como a Kelly
 
 ### Arquipeo
 ```
-Oi, Helena, tudo bem? Aqui é o Caio, da DF.
+Oi, Helena, tudo bem?
 
 O Gabriel, da BGRE, mandou hoje às 11h17 o formulário de cadastro da Pesquisa de Satisfação 2026. Para o Arquipeo, é o "Formulário de cadastro - Empreendimentos novos", que está anexo no e-mail dele.
 
@@ -171,7 +171,7 @@ Se você já enviou, me avisa que eu dou baixa. Obrigado!
 
 ### Passeio Paulista
 ```
-Oi, Sandra, tudo bem? Aqui é o Caio, da DF.
+Oi, Sandra, tudo bem?
 
 O Gabriel, da BGRE, mandou hoje às 11h17 o formulário de cadastro da Pesquisa de Satisfação 2026. Para o Passeio Paulista, é o "Formulário de cadastro - Empreendimentos novos", que está anexo no e-mail dele.
 
@@ -184,7 +184,7 @@ Se você já enviou, me avisa que eu dou baixa. Obrigado!
 
 ### PL Extrema
 ```
-Oi, Marcelo, tudo bem? Aqui é o Caio, da DF.
+Oi, Marcelo, tudo bem?
 
 O Gabriel, da BGRE, mandou hoje às 11h17 o formulário de cadastro da Pesquisa de Satisfação 2026. Para o PL Extrema, é o "Formulário de cadastro - Empreendimentos novos", que está anexo no e-mail dele.
 
@@ -197,7 +197,7 @@ Se você já enviou, me avisa que eu dou baixa. Obrigado!
 
 ### 17.007 Nações
 ```
-Oi, Paulo, tudo bem? Aqui é o Caio, da DF.
+Oi, Paulo, tudo bem?
 
 O Gabriel, da BGRE, mandou hoje às 11h17 o formulário de cadastro da Pesquisa de Satisfação 2026. Para o 17.007 Nações, é o "Formulário de cadastro - Empreendimentos recorrentes", que está anexo no e-mail dele.
 
@@ -210,7 +210,7 @@ Se você já enviou, me avisa que eu dou baixa. Obrigado!
 
 ### TNU
 ```
-Oi, Marcus, tudo bem? Aqui é o Caio, da DF.
+Oi, Marcus, tudo bem?
 
 O Gabriel, da BGRE, mandou hoje às 11h17 o formulário de cadastro da Pesquisa de Satisfação 2026. Para o TNU, é o "Formulário de cadastro - Empreendimentos recorrentes", que está anexo no e-mail dele.
 
@@ -223,7 +223,7 @@ Se você já enviou, me avisa que eu dou baixa. Obrigado!
 
 ### Centenário
 ```
-Oi, Adriano, tudo bem? Aqui é o Caio, da DF.
+Oi, Adriano, tudo bem?
 
 O Gabriel, da BGRE, mandou hoje às 11h17 o formulário de cadastro da Pesquisa de Satisfação 2026. Para o Centenário, é o "Formulário de cadastro - Empreendimentos recorrentes", que está anexo no e-mail dele.
 
@@ -236,7 +236,7 @@ Se você já enviou, me avisa que eu dou baixa. Obrigado!
 
 ### JKB
 ```
-Oi, Pedro, tudo bem? Aqui é o Caio, da DF.
+Oi, Pedro, tudo bem?
 
 O Gabriel, da BGRE, mandou hoje às 11h17 o formulário de cadastro da Pesquisa de Satisfação 2026. Para o JKB, é o "Formulário de cadastro - Empreendimentos recorrentes", que está anexo no e-mail dele.
 
