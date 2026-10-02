@@ -97,7 +97,7 @@ Gatilho e sinais → **contenção imediata** (o que fechar, o que isolar) → e
 |---|---|---|
 | Fonte editável do modelo | **Markdown** neste branch | Versionável, o Claude edita direto, o histórico git guarda o porquê de cada mudança; o usuário é o único com Claude Code |
 | Fluxogramas | **Mermaid** no Markdown, exportado para **PDF** (1 página, A3 e A4) | Também versionável, sem ferramenta nova; a ronda recebe papel e PDF |
-| Procedimentos entregues | **Word** e **PDF** gerados do Markdown | A equipe e as administradoras abrem Word/PDF, não GitHub |
+| Procedimentos entregues | **Word** e **PDF** gerados do Markdown, **no padrão visual da DF Síndicos** (`entregas/plano-contingencia-agua/identidade/`) | A equipe e as administradoras abrem Word/PDF, não GitHub; o padrão da DF foi pedido pelo usuário em 2026-10-02 |
 | Planilha-mestre (ficha) | **Excel (.xlsx)** no OneDrive, com abas: catálogo, ficha, matriz sistema × cenário, manutenção por família, fornecedores | O usuário já usa Microsoft 365 e o OneDrive; colunas estruturadas permitem gerar o dossiê depois |
 | Dossiê por condomínio (v2) | **PDF** gerado da planilha | Mostrável ao proprietário |
 | Armazenamento de dados reais | **OneDrive** | Dados de condomínio não vão para o GitHub (preferência do usuário) |
