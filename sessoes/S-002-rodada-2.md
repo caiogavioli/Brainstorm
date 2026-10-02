@@ -2,7 +2,7 @@
 
 **Data:** 2026-10-02
 **Problema:** P-001 — Sistemas de água do prédio
-**Fase:** Rodada 2 aberta — propostas feitas, aguardando decisão do usuário
+**Fase:** Rodada 2 fechada em 2026-10-02 — todas as decisões tomadas; aguardando o pedido "fecha o projeto"
 **Insumo:** S-001 (Rodada 1 fechada, 14 respostas)
 
 ---
@@ -252,4 +252,32 @@ D2, D3, D4 e D5′ decididas. **D1 e D6 aguardam o usuário.** Depois delas, a R
 
 **Gatilhos (o usuário quer clareza sobre quando cada coisa é criada):** (1) o usuário confirma D1 e D6 → a Rodada 2 fecha; (2) o usuário diz "fecha o projeto" → escreve-se `projetos/plano-contingencia-agua.md` (e, com D6-A, **não** se cria repositório); (3) só então se começa a produzir o cenário 1.
 
-_Aguardando o "ok" do usuário às recomendações._
+### Confirmação do usuário
+
+> ok, pode fechar a Rodada 2
+
+---
+
+## Fechamento da Rodada 2
+
+### Decisões finais
+
+| # | Decisão | Origem |
+|---|---|---|
+| **D1** | **Por onde começar:** cenário 1 (contaminação cruzada) primeiro, com procedimento, fluxograma de 1 página e checklist de autovistoria; **catálogo v2 em paralelo**; planilha-mestre e demais cenários por ordem de risco; **piloto depois, como validação** (se os arquivos chegarem) | Recomendação consolidada, confirmada pelo usuário |
+| **D2** | **Formatos:** planilha-mestre + procedimento-modelo + fluxograma de 1 página; dossiê gerado da planilha depois; checklist de manutenção como aba da planilha; colunas estruturadas | Convergência do time |
+| **D3** | **Detecção:** ronda com torneira sentinela + corante como traçador padrão; sensor só onde já existe BMS | Convergência do time |
+| **D4** | **Registro:** checklist padrão anexado ao relatório mensal dos fornecedores; **pedido** de cadência semanal nos itens críticos às administradoras | Convergência do time |
+| **D5′** | **Autovistoria guiada** pelas equipes residentes nos 5 tipos de ponto, com "escalar ao síndico" no que não se pode certificar | Convergência do time |
+| **D6** | **Onde mora:** o modelo genérico neste branch; as fichas dos condomínios no OneDrive; nenhum dado real de condomínio no GitHub; sem repositório novo | Recomendação consolidada, confirmada pelo usuário |
+
+### Recorte final
+
+> **1 projeto documental, `plano-contingencia-agua`**, sem software e sem repositório novo: kit genérico (catálogo v2, cenários condicionais, checklists, planilha-mestre) e a ficha por condomínio. A autovistoria faz parte do projeto. A decisão de repositório próprio pode ser revista quando o usuário disser "fecha o projeto".
+
+### Estado e próximos gatilhos
+
+- **Nada foi criado além destes registros.** Sem spec, sem repositório, sem PR.
+- **Gatilho 1:** o usuário diz "fecha o projeto" → escreve-se `projetos/plano-contingencia-agua.md` (escopo dentro e fora, decisões, riscos, critério de pronto). Com D6-A, **não** se cria repositório.
+- **Gatilho 2:** só depois da spec começa-se a produzir o cenário 1.
+- **Perguntas ainda em aberto:** a verba para intervenção física que o usuário não tem não bloqueia; o piloto depende de ele conseguir os arquivos (kit mínimo na seção acima).
