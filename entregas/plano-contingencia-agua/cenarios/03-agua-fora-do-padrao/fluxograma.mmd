@@ -1,12 +1,12 @@
 flowchart TD
-  S(["<b>ALERTA</b><br/>Cor, odor, sabor, turbidez ou espuma SEM a cor do traçador · cloro residual abaixo da ficha<br/>Análise não conforme · mal-estar coletivo · suspeita de Legionella · carro-pipa fora do critério · retorno após falta"]):::start
+  S(["<b>ALERTA</b><br/>Cor, odor, sabor, turbidez ou espuma SEM a cor do traçador · cloro residual abaixo da ficha<br/>Análise não conforme · mal-estar coletivo · suspeita de Legionella<br/>Carro-pipa fora do critério · retorno de água após falta"]):::start
   S --> Q1{"A cor do traçador<br/>aparece?<br/>(rosa / azul: ver ficha)"}
   Q1 -- Sim --> CEN1["<b>VÁ PARA O CENÁRIO 1</b><br/>Contaminação cruzada<br/>Suspender o consumo agora"]:::red
   Q1 -- Não --> Q2{"Alguém passou mal?<br/>Pneumonia entre ocupantes?"}
   Q2 -- Sim --> SOC["<b>Acionar SAMU 192</b> se grave · avisar o síndico na hora<br/>Suspeita clínica: síndico + responsável técnico decidem<br/>a comunicação à vigilância sanitária ⚠"]:::red
   Q2 -- Não --> C1
   SOC --> C1
-  C1["<b>1 · CONTER NA MEDIDA DO RISCO</b><br/>Não sei = pior caso · suspender o consumo no ponto, no trecho ou no prédio (procedimento, seção 5)<br/>Restaurantes: parar alimento, gelo e lavagem · Sinalizar · Água alternativa · NÃO descarregar ainda"]:::red
+  C1["<b>1 · CONTER NA MEDIDA DO RISCO</b><br/>Não sei = pior caso · suspender o consumo no ponto, no trecho ou no prédio (seção 5)<br/>Restaurantes: parar alimento, gelo e lavagem · Sinalizar · Água alternativa<br/>NÃO descarregar ainda"]:::red
   C1 --> R{"Qual o sinal?<br/>(pode ser mais de um)"}
   R -- "Cloro baixo<br/>desinfecção falhou" --> RA["<b>RAMO A</b><br/>Cloro residual baixo<br/>ou falha de desinfecção"]:::branch
   R -- "Turva · cor · odor<br/>sedimento, sem traçador" --> RB["<b>RAMO B</b><br/>Turbidez, cor, odor<br/>(reservatório = cenário 9)"]:::branch
@@ -20,8 +20,8 @@ flowchart TD
   AER --> ESC
   RE --> ESC
   ESC["<b>2 · ESCALONAR</b> nível 1 → 2 → 3 · fornecedores da ficha · consultor (síndico decide)<br/>Comunicar por escrito ocupantes e restaurantes · Síndico decide a vigilância sanitária ⚠"]:::blue
-  ESC --> COL["<b>3 · COLETAR ANTES DE DESCARREGAR</b> + medir em campo (cloro, cor, odor)<br/>Sentinela · ponto afetado · saída da caixa · cisterna · ponto mais distante · água quente e retorno<br/>Lab com acreditação ⚠ · cadeia de custódia · fotos · linha do tempo"]:::blue
-  COL --> DIAG["<b>4 · ACHAR A CAUSA</b> (perguntas do ramo, seção 6)<br/>Tratamento (clorador, UV, filtro) · reservatório · estagnação · água quente · torre · caminhão-pipa"]:::blue
+  ESC --> COL["<b>3 · COLETAR ANTES DE DESCARREGAR</b> + medir em campo (cloro, cor, odor)<br/>Sentinela · ponto afetado · saída da caixa · cisterna · ponto mais distante<br/>Água quente: saída do aquecimento e retorno<br/>Lab com acreditação ⚠ · cadeia de custódia · fotos · linha do tempo"]:::blue
+  COL --> DIAG["<b>4 · ACHAR A CAUSA</b> (perguntas do ramo, seção 6)<br/>Tratamento (clorador, UV, filtro) · reservatório · estagnação<br/>Água quente · torre · caminhão-pipa"]:::blue
   DIAG --> FIX["<b>5 · CORRIGIR A CAUSA, LIMPAR E DESINFETAR</b> (profissional habilitado)<br/>Desinfecção só com procedimento do RT ⚠ · espaço confinado NR-33 · altura NR-35"]:::orange
   FIX --> AN{"<b>6 · Nova análise conforme</b><br/>em TODOS os pontos coletados<br/>e causa corrigida?"}
   AN -- Não --> DIAG
