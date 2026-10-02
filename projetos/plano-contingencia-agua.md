@@ -1,7 +1,7 @@
 # plano-contingencia-agua
 
 **Origem:** P-001 — Sistemas de água do prédio: contaminação cruzada e falta de plano de contingência
-**Status:** spec fechada em 2026-10-02 (produção ainda não começou)
+**Status:** spec fechada em 2026-10-02; produção em andamento (cenário 1 v0.1 e catálogo v2 feitos)
 **Repositório:** nenhum, por decisão (D6). O modelo genérico vive **neste branch** (`claude/water-systems-contingency-plan-lmgx73`), em `entregas/plano-contingencia-agua/`. As fichas dos condomínios vivem no **OneDrive**. Se o usuário quiser repositório próprio para o modelo depois, é uma mudança de pasta, sem perda.
 
 ## Problema que resolve
@@ -132,8 +132,8 @@ Restrição conhecida: o conector do Microsoft 365 lê arquivos **sem fórmulas*
 
 ## Critério de pronto (v1)
 
-- [ ] Catálogo v2 publicado, com mecanismo de falha e referência por item, e referências ◻ marcadas como "a confirmar"
-- [ ] Cenário 1 completo: procedimento, fluxograma de 1 página (A3 e A4) e checklist de autovistoria dos 5 tipos de ponto
+- [x] Catálogo v2 publicado (rascunho, 195 itens), com mecanismo de falha e referência por item, e referências ◻ marcadas como "a confirmar" — **falta a revisão por responsável técnico das referências**
+- [x] Cenário 1 completo (v0.1): procedimento, fluxograma de 1 página (A3 e A4) e checklist de autovistoria dos 5 tipos de ponto
 - [ ] Cenário 1 revisado por responsável técnico habilitado (a critério do síndico)
 - [ ] Os demais cenários (2 a 9 e a comunicação de crise) com procedimento e fluxograma
 - [ ] Planilha-mestre com as abas: catálogo, ficha, matriz sistema × cenário, manutenção por família, fornecedores
