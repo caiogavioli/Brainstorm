@@ -339,3 +339,17 @@ Autorização explícita do usuário para escrever em `main` (as instruções da
 **Atrium:** `estado.json` passou a `aguardando_administradora` (envio do usuário à Innova em 2026-10-01).
 
 **Repositório novo:** gerador aceita revisão de rodada enviada (IDs preservados, rótulo e notas de revisão); regra C13 (abas ocultas, de apoio e vínculos) e auditoria de fórmulas documentadas.
+
+### Terceira análise: condomínio Passeio Paulista, PO 2027 — 2026-10-02
+
+> nova análise, condomínio Passeio Paulista, PO 2027
+
+> está validado, pode seguir com o passeio paulista
+
+**Roteamento:** prédio novo, análise independente das anteriores. Material: `.xlsx` com fórmulas anexado na conversa (7 abas, nenhuma oculta). Sem convenção nem regimento disponíveis.
+
+**Resultado da rodada 1:** 22 apontamentos (7 críticos, 7 moderados, 8 baixos), materialidade sobre o total anual apresentado (R$ 19.669.316,51). Críticos: total anual com três valores por somas quebradas (grupo Administrativo, 08.04, 09.25); equipe administrativa +72,8%; base "Realizado atual" 12,8% acima da média do realizado (R$ 2,06 milhões/ano); variação 2026×2027 com três valores (4,3%, 4,35%, 7,75%) e base com R$ 1,23 milhão de "despesas adicionais" digitadas; rateio por linha sem critério; eletricidade (reajuste de 10% citado e ausente); quatro linhas R$ 278 mil abaixo do realizado.
+
+**Decisões minhas, a confirmar:** administradora registrada como "Cushman & Wakefield (a confirmar)", só porque um contrato de Fee cita C&W; rateio e base de área ficaram "a esclarecer" por falta de convenção; o pró-labore do síndico (DF Síndicos) entrou como baixo, só com os fatos.
+
+**Validação:** o usuário validou a rodada sem ajustes nem retiradas; versão final gerada sem marca de rascunho. **Pendente:** o envio à administradora é do usuário. `estado.json` e `achados.json` gravados em `Passeio Paulista/2027` no OneDrive (`pronto_para_envio`).
