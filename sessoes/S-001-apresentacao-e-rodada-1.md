@@ -55,7 +55,7 @@ Os desacordos vão para a Rodada 2.
 
 ## Respostas do usuário
 
-Respondidas por áudio, uma por uma (transcrição sem edição). **Respostas 1–5 (Marina) recebidas em 2026-10-02. Respostas 6–14 (Rafael e Tomás) ainda virão em outro áudio.**
+Respondidas por áudio, uma por uma (transcrição sem edição). **Respostas 1–5 (Marina) e 6–10 (Rafael) recebidas em 2026-10-02. Respostas 11–14 (Tomás) ainda virão em outro áudio.**
 
 **1.** Existe projeto, memorial e isométrico?
 > Número um, é, existe projeto memorial e isométrico das instalações de ar-condicionado de todos os prédios. O problema é que eu não vou conseguir te mandar tudo. Eu acho que tem que ser algo mais genérico aí, é, colocando todas as opções possíveis, imaginárias, e aí cada condomínio eu vou, eu vou ticando e vou deixando é, certinho.
@@ -72,6 +72,34 @@ Respondidas por áudio, uma por uma (transcrição sem edição). **Respostas 1�
 **5.** Quem decide quando as fontes discordam?
 > O 5... Há uma decisão da sindicância. É, a gente contrata normalmente um consultor especialista que vai analisar o problema, vai dar um diagnóstico, vai dar o resultado, e aí a sindicância que faz a decisão. Agora eu vou responder em outro áudio o Rafael e o Tomás.
 
+**Respostas 6–10 (Rafael) recebidas em 2026-10-02, em novo áudio:**
+
+**6.** Escopo: este prédio ou modelo replicável?
+> Número 6. O escopo é replicável para todo o portfólio. Por isso que eu pedi que eu quero um levantamento completo de todos os sistemas possíveis e imaginários que existem aí em operação no Brasil, em qualquer prédio comercial, que a gente consiga fazer o levantamento. E aí eu vou moldar ele para cada condomínio posteriormente.
+
+**7.** Quem executa o plano numa emergência?
+> É, 7. Quem executa o plano de emergência é a equipe de manutenção do condomínio. A gente tem equipes 24 horas que fazem ronda e executam aí o plano de emergência, como é, contenção, ligar para as pessoas do nível 1, nível 2, nível 3 e assim por diante, acionar fornecedores, etc.
+
+**8.** Quem são os locatários afetados?
+> 8. As atividades que têm locatários afetados. É, todos os nossos locatários são de escritório e algumas lojas com restaurantes. Então, é, há, há, uma, há uma, uma diferença entre todos os, os condomínios, mas basicamente é escritório e, e lojas, restaurantes.
+
+**9.** Há pressão externa com data? Alguém passou mal?
+> Número 9. A pressão externa com data. Sim, o proprietário está o tempo todo questionando e pedindo, e pedindo resultados e tudo mais. É, no, primeiro, no primeiro caso, na água de reuso, sim, as pessoas passaram mal, foram para o hospital, foi um negócio muito ruim.
+
+**10.** Formato do material e o que é mais urgente?
+> 10. É, me sugira formatos, me sugira formatos para eu ver o que, que é melhor, o que, que pode ser feito, eu não tenho ideia. Próximo áudio eu respondo o Tomás.
+
+_(A segunda metade da pergunta 10 — o que é mais urgente, o plano de contingência ou impedir o terceiro episódio — ficou sem resposta. A primeira metade virou um pedido de sugestão; as opções estão na resposta do chat desta data e voltam como proposta formal na Rodada 2.)_
+
+### O que as respostas 6–10 acrescentam
+
+- **Escopo é replicável, portfólio inteiro** (Rafael): o usuário quer o levantamento **o mais completo possível, incluindo o que é "imaginário"**, para moldar por condomínio depois. O catálogo v1 (76 itens) é a base; fica combinado fazer uma **v2 ampliada** após o fechamento da Rodada 1.
+- **Quem executa já existe e funciona por escada de escalonamento** (Rafael, Marina): equipe de manutenção 24h com ronda executa contenção, aciona pessoas de nível 1, 2 e 3 e fornecedores. O plano **encaixa nessa estrutura**; não cria uma nova. Precisa dos nomes, níveis e contatos de cada condomínio (dado que o usuário tem, mas ainda não está registrado aqui).
+- **Locatários são escritório e lojas com restaurante** (Rafael): restaurantes usam água em cozinha, gelo e lavagem de alimento, e têm caixa de gordura — risco maior de a contaminação virar problema sanitário e de imagem. Diferença entre condomínios é real e entra na ficha.
+- **O episódio 1 mandou gente ao hospital** (Rafael): não é incidente de conforto, é de saúde. Isso pesa na ordem de prioridade (ver Rodada 2) e na linha de comunicação de crise.
+- **O proprietário cobra resultado o tempo todo** (Rafael): há pressão, mas **sem data fixa** informada. O que o proprietário recebe e quando é um insumo do plano.
+- **O formato do material fica em aberto**, por decisão do usuário, a partir de sugestões.
+
 ### O que essas respostas já mudam (anotado pelo time, sem decidir nada — a decisão é da Rodada 2)
 
 - **Escopo é portfólio, não um prédio.** O usuário trata "cada condomínio" como uma instância a ticar. Isso aponta para um **modelo genérico com todas as opções possíveis** (o catálogo) e uma **ficha por condomínio** — e não para a leitura de projetos reais, que ele não consegue enviar. Parte da pergunta 6 do Rafael já está respondida; ele confirma quando o usuário responder.
@@ -83,4 +111,4 @@ Respondidas por áudio, uma por uma (transcrição sem edição). **Respostas 1�
 
 ### Pendente
 
-Respostas 6–10 (Rafael) e 11–14 (Tomás). Só depois disso a Rodada 1 fecha e a Rodada 2 começa.
+Respostas 11–14 (Tomás). Só depois disso a Rodada 1 fecha e a Rodada 2 começa.
