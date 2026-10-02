@@ -22,6 +22,8 @@ Kit **genérico** de contingência, manutenção e monitoramento dos sistemas de
 
 **Falta** o piloto (validar os ramos do cenário 1 contra um prédio real), mais a revisão técnica e jurídica de tudo.
 
+**Nomes dos arquivos:** todo arquivo se identifica sozinho, mesmo fora da pasta: `cenario-<nº>-<assunto>-<tipo>`, em que o tipo é `procedimento`, `fluxograma-A3`, `fluxograma-A4` ou `checklist-autovistoria` (por exemplo `cenario-4-vazamento-e-alagamento-fluxograma-A3.pdf`). Os demais já têm nome próprio: `catalogo-v2.md`, `planilha-mestre.xlsx`, `pacote-de-revisao-tecnica`, `checklist-relatorio-mensal-fornecedores`, `checklist-ronda-sentinela`.
+
 **Fontes editáveis:** os `.md` e os `.mmd` (Mermaid). PDF, Word e a planilha são **gerados**; edite a fonte e regere.
 
 **Planilha-mestre:** gerada a partir do `catalogo-v2.md`. As fórmulas foram conferidas por um motor de cálculo em Python com uma ficha de teste preenchida; o Excel recalcula tudo ao abrir. Se o catálogo mudar, peça para regerar e copie as respostas S/N/? de cada condomínio pelos IDs, que não mudam.
