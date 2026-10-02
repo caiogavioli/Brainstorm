@@ -140,7 +140,7 @@ Cc, se mantiver a decisão de 31/08: `gabriel.fernandes@bgre.com`,
 
 ## 6. WhatsApp pronto, um por prédio
 
-Tom direto, prazo hoje às 17h. Síndico preenchido com o seu nome, como a Kelly fez no Panamérica; se preferir a BRPR A, troque a frase.
+Tom direto, prazo hoje às 17h. A mensagem não diz quem entra como síndico; quem preenche decide (decisão 1).
 
 ### Arquipeo
 ```
@@ -148,7 +148,7 @@ Oi, Helena, tudo bem?
 
 O Gabriel, da BGRE, mandou hoje às 11h17 o formulário de cadastro da Pesquisa de Satisfação 2026. Para o Arquipeo, é o "Formulário de cadastro - Empreendimentos novos", que está anexo no e-mail dele.
 
-Preciso da resposta para a BGRE ainda hoje, até as 17h. Manda preenchido para o Alex Trindade (alex.trindade@bgre.com) e me coloca em cópia. Tem que ter os dados de faturamento, o responsável pelo financeiro e os líderes (gestor predial, gerente regional e síndico). No síndico, pode colocar meu nome: Caio Gavioli, caio@dfsindicos.com.br.
+Preciso da resposta para a BGRE ainda hoje, até as 17h. Manda preenchido para o Alex Trindade (alex.trindade@bgre.com) e me coloca em cópia. Tem que ter os dados de faturamento, o responsável pelo financeiro e os líderes (gestor predial, gerente regional e síndico).
 
 A pesquisa dispara na quarta (07/10) e eles precisam fechar o cadastro antes disso.
 
@@ -161,7 +161,7 @@ Oi, Sandra, tudo bem?
 
 O Gabriel, da BGRE, mandou hoje às 11h17 o formulário de cadastro da Pesquisa de Satisfação 2026. Para o Passeio Paulista, é o "Formulário de cadastro - Empreendimentos novos", que está anexo no e-mail dele.
 
-Preciso da resposta para a BGRE ainda hoje, até as 17h. Manda preenchido para o Alex Trindade (alex.trindade@bgre.com) e me coloca em cópia. Tem que ter os dados de faturamento, o responsável pelo financeiro e os líderes (gestor predial, gerente regional e síndico). No síndico, pode colocar meu nome: Caio Gavioli, caio@dfsindicos.com.br.
+Preciso da resposta para a BGRE ainda hoje, até as 17h. Manda preenchido para o Alex Trindade (alex.trindade@bgre.com) e me coloca em cópia. Tem que ter os dados de faturamento, o responsável pelo financeiro e os líderes (gestor predial, gerente regional e síndico).
 
 A pesquisa dispara na quarta (07/10) e eles precisam fechar o cadastro antes disso.
 
@@ -174,7 +174,7 @@ Oi, Marcelo, tudo bem?
 
 O Gabriel, da BGRE, mandou hoje às 11h17 o formulário de cadastro da Pesquisa de Satisfação 2026. Para o PL Extrema, é o "Formulário de cadastro - Empreendimentos novos", que está anexo no e-mail dele.
 
-Preciso da resposta para a BGRE ainda hoje, até as 17h. Manda preenchido para o Alex Trindade (alex.trindade@bgre.com) e me coloca em cópia. Tem que ter os dados de faturamento, o responsável pelo financeiro e os líderes (gestor predial, gerente regional e síndico). No síndico, pode colocar meu nome: Caio Gavioli, caio@dfsindicos.com.br.
+Preciso da resposta para a BGRE ainda hoje, até as 17h. Manda preenchido para o Alex Trindade (alex.trindade@bgre.com) e me coloca em cópia. Tem que ter os dados de faturamento, o responsável pelo financeiro e os líderes (gestor predial, gerente regional e síndico).
 
 A pesquisa dispara na quarta (07/10) e eles precisam fechar o cadastro antes disso.
 
@@ -187,7 +187,7 @@ Oi, Paulo, tudo bem?
 
 O Gabriel, da BGRE, mandou hoje às 11h17 o formulário de cadastro da Pesquisa de Satisfação 2026. Para o 17.007 Nações, é o "Formulário de cadastro - Empreendimentos recorrentes", que está anexo no e-mail dele.
 
-Preciso da resposta para a BGRE ainda hoje, até as 17h. Manda preenchido para o Alex Trindade (alex.trindade@bgre.com) e me coloca em cópia. Tem que ter os dados de faturamento, o responsável pelo financeiro e os líderes (gestor predial, gerente regional e síndico). No síndico, pode colocar meu nome: Caio Gavioli, caio@dfsindicos.com.br.
+Preciso da resposta para a BGRE ainda hoje, até as 17h. Manda preenchido para o Alex Trindade (alex.trindade@bgre.com) e me coloca em cópia. Tem que ter os dados de faturamento, o responsável pelo financeiro e os líderes (gestor predial, gerente regional e síndico).
 
 A pesquisa dispara na quarta (07/10) e eles precisam fechar o cadastro antes disso.
 
@@ -200,7 +200,7 @@ Oi, Marcus, tudo bem?
 
 O Gabriel, da BGRE, mandou hoje às 11h17 o formulário de cadastro da Pesquisa de Satisfação 2026. Para o TNU, é o "Formulário de cadastro - Empreendimentos recorrentes", que está anexo no e-mail dele.
 
-Preciso da resposta para a BGRE ainda hoje, até as 17h. Manda preenchido para o Alex Trindade (alex.trindade@bgre.com) e me coloca em cópia. Tem que ter os dados de faturamento, o responsável pelo financeiro e os líderes (gestor predial, gerente regional e síndico). No síndico, pode colocar meu nome: Caio Gavioli, caio@dfsindicos.com.br.
+Preciso da resposta para a BGRE ainda hoje, até as 17h. Manda preenchido para o Alex Trindade (alex.trindade@bgre.com) e me coloca em cópia. Tem que ter os dados de faturamento, o responsável pelo financeiro e os líderes (gestor predial, gerente regional e síndico).
 
 A pesquisa dispara na quarta (07/10) e eles precisam fechar o cadastro antes disso.
 
@@ -213,7 +213,7 @@ Oi, Adriano, tudo bem?
 
 O Gabriel, da BGRE, mandou hoje às 11h17 o formulário de cadastro da Pesquisa de Satisfação 2026. Para o Centenário, é o "Formulário de cadastro - Empreendimentos recorrentes", que está anexo no e-mail dele.
 
-Preciso da resposta para a BGRE ainda hoje, até as 17h. Manda preenchido para o Alex Trindade (alex.trindade@bgre.com) e me coloca em cópia. Tem que ter os dados de faturamento, o responsável pelo financeiro e os líderes (gestor predial, gerente regional e síndico). No síndico, pode colocar meu nome: Caio Gavioli, caio@dfsindicos.com.br.
+Preciso da resposta para a BGRE ainda hoje, até as 17h. Manda preenchido para o Alex Trindade (alex.trindade@bgre.com) e me coloca em cópia. Tem que ter os dados de faturamento, o responsável pelo financeiro e os líderes (gestor predial, gerente regional e síndico).
 
 A pesquisa dispara na quarta (07/10) e eles precisam fechar o cadastro antes disso.
 
@@ -226,7 +226,7 @@ Oi, Pedro, tudo bem?
 
 O Gabriel, da BGRE, mandou hoje às 11h17 o formulário de cadastro da Pesquisa de Satisfação 2026. Para o JKB, é o "Formulário de cadastro - Empreendimentos recorrentes", que está anexo no e-mail dele.
 
-Preciso da resposta para a BGRE ainda hoje, até as 17h. Manda preenchido para o Alex Trindade (alex.trindade@bgre.com) e me coloca em cópia. Tem que ter os dados de faturamento, o responsável pelo financeiro e os líderes (gestor predial, gerente regional e síndico). No síndico, pode colocar meu nome: Caio Gavioli, caio@dfsindicos.com.br.
+Preciso da resposta para a BGRE ainda hoje, até as 17h. Manda preenchido para o Alex Trindade (alex.trindade@bgre.com) e me coloca em cópia. Tem que ter os dados de faturamento, o responsável pelo financeiro e os líderes (gestor predial, gerente regional e síndico).
 
 A pesquisa dispara na quarta (07/10) e eles precisam fechar o cadastro antes disso.
 
