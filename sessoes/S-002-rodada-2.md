@@ -205,6 +205,28 @@ O que se precisa, em ordem de prioridade. **Arquivos de condomínio não entram 
 
 **Alternativa sem arquivo nenhum:** entrevista guiada por áudio sobre o catálogo (S / N / ?). A resposta já é a ficha do piloto. Menos precisa, mais rápida.
 
-### Estado das decisões
+### Delegação do usuário (2026-10-02)
 
-Respondidas as perguntas a–e. **D1, D2, D3, D4 e D6 seguem sem decisão do usuário**; D5 foi reformulada e também aguarda.
+Depois de ver as posições lado a lado, o usuário respondeu:
+
+> Vai com a recomendação do time
+
+Antes dessa resposta, o time havia dito que, se o usuário delegasse, fecharia as decisões em que as três posições **convergem** e deixaria com o usuário só as que têm **desacordo real** (D1 e D6). É o que foi feito.
+
+### Decisões fechadas por convergência do time
+
+| # | Decisão | Fundamento |
+|---|---|---|
+| **D2** | **Formatos — pacote mínimo:** planilha-mestre + procedimento-modelo + fluxograma de 1 página. O dossiê por condomínio sai depois, gerado da planilha. O checklist de manutenção entra como **aba da planilha**, não como formato separado. A planilha tem **colunas estruturadas** (sim / não / não sei, data, fonte). | Rafael, Tomás e Marina escolheram A. Marina condicionou à planilha estruturada. |
+| **D3** | **Detecção antes do ocupante: ronda com torneira sentinela + corante como traçador.** O corante já existe na água gelada (resposta b); a ronda passa a conferi-lo e a prática se estende a outros circuitos. **Sensor só onde já existe BMS**, sem investimento novo. | Rafael (A+C) e Tomás (C) convergem; Marina (B) fica contemplada onde há BMS. Sem verba (resposta c), sensor novo cai. |
+| **D4** | **Registro: checklist padrão anexado ao relatório mensal dos fornecedores**, via administradora, sem criar registro novo. Pedir às administradoras **cadência semanal só nos itens críticos** (cloro residual, dosagem química, nível, reposição de água do circuito, teste de bomba de incêndio). | Tomás e Rafael escolheram A; Marina A+C. Rafael aceita C se a administradora topar — vira **pedido**, não exigência. |
+| **D5′** | **Autovistoria guiada** pelas equipes residentes, com checklist de interligações e pontos de refluxo, e marcação "escalar ao síndico" no que não se pode certificar. Sem consultor externo. | O time não votou a versão reformulada antes; ao delegar, o usuário pediu a recomendação, e as três posições anteriores (todas por vistoria padronizada nos mesmos pontos) levam a A′. Tomás limita a **5 tipos de ponto** (reposição de torre/chiller, reúso, reserva de incêndio, trocador de água quente, antirretorno); Marina pede **checklist único** para comparar prédios. |
+
+### Decisões que continuam com o usuário (desacordo real)
+
+- **D1 — por onde começar.** Rafael **B** (cenário 1 e checklist de refluxo primeiro), Marina **C** (piloto num condomínio), Tomás **A** (catálogo v2 → ficha → cenários). Fato novo: como o usuário não sabe se consegue o mapeamento (resposta e), **só a opção B não depende de arquivo**.
+- **D6 — onde o material mora.** Rafael e Tomás **C** (tudo no OneDrive), Marina **A** (modelo neste branch, fichas no OneDrive). Efeito prático de C: o modelo é gerado e **enviado ao usuário como arquivo**; este branch guarda só o histórico da decisão.
+
+### Estado da Rodada 2
+
+D2, D3, D4 e D5′ decididas. **D1 e D6 aguardam o usuário.** Depois delas, a Rodada 2 fecha. O recorte proposto (1 projeto documental `plano-contingencia-agua`) segue de pé, com uma correção: a vistoria deixou de ser "ação fora do projeto" e passou para **dentro** dele, como checklist de autovistoria.
