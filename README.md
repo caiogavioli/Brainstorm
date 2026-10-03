@@ -33,6 +33,8 @@ problemas/      um arquivo por problema/rotina apresentado
 sessoes/        transcrição das rodadas de perguntas e decisões
 projetos/       specs fechadas, prontas para virar repositório
 templates/      modelos usados acima
+.agents/        skills instaladas (fonte); symlinks em .claude/skills
+.claude/        skills, agente e comando que o Claude Code carrega
 ```
 
 ## Um branch por problema

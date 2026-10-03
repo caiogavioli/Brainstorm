@@ -73,10 +73,32 @@ Nessa ordem, numa tacada só:
 
 1. Escrever `projetos/<slug>.md` a partir de `templates/projeto.md`, completo — escopo dentro e fora, stack com justificativa, tabela de decisões e alternativas descartadas, riscos, critério de pronto.
 2. Criar o repositório no GitHub sob `caiogavioli`, nome em `kebab-case`, descrição de uma linha, privado por padrão (confirmar com o usuário se deve ser público).
-3. Subir nele o esqueleto: `README.md` com problema e escopo, estrutura de pastas da stack escolhida, `.gitignore`, e um `CLAUDE.md` próprio com o contexto que a sessão de desenvolvimento vai precisar.
+3. Subir nele o esqueleto: `README.md` com problema e escopo, estrutura de pastas da stack escolhida, `.gitignore` (com `node_modules/`), um `CLAUDE.md` próprio com o contexto que a sessão de desenvolvimento vai precisar, **e as skills do framework** (ver "Skills do framework" abaixo).
 4. Atualizar a tabela de estado no `README.md` daqui e o `MEMORY.md` com o link.
 
 O desenvolvimento em si acontece **no repositório novo**, em outra sessão. Aqui fica o histórico da decisão.
+
+## Skills do framework
+
+As skills, o agente e o comando instalados para o usuário moram **em `main`** e são arquivos do framework, não conteúdo de problema:
+
+| Caminho | O que é |
+|---|---|
+| `.agents/skills/<nome>/` | a skill em si (fonte) |
+| `.claude/skills/<nome>` | symlink para a pasta acima — é o que o Claude Code lê |
+| `.claude/agents/`, `.claude/commands/` | agente `frontend-developer`, comando `generate-tests` |
+| `skills-lock.json` | origem e hash de cada skill (para `npx skills update`) |
+
+- **Branch de problema novo:** nasce de `main`, então já herda tudo. Nada a fazer.
+- **Branch de problema antigo:** receber as skills é uma exceção autorizada à regra de "não puxar conteúdo entre branches", **só para esses caminhos** — copiar de `main` os arquivos que o branch ainda não tem, sem sobrescrever o que for dele (`.claude/settings.json`, hooks `guard-destinatario*`, skills próprias).
+- **Skill nova instalada em `main`:** ao terminar, perguntar ao usuário se quer propagar para os branches existentes. Não propagar sem perguntar.
+- **Repositório novo (passo 3 do "fecha o projeto"):** a partir de um clone deste repositório, rodar na raiz do repositório novo:
+
+```
+git -C <clone-do-brainstorm> archive origin/main .agents .claude skills-lock.json | tar -x -C <repo-novo>
+```
+
+  O `tar` preserva os symlinks de `.claude/skills/`. Não usar `npx skills experimental_install` para isso: ele restaura só `.agents/skills`, sem os symlinks que o Claude Code precisa. O `playwright-skill` precisa de `npm install` dentro da própria pasta, porque o `node_modules` não é versionado. Se o repositório novo não for ter front-end, segurança ou Supabase, vale remover as skills que não servem, para não poluir.
 
 ## Convenções de arquivo
 
