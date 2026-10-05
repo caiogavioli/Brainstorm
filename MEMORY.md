@@ -142,6 +142,18 @@ Verificado em produção em 01/09, nas duas:
   (`cobranca-bgre-2026-10-02.md`): Panamérica entregou em 02/10 12h04 (mas enviou ao Alex
   Martins, não ao Trindade); 7 prédios sem retorno na caixa. Nada enviado; aguarda decisões
   (síndico no formulário, "Barueri", cobrar segunda 05/10, Cc). A pesquisa dispara 07/10.
+  Posição final registrada no Doc de controle: 6 de 8 entregues; Passeio Paulista e
+  Centenário pendentes (mensagens de WhatsApp prontas no Doc "WhatsApp — formulário de
+  cadastro BGRE"). Decisões abertas: Panamérica (Alex Martins x Trindade), 17.007 (descartar
+  o formulário de novos) e TNU (inscrição estadual em branco).
+- **Erosão do Talude — DP Manaus II (relatório de 05/10/2026):** análise completa no Claude
+  Doc https://claude.ai/code/artifact/0c260e4c-f2a4-4006-b87b-4e059f242d5f (resumo, linha
+  do tempo, análise crítica, cenários e plano de ação). Pontos que dependem do Caio: o
+  aditivo da Nexus (R$ 233.836,94, +41,6% sobre o contrato de R$ 561.928,94) não deve ser
+  deliberado antes de a Puma apresentar comparativo item a item e a planilha unitária de
+  29/09 (quantidades revisadas, total igual); ND 015 vence 05/10 e o fundo deve pagar em
+  08–09/10; seguro Chubb, IPAAM e a ART AM20260622407 sem desfecho nos e-mails. Nada foi
+  enviado a ninguém.
 - **Pesquisa de Satisfação 2026 (BGRE), fase de contatos, prazo 02/09 (fechada em 28/09).** Sete cobranças enviadas
   em 31/08; só o Arquipeo tinha entregue. Como o Gabriel pediu resposta apenas
   para ele e para o Alex, "não respondeu" significa "não respondeu com o Caio
