@@ -16,6 +16,8 @@
 
 > sim, faça uma rotina segunda feira a tarde
 
+> otimo. já está funcionando? acho que o ideal é rodar a rotina às 12h00, por que a regra da BGRE é receber o Flash Report de manhã
+
 ## O que foi feito nesta sessão
 
 - Branch criado: `claude/flash-report-analises-semanais` (a partir de `main`).
@@ -27,4 +29,4 @@
 - Confirmado pelo usuário: a carteira do Flash Report são esses 9 condomínios. A severidade é classificação automática e pode ser ajustada.
 - Pedido atendido direto (relatório executivo + dashboards por semana); as rodadas 1 e 2 do time de três ficam para quando o usuário quiser decidir se isso vira rotina/projeto.
 
-- Rotina semanal criada: segunda 17h48 (America/Sao_Paulo), Routine `trig_016LpCwLxczWm1iVwAddguVz` na sessão original. A primeira execução cai hoje (05/10) às 17h48 e reprocessa a semana 28/09, onde 5 condomínios estavam com prazo hoje. Arquivos em `rotina-flash-report/`.
+- Rotina semanal criada: segunda 12h00 (America/Sao_Paulo; começou 17h48, trocado a pedido do usuário), Routine `trig_016LpCwLxczWm1iVwAddguVz` na sessão original. A primeira execução agendada é segunda 12/10 às 12h00 e processa a semana de 05/10, além de procurar os reports atrasados das semanas anteriores. Arquivos em `rotina-flash-report/`.

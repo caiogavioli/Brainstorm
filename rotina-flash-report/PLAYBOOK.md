@@ -1,6 +1,6 @@
 # Rotina Flash Report: segunda-feira à tarde
 
-**O que é:** toda segunda-feira, às 17h48 (America/Sao_Paulo), a Routine `trig_016LpCwLxczWm1iVwAddguVz` acorda a sessão em que o projeto foi montado (`session_01XwTwm31fTJSAS2PUgRd7Xk`). Ela lê os Flash Reports que chegaram no Outlook do Caio, acrescenta a semana que acabou de fechar ao artefato e publica a nova versão **no mesmo link**.
+**O que é:** toda segunda-feira, às 12h00 (America/Sao_Paulo), a Routine `trig_016LpCwLxczWm1iVwAddguVz` acorda a sessão em que o projeto foi montado (`session_01XwTwm31fTJSAS2PUgRd7Xk`). Ela lê os Flash Reports que chegaram no Outlook do Caio, acrescenta a semana que acabou de fechar ao artefato e publica a nova versão **no mesmo link**.
 
 **Por que na sessão original e não numa sessão nova:** a Routine criada por ferramenta não leva conectores. Uma sessão nova ficaria sem o Microsoft 365 e não leria o Outlook. Se a sessão original for arquivada, a rotina deixa de funcionar: recriar a Routine pela tela de rotinas do claude.ai, marcando o conector Microsoft 365 e o repositório `caiogavioli/Brainstorm`.
 
@@ -50,7 +50,7 @@
 ## Como o script encaixa os períodos
 - Report normal: vai para a semana (segunda a domingo) que contém o meio do período. Isso trata Alphaville (domingo a sábado) e Parque Corporate (terça a segunda).
 - Consolidado de 13 dias ou mais: entra na última semana coberta; as anteriores aparecem no mapa como "consolidado".
-- "Sem report" significa que nada foi localizado no e-mail do Caio. A semana alvo da rotina vence na própria segunda, então os que ainda não chegaram às 17h48 aparecem como "hoje" e viram "sem report" ou são preenchidos na rodada seguinte, pelo back-fill.
+- "Sem report" significa que nada foi localizado no e-mail do Caio. A semana alvo da rotina vence na própria segunda, então os que ainda não chegaram ao meio-dia aparecem como "hoje" e viram "sem report" ou são preenchidos na rodada seguinte, pelo back-fill.
 
 ## Severidade
 Alta: risco real para operação, segurança de pessoas ou patrimônio, finanças ou reputação. Média: impacto limitado ou pendência relevante. Baixa: rotina, manutenção e melhorias. É classificação automática do texto de cada relatório; o Caio pode pedir ajuste.
