@@ -1,0 +1,383 @@
+<title>Flash Report Análises Semanais</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: cabeçalho fixo com abas (Visão geral + uma por semana); cada aba é um painel de leitura rápida,
+   resumo antes do detalhe, severidade sempre em forma + texto. */
+:root{
+  --bg:#f2f5f8; --surface:#ffffff; --surface-2:#f7f9fb; --ink:#13202c; --ink-2:#4d5d6c; --ink-3:#7a8a99;
+  --line:#dbe2e9; --line-2:#e9eef3; --accent:#1c5cab; --accent-soft:#e3edf9; --accent-ink:#ffffff;
+  --alta:#d03b3b; --alta-soft:#fbe7e7; --alta-ink:#8f1f1f;
+  --media:#fab219; --media-soft:#fdf1d3; --media-ink:#7a5200;
+  --baixa:#0ca30c; --baixa-soft:#e0f4e0; --baixa-ink:#0b620b;
+  --none:#c3ccd5; --bar:#2a78d6; --bar-hi:#1c5cab; --shadow:0 1px 2px rgba(19,32,44,.06);
+  --f-display:"Archivo","Arial Narrow",Arial,sans-serif; --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e141a; --surface:#161e26; --surface-2:#1b252e; --ink:#eaf0f5; --ink-2:#aebccb; --ink-3:#7d8fa1;
+  --line:#2a3744; --line-2:#222d38; --accent:#6da7ec; --accent-soft:#1c2c40; --accent-ink:#0e141a;
+  --alta:#e66767; --alta-soft:#3a1d1f; --alta-ink:#f3b0b0;
+  --media:#e6a21a; --media-soft:#37290e; --media-ink:#f0cf86;
+  --baixa:#3fb23f; --baixa-soft:#142d17; --baixa-ink:#9bdc9b;
+  --none:#3a4856; --bar:#3987e5; --bar-hi:#6da7ec; --shadow:none; color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#0e141a; --surface:#161e26; --surface-2:#1b252e; --ink:#eaf0f5; --ink-2:#aebccb; --ink-3:#7d8fa1;
+  --line:#2a3744; --line-2:#222d38; --accent:#6da7ec; --accent-soft:#1c2c40; --accent-ink:#0e141a;
+  --alta:#e66767; --alta-soft:#3a1d1f; --alta-ink:#f3b0b0;
+  --media:#e6a21a; --media-soft:#37290e; --media-ink:#f0cf86;
+  --baixa:#3fb23f; --baixa-soft:#142d17; --baixa-ink:#9bdc9b;
+  --none:#3a4856; --bar:#3987e5; --bar-hi:#6da7ec; --shadow:none; color-scheme:dark;}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:14px;line-height:1.5;padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:1180px;margin-inline:auto}
+h1,h2,h3,h4{font-family:var(--f-display);font-stretch:90%;letter-spacing:-.01em;line-height:1.15;margin:0;text-wrap:balance}
+p{margin:0}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+.mono,.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+
+/* header + tabs */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--bg);margin-inline:-16px;padding:12px 16px 0;border-bottom:1px solid var(--line)}
+.top-in{max-width:1180px;margin-inline:auto}
+.brand{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-bottom:10px}
+.brand h1{font-size:22px;font-weight:800}
+.brand .sub{color:var(--ink-2);font-size:13px}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:thin;padding-bottom:0}
+.tab{flex:0 0 auto;border:0;background:transparent;padding:9px 12px;cursor:pointer;border-bottom:3px solid transparent;color:var(--ink-2);font-weight:500;white-space:nowrap;display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.2}
+.tab .t2{font-size:11px;color:var(--ink-3);font-family:var(--f-mono)}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+.tab:focus-visible,.cell:focus-visible,.btn:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.tab .dots{display:flex;gap:2px;margin-top:1px}
+.tab .dots i{width:6px;height:6px;border-radius:50%;display:block}
+
+main{padding-top:20px;display:flex;flex-direction:column;gap:28px}
+section{display:flex;flex-direction:column;gap:12px;min-width:0}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px 16px;flex-wrap:wrap}
+.sec-h h2{font-size:18px;font-weight:700}
+.sec-h .note{color:var(--ink-3);font-size:12px}
+.lead{font-size:15px;color:var(--ink);max-width:78ch}
+
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0;box-shadow:var(--shadow)}
+.kpi .v{font-family:var(--f-display);font-size:30px;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi .v small{font-size:14px;font-weight:500;color:var(--ink-3)}
+.kpi .l{font-size:12px;color:var(--ink-2)}
+.kpi .d{font-size:11px;color:var(--ink-3);font-family:var(--f-mono)}
+.sevbar{display:flex;height:10px;border-radius:3px;overflow:hidden;gap:2px;margin-top:6px;background:var(--surface)}
+.sevbar i{display:block;min-width:3px}
+
+/* pills */
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.pill.alta{background:var(--alta-soft);color:var(--alta-ink)}
+.pill.media{background:var(--media-soft);color:var(--media-ink)}
+.pill.baixa{background:var(--baixa-soft);color:var(--baixa-ink)}
+.pill.none{background:var(--line-2);color:var(--ink-2)}
+.pill.late{background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line)}
+.g{font-size:9px;line-height:1}
+
+/* heatmap */
+.scroller{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table.heat{border-collapse:separate;border-spacing:3px;width:100%;min-width:640px}
+.heat th{font-weight:500;font-size:11px;color:var(--ink-2);text-align:center;padding:4px 2px;font-family:var(--f-mono)}
+.heat th.rowh{text-align:left;position:sticky;left:0;background:var(--surface);z-index:1;font-family:var(--f-body);font-size:13px;color:var(--ink);padding:0 10px 0 8px;min-width:140px;white-space:nowrap}
+.heat th.rowh small{display:block;color:var(--ink-3);font-size:11px}
+.cell{display:flex;align-items:center;justify-content:center;gap:4px;width:100%;height:40px;border:0;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--f-body)}
+.cell.alta{background:var(--alta);color:#fff}
+.cell.media{background:var(--media);color:#2b1d00}
+.cell.baixa{background:var(--baixa);color:#fff}
+.cell.miss{background:transparent;color:var(--ink-3);border:1.5px dashed var(--none);cursor:default}
+.cell.pend{background:transparent;color:var(--ink-3);border:1.5px dotted var(--ink-3);cursor:default}
+.cell.cons{background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+.cell .late{font-size:9px;opacity:.9}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .cell.baixa,:root:not([data-theme="light"]) .cell.alta{color:#0e141a}}
+:root[data-theme="dark"] .cell.baixa,:root[data-theme="dark"] .cell.alta{color:#0e141a}
+.legend{display:flex;gap:8px 16px;flex-wrap:wrap;font-size:12px;color:var(--ink-2);align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:14px;height:14px;border-radius:3px;display:inline-block}
+.sw.miss{border:1.5px dashed var(--none)}.sw.pend{border:1.5px dotted var(--ink-3)}.sw.cons{background:var(--accent-soft);border:1px solid var(--accent)}
+
+/* priorities */
+.prio{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;min-width:0;box-shadow:var(--shadow)}
+.card.sev-alta{border-left:4px solid var(--alta)}
+.card.sev-media{border-left:4px solid var(--media)}
+.card.sev-baixa{border-left:4px solid var(--baixa)}
+.card.sev-none{border-left:4px dashed var(--none)}
+.card h3{font-size:16px;font-weight:700}
+.card .why{color:var(--ink-2)}
+.card .act{background:var(--surface-2);border-radius:6px;padding:8px 10px;font-size:13px}
+.card .act b{font-weight:600}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:11px;padding:1px 7px;border-radius:4px;background:var(--accent-soft);color:var(--accent);font-weight:500;white-space:nowrap}
+.pr-head{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+
+/* tables */
+table.t{border-collapse:collapse;width:100%;min-width:560px;font-size:13px}
+.t th{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);font-weight:600;background:var(--surface-2)}
+.t td{padding:8px 10px;border-bottom:1px solid var(--line-2);vertical-align:top}
+.t tr:last-child td{border-bottom:0}
+.t td.n{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.t th.n{text-align:right}
+
+/* charts */
+.mini-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}
+.mini{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;min-width:0}
+.mini h3{font-size:14px;font-weight:600;font-family:var(--f-body);font-stretch:100%}
+.mini .tot{color:var(--ink-3);font-size:12px;margin-bottom:4px}
+.mini svg{width:100%;height:auto;display:block}
+.mini text{fill:var(--ink-2);font-family:var(--f-mono);font-size:9px}
+.mini .gl{stroke:var(--line-2);stroke-width:1}
+.mini rect.b{fill:var(--bar)}
+.mini rect.b.hi{fill:var(--bar-hi)}
+
+/* week */
+.wk-head{display:flex;flex-direction:column;gap:4px}
+.wk-head h2{font-size:26px;font-weight:800}
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,360px),1fr));gap:12px;align-items:start}
+.cc-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.cc-head h3{font-size:17px}
+.cc-head .adm{font-size:12px;color:var(--ink-3)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-size:11px;font-family:var(--f-mono);padding:2px 7px;border-radius:4px;background:var(--surface-2);border:1px solid var(--line);color:var(--ink-2)}
+.chip b{color:var(--ink)}
+.bul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:3px}
+.bul li{color:var(--ink)}
+.cc h4{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);font-family:var(--f-body);font-stretch:100%;font-weight:600;margin-top:4px}
+details{border-top:1px solid var(--line-2);padding-top:6px}
+summary{cursor:pointer;font-size:12px;color:var(--accent);font-weight:500;padding:2px 0}
+.ev{display:flex;gap:8px;font-size:12.5px;padding:3px 0}
+.ev .dt{font-family:var(--f-mono);color:var(--ink-3);flex:0 0 42px}
+.ev .tx{min-width:0}
+.ev .k{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);font-weight:600}
+.empty{color:var(--ink-3);font-style:italic}
+.hl{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 16px;display:flex;flex-direction:column;gap:6px}
+.hl li{margin-bottom:2px}
+.foot{color:var(--ink-3);font-size:12px;max-width:90ch;border-top:1px solid var(--line);padding-top:14px}
+.foot p+p{margin-top:6px}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:5px 10px;cursor:pointer;font-size:12px}
+.flash{outline:2px solid var(--accent);outline-offset:2px;transition:outline-color .6s}
+@media (max-width:520px){.brand h1{font-size:19px}.wk-head h2{font-size:22px}.kpi .v{font-size:26px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<div class="top"><div class="top-in">
+  <div class="brand"><h1>Flash Report <span style="font-weight:500;color:var(--ink-2)">Análises semanais</span></h1>
+  <div class="sub" id="sub"></div></div>
+  <div class="tabs" role="tablist" id="tabs" aria-label="Visão geral e semanas"></div>
+</div></div>
+<div class="wrap"><main id="view" aria-live="polite"></main></div>
+
+<script>
+const DATA = __DATA__;
+</script>
+<script>
+(function(){
+"use strict";
+const C = DATA.condos, W = DATA.weeks, E = DATA.entries, X = DATA.exec;
+const SEV = {alta:{l:"Alta",g:"▲"},media:{l:"Média",g:"◆"},baixa:{l:"Baixa",g:"●"}};
+const MES=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
+const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const dm = iso => { if(!iso) return ""; const [y,m,d]=iso.split("-"); return d+"/"+m; };
+const dmy = iso => { const [y,m,d]=iso.split("-"); return d+"/"+m+"/"+y; };
+const addDays = (iso,n)=>{ const d=new Date(iso+"T12:00:00Z"); d.setUTCDate(d.getUTCDate()+n); return d.toISOString().slice(0,10); };
+const wid = iso => "w"+iso.slice(8,10)+iso.slice(5,7);
+const byId = Object.fromEntries(C.map(c=>[c.slug,c]));
+const ORDER = {alta:0,media:1,baixa:2};
+const LAST = W[W.length-1];
+
+function state(slug,w){
+  const e=(E[slug]||{})[w];
+  if(e) return {k:"ok",e};
+  const cv=(DATA.cobertos[slug]||{})[w];
+  if(cv) return {k:"cons",to:cv};
+  if(w===LAST) return {k:"pend"};
+  return {k:"miss"};
+}
+function weekStats(w){
+  let rec=0,ontime=0,late=0,miss=0,pend=0,cons=0; const sev={alta:0,media:0,baixa:0};
+  const ev={energia:0,elevadores:0,seguranca:0,chuvas:0,retidos:0,medico:0};
+  C.forEach(c=>{
+    const s=state(c.slug,w);
+    if(s.k==="ok"){rec++; s.e.no_prazo?ontime++:late++; sev[s.e.sev]++;
+      ev.energia+=s.e.energia.length; ev.elevadores+=s.e.elevadores.length;
+      ev.retidos+=s.e.elevadores.filter(x=>x.ret).length;
+      ev.seguranca+=s.e.seguranca.length+s.e.n_medico; ev.chuvas+=s.e.chuvas.length; ev.medico+=s.e.n_medico;}
+    else if(s.k==="cons")cons++; else if(s.k==="pend")pend++; else miss++;
+  });
+  return {rec,ontime,late,miss,pend,cons,sev,ev};
+}
+const STATS = Object.fromEntries(W.map(w=>[w,weekStats(w)]));
+
+/* ---------- tabs ---------- */
+function renderTabs(cur){
+  const el=document.getElementById("tabs");
+  let h=`<button class="tab" role="tab" data-go="geral" aria-selected="${cur==="geral"}"><span>Visão geral</span><span class="t2">${dm(W[0])} a ${dm(addDays(LAST,6))}</span></button>`;
+  W.forEach((w,i)=>{
+    const st=STATS[w];
+    const dots=["alta","media","baixa"].map(k=>st.sev[k]?`<i style="background:var(--${k})" title="${st.sev[k]} ${SEV[k].l}"></i>`.repeat(Math.min(st.sev[k],3)):"").join("");
+    h+=`<button class="tab" role="tab" data-go="${wid(w)}" aria-selected="${cur===wid(w)}"><span>Sem ${i+1}</span><span class="t2">${dm(w)}–${dm(addDays(w,6))}</span><span class="dots" aria-hidden="true">${dots}</span></button>`;
+  });
+  el.innerHTML=h;
+}
+document.getElementById("tabs").addEventListener("click",e=>{const b=e.target.closest("[data-go]"); if(b) go(b.dataset.go);});
+
+/* ---------- helpers ---------- */
+const pill = (sev)=>`<span class="pill ${sev}"><span class="g" aria-hidden="true">${SEV[sev].g}</span>${SEV[sev].l}</span>`;
+function sevbar(sev,total){
+  if(!total) return "";
+  return `<div class="sevbar" role="img" aria-label="Alta ${sev.alta}, média ${sev.media}, baixa ${sev.baixa}">`+
+   ["alta","media","baixa"].map(k=>sev[k]?`<i style="background:var(--${k});flex:${sev[k]}"></i>`:"").join("")+`</div>`;
+}
+const pct=(a,b)=>b?Math.round(100*a/b):0;
+
+/* ---------- overview ---------- */
+function barChart(title,vals,note){
+  const max=Math.max(...vals,1), top=Math.max(max,3), W_=300,H=110,pl=8,pr=8,pt=14,pb=18;
+  const bw=(W_-pl-pr)/vals.length, plot=H-pt-pb;
+  let s=`<svg viewBox="0 0 ${W_} ${H}" role="img" aria-label="${esc(title)} por semana: ${vals.join(", ")}">`;
+  s+=`<line class="gl" x1="${pl}" x2="${W_-pr}" y1="${H-pb}" y2="${H-pb}"/>`;
+  vals.forEach((v,i)=>{
+    const h=v/top*plot, x=pl+i*bw+bw*.18, w=bw*.64, y=H-pb-h;
+    if(v>0) s+=`<rect class="b${v===max?" hi":""}" x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="2"><title>Sem ${i+1} (${dm(W[i])}): ${v}</title></rect><text x="${(x+w/2).toFixed(1)}" y="${(y-3).toFixed(1)}" text-anchor="middle">${v}</text>`;
+    s+=`<text x="${(x+w/2).toFixed(1)}" y="${H-5}" text-anchor="middle">${dm(W[i]).replace("/","·")}</text>`;
+  });
+  return `<div class="mini"><h3>${esc(title)}</h3><div class="tot">${vals.reduce((a,b)=>a+b,0)} no período${note?` · ${esc(note)}`:""}</div>${s}</svg></div>`;
+}
+function heatmap(){
+  let h=`<div class="scroller"><table class="heat"><thead><tr><th></th>`;
+  W.forEach((w,i)=>h+=`<th>S${i+1}<br>${dm(w)}</th>`);
+  h+=`</tr></thead><tbody>`;
+  C.forEach(c=>{
+    h+=`<tr><th class="rowh" scope="row">${esc(c.nome)}<small>${esc(c.adm)}</small></th>`;
+    W.forEach(w=>{
+      const s=state(c.slug,w);
+      if(s.k==="ok") h+=`<td><button class="cell ${s.e.sev}" data-week="${wid(w)}" data-condo="${c.slug}" aria-label="${esc(c.nome)}, semana de ${dm(w)}: severidade ${SEV[s.e.sev].l}${s.e.no_prazo?"":", enviado com atraso"}"><span class="g" aria-hidden="true">${SEV[s.e.sev].g}</span>${SEV[s.e.sev].l}${s.e.no_prazo?"":'<span class="late" title="Enviado depois da segunda-feira">⏱</span>'}</button></td>`;
+      else if(s.k==="cons") h+=`<td><button class="cell cons" data-week="${wid(s.to)}" data-condo="${c.slug}" title="Coberta pelo relatório consolidado da semana de ${dm(s.to)}">consol.</button></td>`;
+      else if(s.k==="pend") h+=`<td><div class="cell pend" title="Prazo é hoje (05/10): ainda não chegou">hoje</div></td>`;
+      else h+=`<td><div class="cell miss" title="Report não localizado no e-mail">sem report</div></td>`;
+    });
+    h+=`</tr>`;
+  });
+  return h+`</tbody></table></div>
+  <div class="legend"><span><i class="sw" style="background:var(--alta)"></i>▲ Alta</span><span><i class="sw" style="background:var(--media)"></i>◆ Média</span><span><i class="sw" style="background:var(--baixa)"></i>● Baixa</span><span><i class="sw cons"></i>consolidado de 2 ou mais semanas</span><span><i class="sw miss"></i>report não localizado</span><span><i class="sw pend"></i>prazo é hoje</span><span>⏱ enviado depois da segunda</span></div>`;
+}
+function renderGeral(){
+  const tot={rec:0,ontime:0,late:0,miss:0,pend:0,cons:0,sev:{alta:0,media:0,baixa:0}};
+  W.forEach(w=>{const s=STATS[w]; ["rec","ontime","late","miss","pend","cons"].forEach(k=>tot[k]+=s[k]); ["alta","media","baixa"].forEach(k=>tot.sev[k]+=s.sev[k]);});
+  const due=tot.rec+tot.cons+tot.miss;
+  const series=k=>W.map(w=>STATS[w].ev[k]);
+  let h="";
+  h+=`<section><div class="sec-h"><h2>Leitura da carteira</h2><span class="note">Fonte: Flash Reports e respostas no Outlook de Caio, semanas de ${dm(W[0])} a ${dmy(addDays(LAST,6))}</span></div>
+  <p class="lead">${X.lead}</p>
+  <div class="kpis">
+   <div class="kpi"><div class="l">Semanas cobertas por report</div><div class="v">${tot.rec+tot.cons}<small> de ${due}</small></div><div class="d">${pct(tot.rec+tot.cons,due)}% das semanas já vencidas</div></div>
+   <div class="kpi"><div class="l">Reports recebidos na segunda</div><div class="v">${tot.ontime}<small> de ${tot.rec}</small></div><div class="d">${tot.late} chegaram depois</div></div>
+   <div class="kpi"><div class="l">Semanas sem report localizado</div><div class="v">${tot.miss}</div><div class="d">+ ${tot.pend} com prazo hoje</div></div>
+   <div class="kpi"><div class="l">Condomínio-semanas em severidade alta</div><div class="v">${tot.sev.alta}<small> de ${tot.rec}</small></div>${sevbar(tot.sev,tot.rec)}<div class="d">${tot.sev.alta} alta · ${tot.sev.media} média · ${tot.sev.baixa} baixa</div></div>
+  </div></section>`;
+
+  h+=`<section><div class="sec-h"><h2>Mapa de severidade por condomínio e semana</h2><span class="note">Toque numa célula para abrir o painel da semana</span></div>${heatmap()}</section>`;
+
+  h+=`<section><div class="sec-h"><h2>O que pede ação da diretoria</h2><span class="note">Ordenado por urgência</span></div><div class="prio">`+
+  X.prioridades.map(p=>`<article class="card sev-${p.sev}"><div class="pr-head"><div class="tags">${p.condos.map(s=>`<span class="tag">${esc(byId[s]?byId[s].nome:s)}</span>`).join("")}</div>${pill(p.sev)}</div><h3>${p.t}</h3><p class="why">${p.why}</p><div class="act"><b>Ação sugerida:</b> ${p.act}</div></article>`).join("")+`</div></section>`;
+
+  h+=`<section><div class="sec-h"><h2>Ocorrências registradas por semana</h2><span class="note">Itens extraídos dos relatórios; semanas sem report ficam de fora</span></div><div class="mini-grid">`+
+   barChart("Energia (quedas e oscilações)",series("energia"))+
+   barChart("Elevadores (falhas e paradas)",series("elevadores"),`${series("retidos").reduce((a,b)=>a+b,0)} com passageiro retido`)+
+   barChart("Segurança (alarmes, atendimentos, polícia)",series("seguranca"))+
+   barChart("Chuva e infiltração",series("chuvas"),"a partir de set. é recorrente")+`</div></section>`;
+
+  h+=`<section><div class="sec-h"><h2>Temas que se repetem entre condomínios</h2></div><div class="prio">`+
+   X.temas.map(t=>`<article class="card"><h3>${t.t}</h3><p class="why">${t.p}</p><div class="tags">${t.condos.map(s=>`<span class="tag">${esc(byId[s]?byId[s].nome:s)}</span>`).join("")}</div></article>`).join("")+`</div></section>`;
+
+  h+=`<section><div class="sec-h"><h2>Datas críticas à frente</h2></div><div class="scroller"><table class="t"><thead><tr><th>Data</th><th>Condomínio</th><th>O que vence</th><th>Situação no último report</th></tr></thead><tbody>`+
+   X.datas.map(d=>`<tr><td class="n">${d.d}</td><td>${esc(byId[d.c]?byId[d.c].nome:d.c)}</td><td>${d.o}</td><td>${d.s}</td></tr>`).join("")+`</tbody></table></div></section>`;
+
+  const open=[];
+  C.forEach(c=>(DATA.followups[c.slug]||[]).filter(f=>f.status==="sem resposta").forEach(f=>open.push({...f,c})));
+  open.sort((a,b)=>a.data.localeCompare(b.data));
+  h+=`<section><div class="sec-h"><h2>Cobranças da BGRE sem resposta localizada</h2><span class="note">${open.length} itens. A resposta pode ter ido por outro canal (reunião, telefone, Salesforce)</span></div><div class="scroller"><table class="t"><thead><tr><th>Data</th><th>Condomínio</th><th>Quem cobrou</th><th>O que foi pedido</th></tr></thead><tbody>`+
+   open.map(f=>`<tr><td class="n">${dm(f.data)}</td><td>${esc(f.c.nome)}</td><td>${esc(f.de)}</td><td>${esc(f.pergunta)}</td></tr>`).join("")+`</tbody></table></div></section>`;
+
+  h+=`<section><div class="sec-h"><h2>Cobertura e pontualidade por condomínio</h2></div><div class="scroller"><table class="t"><thead><tr><th>Condomínio</th><th>Administradora</th><th class="n">Recebidos</th><th class="n">Na segunda</th><th class="n">Consolidados</th><th class="n">Sem report</th><th class="n">No padrão BGRE</th></tr></thead><tbody>`+
+   C.map(c=>{let r=0,o=0,cs=0,m=0,p=0,bg=0;W.forEach(w=>{const s=state(c.slug,w); if(s.k==="ok"){r++; if(s.e.no_prazo)o++; if(s.e.bgre)bg++;} else if(s.k==="cons")cs++; else if(s.k==="miss")m++; else p++;});
+    return `<tr><td>${esc(c.nome)}</td><td>${esc(c.adm)}</td><td class="n">${r}</td><td class="n">${o}</td><td class="n">${cs}</td><td class="n">${m}${p?` <span style="color:var(--ink-3)">(+${p} hoje)</span>`:""}</td><td class="n">${bg} de ${r}</td></tr>`;}).join("")+`</tbody></table></div></section>`;
+
+  h+=`<div class="foot">${X.metodo}</div>`;
+  return h;
+}
+
+/* ---------- week ---------- */
+function ev(list,render){return list.length?list.map(render).join(""):""}
+function card(c,w){
+  const s=state(c.slug,w);
+  if(s.k!=="ok"){
+    let pl,msg,cls="none";
+    if(s.k==="cons"){pl=`<span class="pill none">Consolidado</span>`;msg=`O condomínio não enviou report próprio nesta semana. O conteúdo está no relatório consolidado da semana de ${dm(s.to)}. <a href="#${wid(s.to)}" data-go="${wid(s.to)}">Abrir semana ${W.indexOf(s.to)+1}</a>.`;}
+    else if(s.k==="pend"){pl=`<span class="pill none">Prazo hoje</span>`;msg="O report desta semana vence hoje (05/10) e ainda não chegou ao e-mail."}
+    else {pl=`<span class="pill none">Sem report</span>`;msg="Nenhum Flash Report desta semana foi localizado no e-mail. Vale cobrar a administradora."}
+    return `<article class="card sev-none cc" id="c-${c.slug}"><div class="cc-head"><div><h3>${esc(c.nome)}</h3><div class="adm">${esc(c.adm)}</div></div>${pl}</div><p class="why">${msg}</p></article>`;
+  }
+  const e=s.e;
+  const chips=[["energia",e.energia.length],["elevadores",e.elevadores.length],["segurança",e.seguranca.length+e.n_medico],["chuva",e.chuvas.length]].filter(x=>x[1]).map(x=>`<span class="chip"><b>${x[1]}</b> ${x[0]}</span>`).join("");
+  const det=[];
+  if(e.energia.length) det.push(`<div class="ev"><span class="dt"></span><span class="k">Energia</span></div>`+ev(e.energia,x=>`<div class="ev"><span class="dt">${dm(x.d)}</span><span class="tx">${esc(x.t)}</span></div>`));
+  if(e.elevadores.length) det.push(`<div class="ev"><span class="dt"></span><span class="k">Elevadores</span></div>`+ev(e.elevadores,x=>`<div class="ev"><span class="dt">${dm(x.d)}</span><span class="tx">${x.ret?"<b>Passageiro retido.</b> ":""}${esc(x.t)}</span></div>`));
+  if(e.seguranca.length) det.push(`<div class="ev"><span class="dt"></span><span class="k">Segurança</span></div>`+ev(e.seguranca,x=>`<div class="ev"><span class="dt">${dm(x.d)}</span><span class="tx">${esc(x.t)}</span></div>`)+(e.n_medico?`<div class="ev"><span class="dt"></span><span class="tx">+ ${e.n_medico} atendimento${e.n_medico>1?"s":""} médico${e.n_medico>1?"s":""} a pessoas no condomínio.</span></div>`:""));
+  if(e.chuvas.length) det.push(`<div class="ev"><span class="dt"></span><span class="k">Chuva e infiltração</span></div>`+ev(e.chuvas,x=>`<div class="ev"><span class="dt">${dm(x.d)}</span><span class="tx">${esc(x.t)}</span></div>`));
+  if(e.pend.length) det.push(`<div class="ev"><span class="dt"></span><span class="k">Pendências em aberto</span></div>`+e.pend.map(x=>`<div class="ev"><span class="dt">·</span><span class="tx">${esc(x)}</span></div>`).join(""));
+  const per=e.fim?`${dm(e.ini)} a ${dm(e.fim)}`:"";
+  return `<article class="card sev-${e.sev} cc" id="c-${c.slug}">
+   <div class="cc-head"><div><h3>${esc(c.nome)}</h3><div class="adm">${esc(c.adm)} · período do PDF ${per}</div></div><div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">${pill(e.sev)}${e.no_prazo?"":`<span class="pill late" title="Recebido em ${esc(e.rec)}">⏱ atrasado</span>`}</div></div>
+   <p>${esc(e.resumo)}</p>
+   ${e.atencao.length?`<h4>Pontos de atenção</h4><ul class="bul">${e.atencao.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}
+   <p class="why" style="font-size:12.5px;color:var(--ink-2)"><b>Por que ${SEV[e.sev].l.toLowerCase()}:</b> ${esc(e.motivo)}</p>
+   ${chips?`<div class="chips">${chips}</div>`:""}
+   ${det.length?`<details><summary>Ver ocorrências e pendências</summary>${det.join("")}</details>`:""}
+  </article>`;
+}
+function renderWeek(w){
+  const i=W.indexOf(w), st=STATS[w], prev=i>0?STATS[W[i-1]]:null;
+  const delta=(a,b)=>prev==null?"":(a-b===0?"igual à anterior":(a>b?"+":"")+(a-b)+" vs. anterior");
+  let h=`<div class="wk-head"><span class="eyebrow">Semana ${i+1} de ${W.length}</span><h2>${dm(w)} a ${dmy(addDays(w,6))}</h2><p class="lead" style="color:var(--ink-2);font-size:13px">Reports entregues na segunda ${dm(addDays(w,7))}${w===LAST?" (hoje)":""}. ${st.rec} de ${C.length} condomínios com report próprio${st.cons?`, ${st.cons} coberto${st.cons>1?"s":""} por consolidado`:""}${st.miss?`, ${st.miss} sem report localizado`:""}${st.pend?`, ${st.pend} com prazo hoje`:""}.</p></div>`;
+  h+=`<div class="kpis">
+   <div class="kpi"><div class="l">Condomínios em severidade alta</div><div class="v">${st.sev.alta}<small> de ${st.rec}</small></div>${sevbar(st.sev,st.rec)}<div class="d">${st.sev.alta} alta · ${st.sev.media} média · ${st.sev.baixa} baixa</div></div>
+   <div class="kpi"><div class="l">Quedas e oscilações de energia</div><div class="v">${st.ev.energia}</div><div class="d">${delta(st.ev.energia,prev?prev.ev.energia:0)}</div></div>
+   <div class="kpi"><div class="l">Ocorrências de elevador</div><div class="v">${st.ev.elevadores}</div><div class="d">${st.ev.retidos?st.ev.retidos+" com passageiro retido · ":""}${delta(st.ev.elevadores,prev?prev.ev.elevadores:0)}</div></div>
+   <div class="kpi"><div class="l">Eventos de segurança</div><div class="v">${st.ev.seguranca}</div><div class="d">${st.ev.medico?st.ev.medico+(st.ev.medico>1?" atendimentos médicos":" atendimento médico")+" · ":""}${delta(st.ev.seguranca,prev?prev.ev.seguranca:0)}</div></div>
+   <div class="kpi"><div class="l">Chuva e infiltração</div><div class="v">${st.ev.chuvas}</div><div class="d">${delta(st.ev.chuvas,prev?prev.ev.chuvas:0)}</div></div>
+  </div>`;
+  const rows=C.map(c=>({c,s:state(c.slug,w)})).filter(x=>x.s.k==="ok").sort((a,b)=>ORDER[a.s.e.sev]-ORDER[b.s.e.sev]);
+  const hi=rows.filter(x=>x.s.e.sev==="alta");
+  const top=(hi.length?hi:rows.slice(0,2)).slice(0,4);
+  if(top.length) h+=`<section><div class="sec-h"><h2>${hi.length?"Destaques da semana":"Pontos mais sensíveis da semana"}</h2></div><div class="hl"><ul class="bul" style="gap:6px">`+top.map(x=>`<li><b>${esc(x.c.nome)}.</b> ${esc(x.s.e.motivo)}</li>`).join("")+`</ul></div></section>`;
+  const order=[...rows.map(x=>x.c), ...C.filter(c=>state(c.slug,w).k!=="ok")];
+  h+=`<section><div class="sec-h"><h2>Condomínios</h2><span class="note">Da maior para a menor severidade</span></div><div class="grid-cards">${order.map(c=>card(c,w)).join("")}</div></section>`;
+  h+=`<div class="foot"><p>A severidade é uma leitura automática do texto de cada report (alta: risco real para operação, segurança, financeiro ou reputação). Ela ajuda a priorizar a leitura e não substitui o julgamento de quem acompanha o condomínio. Contagens são de itens registrados nos PDFs.</p></div>`;
+  return h;
+}
+
+/* ---------- routing ---------- */
+function go(id,condo){
+  if(id!=="geral" && !W.some(w=>wid(w)===id)) id="geral";
+  try{ history.replaceState(null,"","#"+id);}catch(_){ try{location.hash=id}catch(__){} }
+  const v=document.getElementById("view");
+  v.innerHTML = id==="geral"?renderGeral():renderWeek(W.find(w=>wid(w)===id));
+  renderTabs(id);
+  const t=document.querySelector('.tab[aria-selected="true"]'); if(t&&t.scrollIntoView) t.scrollIntoView({inline:"center",block:"nearest"});
+  if(condo){const el=document.getElementById("c-"+condo); if(el){el.scrollIntoView({block:"center"}); el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"),1600);} }
+  else window.scrollTo(0,0);
+}
+document.getElementById("view").addEventListener("click",e=>{
+  const c=e.target.closest(".cell[data-week]"); if(c){go(c.dataset.week,c.dataset.condo);return;}
+  const a=e.target.closest("a[data-go]"); if(a){e.preventDefault();go(a.dataset.go);}
+});
+document.getElementById("sub").textContent = C.length+" condomínios BGRE · "+W.length+" semanas · atualizado em "+DATA.geradoEm;
+const h0=(location.hash||"").replace("#","");
+go(h0||"geral");
+})();
+</script>
