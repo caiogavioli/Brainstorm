@@ -353,3 +353,17 @@ Autorização explícita do usuário para escrever em `main` (as instruções da
 **Decisões minhas, a confirmar:** administradora registrada como "Cushman & Wakefield (a confirmar)", só porque um contrato de Fee cita C&W; rateio e base de área ficaram "a esclarecer" por falta de convenção; o pró-labore do síndico (DF Síndicos) entrou como baixo, só com os fatos.
 
 **Validação:** o usuário validou a rodada sem ajustes nem retiradas; versão final gerada sem marca de rascunho. **Pendente:** o envio à administradora é do usuário. `estado.json` e `achados.json` gravados em `Passeio Paulista/2027` no OneDrive (`pronto_para_envio`).
+
+### Quarta análise: condomínio O Parque Torre 07, PO 2027 — 2026-10-05
+
+> nova análise. condomínio O Parque Torre 07, PO 2027
+
+> está validado, pode emitir a versao final
+
+**Roteamento:** prédio novo, análise independente das anteriores. Material: `O Parque - Previsao orcamentaria 2027 - Rev04 FINAL.xlsx` (16 abas, uma oculta) e `Planilha Resumo - Orçamento - 2026-2027.xlsx`, ambos com fórmulas, anexados na conversa. Sem convenção nem regimento disponíveis; nome da administradora não identificado nos arquivos.
+
+**Resultado da rodada 1:** 19 apontamentos (4 críticos, 9 moderados, 6 baixos), materialidade sobre o total anual apresentado (R$ 7.660.362,28). Críticos: quatro inclusões (R$ 361 mil/ano, 4,7%) que não aparecem como aumento nas linhas, de modo que a decomposição do reajuste de 28,8% não fecha; base de área do CMQ (20.345,10 m² BOMA chamada de "privativa" × ABL de 17.242,40 m², CMQ R$ 31,38 × R$ 37,02); "Realizado 2026" com duas bases (R$ 25,68 com projeção de set–dez × R$ 22,94 do Resumo; variação +22,2% × +36,7%); R$ 152.727 realizados em 2026 (Taxas e despesas esporádicas) sem previsão em 2027.
+
+**Decisões minhas, a confirmar:** administradora registrada como "(a confirmar)"; base de área, rateio e fundo de reserva ficaram "a esclarecer" por falta de convenção; energia e água ("reembolsável") entraram como moderado por serem 12,5% do total.
+
+**Validação:** o usuário validou a rodada sem ajustes nem retiradas; versão final gerada sem marca de rascunho. **Pendente:** o envio à administradora é do usuário. `estado.json` e `achados.json` gravados em `O Parque Torre 07/2027` no OneDrive (`pronto_para_envio`).
