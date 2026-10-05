@@ -2,7 +2,7 @@
 
 Estado vivo do brainstorming — visão do hub. Ler no início de **toda** sessão, seja qual for o branch, e atualizar ao fim de qualquer rodada ou decisão.
 
-**Última atualização:** 2026-10-05 (Passeio Paulista)
+**Última atualização:** 2026-10-05
 
 ---
 
@@ -27,7 +27,7 @@ O conteúdo de um branch **não é puxado de volta** para `main` — evita mistu
 | `claude/project-brainstorming-t0jeoe` | Brainstorming vazio | Genesis original, nunca usado para um problema real | Superado por `main` — candidato a arquivar |
 | `claude/condominio-boletim-gestao-ougoqd` | **Código de produto** (Next.js/Prisma) | App de boletim/gestão condominial — "quadro de preenchimento na escala de 50 prédios" | Fora do padrão geral deste repositório (`CLAUDE.md` proíbe código de produto aqui), mas o usuário decidiu conscientemente **manter aqui** (2026-08-12) — não migra para repositório próprio |
 | `claude/safetydocs-automation-4rq592` | **Código de produto** + rotina | O mesmo app acima, mais `rotina-safetydocs/` (playbook da rotina agendada "Cobrança SafetyDocs") | Mesma decisão acima — fica aqui. A Routine `trig_01TdEoP9RFiL1uADLHitmSWF` lê `rotina-safetydocs/*.md` **deste branch** — cuidado ao mover ou apagar, quebra automação em produção |
-| ~~`claude/python-sql-database-planning-k95885`~~ | Vazio | Sem nenhum commit de conteúdo útil (CLAUDE.md e roadmap.md foram adicionados e depois excluídos) | **Descarte aprovado pelo usuário (2026-08-12).** `git push --delete` voltou 403 — a integração não tem permissão pra apagar branch. Falta a exclusão manual no GitHub |
+| ~~`claude/python-sql-database-planning-k95885`~~ | Vazio | Sem nenhum commit de conteúdo útil (CLAUDE.md e roadmap.md foram adicionados e depois excluídos) | **Descartado e excluído do GitHub pelo usuário (2026-10-05).** |
 | `claude/manual-formulario-aprovacoes-b7k2xr` | Brainstorming completo | P-001 — Manual de preenchimento do formulário de aprovações que o funcionário do usuário usa antes dele assinar contratos e quadros de concorrência (regras vêm dos procedimentos de compliance do cliente dele, a Brookfield Properties) | **Fechado.** Não virou repositório novo — os dois manuais (Markdown + PDF) foram publicados direto em [`caiogavioli/aprovacoes-contratos-concorrencia`](https://github.com/caiogavioli/aprovacoes-contratos-concorrencia)`/docs/` (privado), o repositório do sistema de aprovações que eles documentam |
 | `claude/clinic-popup-design-qmebur` | Brainstorming em andamento | P-001 — Pop-up para clínica de atendimento e vacinas (objetivo exato ainda não definido — apresentação inicial muito enxuta) | **Rodada 1 aberta** — perguntas feitas, aguardando respostas do usuário |
 | `claude/contract-approval-system-mo09qm` | Não usou o processo deste repositório | Pedido: importação mensal, sob demanda, dos dados do Monday no sistema de aprovações | **Não é um problema deste repositório.** O usuário pediu direto para implementar em [`caiogavioli/aprovacoes-contratos-concorrencia`](https://github.com/caiogavioli/aprovacoes-contratos-concorrencia) (fora daqui) — perguntado explicitamente se queria seguir o processo Marina/Rafael/Tomás ou ir direto ao repo do sistema; escolheu ir direto. Sem Rodada 1/2, sem `problemas/`/`sessoes/` neste branch. Entregue: `/admin/import` agora busca os dois boards ao vivo na API do Monday a cada clique (antes lia um snapshot estático), commit `18a8525` |
@@ -79,6 +79,4 @@ _Cada branch de brainstorming mantém sua própria tabela de problemas em detalh
 
 ## Em aberto
 
-- **Ação pendente do usuário:** trocar o branch default do repositório para `main` em Settings → Branches no GitHub — a integração não tem permissão para fazer isso via API.
-- **Ação pendente do usuário:** apagar o branch `claude/python-sql-database-planning-k95885` no GitHub (Settings → Branches, ou a lista de branches do repositório) — já aprovado, só falta a permissão que a integração não tem.
 - Repositórios novos devem nascer **públicos ou privados**? (Pergunta antiga, ainda não confirmada — o único fechamento até aqui, `triagem-contratante`, nasceu privado.)
