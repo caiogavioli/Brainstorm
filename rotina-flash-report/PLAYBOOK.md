@@ -27,12 +27,22 @@
    - `prioridades` (5 a 8, da mais urgente): `{sev: alta|media, condos: [slugs], num, numl, t, fatos: [até 3 frases de uma linha], act}`. `num` é o número ou data que resume o risco (ex.: "17/10") e `numl` o rótulo curto dele. `act` é uma ação de uma frase. Remova o resolvido, mantenha o aberto com números atualizados, acrescente o novo.
    - `temas` (5 a 7): `{t, num, numl, p (uma frase), condos, good?: true}`. Mantenha o tema de pontualidade até 12h com os números novos e um tema "Avanços" com `good: true`.
    - `datas`: `{iso: AAAA-MM-DD, d: texto da data, aprox?: true, c: slug, o: o que vence, s: situação em uma frase}`. Tire o vencido e resolvido; vencido sem confirmação fica e aparece como "venceu há N dias". A barra e a contagem regressiva são calculadas a partir de `iso`.
-   - `metodo`: mantenha o texto atual, atualizando só as datas.
+   - `metodo`: mantenha o texto atual, atualizando só as datas e os números (período coberto, semanas cobertas, limites).
    Nenhum texto do relatório (manchetes, prioridades, temas, resumos, pontos de atenção, pendências) fala de cobranças da BGRE sem resposta: descreva o fato e a ação que falta, sem dizer quem cobrou. Não escreva "fonte" nem de onde os dados vieram.
    Escreva só o que está nos dados, com valores e datas como nos relatórios. Sem travessão em apostos nem frases de efeito.
 8. **Gerar de novo com o texto.** Repita o passo 6 com `--exec /tmp/exec.json`. Confira: o arquivo tem uma linha `const DATA = ` com JSON válido, tem menos de 2 MB, e a semana nova aparece em `weeks`. Opcional: um screenshot com Playwright (`/opt/pw-browsers/chromium`) para ver se a página abre sem erro.
 9. **Publicar.** `Artifact` publish do `/tmp/novo.html` com `url` = a URL acima (sem `icon`). Não mude o título.
 10. **Responder (curto).** Semana processada, quantos condomínios reportaram, quantos sem report, as 3 maiores prioridades e o link. A Routine avisa o Caio por notificação.
+
+## Cobertura do ano e extração em lote
+O artefato cobre todo o ano de 2026, de 29/12/2025 em diante (40 semanas na rodada de 06/10/2026). Para ingerir semanas antigas (back-fill grande, ou um condomínio novo):
+- Divida o trabalho em lotes de até uns 12 e-mails por condomínio, um agente por lote, com o `prompt-extracao.md` e o recorte do lote. Cada lote grava `<slug>-<n>.json`. O `build.py` lê `<slug>.json` e todos os `<slug>-<n>.json` e junta as semanas.
+- `--desde AAAA-MM-DD` (uma segunda-feira) acrescenta semanas antes da primeira que o artefato já tem. Sem ele, o script só estende o fim. Relatórios cujo período começa antes da primeira semana são ignorados.
+- Item que ficou em duas extrações da mesma semana (reenvio): vale o de `recebido_em` mais recente.
+- Carregue só o que for novo ou corrigido: as semanas já no artefato são mantidas.
+
+## Leitura parcial
+Quando parte do anexo não pôde ser lida (arquivo `.pptx.zip` que o conector não abre, páginas em imagem, PDF original fora da caixa, PDF repetido), o agente escreve `limitacao` no item da semana. O `build.py` guarda como `lim`; o cartão mostra "Leitura parcial: ..." e o mapa marca a célula com ◔. Ausência de ocorrência numa seção ilegível nunca é afirmada. No tema "O Flash não conta tudo" e no `metodo`, diga quais condomínios têm leitura parcial.
 
 ## Dicas de busca por condomínio
 
@@ -64,6 +74,7 @@ Abaixo das abas há um bloco de condomínios em duas linhas, sem barra de rolage
 Por decisão do usuário (06/10/2026) o relatório **não mostra** a lista "Cobranças da BGRE sem resposta", e o `build.py` não guarda mais essas cobranças nos dados da página. Os agentes continuam lendo as respostas da BGRE para entender o contexto das semanas, mas isso não vira um item do relatório.
 
 ## Como o script encaixa os períodos
+- A faixa de semanas do artefato é `DATA.weeks` (segundas-feiras). Com 40 semanas o mapa de severidade vira compacto (só o glifo), a aba "Tudo" mostra só a visão geral e cada mês abre as suas semanas.
 - Report normal: vai para a semana (segunda a domingo) que contém o meio do período. Isso trata Alphaville (domingo a sábado) e O Parque - T07 (terça a segunda).
 - Consolidado de 13 dias ou mais: entra na última semana coberta; as anteriores aparecem no mapa como "consolidado".
 - "Sem report" significa que nada foi localizado no e-mail do Caio. A semana alvo da rotina vence na própria segunda, então os que ainda não chegaram ao meio-dia aparecem como "hoje" e viram "sem report" ou são preenchidos na rodada seguinte, pelo back-fill.

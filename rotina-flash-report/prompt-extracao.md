@@ -44,7 +44,8 @@ SAÍDA: grave JSON válido (UTF-8) em {{OUT}} com este esquema (use Write; sem t
       "pendencias_abertas": ["..."],
       "severidade_semana": "baixa|media|alta",
       "motivo_severidade": "1 frase",
-      "pontos_de_atencao_para_diretoria": ["no máximo 3 frases curtas"]
+      "pontos_de_atencao_para_diretoria": ["no máximo 3 frases curtas"],
+      "limitacao": "só se parte do anexo não pôde ser lida (anexo que não abre, páginas em imagem, PDF repetido ou ausente); uma frase. Nunca afirme que não houve ocorrência numa seção ilegível. Omita o campo quando leu tudo."
     }
   ],
   "followups_bgre": [{"data":"AAAA-MM-DD","de":"quem perguntou (BGRE)","pergunta":"...","resposta_condominio":"...|null","status":"respondido|sem resposta"}],
