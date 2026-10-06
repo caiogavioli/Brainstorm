@@ -84,3 +84,12 @@ Decisões:
 - **Itens 3.3 e 3.4 (compras e contratações):** o usuário preenche **pelo seu controle**, sem esperar o resultado do compliance da BGRE, que passa a servir só como conferência posterior. No mapa os dois itens saem de "Aguarda BGRE" para "Você confere". Os itens deixam de ser pedido às administradoras.
 - **Canal da evidência:** chega **por e-mail ou por WhatsApp**. O Claude só lê o e-mail da caixa conectada; o WhatsApp e os e-mails de outras pessoas da equipe ficam invisíveis ao mapa. Isso explica parte do "não localizado" e muda o desenho do pedido mensal (D1) e da pasta (D2): sem um canal único que o Claude consiga ler, o controle não enxerga o que foi entregue.
 - **Recomendação do time, aguardando confirmação do usuário:** o pedido mensal passa a pedir **e-mail ou pasta compartilhada**; WhatsApp serve como aviso de que o material foi enviado, não como evidência. A aba "Controle mensal" ganhou o campo "Canal" (e-mail, WhatsApp, pasta, link/drive, sistema) para medir quanto ainda chega por WhatsApp.
+
+## Execução: rascunhos do pedido de evidências do 3T26 (2026-10-06)
+
+O usuário aceitou a recomendação (e-mail ou pasta como evidência; WhatsApp só como aviso) e pediu os rascunhos. Foram criados **9 rascunhos no Outlook, um por condomínio** (nenhum enviado). Modelo genérico em `entregas/avaliacao-trimestral-bgre/pedido-evidencias-modelo.md`.
+
+- **Destinatários:** do mapeamento confirmado pelo usuário em 11/08/2026 para a rotina de cobrança SafetyDocs (`rotina-safetydocs/mapeamento-predios.md`, branch `claude/safetydocs-automation-4rq592`); gerente local em "Para", demais em cópia. Para o Panamerica, os blocos B3 e B6 seguem sem mapeamento.
+- **Prazo pedido às administradoras:** sexta-feira 16/10; prazo da BGRE: 31/10.
+- **Alphaville** sem o item 2.5 (sem Segurança do Trabalho no empreendimento).
+- Os rascunhos saem **sem assinatura**; o usuário acrescenta ao revisar.
