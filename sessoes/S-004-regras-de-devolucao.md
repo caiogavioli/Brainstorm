@@ -34,7 +34,8 @@
 | CP.8 — a quem se aplica | **Primeiro a vencedora.** Se a vencedora estiver em ordem, analisa as outras; se a vencedora estiver ok e as outras não, **ressalva** | "faça a analise para a vencedora. se ela de acordo, analise as outras. porém, se a vencedora estiver ok e as outras não, vamos de ressalva" |
 | CP.8 — proposta sem validade **e** sem data (suposição do Claude, não respondida pelo usuário) | Ressalva e aviso, porque os 6 meses não têm de onde contar. **A confirmar** | — |
 | CP.9 Metodologia e ferramental (serviço) | **Ressalva em todos os casos.** Não devolve. O usuário respondeu "1) ressalva para todos os casos do CP9" e as perguntas 2 a 4 (serviço simples, serviço técnico, metodologia diferente entre propostas) ficam cobertas por essa resposta | "1) ressalva para todos os casos do CP9" |
+| CP.10 Emissão de ART (serviço) | **Proposta do Claude aceita pelo usuário ("fica como está"):** (1) serviço que exige ART e a proposta não a prevê = **ressalva**, pede-se a ART antes da execução, não devolve; (2) ART prevista na proposta, ainda não emitida = "Sim"; (3) dúvida se exige ART = o Claude decide pelo tipo de serviço (obra, elétrica, estrutura, SPDA, instalação de equipamento de médio ou grande porte) e registra o motivo; (4) o valor da compra não muda a regra | "fica como está" |
 
 ## Ainda por perguntar
 
-CP.10 a CP.19, CP.20 a CP.22 (alçada), CP.24, CP.25 e CP.26.
+CP.11 a CP.19, CP.20 a CP.22 (alçada), CP.24, CP.25 e CP.26.
