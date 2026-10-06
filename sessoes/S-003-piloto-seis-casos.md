@@ -47,12 +47,12 @@ Os casos 2 a 6 já estavam aprovados: a análise foi retrospectiva ("o que teria
 
 ## Decisões do usuário (2026-10-06, depois do piloto)
 
-Respostas dele às perguntas em aberto: "1) simplifique 2) concordo 3) ok 4) sim, na pasta Operacional\\Claude\\Análise de QCs 5) esqueça o caso 1".
+Respostas dele às perguntas em aberto: "1) simplifique 2) concordo 3) ok 4) sim, na pasta Operacional\Claude\Análise de QCs 5) esqueça o caso 1".
 
 1. **Severidade:** simplificar. Regra adotada: item BGRE com "Não" ou divergência mapa × proposta = bloqueante; o resto = ressalva; sem régua por valor.
 2. **Nível por tipo e por valor:** concordou (commodity de preço unitário acima de R$ 30 mil vai para Padrão).
 3. **Mérito preliminar em Profunda mesmo com bloqueante:** ok.
-4. **Onde guardar:** OneDrive, pasta `Operacional\\Claude\\Análise de QCs`.
+4. **Onde guardar:** OneDrive, pasta `Operacional\Claude\Análise de QCs`.
 5. **Caso 1:** esquecer. Não subir ao OneDrive e não cobrar os arquivos que faltavam.
 
 Com a regra simples, os pareceres dos cinco casos restantes ficaram: água 68505 DEVOLVER; FAT 68562 DEVOLVER (exceção de fornecedor único sem lastro); fachada 67308 DEVOLVER (2 bloqueantes); hidráulica 68200 ASSINAR COM RESSALVAS; telhado 68819 DEVOLVER (2 bloqueantes). Todos já estavam Aprovados no iPMS, então a análise é retrospectiva.

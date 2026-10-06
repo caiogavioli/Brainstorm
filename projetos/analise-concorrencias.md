@@ -76,7 +76,7 @@ O usuário avisou (2026-10-06) que **parte dos itens do formulário não é pol�
 - **Histórico:** a exportação do sistema de aprovações é insumo para CP.26 e para detectar o mesmo escopo aprovado antes. Anexar a cada lote até o registro no OneDrive existir.
 - **Nível por valor e por tipo (aprovado pelo usuário):** commodity de preço unitário acima de R$ 30 mil vai para Padrão, não Profunda. Profunda = acima de R$ 30 mil de obra, equipamento ou RFP.
 - **Mérito em Profunda (aprovado):** o mérito preliminar fica mesmo quando há bloqueante.
-- **Onde ficam as análises:** OneDrive, pasta `Operacional\\Claude\\Análise de QCs`. Dados de condomínio e fornecedor nunca no GitHub.
+- **Onde ficam as análises:** OneDrive, pasta `Operacional\Claude\Análise de QCs`. Dados de condomínio e fornecedor nunca no GitHub.
 - **Limite do conector:** o `sharepoint_upload_file` recebe o PDF como texto base64, e a transcrição confiável pelo Claude fica em torno de 13 mil caracteres por chamada. Por isso o relatório sai dividido em `_relatorio` e `_anexos` (e em `_parte1`/`_parte2` nos casos Profunda). A skill deve gerar PDFs pequenos (ReportLab, fontes padrão) e, quando possível, gravar por uma ferramenta que aceite arquivo, não texto.
 - **Severidade:** sem régua por valor. Vale a regra simples (BGRE "Não" ou divergência mapa × proposta = bloqueante; o resto = ressalva). Decidido pelo usuário em 2026-10-06.
 - **Achados novos que o checklist não pergunta:** validade do mapa × propostas, faturamento direto por terceiro, escopo menor na vencedora, valor da vencedora mudando no histórico, CNPJ ausente.
