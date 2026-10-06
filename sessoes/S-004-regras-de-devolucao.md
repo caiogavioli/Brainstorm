@@ -32,7 +32,9 @@
 | CP.8 — proposta sem validade informada | **Ressalva.** O Compliance da BGRE confirmou por escrito que proposta sem validade pode ser considerada com **validade fictícia de 6 meses** a partir da data da proposta | "proposta sem validade: ressalva (temos uma confirmação do Compliance da BGRE por escrito que podemos considerar propostas sem validade com uma "validade ficticia" de 6 meses)" |
 | CP.8 — validade da proposta diferente da validade do mapa | **Analisar, tende a ressalva** (ex.: água, 04/10 na proposta × 24/10 no mapa) | "4) analisa, mas tende a ser ressalva" |
 | CP.8 — a quem se aplica | **Primeiro a vencedora.** Se a vencedora estiver em ordem, analisa as outras; se a vencedora estiver ok e as outras não, **ressalva** | "faça a analise para a vencedora. se ela de acordo, analise as outras. porém, se a vencedora estiver ok e as outras não, vamos de ressalva" |
+| CP.8 — proposta sem validade **e** sem data (suposição do Claude, não respondida pelo usuário) | Ressalva e aviso, porque os 6 meses não têm de onde contar. **A confirmar** | — |
+| CP.9 Metodologia e ferramental (serviço) | **Ressalva em todos os casos.** Não devolve. O usuário respondeu "1) ressalva para todos os casos do CP9" e as perguntas 2 a 4 (serviço simples, serviço técnico, metodologia diferente entre propostas) ficam cobertas por essa resposta | "1) ressalva para todos os casos do CP9" |
 
 ## Ainda por perguntar
 
-CP.9 a CP.19, CP.20 a CP.22 (alçada), CP.24, CP.25 e CP.26.
+CP.10 a CP.19, CP.20 a CP.22 (alçada), CP.24, CP.25 e CP.26.
