@@ -60,3 +60,16 @@ Padrão adotado, nas duas árvores (`Operacional\Claude\Avaliação de Administr
 - Só estrutura de pastas; nenhum arquivo do usuário foi movido ou copiado.
 - A pasta `Arquipeo` da árvore de Administradora é do usuário e não foi alterada, exceto pela criação de `2026\Q3` vazia. Ela ainda usa `1T25…4T25` em 2025.
 - Esta é a árvore **interna** (planilhas e controle). A pasta compartilhada com as administradoras (D2) é uma árvore separada, ainda não criada.
+
+## Execução: mapa de lacunas do 3T26 (2026-10-06)
+
+Autorizado pelo usuário ("pode começar"). Só leitura no Outlook e no OneDrive. O arquivo (`Mapa de lacunas 3T26 - Avaliação Administradora BGRE.xlsx`, 5 abas: Mapa 3T26, Resumo, Achados, Controle mensal, Regras da planilha BGRE) contém dados de condomínio e **não vai para o GitHub**. Foi entregue ao usuário na conversa; a gravação direta no OneDrive falhou porque o conector exige que o arquivo seja reproduzido dentro da chamada e a cópia de ~30 mil caracteres saiu truncada. O usuário salva o arquivo à mão na pasta.
+
+Conclusões de processo (sem dados de condomínio):
+
+- **A caixa de e-mail é o lugar errado para procurar a maior parte da evidência.** RGM, relatório de OS e indicadores de segurança do trabalho dos 9 condomínios não apareceram por e-mail no 3T26; os RGMs ficam como arquivos nas pastas dos condomínios no OneDrive, salvos pela equipe, ou em drives/sistemas da Brookfield. A caixa é dominada por relatórios de triagem e avisos do SafetyDocs. Por isso o mapa por condomínio × item tem poucos "em mãos" e muitos "a pedir"/"você confere": isso **não** quer dizer que falte evidência, quer dizer que ela não passa pelo e-mail.
+- **O que o e-mail dá com segurança:** o resumo semanal do SafetyDocs (documentos vencidos por condomínio, base dos itens 2.1 e 2.2.2, cuja regra zera a nota com 1 documento vencido), o calendário do compliance da BGRE e os e-mails de envio das avaliações.
+- **A análise de compliance da BGRE (3.3 e 3.4) chega depois do prazo do trimestre** (no 2T26 chegou entre 5 e 10 semanas após o fim). O item precisa de regra própria no controle.
+- **A pesquisa de satisfação 2026 da BGRE está em fase de cadastro**; o bloco 4 segue como N/A (100% na planilha).
+- **O envio da avaliação libera o faturamento da taxa de performance da administradora**, além do índice de SLA: o efeito financeiro é duplo.
+- **Consequência para a v1:** o controle precisa de uma aba mensal (condomínio × item × mês × status × quem forneceu), que o mapa já traz pronta, e a fonte de cada item tem de ser decidida item a item com o usuário (e-mail, pasta, link, sistema).
