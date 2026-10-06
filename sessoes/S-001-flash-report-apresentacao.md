@@ -29,6 +29,10 @@
 
 > apenas corrigindo uma informação. "Parque Corporate" é o condomínio "O Parque - T07". faça essa alteração
 
+> além disso, gostaria que existisse um filtro por condomínio, logo abaixo o filtro das datas. faça os botões do filtro de forma bonita
+
+> além disso, quero que você retire do relatório o item "Cobranças da BGRE sem resposta". não ficou legal expor isso ali
+
 ## O que foi feito nesta sessão
 
 - Branch criado: `claude/flash-report-analises-semanais` (a partir de `main`).
@@ -49,3 +53,5 @@
 - Filtro mensal (versão 4 do artefato): linha de meses no topo e, dentro de cada mês, a visão do mês (indicadores, mapa, destaques, gráficos, cobranças) e as semanas. Semana entra no mês em que cai a quinta-feira. Prioridades, temas e datas críticas ficam só na aba Tudo.
 - Atualização de 06/10 (17h40): o TNU mandou a semana de 28/09 a 04/10 às 15h43 (depois do prazo). O Panamérica Park não mandou: segue o consolidado de 10 a 23/08 como último report (6 semanas sem Flash, AVCB vence em 17/10). Por e-mail do PNP: bomba elétrica de incêndio travou em 27/08, Fórum Trabalhista cobra providência após queda em 14/09, válvula da Caixa 1 travada com pedido de R$ 8.520,00 (PP 3889/26) esperando aprovação do usuário. Artefato na versão 5; novo card "Aprovações esperando você" (Passeio Paulista e PNP).
 - Correção do usuário: o condomínio antes chamado "Parque Corporate" é **"O Parque - T07"**. Nome trocado no artefato (versão 6), no playbook e nas notas; o identificador interno `parque-corporate` ficou, porque os dados e a rotina dependem dele.
+- Filtro por condomínio (versão 7 do artefato): linha de botões abaixo das abas, com sigla, nome e ponto da pior severidade no recorte; seleção múltipla, combina com mês e semana. Com um condomínio só aparece a linha "Semana a semana" dele.
+- A seção "Cobranças da BGRE sem resposta" saiu do relatório a pedido do usuário, e as cobranças também deixaram de ser gravadas nos dados da página. Cartões de prioridade ainda citam pedidos da BGRE sem resposta no texto; perguntar se também devem ser reescritos.

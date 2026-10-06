@@ -58,7 +58,21 @@ svg text{font-family:var(--f-mono)}
 .mb .ct{font-size:11px;font-family:var(--f-mono);opacity:.85}
 .mb .al{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-family:var(--f-mono);padding:0 6px;border-radius:999px;background:var(--alta);color:#fff;line-height:1.5}
 .mb:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.tab:focus-visible,.cell:focus-visible,.sq:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.condos{display:flex;gap:7px;overflow-x:auto;padding:1px 0 11px;scrollbar-width:thin;align-items:center}
+.cl{flex:0 0 auto;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600;padding-right:2px}
+.cc2{flex:0 0 auto;display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:4px 11px 4px 4px;cursor:pointer;font-size:13px;font-weight:500;color:var(--ink);white-space:nowrap;transition:border-color .15s,background .15s,box-shadow .15s}
+.cc2 .av{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-family:var(--f-mono);font-size:11px;font-weight:600;background:var(--accent-soft);color:var(--accent);transition:background .15s,color .15s}
+.cc2 .sd{width:8px;height:8px;border-radius:50%;background:transparent;border:1.5px solid var(--none)}
+.cc2 .sd.alta{background:var(--alta);border-color:var(--alta)} .cc2 .sd.media{background:var(--media);border-color:var(--media)} .cc2 .sd.baixa{background:var(--baixa);border-color:var(--baixa)}
+.cc2:hover{border-color:var(--accent)}
+.cc2[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent);font-weight:600}
+.cc2[aria-pressed="true"] .av{background:var(--accent);color:var(--on-accent)}
+.cc2 .n{font-family:var(--f-mono);font-size:11px;color:var(--ink-3)}
+.cc2.all .av{background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line)}
+.cc2.all[aria-pressed="true"] .av{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+@media (max-width:700px){.top{position:static}}
+@media (prefers-reduced-motion:reduce){.cc2,.cc2 .av{transition:none}}
+.cc2:focus-visible,.tab:focus-visible,.cell:focus-visible,.sq:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
 .tab .dots{display:flex;gap:2px;margin-top:1px}
 .tab .dots i{width:6px;height:6px;border-radius:50%;display:block}
 
@@ -242,6 +256,7 @@ summary{cursor:pointer;font-size:12px;color:var(--accent);font-weight:500;paddin
   <div class="sub" id="sub"></div></div>
   <div class="months" role="tablist" id="months" aria-label="Filtrar por mês"></div>
   <div class="tabs" role="tablist" id="tabs" aria-label="Visão do período e semanas"></div>
+  <div class="condos" id="condos" role="group" aria-label="Filtrar por condomínio"></div>
 </div></div>
 <div class="wrap"><main id="view" aria-live="polite"></main></div>
 
@@ -295,7 +310,7 @@ const nEv=(e,k)=> k==="seguranca"? e.seguranca.length+e.n_medico : e[k].length;
 function weekStats(w){
   let rec=0,ontime=0,late=0,miss=0,pend=0,cons=0; const sev={alta:0,media:0,baixa:0};
   const ev={energia:0,elevadores:0,seguranca:0,chuvas:0,retidos:0,medico:0};
-  C.forEach(c=>{
+  CS.forEach(c=>{
     const s=state(c.slug,w);
     if(s.k==="ok"){rec++; s.e.no_prazo?ontime++:late++; sev[s.e.sev]++;
       CATS.forEach(x=>ev[x.k]+=nEv(s.e,x.k)); ev.retidos+=s.e.elevadores.filter(x=>x.ret).length; ev.medico+=s.e.n_medico;}
@@ -303,7 +318,14 @@ function weekStats(w){
   });
   return {rec,ontime,late,miss,pend,cons,sev,ev};
 }
-const STATS = Object.fromEntries(W.map(w=>[w,weekStats(w)]));
+let STATS = {};
+/* filtro por condomínio: SEL vazio = todos */
+const SEL = new Set(); let CS = C, CUR = "geral";
+const SIG = {"jkb":"JK","arquipeo":"AQ","centenario-plaza":"CP","17007-nacoes":"17","parque-corporate":"T7","alphaville-tower":"AT","tnu":"TN","passeio-paulista":"PP","panamerica-park":"PK"};
+const sigla = c => SIG[c.slug] || c.nome.replace(/[^A-Za-zÀ-ú0-9 ]/g,"").split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join("").toUpperCase();
+const short = c => c.nome.replace(/ \(.*\)/,"");
+function applyFilter(){ CS = SEL.size ? C.filter(c=>SEL.has(c.slug)) : C; STATS = Object.fromEntries(W.map(w=>[w,weekStats(w)])); }
+const inCS = slug => CS.some(c=>c.slug===slug);
 
 /* ---------- peças gráficas ---------- */
 const pill = (sev)=>`<span class="pill ${sev}"><span class="g" aria-hidden="true">${SEV[sev].g}</span>${SEV[sev].l}</span>`;
@@ -380,7 +402,7 @@ function heatmap(){
   let h=`<div class="scroller"><table class="heat"><thead><tr><th></th>`;
   VW.forEach(w=>h+=`<th>S${W.indexOf(w)+1}<br>${dm(w)}</th>`);
   h+=`</tr></thead><tbody>`;
-  C.forEach(c=>{
+  CS.forEach(c=>{
     h+=`<tr><th class="rowh" scope="row">${esc(c.nome)}<small>${esc(c.adm)}</small></th>`;
     VW.forEach(w=>{
       const s=state(c.slug,w);
@@ -395,18 +417,18 @@ function heatmap(){
   <div class="legend"><span><i class="sw" style="background:var(--alta)"></i>▲ Alta</span><span><i class="sw" style="background:var(--media)"></i>◆ Média</span><span><i class="sw" style="background:var(--baixa)"></i>● Baixa</span><span><i class="sw cons"></i>consolidado</span><span><i class="sw miss"></i>report não localizado</span><span><i class="sw pend"></i>a vencer</span><span>⏱ chegou depois das 12h da segunda</span></div>`;
 }
 function coverageBars(){
-  const rows=C.map(c=>{let ok=0,late=0,cons=0,miss=0,pend=0; VW.forEach(w=>{const s=state(c.slug,w); if(s.k==="ok"){s.e.no_prazo?ok++:late++;} else if(s.k==="cons")cons++; else if(s.k==="pend")pend++; else miss++;}); return {c,ok,late,cons,miss,pend};});
+  const rows=CS.map(c=>{let ok=0,late=0,cons=0,miss=0,pend=0; VW.forEach(w=>{const s=state(c.slug,w); if(s.k==="ok"){s.e.no_prazo?ok++:late++;} else if(s.k==="cons")cons++; else if(s.k==="pend")pend++; else miss++;}); return {c,ok,late,cons,miss,pend};});
   return `<div class="leg"><span><i style="background:var(--baixa)"></i>até 12h</span><span><i style="background:var(--media)"></i>depois das 12h</span><span><i style="background:var(--accent)"></i>consolidado</span><span><i style="background:repeating-linear-gradient(45deg,var(--none) 0 3px,transparent 3px 6px);border:1px solid var(--none)"></i>sem report</span><span><i style="border:1.5px dotted var(--ink-3)"></i>a vencer</span></div><div class="hbars cov">`+
   rows.map(r=>`<div class="hrow"><span class="nm" title="${esc(r.c.nome)}">${esc(r.c.nome)}</span><div class="trk">`+
     [["ok",r.ok,"até 12h"],["late",r.late,"depois das 12h"],["cons",r.cons,"consolidado"],["miss",r.miss,"sem report"],["pend",r.pend,"a vencer"]].map(x=>x[1]?`<i class="k-${x[0]}" style="flex:${x[1]}" title="${x[2]}: ${x[1]}"></i>`:"").join("")+
     `</div><span class="tt" title="até 12h / total de semanas">${r.ok}/${VW.length}</span></div>`).join("")+`</div>`;
 }
 function arrivalAll(){
-  const items=C.map(c=>({nome:c.nome.replace(/ \(.*\)/,""),pts:VW.map(w=>{const s=state(c.slug,w); return s.k==="ok"?{min:brtClock(s.e.rec),ok:s.e.no_prazo,tip:`${c.nome}, semana de ${dm(w)}: chegou ${brtTxt(s.e.rec)}`}:null;}).filter(Boolean)}));
+  const items=CS.map(c=>({nome:c.nome.replace(/ \(.*\)/,""),pts:VW.map(w=>{const s=state(c.slug,w); return s.k==="ok"?{min:brtClock(s.e.rec),ok:s.e.no_prazo,tip:`${c.nome}, semana de ${dm(w)}: chegou ${brtTxt(s.e.rec)}`}:null;}).filter(Boolean)}));
   return stripPlot(items);
 }
 function datasLista(){
-  const rows=(X.datas||[]).filter(d=>d.iso).sort((a,b)=>a.iso.localeCompare(b.iso));
+  const rows=(X.datas||[]).filter(d=>d.iso&&inCS(d.c)).sort((a,b)=>a.iso.localeCompare(b.iso));
   const span=100;
   return `<div class="dl">`+rows.map(d=>{
     const left=dayDiff(d.iso,TODAY), over=left<0;
@@ -417,7 +439,7 @@ function datasLista(){
   }).join("")+`</div><div class="legend" style="margin-top:6px"><span><i class="sw" style="background:var(--alta)"></i>até 14 dias ou vencido</span><span><i class="sw" style="background:var(--media)"></i>até 45 dias</span><span><i class="sw" style="background:var(--c1)"></i>mais de 45 dias</span><span>* data aproximada. A barra cresce conforme o prazo se aproxima (janela de 100 dias)</span></div>`;
 }
 function destaquesMes(ws){
-  const rows=[]; ws.forEach(w=>C.forEach(c=>{const s=state(c.slug,w); if(s.k==="ok"&&s.e.sev==="alta") rows.push({c,w,e:s.e});}));
+  const rows=[]; ws.forEach(w=>CS.forEach(c=>{const s=state(c.slug,w); if(s.k==="ok"&&s.e.sev==="alta") rows.push({c,w,e:s.e});}));
   if(!rows.length) return `<p class="why">Nenhuma semana em severidade alta neste mês.</p>`;
   return `<div class="prio">`+rows.map(r=>`<article class="pcard alta"><div class="pc-top"><div class="tags"><span class="tag">${esc(r.c.nome)}</span><span class="tag">semana de ${dm(r.w)}</span></div>${pill("alta")}</div><p class="head-line">${esc(r.e.motivo)}</p>${r.e.atencao.length?`<ul class="facts">${r.e.atencao.slice(0,2).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}<a href="#${wid(r.w)}" data-go="${wid(r.w)}" data-condo="${r.c.slug}" style="font-size:12.5px">Abrir a semana ${W.indexOf(r.w)+1}</a></article>`).join("")+`</div>`;
 }
@@ -429,8 +451,8 @@ function renderGeral(mk){
   const due=tot.rec+tot.cons+tot.miss;
   const series=k=>ws.map(w=>STATS[w].ev[k]);
   let h="";
-  h+=`<section><div class="sec-h"><h2>${full?"Em resumo":esc(mlabel(mk))}</h2><span class="note">${full?`Semanas de ${dm(W[0])} a ${dmy(endIso)} · fonte: Flash Reports e respostas no Outlook de Caio`:`${ws.length} ${ws.length>1?"semanas":"semana"}, de ${dm(first)} a ${dmy(endIso)}. A semana entra no mês em que cai a quinta-feira`}</span></div>`+
-  (full?`<div class="news">`+(X.manchetes||[]).map(m=>`<div class="new"><span class="bd ${m.c}">${ic(m.ic)}</span><span>${m.t}</span></div>`).join("")+`</div>`:"")+`
+  h+=`<section><div class="sec-h"><h2>${full?"Em resumo":esc(mlabel(mk))}</h2><span class="note">${SEL.size?`Filtro: ${esc(CS.map(short).join(", "))} · `:""}${full?`Semanas de ${dm(W[0])} a ${dmy(endIso)} · fonte: Flash Reports e respostas no Outlook de Caio`:`${ws.length} ${ws.length>1?"semanas":"semana"}, de ${dm(first)} a ${dmy(endIso)}. A semana entra no mês em que cai a quinta-feira`}</span></div>`+
+  (full&&!SEL.size?`<div class="news">`+(X.manchetes||[]).map(m=>`<div class="new"><span class="bd ${m.c}">${ic(m.ic)}</span><span>${m.t}</span></div>`).join("")+`</div>`:"")+`
   <div class="kpis">
    <div class="kpi">${ring(tot.rec+tot.cons,due,"var(--accent)",`Cobertura: ${tot.rec+tot.cons} de ${due} semanas`)}<div class="tx"><div class="l">Semanas cobertas</div><div class="v">${tot.rec+tot.cons}<small> de ${due}</small></div><div class="d">${tot.miss} sem report${tot.pend?` · ${tot.pend} a vencer`:""}</div></div></div>
    <div class="kpi">${ring(tot.ontime,tot.rec,"var(--baixa)",`Pontualidade: ${tot.ontime} de ${tot.rec} até 12h`)}<div class="tx"><div class="l">Chegaram até 12h</div><div class="v">${tot.ontime}<small> de ${tot.rec}</small></div><div class="d">${tot.late} depois das 12h</div></div></div>
@@ -440,9 +462,13 @@ function renderGeral(mk){
 
   h+=`<section><div class="sec-h"><h2>Mapa de severidade</h2><span class="note">Toque numa célula para abrir a semana</span></div>${heatmap()}</section>`;
 
+  if(CS.length===1){
+  h+=`<section><div class="sec-h"><h2>Semana a semana · ${esc(short(CS[0]))}</h2><span class="note">Da mais recente para a mais antiga</span></div><div class="grid-cards">${ws.slice().reverse().map(w=>card(CS[0],w,true)).join("")}</div></section>`;
+  }
+
   if(full){
   h+=`<section><div class="sec-h"><h2>O que pede ação da diretoria</h2><span class="note">Da mais urgente para a menos</span></div><div class="prio">`+
-  (X.prioridades||[]).map(p=>`<article class="pcard ${p.sev}"><div class="pc-top"><div class="tags">${p.condos.map(s=>`<span class="tag">${esc(byId[s]?byId[s].nome:s)}</span>`).join("")}</div>${pill(p.sev)}</div>
+  (X.prioridades||[]).filter(p=>p.condos.some(inCS)).map(p=>`<article class="pcard ${p.sev}"><div class="pc-top"><div class="tags">${p.condos.map(s=>`<span class="tag">${esc(byId[s]?byId[s].nome:s)}</span>`).join("")}</div>${pill(p.sev)}</div>
     <div class="pc-main"><div class="bignum"><b>${esc(p.num)}</b><span>${esc(p.numl)}</span></div><h3>${p.t}</h3></div>
     <ul class="facts">${p.fatos.map(f=>`<li>${f}</li>`).join("")}</ul>
     <div class="act">${ic("arrow")}<span>${p.act}</span></div></article>`).join("")+`</div></section>`;
@@ -456,25 +482,17 @@ function renderGeral(mk){
    barChart("Segurança",series("seguranca"),"shield","c3","alarmes, atendimentos, polícia")+
    barChart("Chuva e infiltração",series("chuvas"),"drop","c4",full?"recorrente desde setembro":"")+`</div></section>`;
 
-  h+=`<section><div class="two"><div class="panel"><div class="sec-h" style="margin-bottom:8px"><h2 style="font-size:16px">Onde se concentram as ocorrências</h2></div>${legendCats()}${stackedByCondo(C.map(c=>({nome:c.nome.replace(/ \(.*\)/,""),vals:Object.fromEntries(CATS.map(x=>[x.k,ws.reduce((a,w)=>{const s=state(c.slug,w);return a+(s.k==="ok"?nEv(s.e,x.k):0);},0)]))})).sort((a,b)=>CATS.reduce((s,x)=>s+b.vals[x.k],0)-CATS.reduce((s,x)=>s+a.vals[x.k],0)))}</div>
+  h+=`<section><div class="two"><div class="panel"><div class="sec-h" style="margin-bottom:8px"><h2 style="font-size:16px">Onde se concentram as ocorrências</h2></div>${legendCats()}${stackedByCondo(CS.map(c=>({nome:c.nome.replace(/ \(.*\)/,""),vals:Object.fromEntries(CATS.map(x=>[x.k,ws.reduce((a,w)=>{const s=state(c.slug,w);return a+(s.k==="ok"?nEv(s.e,x.k):0);},0)]))})).sort((a,b)=>CATS.reduce((s,x)=>s+b.vals[x.k],0)-CATS.reduce((s,x)=>s+a.vals[x.k],0)))}</div>
    <div class="panel"><div class="sec-h" style="margin-bottom:8px"><h2 style="font-size:16px">Cobertura de reports por condomínio</h2></div>${coverageBars()}</div></div></section>`;
 
   h+=`<section><div class="sec-h"><h2>A que horas os reports chegam</h2><span class="note">O prazo da BGRE é 12h de segunda-feira</span></div><div class="panel">${arrivalAll()}</div></section>`;
 
   if(full){
   h+=`<section><div class="sec-h"><h2>Temas que se repetem</h2></div><div class="temas">`+
-   (X.temas||[]).map(t=>`<article class="tema${t.good?" good":""}"><div class="hd"><span class="n">${esc(t.num)}</span><span class="nl">${esc(t.numl)}</span></div><h3>${t.t}</h3><p>${t.p}</p><div class="tags">${t.condos.map(s=>`<span class="tag">${esc(byId[s]?byId[s].nome.replace(/ \(.*\)/,""):s)}</span>`).join("")}</div></article>`).join("")+`</div></section>`;
+   (X.temas||[]).filter(t=>t.condos.some(inCS)).map(t=>`<article class="tema${t.good?" good":""}"><div class="hd"><span class="n">${esc(t.num)}</span><span class="nl">${esc(t.numl)}</span></div><h3>${t.t}</h3><p>${t.p}</p><div class="tags">${t.condos.map(s=>`<span class="tag">${esc(byId[s]?byId[s].nome.replace(/ \(.*\)/,""):s)}</span>`).join("")}</div></article>`).join("")+`</div></section>`;
 
   h+=`<section><div class="sec-h"><h2>Datas críticas</h2><span class="note">Contagem a partir de ${dmy(TODAY)}</span></div><div class="panel">${datasLista()}</div></section>`;
   }
-
-  const open=[];
-  C.forEach(c=>(DATA.followups[c.slug]||[]).filter(f=>f.status==="sem resposta"&&(full||(f.data>=first&&f.data<=endIso))).forEach(f=>open.push({...f,c})));
-  open.sort((a,b)=>a.data.localeCompare(b.data));
-  h+=`<section><div class="sec-h"><h2>Cobranças da BGRE sem resposta${full?"":" neste mês"}</h2><span class="note">${open.length} ${open.length===1?"item":"itens"}, os mais antigos primeiro. Pode ter sido resolvido por reunião, telefone ou Salesforce</span></div><div class="panel"><div class="cb">`+
-   (()=>{const row=f=>{const d=dayDiff(TODAY,f.data); const t=f.pergunta.length>130?f.pergunta.slice(0,130).replace(/\s\S*$/,"")+"…":f.pergunta;
-     return `<div class="cbr"><div class="age${d>30?" old":""}"><b>${d}</b>dias</div><div><div class="meta"><b>${esc(f.c.nome)}</b> · ${esc(f.de)} · ${dm(f.data)}</div>${esc(t)}</div></div>`;};
-     return (open.length?open.slice(0,6).map(row).join(""):`<p class="why">Nenhuma cobrança em aberto neste mês.</p>`)+(open.length>6?`<details style="border-top:0"><summary>Ver as outras ${open.length-6} cobranças</summary>${open.slice(6).map(row).join("")}</details>`:"");})()+`</div></div></section>`;
 
   h+=`<div class="foot"><details><summary>Como isto foi feito e limites</summary>${X.metodo}</details></div>`;
   return h;
@@ -490,14 +508,14 @@ function weekStrip(e,ini){
     return `<div class="wd"><span class="dn">${WD[dd.getUTCDay()]}<br>${d.slice(8,10)}</span><div class="ev">`+CATS.filter(x=>by[i][x.k]).map(x=>`<span class="dot ${x.c}" title="${x.l}: ${by[i][x.k]} em ${dm(d)}">${by[i][x.k]>1?by[i][x.k]:ic(x.ic)}</span>`).join("")+`</div></div>`;
   }).join("")+`</div>`;
 }
-function card(c,w){
+function card(c,w,showWeek){
   const s=state(c.slug,w);
   if(s.k!=="ok"){
     let pl,msg;
     if(s.k==="cons"){pl=`<span class="pill none">Consolidado</span>`;msg=`Sem report próprio. O conteúdo está no consolidado da semana de ${dm(s.to)}. <a href="#${wid(s.to)}" data-go="${wid(s.to)}">Abrir semana ${W.indexOf(s.to)+1}</a>.`;}
     else if(s.k==="pend"){pl=`<span class="pill none">A vencer</span>`;msg="O prazo é a próxima segunda, 12h. Ainda não chegou ao e-mail."}
     else {pl=`<span class="pill none">Sem report</span>`;msg="Nenhum Flash Report desta semana foi localizado no e-mail."}
-    return `<article class="card sev-none" id="c-${c.slug}"><div class="cc-head"><div><h3>${esc(c.nome)}</h3><div class="adm">${esc(c.adm)}</div></div>${pl}</div><p class="why">${msg}</p></article>`;
+    return `<article class="card sev-none" id="c-${c.slug}"><div class="cc-head"><div><h3>${esc(c.nome)}</h3><div class="adm">${showWeek?`Semana ${W.indexOf(w)+1} · `:""}${esc(c.adm)}</div></div>${pl}</div><p class="why">${msg}</p></article>`;
   }
   const e=s.e;
   const chips=CATS.filter(x=>nEv(e,x.k)).map(x=>`<span class="chip ${x.c}" title="${x.l}">${ic(x.ic)}<b>${nEv(e,x.k)}</b></span>`).join("");
@@ -509,7 +527,7 @@ function card(c,w){
     list("energia","Energia")+list("elevadores","Elevadores")+list("seguranca","Segurança")+(e.n_medico?`<div class="why">+ ${e.n_medico} atendimento${e.n_medico>1?"s":""} médico${e.n_medico>1?"s":""} a pessoas no condomínio.</div>`:"")+list("chuvas","Chuva e infiltração")+
     (e.pend.length?`<h4>Pendências em aberto</h4><ul>${e.pend.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:"")+`</div>`;
   return `<article class="card sev-${e.sev}" id="c-${c.slug}">
-   <div class="cc-head"><div><h3>${esc(c.nome)}</h3><div class="adm">${esc(c.adm)} · PDF de ${dm(e.ini)} a ${dm(e.fim)}</div></div>${pill(e.sev)}</div>
+   <div class="cc-head"><div><h3>${esc(c.nome)}</h3><div class="adm">${showWeek?`Semana ${W.indexOf(w)+1} · `:""}${esc(c.adm)} · PDF de ${dm(e.ini)} a ${dm(e.fim)}</div></div>${pill(e.sev)}</div>
    <p class="head-line">${esc(headline)}</p>
    ${weekStrip(e,e.ini)}
    <div class="chips">${chips||'<span class="why">Sem ocorrências de energia, elevador, segurança ou chuva.</span>'}<span style="margin-left:auto">${arr}</span></div>
@@ -519,17 +537,17 @@ function card(c,w){
 function renderWeek(w){
   const i=W.indexOf(w), st=STATS[w], prev=i>0?STATS[W[i-1]]:null;
   const delta=(a,b)=>prev==null?"":(a-b===0?"igual à anterior":(a>b?"+":"")+(a-b)+" vs. anterior");
-  let h=`<div class="wk-head"><span class="eyebrow">Semana ${i+1} de ${W.length} · ${esc(mlabel(monthOf(w)))}</span><h2>${dm(w)} a ${dmy(addDays(w,6))}</h2><p class="why">Reports devidos até 12h de ${dm(addDays(w,7))}. ${st.rec} de ${C.length} condomínios com report próprio${st.cons?`, ${st.cons} em consolidado`:""}${st.miss?`, ${st.miss} sem report`:""}${st.pend?`, ${st.pend} a vencer`:""}.</p></div>`;
+  let h=`<div class="wk-head"><span class="eyebrow">Semana ${i+1} de ${W.length} · ${esc(mlabel(monthOf(w)))}</span><h2>${dm(w)} a ${dmy(addDays(w,6))}</h2><p class="why">Reports devidos até 12h de ${dm(addDays(w,7))}. ${st.rec} de ${CS.length} condomínios com report próprio${st.cons?`, ${st.cons} em consolidado`:""}${st.miss?`, ${st.miss} sem report`:""}${st.pend?`, ${st.pend} a vencer`:""}.</p></div>`;
   h+=`<div class="kpis">
    <div class="kpi"><span class="ic" style="background:var(--alta)">${ic("alert")}</span><div class="tx"><div class="l">Severidade alta</div><div class="v">${st.sev.alta}<small> de ${st.rec}</small></div>${sevbar(st.sev,st.rec)}</div></div>
    <div class="kpi">${ring(st.ontime,st.rec,"var(--baixa)",`${st.ontime} de ${st.rec} até 12h`)}<div class="tx"><div class="l">Chegaram até 12h</div><div class="v">${st.ontime}<small> de ${st.rec}</small></div></div></div>`+
    CATS.map(x=>`<div class="kpi"><span class="ic" style="background:var(--${x.c});${x.c==="c4"?"color:#2b1d00":""}">${ic(x.ic)}</span><div class="tx"><div class="l">${x.l}</div><div class="v">${st.ev[x.k]}</div><div class="d">${(x.k==="elevadores"&&st.ev.retidos?st.ev.retidos+" com passageiro retido · ":"")+delta(st.ev[x.k],prev?prev.ev[x.k]:0)}</div></div></div>`).join("")+`</div>`;
-  const rows=C.map(c=>({c,s:state(c.slug,w)})).filter(x=>x.s.k==="ok").sort((a,b)=>ORDER[a.s.e.sev]-ORDER[b.s.e.sev]);
-  const order=[...rows.map(x=>x.c), ...C.filter(c=>state(c.slug,w).k!=="ok")];
+  const rows=CS.map(c=>({c,s:state(c.slug,w)})).filter(x=>x.s.k==="ok").sort((a,b)=>ORDER[a.s.e.sev]-ORDER[b.s.e.sev]);
+  const order=[...rows.map(x=>x.c), ...CS.filter(c=>state(c.slug,w).k!=="ok")];
   h+=`<section><div class="sec-h"><h2>Mapa da semana</h2><span class="note">Toque num condomínio para ir ao cartão</span></div><div class="sqrow">`+
-   C.map(c=>{const s=state(c.slug,w); return s.k==="ok"?`<button class="sq ${s.e.sev}" data-card="${c.slug}"><span class="g" aria-hidden="true">${SEV[s.e.sev].g}</span>${esc(c.nome.replace(/ \(.*\)/,""))}</button>`:`<span class="sq none">${esc(c.nome.replace(/ \(.*\)/,""))} · ${s.k==="cons"?"consolidado":s.k==="pend"?"a vencer":"sem report"}</span>`;}).join("")+`</div></section>`;
+   CS.map(c=>{const s=state(c.slug,w); return s.k==="ok"?`<button class="sq ${s.e.sev}" data-card="${c.slug}"><span class="g" aria-hidden="true">${SEV[s.e.sev].g}</span>${esc(c.nome.replace(/ \(.*\)/,""))}</button>`:`<span class="sq none">${esc(c.nome.replace(/ \(.*\)/,""))} · ${s.k==="cons"?"consolidado":s.k==="pend"?"a vencer":"sem report"}</span>`;}).join("")+`</div></section>`;
   const vals=rows.map(x=>({nome:x.c.nome.replace(/ \(.*\)/,""),vals:Object.fromEntries(CATS.map(k=>[k.k,nEv(x.s.e,k.k)]))})).sort((a,b)=>CATS.reduce((s,x)=>s+b.vals[x.k],0)-CATS.reduce((s,x)=>s+a.vals[x.k],0));
-  const items=C.map(c=>{const s=state(c.slug,w); return {nome:c.nome.replace(/ \(.*\)/,""),pts:s.k==="ok"?[{min:brtClock(s.e.rec),ok:s.e.no_prazo,tip:`${c.nome}: chegou ${brtTxt(s.e.rec)}`}]:[],txt:s.k==="cons"?"consolidado":s.k==="pend"?"a vencer":"sem report"};});
+  const items=CS.map(c=>{const s=state(c.slug,w); return {nome:c.nome.replace(/ \(.*\)/,""),pts:s.k==="ok"?[{min:brtClock(s.e.rec),ok:s.e.no_prazo,tip:`${c.nome}: chegou ${brtTxt(s.e.rec)}`}]:[],txt:s.k==="cons"?"consolidado":s.k==="pend"?"a vencer":"sem report"};});
   h+=`<section><div class="two"><div class="panel"><div class="sec-h" style="margin-bottom:8px"><h2 style="font-size:16px">Ocorrências por condomínio</h2></div>${legendCats()}${vals.some(v=>CATS.some(x=>v.vals[x.k]))?stackedByCondo(vals):'<p class="why">Nenhuma ocorrência registrada.</p>'}</div>
    <div class="panel"><div class="sec-h" style="margin-bottom:8px"><h2 style="font-size:16px">Chegada dos reports</h2></div>${stripPlot(items)}</div></div></section>`;
   h+=`<section><div class="sec-h"><h2>Condomínios</h2><span class="note">Da maior para a menor severidade. A linha do tempo mostra em que dia cada ocorrência aconteceu</span></div><div class="legend">${CATS.map(x=>`<span><span class="dot ${x.c}">${ic(x.ic)}</span>${x.l}</span>`).join("")}</div><div class="grid-cards">${order.map(c=>card(c,w)).join("")}</div></section>`;
@@ -537,18 +555,33 @@ function renderWeek(w){
   return h;
 }
 
+/* ---------- filtro por condomínio ---------- */
+function renderCondos(cur){
+  const ws = cur==="geral"?W : cur[0]==="m"?weeksOf(cur.slice(1)) : [W.find(w=>wid(w)===cur)];
+  const worst = c => { let b=null; ws.forEach(w=>{const s=state(c.slug,w); if(s.k==="ok" && (b===null || ORDER[s.e.sev]<ORDER[b])) b=s.e.sev;}); return b; };
+  let h=`<span class="cl">Condomínio</span><button class="cc2 all" data-sel="all" aria-pressed="${SEL.size===0}"><span class="av">${C.length}</span><span>Todos</span></button>`;
+  C.forEach(c=>{ const w=worst(c); h+=`<button class="cc2" data-sel="${c.slug}" aria-pressed="${SEL.has(c.slug)}" title="${esc(c.nome)}${w?` · pior severidade no recorte: ${SEV[w].l}`:" · sem report no recorte"}"><span class="av">${esc(sigla(c))}</span><span>${esc(short(c))}</span><span class="sd ${w||""}" aria-hidden="true"></span></button>`; });
+  document.getElementById("condos").innerHTML=h;
+}
+document.getElementById("condos").addEventListener("click",e=>{
+  const b=e.target.closest("[data-sel]"); if(!b) return;
+  const k=b.dataset.sel; if(k==="all") SEL.clear(); else if(SEL.has(k)) SEL.delete(k); else SEL.add(k);
+  go(CUR,null,true);
+});
+
 /* ---------- rotas ---------- */
-function go(id,condo){
+function go(id,condo,keep){
   if(id!=="geral" && !(id[0]==="m" && MONTHS.includes(id.slice(1))) && !W.some(w=>wid(w)===id)) id="geral";
+  CUR=id; applyFilter();
   try{ history.replaceState(null,"","#"+id);}catch(_){ try{location.hash=id}catch(__){} }
   const v=document.getElementById("view");
   if(id==="geral") v.innerHTML=renderGeral(null);
   else if(id[0]==="m") v.innerHTML=renderGeral(id.slice(1));
   else { const wk=W.find(w=>wid(w)===id); VW=weeksOf(monthOf(wk)); v.innerHTML=renderWeek(wk); }
-  renderTabs(id);
+  renderTabs(id); renderCondos(id);
   document.querySelectorAll('.tab[aria-selected="true"],.mb[aria-selected="true"]').forEach(t=>{ if(t.scrollIntoView) t.scrollIntoView({inline:"center",block:"nearest"}); });
   if(condo){const el=document.getElementById("c-"+condo); if(el){el.scrollIntoView({block:"center"}); el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"),1600);} }
-  else window.scrollTo(0,0);
+  else if(!keep) window.scrollTo(0,0);
 }
 document.getElementById("view").addEventListener("click",e=>{
   const c=e.target.closest(".cell[data-week]"); if(c){go(c.dataset.week,c.dataset.condo);return;}

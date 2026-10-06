@@ -94,6 +94,7 @@ def main():
         if not a.out: raise SystemExit('falta --out')
         a.extracted = a.week = None
     elif not (a.extracted and a.week and a.out): raise SystemExit('faltam --extracted, --week e --out')
+    data['followups'] = {}   # as cobranças da BGRE não aparecem mais no relatório nem ficam nos dados da página
     W = data['weeks']; first = W[0]
     target = a.week or W[-1]
     if D(target).weekday() != 0: raise SystemExit('--week precisa ser uma segunda-feira')
@@ -101,10 +102,10 @@ def main():
     while W[-1] < target:
         W.append((D(W[-1]) + dt.timedelta(days=7)).isoformat())
     for c in data['condos']:
-        data['entries'].setdefault(c['slug'], {}); data['followups'].setdefault(c['slug'], []); data['cobertos'].setdefault(c['slug'], {})
+        data['entries'].setdefault(c['slug'], {}); data['cobertos'].setdefault(c['slug'], {})
     for c in ([] if a.so_regras else data['condos']):
         slug = c['slug']; p = os.path.join(a.extracted, slug + '.json')
-        data['entries'].setdefault(slug, {}); data['followups'].setdefault(slug, []); data['cobertos'].setdefault(slug, {})
+        data['entries'].setdefault(slug, {}); data['cobertos'].setdefault(slug, {})
         if not os.path.exists(p):
             print('AVISO: sem arquivo de extração para', slug); continue
         src = json.load(open(p, encoding='utf-8'))
@@ -117,15 +118,6 @@ def main():
                 if w >= first and w not in data['entries'][slug]: data['cobertos'][slug][w] = wk
             for w in list(data['cobertos'][slug]):          # semana ganhou report próprio
                 if w in data['entries'][slug]: del data['cobertos'][slug][w]
-        seen = {(f['data'], f['pergunta'][:60]) for f in data['followups'][slug]}
-        for f in src.get('followups_bgre', []):
-            if f['data'] < first: continue
-            item = dict(data=f['data'], de=re.sub(r'\s*\(.*?\)', '', f['de']).strip(), pergunta=cut(f['pergunta']), status=f['status'])
-            if (item['data'], item['pergunta'][:60]) not in seen:
-                data['followups'][slug].append(item); seen.add((item['data'], item['pergunta'][:60]))
-            else:  # atualiza status (ex.: passou a ter resposta)
-                for old in data['followups'][slug]:
-                    if (old['data'], old['pergunta'][:60]) == (item['data'], item['pergunta'][:60]): old['status'] = item['status']
     recalc_prazo(data)
     if a.exec: data['exec'] = json.load(open(a.exec, encoding='utf-8'))
     hoje = a.today or dt.date.today().strftime('%d/%m/%Y')
