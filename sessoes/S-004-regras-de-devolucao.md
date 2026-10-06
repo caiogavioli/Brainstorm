@@ -20,7 +20,9 @@
 | CP.3 — falta endereço ou telefone | **Relativo, não devolve por si.** Site, Instagram ou LinkedIn da empresa já ajudam, e com o CNPJ dá para conferir o endereço na internet | "é relativo. se tiver site, instagram, linkedin da empresa, já é algo bom. e com o CNPJ é possível verificar o endereço na internet" |
 | CP.3 — proposta sem timbre | **Vale** se os dados do fornecedor constarem na proposta | "com os dados do fornecedor vale" |
 | CP.3 — a quem se aplica | Vale para todos os fornecedores, com **prioridade para a vencedora** | "o ideal é valer para todos os fornecedores, mas, vamos dar prioridade para a vencedora" |
+| CP.4 Produto ou Serviço — classificação errada no mapa | **Refaz o checklist pela classificação correta, aponta a divergência como ressalva e não devolve** | "Refaz pelo correto, ressalva e não devolve." |
+| CP.4 — regra de classificação | **Produto = Produto. Serviço + Produto = Serviço. Serviço = Serviço.** Ou seja, qualquer serviço no pacote classifica como Serviço | "Produto = Produto. Serviço+Produto = Serviço. Serviço = Serviço." |
 
 ## Ainda por perguntar
 
-CP.4 a CP.19, CP.20 a CP.22 (alçada), CP.24, CP.25 e CP.26.
+CP.5 a CP.19, CP.20 a CP.22 (alçada), CP.24, CP.25 e CP.26.
