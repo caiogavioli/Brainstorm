@@ -23,4 +23,4 @@
 
 ## Ainda por perguntar
 
-CP.4, CP.4 a CP.19, CP.20 a CP.22 (alçada), CP.24, CP.25 e CP.26.
+CP.4 a CP.19, CP.20 a CP.22 (alçada), CP.24, CP.25 e CP.26.
