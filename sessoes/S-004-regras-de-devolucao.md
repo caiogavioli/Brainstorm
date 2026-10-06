@@ -13,7 +13,10 @@
 | Item | Regra | Palavras do usuário |
 |---|---|---|
 | CP.1 Mínimo de propostas | **Sem justificativa no mapa: devolve sempre. Com justificativa: analisar se convence antes de decidir.** | "Devolve sempre sem justificativa; com justificativa, analise se convence" |
+| CP.2 Preenchimento do QC — campo obrigatório vazio | **Analisar:** verificar se o campo é crítico, isto é, se faz falta para decidir aprovar o mapa. Só devolve se for crítico; senão, ressalva | "Campo vazio precisa de analise, verificar se é algo critico (faz falta para a decisão de aprovar o mapa)" |
+| CP.2 — justificativa ausente ou genérica | **Analisar antes** de decidir | "justificativa genérica, analise antes" |
+| CP.2 — mapa sem itens (só valor global) | **Analisar se dá para equalizar pelas propostas.** Se dá, o relatório faz a equalização; se não dá, devolve | "mapa sem itens: analisa se dá para equalizar pelas propostas" |
 
 ## Ainda por perguntar
 
-CP.2, CP.3, CP.4 a CP.19, CP.20 a CP.22 (alçada), CP.24, CP.25 e CP.26.
+CP.3, CP.4 a CP.19, CP.20 a CP.22 (alçada), CP.24, CP.25 e CP.26.
