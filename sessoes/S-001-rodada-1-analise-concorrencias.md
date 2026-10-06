@@ -41,6 +41,26 @@ Anexos: quatro prompts (ver `material/prompts-anteriores/`).
 - **Rafael** desconfia de que "relatório completo e exaustivo" para todo caso é tempo jogado fora: o recorte provavelmente é um relatório curto por padrão e o pesado só sob demanda.
 - **Tomás** acha que, se o problema é o usuário mandar arquivos numa conversa e receber relatório, a solução mais burra que funciona é **um prompt/skill bem escrito mais um modelo de relatório**, sem peça nova nenhuma — e quer ser convencido do contrário.
 
-## Respostas do usuário
+## Respostas do usuário (2026-10-06, palavras dele)
 
-_Aguardando._
+> Antes de responder suas perguntas, acho importante falar que existem regras do meu cliente que devo atender. Vou te mandar um resumo do formulário que preencho a cada concorrencia que preciso aprovar. Nesse formulário tem várias análises que preciso fazer nas concorrencias, e se não estão de acordo, devolvo para a administradora refazer/corrigir. Não se limite a analisar apenas os itens do formulário... faça uma análise completa.
+>
+> 1)chega em xlsx, em pdf, propostas nativas e escaneadas, via e-mail, etc. são normalmente 4 arquivos, mas podem ser mais.
+> 2. se mapa e proposta divergem, preciso devolver o processo para a adminsitradora (recusa de assinatura, explicando o motivo).
+> 3. compara com a anterior.
+> 4)o relatório é para minha análise, então pode ficar em artefatos (acho que é a melhor ideia, mas, vc pode me sugerir algo).
+> 5) tudo... a IA apenas apontava os problemas.
+> 6) são cerca de 40 por semana. acho que levo em média 10 minutos por cada uma. Mas, tem concorrencias mais criticas que levam mais tempo (obras grandes, compras de equipamentos, RFPs para serviços, etc).
+> 7) eu leio, e decido se vou aprovar ou não a concorrencia.
+> 8) Mais comum: compra de materiais de consumo diário e para manutenção (material de escritorio, material de limpeza, suprimentos para banheiros, materiais de elétrica, hidrulica, civil, etc.). A maior parte das compras ficam abaixo de 5k (vou te mandar um resumo das aprovações de agosto e setembro). Sim, existem obras, equipamentos e RFPs que passam de milhão... essas precisam de uma análise extremamente detalhada.
+> 9) Isso, a análise vem antes, e alimenta aquele check list. Por enquanto quero deixar esses projetos separados, para evitar problemas com o projeto de aprovações que já está funcionando. mas pretendo integrá-los se este projeto aqui funcionar bem.
+> 10) sim, a principio aprovamos o melhor valor, porém depois de algumas análises posso mudar de ideia e aprovar a empresa com o melhor custo beneficio, ou aquela que apresenta a melhor solução.
+> 11) Sistema de assinatura online (echosign, qualisign, d4sign, etc) e via sistema proprio da administradora (IPMS da CBRE). vou pedir a análise de qualquer plataforma.
+> 12) não temos restrição.
+> 13) eu utulizava apenas o modo de conversa com as IAs.
+> 14) não tenho um SLA de resposta, mas costumo responder o mais rapido possivel. normalmente respondo diariamente as concorrencias, exceto aquelas mais complexas que demoro até 7 dias normalmente.
+
+### Lacunas dessas respostas
+- Prometidos e **ainda não recebidos**: o resumo do formulário e o resumo das aprovações de agosto e setembro.
+- Q11 (aparelho: só computador ou também celular) e Q13 (quanto paga hoje) ficaram sem resposta.
+- Contexto de ambiente: o Claude leu em modo leitura `docs/manual-concorrencia.md` do repositório `caiogavioli/aprovacoes-contratos-concorrencia` (CP.1–26, PRO-004, Matriz de Contratos). Nada foi copiado para este repositório.

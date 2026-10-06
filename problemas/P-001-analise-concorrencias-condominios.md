@@ -6,12 +6,12 @@ Vários processos de concorrência por semana (mapas de cotação, RFPs, BIDs co
 > Atenção: **este é o lado do comprador.** O branch `claude/einstein-rfp-representante-condominial` é o lado oposto (a DF Síndicos *respondendo* a uma concorrência). Não é o mesmo problema.
 
 ## Como é hoje
-Palavras do usuário: "no passado, fiz um prompt para realizar essa análise em outras IAs". Existem quatro versões desse prompt (ver `material/prompts-anteriores/`), da mais enxuta (2.0 executivo) à mais pesada (3.0 exaustivo para conselho), mais uma específica para propostas de fornecedores. O resto da rotina atual — de onde os arquivos chegam, quem lê o relatório, quanto tempo leva — **ainda não foi mapeado** (Rodada 1).
+Palavras do usuário: "no passado, fiz um prompt para realizar essa análise em outras IAs". Existem quatro versões desse prompt (ver `material/prompts-anteriores/`), da mais enxuta (2.0 executivo) à mais pesada (3.0 exaustivo para conselho), mais uma específica para propostas de fornecedores. Rotina (Rodada 1): as concorrências chegam em xlsx, PDF nativo e escaneado, e-mail (~4 arquivos); ele confere contra as regras do cliente (formulário CP.1–26) e, se mapa e proposta divergem ou algo não bate, **recusa a assinatura** e devolve à administradora com o motivo; senão aprova. Critério padrão é o melhor valor, mas pode aprovar o melhor custo-benefício ou a melhor solução. Detalhe em `sessoes/S-001` e `S-002`.
 
 ## Frequência e volume
-- Acontece: "várias por semana", sob demanda
-- Tempo gasto por vez: a levantar
-- Volume: a levantar (quantos arquivos por concorrência, quantos fornecedores por mapa)
+- Acontece: ~40 por semana (~8 por dia), respondidas em geral no mesmo dia; as complexas levam até 7 dias
+- Tempo gasto por vez: ~10 min em média; obras grandes, equipamentos e RFPs levam bem mais
+- Volume: ~4 arquivos por concorrência (xlsx, PDF nativo e escaneado, e-mail), podendo ser mais; a maioria < R$ 5 mil, algumas passam de R$ 1 milhão
 
 ## Quem sofre
 O usuário (síndico profissional, DF Síndicos) — é quem precisa decidir/assinar. Quem consome o relatório depois ainda a levantar.
