@@ -2,7 +2,7 @@
 
 **Data:** 2026-10-06
 **Problema:** P-001 — `problemas/P-001-analise-concorrencias-condominios.md`
-**Fase:** 3 (Rodada 2 — propostas feitas, aguardando decisões do usuário)
+**Fase:** 3 → 4 (Rodada 2 decidida; spec da v1 escrita em `projetos/analise-concorrencias.md`; repositório ainda não criado)
 **Insumo:** respostas da Rodada 1 em `sessoes/S-001-*.md` + manual do formulário CP.1–26 (lido em modo leitura do repositório `aprovacoes-contratos-concorrencia`).
 
 ## O que a Rodada 1 mudou
@@ -89,6 +89,27 @@ Onde as três convergem (vão como recomendado, salvo objeção): D1 = B, D2 = B
 
 **Critério de pronto proposto:** piloto de 2 semanas com casos reais; leitura da Rápida em até ~3 min (hoje ~10); nenhuma divergência mapa × proposta passando; toda análise gravada no registro; devolutivas aceitas pela administradora sem pedido de esclarecimento.
 
-## Respostas do usuário
+## Respostas do usuário (2026-10-06, palavras dele)
 
-_Aguardando._
+> 1) 3 niveis 2) um arquivo por analise, com o painel como extra 3)respondi a pergunta 11 sim: "11) Sistema de assinatura online (echosign, qualisign, d4sign, etc) e via sistema proprio da administradora (IPMS da CBRE). vou pedir a análise de qualquer plataforma." o que é o lote diário e as regras de entrada? não ficou claro para mim. 4)está completa, mas, como falei, não se atenha apenas aos itens da lista. faça uma análise completa. 5)segue o resumo do projeto de aprovações feito antriormente. 6) confirmo
+
+Anexos: xlsx exportado do Monday ("Aprovação de Quadros de Concorrência", 544 linhas), dois PDFs do sistema de aprovações (lista de QCs e dashboard, 01/08 a 06/10/2026) e o PDF do painel do Monday. Ficam fora do GitHub.
+
+### Decisões fechadas
+
+| Decisão | Resultado |
+|---|---|
+| D3 níveis | **3 níveis** (Rafael) |
+| D4 onde o relatório mora | **Um arquivo por análise; painel como extra** (Tomás) |
+| D1, D2, D5, D6 | Recomendações das personas mantidas — o usuário não objetou, mas pediu que "lote diário" e "regras de entrada" fossem explicados (D5/D6 ficam como proposta até ele confirmar o entendimento) |
+| Lista CP | Completa — mas a análise **não se limita a ela** |
+| Recorte | **Confirmado:** 1 projeto, `analise-concorrencias`, sem repositório agora |
+| Aparelho (Q11) | Não respondido; assumido computador |
+
+### O que os arquivos mostraram (agregados, sem dado de condomínio)
+
+- Volume real: **38, 45, 59, 51 e 38 QCs** nas semanas 36 a 40 (o "cerca de 40" confere; agosto teve pico de migração).
+- Faixas: ~61% até R$ 5 mil, ~24% de R$ 5 a 30 mil, ~15% acima de R$ 30 mil; 58% produto, 42% serviço.
+- Recusados: ~6% (31 de ~513 reais). Motivos escritos: mínimo de propostas, papel timbrado, proposta vencida, valores divergentes, sem garantia, sem CNPJ, QC mal preenchido, sem proposta anexa. 19 de 31 sem motivo escrito.
+- Aprovados com ao menos um "Não": 321 de 482; com observação preenchida: 60.
+- ~31 linhas do xlsx parecem dados de teste (nomes de fornecedor fictícios, QC-2026-0xx), usados só como ordem de grandeza.
