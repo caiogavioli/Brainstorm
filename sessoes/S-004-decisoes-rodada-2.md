@@ -28,6 +28,17 @@ O usuário **delegou** as decisões D1–D5 de S-003 à recomendação do time (
 
 **Marina:** o que acontece quando a evidência não chega no prazo do mês? A regra da própria planilha ("33,33% para cada mês preenchido em conformidade") já dá um terço do item por mês; se o pedido mensal disser isso com todas as letras, cria consequência. Se o usuário continuar buscando a evidência por conta própria quando a administradora não entrega, o pedido vira só mais um e-mail ignorado. A resposta do usuário define o texto do rascunho.
 
+## Resposta à pendência (palavras do usuário)
+
+> (b)
+
+**Evidência que não chega no mês: o usuário continua buscando por conta própria**, como hoje. O pedido mensal **não carrega penalidade** e o rascunho de e-mail não anuncia perda de nota.
+
+Consequências para o projeto:
+- O texto do rascunho é um **pedido com data** ("enviar até o dia X; se não chegar, a DF levanta diretamente"), sem tom de cobrança.
+- Risco apontado por Marina: sem consequência, o pedido tende a ser ignorado como o checklist foi. Por isso o controle registra, por condomínio × item × mês, **quem forneceu**: `administradora` (pasta ou e-mail) ou `DF` (o usuário foi buscar). Esse campo é o **indicador de sucesso da v1**: a parcela de itens entregues pela administradora deve subir; as horas de preenchimento, cair. Também deixa o histórico à mão caso o usuário queira levar a não entrega à BGRE, decisão que continua dele.
+- O Excel mestre **não altera nota** por falta de evidência: a nota segue a planilha da BGRE preenchida pelo usuário.
+
 ## Estado
 
-Rodada 2 **fechada em decisão**. Recorte aceito pela delegação. Falta: (1) a regra para evidência que não chega; (2) o usuário dizer "fecha o projeto" para gerar a spec (`projetos/avaliacao-trimestral-bgre.md`) — **não é gatilho** o fim da Rodada 2. Próximo passo já combinado, que não depende do fechamento: **mapa de lacunas do 3T26** (prazo 31/10/2026).
+Rodada 2 **fechada em decisão**. Recorte aceito pela delegação. Falta: o usuário dizer "fecha o projeto" para gerar a spec (`projetos/avaliacao-trimestral-bgre.md`) — **não é gatilho** o fim da Rodada 2. Próximo passo já combinado, que não depende do fechamento: **mapa de lacunas do 3T26** (prazo 31/10/2026).
