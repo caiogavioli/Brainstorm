@@ -23,6 +23,8 @@
 > faça uma revisão para ver se os outros condomínios mandaram o flash report
 > além disso, gostaria que o relatório fosse melhorado, que contivesse mais itens visuais ao inves de tanto texto
 
+> adorei. faça mais uma alteração: quero filtrar mensalmente, e depois o filtro semanal como você fez
+
 ## O que foi feito nesta sessão
 
 - Branch criado: `claude/flash-report-analises-semanais` (a partir de `main`).
@@ -40,3 +42,4 @@
 
 - Revisão de 06/10 no Outlook (7 condomínios com semanas em falta): chegaram Alphaville, Passeio Paulista e Parque Corporate (semana de 28/09, todos depois das 12h). Continuam sem report: Panamérica Park (6 semanas, desde 24/08, sem cobrança da BGRE por e-mail), TNU (3 segundas sem Flash desde 14/09, ainda sem cobrança da BGRE), Centenário Plaza (24/08, 31/08, 07/09), 17007 Nações (31/08, 07/09, 21/09) e Alphaville (16 a 22/08). Fatos só por e-mail anotados: bomba de incêndio do PNP travou em 28/08, interrupções de energia no Fórum Trabalhista do PNP, pedido da BGRE sobre água de ar condicionado no Passeio Paulista e aprovação de fornecedor único (Henkotech) pendente com o usuário desde 02/10.
 - Relatório redesenhado (versão 3 do artefato): manchetes curtas, anéis de cobertura e pontualidade, mapa de severidade, barras empilhadas por condomínio, gráfico de horário de chegada com a linha das 12h, contagem regressiva de datas críticas e, em cada semana, uma linha do tempo de 7 dias com ícones por tipo de ocorrência. Prioridades e temas agora têm número em destaque, três frases curtas e uma ação.
+- Filtro mensal (versão 4 do artefato): linha de meses no topo e, dentro de cada mês, a visão do mês (indicadores, mapa, destaques, gráficos, cobranças) e as semanas. Semana entra no mês em que cai a quinta-feira. Prioridades, temas e datas críticas ficam só na aba Tudo.

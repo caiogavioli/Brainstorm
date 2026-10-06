@@ -50,6 +50,9 @@
 ## Regra de prazo (BGRE)
 O report de uma semana (segunda a domingo) está **no prazo** se chegou até **12h00 de segunda-feira, horário de Brasília**, da semana seguinte. Depois disso conta como atrasado, mesmo que tenha chegado na segunda. O `build.py` recalcula `no_prazo` de todos os reports a partir do horário de recebimento (`rec`, em UTC; Brasília = UTC-3), então não depende do que o agente marcou. No passo 7, os números do `lead` e do tema de pontualidade devem usar a contagem "até 12h" que o script imprime ("na segunda=N").
 
+## Filtro mensal
+O artefato tem uma linha de meses no topo (Tudo, Agosto, Setembro, Outubro...) e, abaixo, a visão do mês e as semanas daquele mês. A semana pertence ao mês em que cai a quinta-feira (regra ISO), então 31/08 a 06/09 é de setembro e 28/09 a 04/10 é de outubro. O template cria o botão de um mês novo sozinho quando entra a primeira semana dele; não há nada a configurar na rotina. A visão de cada mês é calculada dos dados (indicadores, mapa, gráficos, destaques com as semanas em severidade alta, cobranças do mês). Prioridades, temas e datas críticas ficam só na aba "Tudo", porque descrevem a situação de hoje.
+
 ## Como o script encaixa os períodos
 - Report normal: vai para a semana (segunda a domingo) que contém o meio do período. Isso trata Alphaville (domingo a sábado) e Parque Corporate (terça a segunda).
 - Consolidado de 13 dias ou mais: entra na última semana coberta; as anteriores aparecem no mapa como "consolidado".

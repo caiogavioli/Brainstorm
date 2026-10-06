@@ -12,7 +12,7 @@
   --media:#fab219; --media-soft:#fdf1d3; --media-ink:#7a5200;
   --baixa:#0ca30c; --baixa-soft:#e0f4e0; --baixa-ink:#0b620b;
   --none:#b6c1cc; --shadow:0 1px 2px rgba(19,32,44,.06);
-  --c1:#2a78d6; --c2:#eb6834; --c3:#1baf7a; --c4:#eda100;
+  --c1:#2a78d6; --c2:#eb6834; --c3:#1baf7a; --c4:#eda100; --on-accent:#ffffff;
   --f-display:"Archivo","Arial Narrow",Arial,sans-serif; --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
@@ -21,14 +21,14 @@
   --alta:#e66767; --alta-soft:#3a1d1f; --alta-ink:#f3b0b0;
   --media:#e6a21a; --media-soft:#37290e; --media-ink:#f0cf86;
   --baixa:#3fb23f; --baixa-soft:#142d17; --baixa-ink:#9bdc9b;
-  --none:#3f4d5b; --shadow:none; --c1:#3987e5; --c2:#d95926; --c3:#199e70; --c4:#c98500; color-scheme:dark;}}
+  --none:#3f4d5b; --shadow:none; --c1:#3987e5; --c2:#d95926; --c3:#199e70; --c4:#c98500; --on-accent:#0e141a; color-scheme:dark;}}
 :root[data-theme="dark"]{
   --bg:#0e141a; --surface:#161e26; --surface-2:#1b252e; --ink:#eaf0f5; --ink-2:#aebccb; --ink-3:#8b9cae;
   --line:#2a3744; --line-2:#222d38; --accent:#6da7ec; --accent-soft:#1c2c40;
   --alta:#e66767; --alta-soft:#3a1d1f; --alta-ink:#f3b0b0;
   --media:#e6a21a; --media-soft:#37290e; --media-ink:#f0cf86;
   --baixa:#3fb23f; --baixa-soft:#142d17; --baixa-ink:#9bdc9b;
-  --none:#3f4d5b; --shadow:none; --c1:#3987e5; --c2:#d95926; --c3:#199e70; --c4:#c98500; color-scheme:dark;}
+  --none:#3f4d5b; --shadow:none; --c1:#3987e5; --c2:#d95926; --c3:#199e70; --c4:#c98500; --on-accent:#0e141a; color-scheme:dark;}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:14px;line-height:1.5;padding-inline:16px;padding-block:0 48px}
 .wrap{max-width:1180px;margin-inline:auto}
@@ -50,6 +50,14 @@ svg text{font-family:var(--f-mono)}
 .tab .t2{font-size:11px;color:var(--ink-3);font-family:var(--f-mono)}
 .tab:hover{color:var(--ink)}
 .tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+.months{display:flex;gap:6px;overflow-x:auto;padding:0 0 10px;scrollbar-width:thin}
+.mb{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 13px;cursor:pointer;font-size:13px;font-weight:500;white-space:nowrap;display:flex;gap:8px;align-items:center;color:var(--ink-2)}
+.mb:hover{color:var(--ink)}
+.mb[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:600}
+.mb.parent{border-color:var(--accent);color:var(--accent)}
+.mb .ct{font-size:11px;font-family:var(--f-mono);opacity:.85}
+.mb .al{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-family:var(--f-mono);padding:0 6px;border-radius:999px;background:var(--alta);color:#fff;line-height:1.5}
+.mb:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .tab:focus-visible,.cell:focus-visible,.sq:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
 .tab .dots{display:flex;gap:2px;margin-top:1px}
 .tab .dots i{width:6px;height:6px;border-radius:50%;display:block}
@@ -71,7 +79,7 @@ section{display:flex;flex-direction:column;gap:12px;min-width:0}
 .bd.c1{background:var(--c1)} .bd.c2{background:var(--c2)} .bd.c3{background:var(--c3)} .bd.c4{background:var(--c4);color:#2b1d00}
 
 /* kpis */
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,165px),1fr));gap:12px}
 .kpi{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:flex;gap:12px;align-items:center;min-width:0;box-shadow:var(--shadow)}
 .kpi .tx{display:flex;flex-direction:column;gap:1px;min-width:0}
 .kpi .v{font-family:var(--f-display);font-size:28px;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
@@ -232,7 +240,8 @@ summary{cursor:pointer;font-size:12px;color:var(--accent);font-weight:500;paddin
 <div class="top"><div class="top-in">
   <div class="brand"><h1>Flash Report <span style="font-weight:500;color:var(--ink-2)">Análises semanais</span></h1>
   <div class="sub" id="sub"></div></div>
-  <div class="tabs" role="tablist" id="tabs" aria-label="Visão geral e semanas"></div>
+  <div class="months" role="tablist" id="months" aria-label="Filtrar por mês"></div>
+  <div class="tabs" role="tablist" id="tabs" aria-label="Visão do período e semanas"></div>
 </div></div>
 <div class="wrap"><main id="view" aria-live="polite"></main></div>
 
@@ -253,6 +262,13 @@ const wid = iso => "w"+iso.slice(8,10)+iso.slice(5,7);
 const byId = Object.fromEntries(C.map(c=>[c.slug,c]));
 const ORDER = {alta:0,media:1,baixa:2};
 const LAST = W[W.length-1];
+/* filtro mensal: a semana pertence ao mês em que cai a quinta-feira (regra ISO) */
+const MN=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+const monthOf = w => addDays(w,3).slice(0,7);
+const MONTHS = [...new Set(W.map(monthOf))];
+const mlabel = k => MN[+k.slice(5,7)-1][0].toUpperCase()+MN[+k.slice(5,7)-1].slice(1)+" de "+k.slice(0,4);
+const weeksOf = k => W.filter(w=>monthOf(w)===k);
+let VW = W;   /* semanas do recorte em exibição */
 const TODAY = (()=>{const p=(DATA.geradoEm||"").split("/"); return p.length===3? p[2]+"-"+p[1]+"-"+p[0] : addDays(LAST,8);})();
 const pct=(a,b)=>b?Math.round(100*a/b):0;
 const WD=["dom","seg","ter","qua","qui","sex","sáb"];
@@ -307,8 +323,8 @@ function barChart(title,vals,iconKey,cls,note){
   s+=`<line class="gl" x1="${pl}" x2="${W_-pr}" y1="${H-pb}" y2="${H-pb}"/>`;
   vals.forEach((v,i)=>{
     const h=v/top*plot, x=pl+i*bw+bw*.18, w=bw*.64, y=H-pb-h;
-    if(v>0) s+=`<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="var(--${cls})"${v===max?"":' fill-opacity=".72"'}><title>Semana ${i+1} (${dm(W[i])}): ${v}</title></rect><text x="${(x+w/2).toFixed(1)}" y="${(y-3).toFixed(1)}" text-anchor="middle">${v}</text>`;
-    s+=`<text x="${(x+w/2).toFixed(1)}" y="${H-5}" text-anchor="middle">${dm(W[i]).replace("/","·")}</text>`;
+    if(v>0) s+=`<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="var(--${cls})"${v===max?"":' fill-opacity=".72"'}><title>Semana ${W.indexOf(VW[i])+1} (${dm(VW[i])}): ${v}</title></rect><text x="${(x+w/2).toFixed(1)}" y="${(y-3).toFixed(1)}" text-anchor="middle">${v}</text>`;
+    s+=`<text x="${(x+w/2).toFixed(1)}" y="${H-5}" text-anchor="middle">${dm(VW[i]).replace("/","·")}</text>`;
   });
   return `<div class="mini"><h3><span style="color:var(--${cls})">${ic(iconKey)}</span>${esc(title)}</h3><div class="tot">${vals.reduce((a,b)=>a+b,0)} no período${note?` · ${esc(note)}`:""}</div>${s}</svg></div>`;
 }
@@ -336,27 +352,37 @@ function stripPlot(items,height){ // items: [{nome,pts:[{min,ok,tip}],txt}]
   return s+`</svg><div class="legend" style="margin-top:2px"><span><i class="sw" style="background:var(--baixa)"></i>até 12h</span><span><i class="sw" style="background:var(--media)"></i>depois das 12h</span><span class="mono" style="color:var(--ink-3)">horário de Brasília; cada ponto é um report</span></div>`;
 }
 
-/* ---------- tabs ---------- */
+/* ---------- navegação: meses + abas ---------- */
+function scopeOf(cur){ if(cur==="geral") return null; if(cur[0]==="m") return cur.slice(1); const w=W.find(x=>wid(x)===cur); return w?monthOf(w):null; }
 function renderTabs(cur){
-  const el=document.getElementById("tabs");
-  let h=`<button class="tab" role="tab" data-go="geral" aria-selected="${cur==="geral"}"><span>Visão geral</span><span class="t2">${dm(W[0])} a ${dm(addDays(LAST,6))}</span></button>`;
-  W.forEach((w,i)=>{
-    const st=STATS[w];
+  const sc=scopeOf(cur);
+  let m=`<button class="mb" role="tab" data-go="geral" aria-selected="${cur==="geral"}"><span>Tudo</span><span class="ct">${W.length} sem</span></button>`;
+  MONTHS.forEach(k=>{
+    const ws=weeksOf(k), al=ws.reduce((a,w)=>a+STATS[w].sev.alta,0);
+    m+=`<button class="mb${sc===k&&cur!=="m"+k?" parent":""}" role="tab" data-go="m${k}" aria-selected="${cur==="m"+k}"><span>${mlabel(k)}</span><span class="ct">${ws.length} sem</span>${al?`<span class="al" title="${al} semanas em severidade alta">▲ ${al}</span>`:""}</button>`;
+  });
+  document.getElementById("months").innerHTML=m;
+  const el=document.getElementById("tabs"), ws=sc?weeksOf(sc):W;
+  let h=sc
+   ? `<button class="tab" role="tab" data-go="m${sc}" aria-selected="${cur==="m"+sc}"><span>Visão de ${MN[+sc.slice(5,7)-1]}</span><span class="t2">${dm(ws[0])} a ${dm(addDays(ws[ws.length-1],6))}</span></button>`
+   : `<button class="tab" role="tab" data-go="geral" aria-selected="${cur==="geral"}"><span>Visão geral</span><span class="t2">${dm(W[0])} a ${dm(addDays(LAST,6))}</span></button>`;
+  ws.forEach(w=>{
+    const st=STATS[w], i=W.indexOf(w);
     const dots=["alta","media","baixa"].map(k=>st.sev[k]?`<i style="background:var(--${k})" title="${st.sev[k]} ${SEV[k].l}"></i>`.repeat(Math.min(st.sev[k],3)):"").join("");
     h+=`<button class="tab" role="tab" data-go="${wid(w)}" aria-selected="${cur===wid(w)}"><span>Sem ${i+1}</span><span class="t2">${dm(w)}–${dm(addDays(w,6))}</span><span class="dots" aria-hidden="true">${dots}</span></button>`;
   });
   el.innerHTML=h;
 }
-document.getElementById("tabs").addEventListener("click",e=>{const b=e.target.closest("[data-go]"); if(b) go(b.dataset.go);});
+["tabs","months"].forEach(id=>document.getElementById(id).addEventListener("click",e=>{const b=e.target.closest("[data-go]"); if(b) go(b.dataset.go);}));
 
 /* ---------- visão geral ---------- */
 function heatmap(){
   let h=`<div class="scroller"><table class="heat"><thead><tr><th></th>`;
-  W.forEach((w,i)=>h+=`<th>S${i+1}<br>${dm(w)}</th>`);
+  VW.forEach(w=>h+=`<th>S${W.indexOf(w)+1}<br>${dm(w)}</th>`);
   h+=`</tr></thead><tbody>`;
   C.forEach(c=>{
     h+=`<tr><th class="rowh" scope="row">${esc(c.nome)}<small>${esc(c.adm)}</small></th>`;
-    W.forEach(w=>{
+    VW.forEach(w=>{
       const s=state(c.slug,w);
       if(s.k==="ok") h+=`<td><button class="cell ${s.e.sev}" data-week="${wid(w)}" data-condo="${c.slug}" aria-label="${esc(c.nome)}, semana de ${dm(w)}: severidade ${SEV[s.e.sev].l}${s.e.no_prazo?"":", chegou depois das 12h da segunda"}"><span class="g" aria-hidden="true">${SEV[s.e.sev].g}</span>${SEV[s.e.sev].l}${s.e.no_prazo?"":`<span class="late" title="Chegou depois das 12h da segunda: ${brtTxt(s.e.rec)}">⏱</span>`}</button></td>`;
       else if(s.k==="cons") h+=`<td><button class="cell cons" data-week="${wid(s.to)}" data-condo="${c.slug}" title="Coberta pelo relatório consolidado da semana de ${dm(s.to)}">consol.</button></td>`;
@@ -369,14 +395,14 @@ function heatmap(){
   <div class="legend"><span><i class="sw" style="background:var(--alta)"></i>▲ Alta</span><span><i class="sw" style="background:var(--media)"></i>◆ Média</span><span><i class="sw" style="background:var(--baixa)"></i>● Baixa</span><span><i class="sw cons"></i>consolidado</span><span><i class="sw miss"></i>report não localizado</span><span><i class="sw pend"></i>a vencer</span><span>⏱ chegou depois das 12h da segunda</span></div>`;
 }
 function coverageBars(){
-  const rows=C.map(c=>{let ok=0,late=0,cons=0,miss=0,pend=0; W.forEach(w=>{const s=state(c.slug,w); if(s.k==="ok"){s.e.no_prazo?ok++:late++;} else if(s.k==="cons")cons++; else if(s.k==="pend")pend++; else miss++;}); return {c,ok,late,cons,miss,pend};});
+  const rows=C.map(c=>{let ok=0,late=0,cons=0,miss=0,pend=0; VW.forEach(w=>{const s=state(c.slug,w); if(s.k==="ok"){s.e.no_prazo?ok++:late++;} else if(s.k==="cons")cons++; else if(s.k==="pend")pend++; else miss++;}); return {c,ok,late,cons,miss,pend};});
   return `<div class="leg"><span><i style="background:var(--baixa)"></i>até 12h</span><span><i style="background:var(--media)"></i>depois das 12h</span><span><i style="background:var(--accent)"></i>consolidado</span><span><i style="background:repeating-linear-gradient(45deg,var(--none) 0 3px,transparent 3px 6px);border:1px solid var(--none)"></i>sem report</span><span><i style="border:1.5px dotted var(--ink-3)"></i>a vencer</span></div><div class="hbars cov">`+
   rows.map(r=>`<div class="hrow"><span class="nm" title="${esc(r.c.nome)}">${esc(r.c.nome)}</span><div class="trk">`+
     [["ok",r.ok,"até 12h"],["late",r.late,"depois das 12h"],["cons",r.cons,"consolidado"],["miss",r.miss,"sem report"],["pend",r.pend,"a vencer"]].map(x=>x[1]?`<i class="k-${x[0]}" style="flex:${x[1]}" title="${x[2]}: ${x[1]}"></i>`:"").join("")+
-    `</div><span class="tt" title="até 12h / total de semanas">${r.ok}/${W.length}</span></div>`).join("")+`</div>`;
+    `</div><span class="tt" title="até 12h / total de semanas">${r.ok}/${VW.length}</span></div>`).join("")+`</div>`;
 }
 function arrivalAll(){
-  const items=C.map(c=>({nome:c.nome.replace(/ \(.*\)/,""),pts:W.map(w=>{const s=state(c.slug,w); return s.k==="ok"?{min:brtClock(s.e.rec),ok:s.e.no_prazo,tip:`${c.nome}, semana de ${dm(w)}: chegou ${brtTxt(s.e.rec)}`}:null;}).filter(Boolean)}));
+  const items=C.map(c=>({nome:c.nome.replace(/ \(.*\)/,""),pts:VW.map(w=>{const s=state(c.slug,w); return s.k==="ok"?{min:brtClock(s.e.rec),ok:s.e.no_prazo,tip:`${c.nome}, semana de ${dm(w)}: chegou ${brtTxt(s.e.rec)}`}:null;}).filter(Boolean)}));
   return stripPlot(items);
 }
 function datasLista(){
@@ -390,16 +416,23 @@ function datasLista(){
     return `<div class="dr${over?" over":""}"><span class="d">${esc(d.d)}${d.aprox?"*":""}</span><span class="c">${esc(byId[d.c]?byId[d.c].nome:d.c)}</span><div class="o"><b>${d.o}</b> <span style="color:var(--ink-2)">${d.s}</span><div class="bar" aria-hidden="true"><i style="width:${w}%;background:${col}"></i></div></div><span class="when">${when}</span></div>`;
   }).join("")+`</div><div class="legend" style="margin-top:6px"><span><i class="sw" style="background:var(--alta)"></i>até 14 dias ou vencido</span><span><i class="sw" style="background:var(--media)"></i>até 45 dias</span><span><i class="sw" style="background:var(--c1)"></i>mais de 45 dias</span><span>* data aproximada. A barra cresce conforme o prazo se aproxima (janela de 100 dias)</span></div>`;
 }
-function renderGeral(){
+function destaquesMes(ws){
+  const rows=[]; ws.forEach(w=>C.forEach(c=>{const s=state(c.slug,w); if(s.k==="ok"&&s.e.sev==="alta") rows.push({c,w,e:s.e});}));
+  if(!rows.length) return `<p class="why">Nenhuma semana em severidade alta neste mês.</p>`;
+  return `<div class="prio">`+rows.map(r=>`<article class="pcard alta"><div class="pc-top"><div class="tags"><span class="tag">${esc(r.c.nome)}</span><span class="tag">semana de ${dm(r.w)}</span></div>${pill("alta")}</div><p class="head-line">${esc(r.e.motivo)}</p>${r.e.atencao.length?`<ul class="facts">${r.e.atencao.slice(0,2).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}<a href="#${wid(r.w)}" data-go="${wid(r.w)}" data-condo="${r.c.slug}" style="font-size:12.5px">Abrir a semana ${W.indexOf(r.w)+1}</a></article>`).join("")+`</div>`;
+}
+function renderGeral(mk){
+  const full=!mk, ws=full?W:weeksOf(mk); VW=ws;
+  const first=ws[0], lastW=ws[ws.length-1], endIso=addDays(lastW,6);
   const tot={rec:0,ontime:0,late:0,miss:0,pend:0,cons:0,sev:{alta:0,media:0,baixa:0},ev:{energia:0,elevadores:0,seguranca:0,chuvas:0}};
-  W.forEach(w=>{const s=STATS[w]; ["rec","ontime","late","miss","pend","cons"].forEach(k=>tot[k]+=s[k]); ["alta","media","baixa"].forEach(k=>tot.sev[k]+=s.sev[k]); CATS.forEach(x=>tot.ev[x.k]+=s.ev[x.k]);});
+  ws.forEach(w=>{const s=STATS[w]; ["rec","ontime","late","miss","pend","cons"].forEach(k=>tot[k]+=s[k]); ["alta","media","baixa"].forEach(k=>tot.sev[k]+=s.sev[k]); CATS.forEach(x=>tot.ev[x.k]+=s.ev[x.k]);});
   const due=tot.rec+tot.cons+tot.miss;
-  const series=k=>W.map(w=>STATS[w].ev[k]);
+  const series=k=>ws.map(w=>STATS[w].ev[k]);
   let h="";
-  h+=`<section><div class="sec-h"><h2>Em resumo</h2><span class="note">Semanas de ${dm(W[0])} a ${dmy(addDays(LAST,6))} · fonte: Flash Reports e respostas no Outlook de Caio</span></div>
-  <div class="news">`+(X.manchetes||[]).map(m=>`<div class="new"><span class="bd ${m.c}">${ic(m.ic)}</span><span>${m.t}</span></div>`).join("")+`</div>
+  h+=`<section><div class="sec-h"><h2>${full?"Em resumo":esc(mlabel(mk))}</h2><span class="note">${full?`Semanas de ${dm(W[0])} a ${dmy(endIso)} · fonte: Flash Reports e respostas no Outlook de Caio`:`${ws.length} ${ws.length>1?"semanas":"semana"}, de ${dm(first)} a ${dmy(endIso)}. A semana entra no mês em que cai a quinta-feira`}</span></div>`+
+  (full?`<div class="news">`+(X.manchetes||[]).map(m=>`<div class="new"><span class="bd ${m.c}">${ic(m.ic)}</span><span>${m.t}</span></div>`).join("")+`</div>`:"")+`
   <div class="kpis">
-   <div class="kpi">${ring(tot.rec+tot.cons,due,"var(--accent)",`Cobertura: ${tot.rec+tot.cons} de ${due} semanas`)}<div class="tx"><div class="l">Semanas cobertas</div><div class="v">${tot.rec+tot.cons}<small> de ${due}</small></div><div class="d">${tot.miss} sem report</div></div></div>
+   <div class="kpi">${ring(tot.rec+tot.cons,due,"var(--accent)",`Cobertura: ${tot.rec+tot.cons} de ${due} semanas`)}<div class="tx"><div class="l">Semanas cobertas</div><div class="v">${tot.rec+tot.cons}<small> de ${due}</small></div><div class="d">${tot.miss} sem report${tot.pend?` · ${tot.pend} a vencer`:""}</div></div></div>
    <div class="kpi">${ring(tot.ontime,tot.rec,"var(--baixa)",`Pontualidade: ${tot.ontime} de ${tot.rec} até 12h`)}<div class="tx"><div class="l">Chegaram até 12h</div><div class="v">${tot.ontime}<small> de ${tot.rec}</small></div><div class="d">${tot.late} depois das 12h</div></div></div>
    <div class="kpi"><span class="ic" style="background:var(--alta)">${ic("alert")}</span><div class="tx"><div class="l">Semanas em severidade alta</div><div class="v">${tot.sev.alta}<small> de ${tot.rec}</small></div>${sevbar(tot.sev,tot.rec)}</div></div>
    <div class="kpi"><span class="ic" style="background:var(--c1)">${ic("bolt")}</span><div class="tx"><div class="l">Energia, elevador, segurança, chuva</div><div class="v">${CATS.reduce((a,x)=>a+tot.ev[x.k],0)}<small> ocorrências</small></div><div class="d">${CATS.map(x=>tot.ev[x.k]).join(" · ")}</div></div></div>
@@ -407,35 +440,41 @@ function renderGeral(){
 
   h+=`<section><div class="sec-h"><h2>Mapa de severidade</h2><span class="note">Toque numa célula para abrir a semana</span></div>${heatmap()}</section>`;
 
+  if(full){
   h+=`<section><div class="sec-h"><h2>O que pede ação da diretoria</h2><span class="note">Da mais urgente para a menos</span></div><div class="prio">`+
   (X.prioridades||[]).map(p=>`<article class="pcard ${p.sev}"><div class="pc-top"><div class="tags">${p.condos.map(s=>`<span class="tag">${esc(byId[s]?byId[s].nome:s)}</span>`).join("")}</div>${pill(p.sev)}</div>
     <div class="pc-main"><div class="bignum"><b>${esc(p.num)}</b><span>${esc(p.numl)}</span></div><h3>${p.t}</h3></div>
     <ul class="facts">${p.fatos.map(f=>`<li>${f}</li>`).join("")}</ul>
     <div class="act">${ic("arrow")}<span>${p.act}</span></div></article>`).join("")+`</div></section>`;
+  } else {
+  h+=`<section><div class="sec-h"><h2>Destaques do mês</h2><span class="note">Semanas em severidade alta, com a causa</span></div>${destaquesMes(ws)}</section>`;
+  }
 
   h+=`<section><div class="sec-h"><h2>Ocorrências por semana</h2><span class="note">Itens registrados nos relatórios</span></div><div class="mini-grid">`+
    barChart("Energia",series("energia"),"bolt","c1","quedas e oscilações")+
-   barChart("Elevadores",series("elevadores"),"elev","c2",`${W.reduce((a,w)=>a+STATS[w].ev.retidos,0)} com passageiro retido`)+
+   barChart("Elevadores",series("elevadores"),"elev","c2",`${ws.reduce((a,w)=>a+STATS[w].ev.retidos,0)} com passageiro retido`)+
    barChart("Segurança",series("seguranca"),"shield","c3","alarmes, atendimentos, polícia")+
-   barChart("Chuva e infiltração",series("chuvas"),"drop","c4","recorrente desde setembro")+`</div></section>`;
+   barChart("Chuva e infiltração",series("chuvas"),"drop","c4",full?"recorrente desde setembro":"")+`</div></section>`;
 
-  h+=`<section><div class="two"><div class="panel"><div class="sec-h" style="margin-bottom:8px"><h2 style="font-size:16px">Onde se concentram as ocorrências</h2></div>${legendCats()}${stackedByCondo(C.map(c=>({nome:c.nome.replace(/ \(.*\)/,""),vals:Object.fromEntries(CATS.map(x=>[x.k,W.reduce((a,w)=>{const s=state(c.slug,w);return a+(s.k==="ok"?nEv(s.e,x.k):0);},0)]))})).sort((a,b)=>CATS.reduce((s,x)=>s+b.vals[x.k],0)-CATS.reduce((s,x)=>s+a.vals[x.k],0)))}</div>
+  h+=`<section><div class="two"><div class="panel"><div class="sec-h" style="margin-bottom:8px"><h2 style="font-size:16px">Onde se concentram as ocorrências</h2></div>${legendCats()}${stackedByCondo(C.map(c=>({nome:c.nome.replace(/ \(.*\)/,""),vals:Object.fromEntries(CATS.map(x=>[x.k,ws.reduce((a,w)=>{const s=state(c.slug,w);return a+(s.k==="ok"?nEv(s.e,x.k):0);},0)]))})).sort((a,b)=>CATS.reduce((s,x)=>s+b.vals[x.k],0)-CATS.reduce((s,x)=>s+a.vals[x.k],0)))}</div>
    <div class="panel"><div class="sec-h" style="margin-bottom:8px"><h2 style="font-size:16px">Cobertura de reports por condomínio</h2></div>${coverageBars()}</div></div></section>`;
 
   h+=`<section><div class="sec-h"><h2>A que horas os reports chegam</h2><span class="note">O prazo da BGRE é 12h de segunda-feira</span></div><div class="panel">${arrivalAll()}</div></section>`;
 
+  if(full){
   h+=`<section><div class="sec-h"><h2>Temas que se repetem</h2></div><div class="temas">`+
    (X.temas||[]).map(t=>`<article class="tema${t.good?" good":""}"><div class="hd"><span class="n">${esc(t.num)}</span><span class="nl">${esc(t.numl)}</span></div><h3>${t.t}</h3><p>${t.p}</p><div class="tags">${t.condos.map(s=>`<span class="tag">${esc(byId[s]?byId[s].nome.replace(/ \(.*\)/,""):s)}</span>`).join("")}</div></article>`).join("")+`</div></section>`;
 
   h+=`<section><div class="sec-h"><h2>Datas críticas</h2><span class="note">Contagem a partir de ${dmy(TODAY)}</span></div><div class="panel">${datasLista()}</div></section>`;
+  }
 
   const open=[];
-  C.forEach(c=>(DATA.followups[c.slug]||[]).filter(f=>f.status==="sem resposta").forEach(f=>open.push({...f,c})));
+  C.forEach(c=>(DATA.followups[c.slug]||[]).filter(f=>f.status==="sem resposta"&&(full||(f.data>=first&&f.data<=endIso))).forEach(f=>open.push({...f,c})));
   open.sort((a,b)=>a.data.localeCompare(b.data));
-  h+=`<section><div class="sec-h"><h2>Cobranças da BGRE sem resposta</h2><span class="note">${open.length} itens, os mais antigos primeiro. Pode ter sido resolvido por reunião, telefone ou Salesforce</span></div><div class="panel"><div class="cb">`+
+  h+=`<section><div class="sec-h"><h2>Cobranças da BGRE sem resposta${full?"":" neste mês"}</h2><span class="note">${open.length} ${open.length===1?"item":"itens"}, os mais antigos primeiro. Pode ter sido resolvido por reunião, telefone ou Salesforce</span></div><div class="panel"><div class="cb">`+
    (()=>{const row=f=>{const d=dayDiff(TODAY,f.data); const t=f.pergunta.length>130?f.pergunta.slice(0,130).replace(/\s\S*$/,"")+"…":f.pergunta;
      return `<div class="cbr"><div class="age${d>30?" old":""}"><b>${d}</b>dias</div><div><div class="meta"><b>${esc(f.c.nome)}</b> · ${esc(f.de)} · ${dm(f.data)}</div>${esc(t)}</div></div>`;};
-     return open.slice(0,6).map(row).join("")+(open.length>6?`<details style="border-top:0"><summary>Ver as outras ${open.length-6} cobranças</summary>${open.slice(6).map(row).join("")}</details>`:"");})()+`</div></div></section>`;
+     return (open.length?open.slice(0,6).map(row).join(""):`<p class="why">Nenhuma cobrança em aberto neste mês.</p>`)+(open.length>6?`<details style="border-top:0"><summary>Ver as outras ${open.length-6} cobranças</summary>${open.slice(6).map(row).join("")}</details>`:"");})()+`</div></div></section>`;
 
   h+=`<div class="foot"><details><summary>Como isto foi feito e limites</summary>${X.metodo}</details></div>`;
   return h;
@@ -480,7 +519,7 @@ function card(c,w){
 function renderWeek(w){
   const i=W.indexOf(w), st=STATS[w], prev=i>0?STATS[W[i-1]]:null;
   const delta=(a,b)=>prev==null?"":(a-b===0?"igual à anterior":(a>b?"+":"")+(a-b)+" vs. anterior");
-  let h=`<div class="wk-head"><span class="eyebrow">Semana ${i+1} de ${W.length}</span><h2>${dm(w)} a ${dmy(addDays(w,6))}</h2><p class="why">Reports devidos até 12h de ${dm(addDays(w,7))}. ${st.rec} de ${C.length} condomínios com report próprio${st.cons?`, ${st.cons} em consolidado`:""}${st.miss?`, ${st.miss} sem report`:""}${st.pend?`, ${st.pend} a vencer`:""}.</p></div>`;
+  let h=`<div class="wk-head"><span class="eyebrow">Semana ${i+1} de ${W.length} · ${esc(mlabel(monthOf(w)))}</span><h2>${dm(w)} a ${dmy(addDays(w,6))}</h2><p class="why">Reports devidos até 12h de ${dm(addDays(w,7))}. ${st.rec} de ${C.length} condomínios com report próprio${st.cons?`, ${st.cons} em consolidado`:""}${st.miss?`, ${st.miss} sem report`:""}${st.pend?`, ${st.pend} a vencer`:""}.</p></div>`;
   h+=`<div class="kpis">
    <div class="kpi"><span class="ic" style="background:var(--alta)">${ic("alert")}</span><div class="tx"><div class="l">Severidade alta</div><div class="v">${st.sev.alta}<small> de ${st.rec}</small></div>${sevbar(st.sev,st.rec)}</div></div>
    <div class="kpi">${ring(st.ontime,st.rec,"var(--baixa)",`${st.ontime} de ${st.rec} até 12h`)}<div class="tx"><div class="l">Chegaram até 12h</div><div class="v">${st.ontime}<small> de ${st.rec}</small></div></div></div>`+
@@ -500,21 +539,23 @@ function renderWeek(w){
 
 /* ---------- rotas ---------- */
 function go(id,condo){
-  if(id!=="geral" && !W.some(w=>wid(w)===id)) id="geral";
+  if(id!=="geral" && !(id[0]==="m" && MONTHS.includes(id.slice(1))) && !W.some(w=>wid(w)===id)) id="geral";
   try{ history.replaceState(null,"","#"+id);}catch(_){ try{location.hash=id}catch(__){} }
   const v=document.getElementById("view");
-  v.innerHTML = id==="geral"?renderGeral():renderWeek(W.find(w=>wid(w)===id));
+  if(id==="geral") v.innerHTML=renderGeral(null);
+  else if(id[0]==="m") v.innerHTML=renderGeral(id.slice(1));
+  else { const wk=W.find(w=>wid(w)===id); VW=weeksOf(monthOf(wk)); v.innerHTML=renderWeek(wk); }
   renderTabs(id);
-  const t=document.querySelector('.tab[aria-selected="true"]'); if(t&&t.scrollIntoView) t.scrollIntoView({inline:"center",block:"nearest"});
+  document.querySelectorAll('.tab[aria-selected="true"],.mb[aria-selected="true"]').forEach(t=>{ if(t.scrollIntoView) t.scrollIntoView({inline:"center",block:"nearest"}); });
   if(condo){const el=document.getElementById("c-"+condo); if(el){el.scrollIntoView({block:"center"}); el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"),1600);} }
   else window.scrollTo(0,0);
 }
 document.getElementById("view").addEventListener("click",e=>{
   const c=e.target.closest(".cell[data-week]"); if(c){go(c.dataset.week,c.dataset.condo);return;}
   const q=e.target.closest(".sq[data-card]"); if(q){const el=document.getElementById("c-"+q.dataset.card); if(el){el.scrollIntoView({block:"center"}); el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"),1600);} return;}
-  const a=e.target.closest("a[data-go]"); if(a){e.preventDefault();go(a.dataset.go);}
+  const a=e.target.closest("a[data-go]"); if(a){e.preventDefault();go(a.dataset.go,a.dataset.condo);}
 });
-document.getElementById("sub").textContent = C.length+" condomínios BGRE · "+W.length+" semanas · atualizado em "+DATA.geradoEm;
+document.getElementById("sub").textContent = C.length+" condomínios BGRE · "+W.length+" semanas em "+MONTHS.length+" meses · atualizado em "+DATA.geradoEm;
 const h0=(location.hash||"").replace("#","");
 go(h0||"geral");
 })();
