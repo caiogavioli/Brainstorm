@@ -40,15 +40,19 @@ Só o usuário abre a análise (só ele tem Claude Code pago); a equipe consome 
 
 **Gatilhos que sobem o nível sozinhos:** cotação única acima de R$ 5 mil; divergência de valor/quantidade/modelo entre mapa e proposta; vencedor ≠ menor preço; CNPJ ou dado do fornecedor ilegível; suspeita de fatiamento (CP.26). O usuário força com "modo: profundo".
 
-## Severidade (proposta inicial, a calibrar no piloto)
+## Severidade (regra decidida em 2026-10-06)
 
-Calibrada pelo histórico de aprovações do usuário (ago–out/2026, ~510 QCs reais): quando a resposta é "Não", o QC foi recusado em **62% a 100% das alçadas incompletas (CP.21)**, 75% de QC mal preenchido (CP.2), 45% de falta de papel timbrado (CP.3), 14% de mínimo de propostas (CP.1) e de proposta vencida (CP.8), mas só 1–6% em garantia, prazo de entrega, exclusões, SSMA, TST e seguro.
+O usuário mandou **simplificar**. A regra é uma só, independe do valor da compra:
 
-| Classe | Itens |
+| Classe | Quando |
 |---|---|
-| 🔴 **Bloqueante — devolver** | divergência mapa × proposta (valor, quantidade, unidade, modelo, fornecedor); alçada/assinaturas incompletas (CP.21); QC não preenchido (CP.2); proposta vencida sem reconfirmação (CP.8/17); sem proposta anexa; mínimo de propostas sem justificativa (CP.1); sem papel timbrado/CNPJ (CP.3); vencedor não identificado ou ≠ menor preço sem justificativa; CAPEX sem aprovação (CP.24); suspeita de divisão (CP.26) |
-| 🟡 **Ressalva — assina se corrigir ou justificar** | garantia (CP.7/16); prazo de entrega (CP.6); lista de exclusões (CP.14); SSMA/TST/ART conforme tipo e valor (CP.10–12); seguro abaixo da faixa (CP.19); cronograma e custos abertos (CP.13/15); índice de reajuste (CP.18) |
+| 🔴 **Bloqueante — devolver** | (a) item de política **BGRE** com resposta "Não"; ou (b) divergência entre o mapa e a proposta (valor, quantidade, unidade, modelo, fornecedor, validade) |
+| 🟡 **Ressalva — assina se corrigir ou justificar** | todo o resto que merece atenção: itens de critério **próprio** (CP.4–17) e achados além do formulário que não caem em (a) ou (b) |
 | ⚪ **Observação** | melhoria sem risco de auditoria |
+
+A origem de cada item (BGRE × próprio) está na seção seguinte e é o que define a classe. Cada achado traz a etiqueta `[BGRE]` ou `[PRÓPRIO]`.
+
+Como contexto, o histórico de aprovações (ago–out/2026, ~510 QCs reais) mostra que a recusa ocorre em **62% a 100% das alçadas incompletas (CP.21)**, 75% de QC mal preenchido (CP.2), 45% de falta de papel timbrado (CP.3), 14% de mínimo de propostas (CP.1) e de proposta vencida (CP.8), mas só 1–6% em garantia, prazo de entrega, exclusões, SSMA, TST e seguro.
 
 ## Origem de cada item: política da BGRE × critério do usuário
 
@@ -70,8 +74,11 @@ O usuário avisou (2026-10-06) que **parte dos itens do formulário não é pol�
 - **Alçada no iPMS:** corte de R$ 20 mil; até lá 4 etapas (Gestor, Regional, Síndico BackOffice, Síndico preposto), acima 5 (+ Diretor). O PRO-004 do manual usa R$ 5 mil e R$ 30 mil. O relatório lista os cargos de cada aprovação e diz qual régua aplicou.
 - **Arquivos do mapa:** o mapa do iPMS lista os arquivos orçamentários. A skill compara com o que recebeu e pede o que falta.
 - **Histórico:** a exportação do sistema de aprovações é insumo para CP.26 e para detectar o mesmo escopo aprovado antes. Anexar a cada lote até o registro no OneDrive existir.
-- **Nível por valor e por tipo:** commodity de preço unitário acima de R$ 30 mil vai para Padrão, não Profunda.
-- **Severidade por valor:** a falta de equalização é bloqueante em valores altos e ressalva em valores baixos; régua pendente do usuário.
+- **Nível por valor e por tipo (aprovado pelo usuário):** commodity de preço unitário acima de R$ 30 mil vai para Padrão, não Profunda. Profunda = acima de R$ 30 mil de obra, equipamento ou RFP.
+- **Mérito em Profunda (aprovado):** o mérito preliminar fica mesmo quando há bloqueante.
+- **Onde ficam as análises:** OneDrive, pasta `Operacional\\Claude\\Análise de QCs`. Dados de condomínio e fornecedor nunca no GitHub.
+- **Limite do conector:** o `sharepoint_upload_file` recebe o PDF como texto base64, e a transcrição confiável pelo Claude fica em torno de 13 mil caracteres por chamada. Por isso o relatório sai dividido em `_relatorio` e `_anexos` (e em `_parte1`/`_parte2` nos casos Profunda). A skill deve gerar PDFs pequenos (ReportLab, fontes padrão) e, quando possível, gravar por uma ferramenta que aceite arquivo, não texto.
+- **Severidade:** sem régua por valor. Vale a regra simples (BGRE "Não" ou divergência mapa × proposta = bloqueante; o resto = ressalva). Decidido pelo usuário em 2026-10-06.
 - **Achados novos que o checklist não pergunta:** validade do mapa × propostas, faturamento direto por terceiro, escopo menor na vencedora, valor da vencedora mudando no histórico, CNPJ ausente.
 - **Citação:** sempre a página do PDF; toda "inconsistência" é revisada contra o contexto antes de entrar no relatório.
 
@@ -152,7 +159,7 @@ A sessão é efêmera: **a análise só conta como terminada depois que o relat�
 - [ ] Nenhuma divergência mapa × proposta passando nos casos do piloto.
 - [ ] Toda análise com relatório gravado e linha no registro.
 - [ ] Devolutivas aceitas pela administradora sem pedido de esclarecimento.
-- [ ] Severidade calibrada contra os casos do piloto.
+- [x] Severidade simplificada e aprovada pelo usuário (2026-10-06).
 
 ## Fora do escopo mas mapeado (v2+)
 
