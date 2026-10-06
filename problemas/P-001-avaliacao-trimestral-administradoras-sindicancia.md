@@ -1,5 +1,7 @@
 # P-001 — Avaliação trimestral das administradoras e da sindicância dos condomínios (BGRE)
 
+**Status:** virou o projeto `avaliacao-trimestral-bgre` (2026-10-06) — ver `projetos/avaliacao-trimestral-bgre.md`.
+
 ## Em uma frase
 Todo trimestre o usuário precisa avaliar as administradoras dos condomínios dele junto com a BGRE, e avaliar a sindicância de cada prédio; hoje isso vive em duas planilhas preenchidas à mão, sem um controle que compile os dados.
 
