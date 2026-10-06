@@ -134,6 +134,16 @@ table.heat{border-collapse:separate;border-spacing:3px;width:100%;min-width:640p
 .cell.pend{background:transparent;color:var(--ink-3);border:1.5px dotted var(--ink-3);cursor:default}
 .cell.cons{background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
 .cell .late{font-size:9px;opacity:.9}
+table.heat.compact{border-spacing:1.5px;min-width:0}
+.heat.compact th{font-size:9px;padding:2px 0;letter-spacing:-.02em}
+.heat.compact .cell{height:26px;font-size:11px;border-radius:3px;gap:0}
+.heat.compact .cell .tx{display:none}
+.heat.compact .cell .late{position:absolute;top:0;right:1px;font-size:7px}
+.heat.compact td{position:relative}
+.heat.compact th.rowh{min-width:120px;font-size:12px}
+.heat.compact th.rowh small{display:none}
+.heat .mh{font-size:10px;font-weight:600;color:var(--ink-2);text-align:left;padding-left:2px;border-left:1px solid var(--line)}
+.evo-col text{font-family:var(--f-mono);font-size:9px;fill:var(--ink-2)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .cell.baixa,:root:not([data-theme="light"]) .cell.alta{color:#0e141a}}
 :root[data-theme="dark"] .cell.baixa,:root[data-theme="dark"] .cell.alta{color:#0e141a}
 .legend{display:flex;gap:6px 16px;flex-wrap:wrap;font-size:12px;color:var(--ink-2);align-items:center}
@@ -352,8 +362,9 @@ function barChart(title,vals,iconKey,cls,note){
   s+=`<line class="gl" x1="${pl}" x2="${W_-pr}" y1="${H-pb}" y2="${H-pb}"/>`;
   vals.forEach((v,i)=>{
     const h=v/top*plot, x=pl+i*bw+bw*.18, w=bw*.64, y=H-pb-h;
-    if(v>0) s+=`<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="var(--${cls})"${v===max?"":' fill-opacity=".72"'}><title>Semana ${isoWeek(VW[i])} (${dm(VW[i])}): ${v}</title></rect><text x="${(x+w/2).toFixed(1)}" y="${(y-3).toFixed(1)}" text-anchor="middle">${v}</text>`;
-    s+=`<text x="${(x+w/2).toFixed(1)}" y="${H-5}" text-anchor="middle">${dm(VW[i]).replace("/","·")}</text>`;
+    if(v>0) s+=`<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="var(--${cls})"${v===max?"":' fill-opacity=".72"'}><title>Semana ${isoWeek(VW[i])} (${dm(VW[i])}): ${v}</title></rect>${vals.length<=16||v===max?`<text x="${(x+w/2).toFixed(1)}" y="${(y-3).toFixed(1)}" text-anchor="middle">${v}</text>`:""}`;
+    if(vals.length<=16) s+=`<text x="${(x+w/2).toFixed(1)}" y="${H-5}" text-anchor="middle">${dm(VW[i]).replace("/","·")}</text>`;
+    else if(i%4===0) s+=`<text x="${(x+w/2).toFixed(1)}" y="${H-5}" text-anchor="middle">S${isoWeek(VW[i])}</text>`;
   });
   return `<div class="mini"><h3><span style="color:var(--${cls})">${ic(iconKey)}</span>${esc(title)}</h3><div class="tot">${vals.reduce((a,b)=>a+b,0)} no período${note?` · ${esc(note)}`:""}</div>${s}</svg></div>`;
 }
@@ -391,7 +402,7 @@ function renderTabs(cur){
     m+=`<button class="mb${sc===k&&cur!=="m"+k?" parent":""}" role="tab" data-go="m${k}" aria-selected="${cur==="m"+k}"><span>${mchip(k)}</span><span class="ct">${ws.length} sem</span>${al?`<span class="al" title="${al} semanas em severidade alta">▲ ${al}</span>`:""}</button>`;
   });
   document.getElementById("months").innerHTML=m;
-  const el=document.getElementById("tabs"), ws=sc?weeksOf(sc):W;
+  const el=document.getElementById("tabs"), ws=sc?weeksOf(sc):[];
   let h=sc
    ? `<button class="tab" role="tab" data-go="m${sc}" aria-selected="${cur==="m"+sc}"><span>Visão de ${MN[+sc.slice(5,7)-1]}</span><span class="t2">${dm(ws[0])} a ${dm(addDays(ws[ws.length-1],6))}</span></button>`
    : `<button class="tab" role="tab" data-go="geral" aria-selected="${cur==="geral"}"><span>Visão geral</span><span class="t2">${dm(W[0])} a ${dm(addDays(LAST,6))}</span></button>`;
@@ -406,17 +417,20 @@ function renderTabs(cur){
 
 /* ---------- visão geral ---------- */
 function heatmap(){
-  let h=`<div class="scroller"><table class="heat"><thead><tr><th></th>`;
-  VW.forEach(w=>h+=`<th>S${isoWeek(w)}<br>${dm(w)}</th>`);
+  const cp=VW.length>14;
+  let h=`<div class="scroller"><table class="heat${cp?" compact":""}"><thead>`;
+  if(cp){ h+=`<tr><th></th>`; let i=0; while(i<VW.length){ const k=monthOf(VW[i]); let n=0; while(i+n<VW.length&&monthOf(VW[i+n])===k) n++; h+=`<th class="mh" colspan="${n}">${MN[+k.slice(5,7)-1].slice(0,3)}</th>`; i+=n; } h+=`</tr>`; }
+  h+=`<tr><th></th>`;
+  VW.forEach(w=>h+=cp?`<th title="Semana ${isoWeek(w)}: ${dm(w)} a ${dm(addDays(w,6))}">${isoWeek(w)}</th>`:`<th>S${isoWeek(w)}<br>${dm(w)}</th>`);
   h+=`</tr></thead><tbody>`;
   CS.forEach(c=>{
     h+=`<tr><th class="rowh" scope="row">${esc(c.nome)}<small>${esc(c.adm)}</small></th>`;
     VW.forEach(w=>{
       const s=state(c.slug,w);
-      if(s.k==="ok") h+=`<td><button class="cell ${s.e.sev}" data-week="${wid(w)}" data-condo="${c.slug}" aria-label="${esc(c.nome)}, semana de ${dm(w)}: severidade ${SEV[s.e.sev].l}${s.e.no_prazo?"":", chegou depois das 12h da segunda"}"><span class="g" aria-hidden="true">${SEV[s.e.sev].g}</span>${SEV[s.e.sev].l}${s.e.no_prazo?"":`<span class="late" title="Chegou depois das 12h da segunda: ${brtTxt(s.e.rec)}">⏱</span>`}</button></td>`;
-      else if(s.k==="cons") h+=`<td><button class="cell cons" data-week="${wid(s.to)}" data-condo="${c.slug}" title="Coberta pelo relatório consolidado da semana de ${dm(s.to)}">consol.</button></td>`;
-      else if(s.k==="pend") h+=`<td><div class="cell pend" title="Prazo é a próxima segunda, 12h">a vencer</div></td>`;
-      else h+=`<td><div class="cell miss" title="Report não localizado no e-mail">sem report</div></td>`;
+      if(s.k==="ok") h+=`<td><button class="cell ${s.e.sev}" data-week="${wid(w)}" data-condo="${c.slug}" aria-label="${esc(c.nome)}, semana de ${dm(w)}: severidade ${SEV[s.e.sev].l}${s.e.no_prazo?"":", chegou depois das 12h da segunda"}"><span class="g" aria-hidden="true">${SEV[s.e.sev].g}</span><span class="tx">${SEV[s.e.sev].l}</span>${s.e.no_prazo?"":`<span class="late" title="Chegou depois das 12h da segunda: ${brtTxt(s.e.rec)}">⏱</span>`}</button></td>`;
+      else if(s.k==="cons") h+=`<td><button class="cell cons" data-week="${wid(s.to)}" data-condo="${c.slug}" title="Coberta pelo relatório consolidado da semana de ${dm(s.to)}">${cp?"c":"consol."}</button></td>`;
+      else if(s.k==="pend") h+=`<td><div class="cell pend" title="Prazo é a próxima segunda, 12h">${cp?"":"a vencer"}</div></td>`;
+      else h+=`<td><div class="cell miss" title="Report não localizado no e-mail">${cp?"":"sem report"}</div></td>`;
     });
     h+=`</tr>`;
   });
@@ -450,6 +464,21 @@ function destaquesMes(ws){
   if(!rows.length) return `<p class="why">Nenhuma semana em severidade alta neste mês.</p>`;
   return `<div class="prio">`+rows.map(r=>`<article class="pcard alta"><div class="pc-top"><div class="tags"><span class="tag">${esc(r.c.nome)}</span><span class="tag">semana de ${dm(r.w)}</span></div>${pill("alta")}</div><p class="head-line">${esc(r.e.motivo)}</p>${r.e.atencao.length?`<ul class="facts">${r.e.atencao.slice(0,2).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}<a href="#${wid(r.w)}" data-go="${wid(r.w)}" data-condo="${r.c.slug}" style="font-size:12.5px">Abrir a semana ${isoWeek(r.w)}</a></article>`).join("")+`</div>`;
 }
+function evolucaoMensal(){
+  const rows=MONTHS.map(k=>{const ws=weeksOf(k); const ev={}; CATS.forEach(x=>ev[x.k]=ws.reduce((a,w)=>a+STATS[w].ev[x.k],0));
+    const rec=ws.reduce((a,w)=>a+STATS[w].rec,0), alta=ws.reduce((a,w)=>a+STATS[w].sev.alta,0), media=ws.reduce((a,w)=>a+STATS[w].sev.media,0);
+    return {k,ws,ev,rec,alta,media,tot:CATS.reduce((a,x)=>a+ev[x.k],0)};});
+  const W_=640,H=170,pl=8,pr=8,pt=16,pb=30,bw=(W_-pl-pr)/rows.length, max=Math.max(...rows.map(r=>r.tot),1), plot=H-pt-pb;
+  let s=`<svg class="chart evo-col" viewBox="0 0 ${W_} ${H}" role="img" aria-label="Ocorrências por mês: ${rows.map(r=>mchip(r.k)+" "+r.tot).join(", ")}"><line class="gl" x1="${pl}" x2="${W_-pr}" y1="${H-pb}" y2="${H-pb}"/>`;
+  rows.forEach((r,i)=>{
+    const x=pl+i*bw+bw*.16, w=bw*.68; let y=H-pb;
+    CATS.forEach(c=>{ const v=r.ev[c.k]; if(!v) return; const h=v/max*plot; y-=h; s+=`<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" fill="var(--${c.c})"><title>${mchip(r.k)} · ${c.l}: ${v}</title></rect>`; });
+    s+=`<text x="${(x+w/2).toFixed(1)}" y="${(y-4).toFixed(1)}" text-anchor="middle" style="fill:var(--ink)">${r.tot}</text>`;
+    s+=`<text x="${(x+w/2).toFixed(1)}" y="${H-17}" text-anchor="middle">${MN[+r.k.slice(5,7)-1].slice(0,3)}</text>`;
+    s+=`<text x="${(x+w/2).toFixed(1)}" y="${H-5}" text-anchor="middle" style="fill:var(--alta)">${r.alta?"▲ "+r.alta:""}</text>`;
+  });
+  return legendCats()+s+`</svg><div class="legend" style="margin-top:2px"><span style="color:var(--alta)">▲ n</span><span>semanas em severidade alta no mês · o total acima de cada coluna soma as ocorrências dos reports recebidos</span></div>`;
+}
 function renderGeral(mk){
   const full=!mk, ws=full?W:weeksOf(mk); VW=ws;
   const first=ws[0], lastW=ws[ws.length-1], endIso=addDays(lastW,6);
@@ -470,7 +499,7 @@ function renderGeral(mk){
   h+=`<section><div class="sec-h"><h2>Mapa de severidade</h2><span class="note">Toque numa célula para abrir a semana</span></div>${heatmap()}</section>`;
 
   if(CS.length===1){
-  h+=`<section><div class="sec-h"><h2>Semana a semana · ${esc(short(CS[0]))}</h2><span class="note">Da mais recente para a mais antiga</span></div><div class="grid-cards">${ws.slice().reverse().map(w=>card(CS[0],w,true)).join("")}</div></section>`;
+  h+=`<section><div class="sec-h"><h2>Semana a semana · ${esc(short(CS[0]))}</h2><span class="note">Da mais recente para a mais antiga</span></div><div class="grid-cards">${ws.slice().reverse().slice(0,12).map(w=>card(CS[0],w,true)).join("")}</div>${ws.length>12?`<details class="foot" style="margin-top:12px"><summary>Ver as ${ws.length-12} semanas mais antigas</summary><div class="grid-cards" style="margin-top:12px">${ws.slice().reverse().slice(12).map(w=>card(CS[0],w,true)).join("")}</div></details>`:""}</section>`;
   }
 
   if(full){
@@ -487,7 +516,9 @@ function renderGeral(mk){
    barChart("Energia",series("energia"),"bolt","c1","quedas e oscilações")+
    barChart("Elevadores",series("elevadores"),"elev","c2",`${ws.reduce((a,w)=>a+STATS[w].ev.retidos,0)} com passageiro retido`)+
    barChart("Segurança",series("seguranca"),"shield","c3","alarmes, atendimentos, polícia")+
-   barChart("Chuva e infiltração",series("chuvas"),"drop","c4",full?"recorrente desde setembro":"")+`</div></section>`;
+   barChart("Chuva e infiltração",series("chuvas"),"drop","c4","")+`</div></section>`;
+
+  if(full&&MONTHS.length>2) h+=`<section><div class="sec-h"><h2>Evolução mês a mês</h2><span class="note">Ocorrências e semanas críticas por mês</span></div><div class="panel">${evolucaoMensal()}</div></section>`;
 
   h+=`<section><div class="two"><div class="panel"><div class="sec-h" style="margin-bottom:8px"><h2 style="font-size:16px">Onde se concentram as ocorrências</h2></div>${legendCats()}${stackedByCondo(CS.map(c=>({nome:c.nome.replace(/ \(.*\)/,""),vals:Object.fromEntries(CATS.map(x=>[x.k,ws.reduce((a,w)=>{const s=state(c.slug,w);return a+(s.k==="ok"?nEv(s.e,x.k):0);},0)]))})).sort((a,b)=>CATS.reduce((s,x)=>s+b.vals[x.k],0)-CATS.reduce((s,x)=>s+a.vals[x.k],0)))}</div>
    <div class="panel"><div class="sec-h" style="margin-bottom:8px"><h2 style="font-size:16px">Cobertura de reports por condomínio</h2></div>${coverageBars()}</div></div></section>`;

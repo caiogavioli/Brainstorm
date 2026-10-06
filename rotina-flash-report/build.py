@@ -80,6 +80,7 @@ def main():
     ap.add_argument('--base', required=True); ap.add_argument('--extracted')
     ap.add_argument('--week'); ap.add_argument('--out')
     ap.add_argument('--exec'); ap.add_argument('--today')
+    ap.add_argument('--desde', help='segunda-feira inicial do relatório (ex.: 2025-12-29); acrescenta semanas anteriores às já existentes e aceita extrações dessas semanas')
     ap.add_argument('--faltas', action='store_true', help='lista as semanas sem report de cada condomínio e sai')
     ap.add_argument('--so-regras', action='store_true', help='não lê extrações: reaplica regras (prazo) e o template sobre o base')
     a = ap.parse_args()
@@ -95,7 +96,12 @@ def main():
         a.extracted = a.week = None
     elif not (a.extracted and a.week and a.out): raise SystemExit('faltam --extracted, --week e --out')
     data['followups'] = {}   # as cobranças da BGRE não aparecem mais no relatório nem ficam nos dados da página
-    W = data['weeks']; first = W[0]
+    W = data['weeks']
+    if a.desde:
+        if D(a.desde).weekday() != 0: raise SystemExit('--desde precisa ser uma segunda-feira')
+        while W[0] > a.desde:
+            W.insert(0, (D(W[0]) - dt.timedelta(days=7)).isoformat())
+    first = W[0]
     target = a.week or W[-1]
     if D(target).weekday() != 0: raise SystemExit('--week precisa ser uma segunda-feira')
     # acrescenta semanas até a alvo
@@ -104,13 +110,17 @@ def main():
     for c in data['condos']:
         data['entries'].setdefault(c['slug'], {}); data['cobertos'].setdefault(c['slug'], {})
     for c in ([] if a.so_regras else data['condos']):
-        slug = c['slug']; p = os.path.join(a.extracted, slug + '.json')
+        slug = c['slug']
         data['entries'].setdefault(slug, {}); data['cobertos'].setdefault(slug, {})
-        if not os.path.exists(p):
+        # aceita <slug>.json e lotes <slug>-<n>.json
+        files = sorted(f for f in os.listdir(a.extracted) if re.fullmatch(re.escape(slug) + r'(-\d+)?\.json', f))
+        if not files:
             print('AVISO: sem arquivo de extração para', slug); continue
-        src = json.load(open(p, encoding='utf-8'))
-        for s in src.get('semanas', []):
-            if s['inicio'] < '2026-08-01': continue
+        semanas = []
+        for f in files: semanas += json.load(open(os.path.join(a.extracted, f), encoding='utf-8')).get('semanas', [])
+        semanas.sort(key=lambda s: (s['inicio'], s['recebido_em']))   # reenvio/versão posterior sobrescreve a anterior
+        for s in semanas:
+            if s['inicio'] < first: continue
             wk, extra = place(s)
             if wk < first or wk > target: continue
             data['entries'][slug][wk] = build_entry(s)
