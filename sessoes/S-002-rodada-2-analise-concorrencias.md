@@ -113,3 +113,9 @@ Anexos: xlsx exportado do Monday ("Aprovação de Quadros de Concorrência", 544
 - Recusados: ~6% (31 de ~513 reais). Motivos escritos: mínimo de propostas, papel timbrado, proposta vencida, valores divergentes, sem garantia, sem CNPJ, QC mal preenchido, sem proposta anexa. 19 de 31 sem motivo escrito.
 - Aprovados com ao menos um "Não": 321 de 482; com observação preenchida: 60.
 - ~31 linhas do xlsx parecem dados de teste (nomes de fornecedor fictícios, QC-2026-0xx), usados só como ordem de grandeza.
+
+## Complemento (2026-10-06, palavras dele)
+
+> Veja que parte dos itens do formulário de aprovação não fazem parte da politica/exigencias da BGRE. eu criei esses itens para analisar mais a fundo as concorrencias. vou te mandar os casos reais logo em seguida
+
+Registrado em `projetos/analise-concorrencias.md`, seção "Origem de cada item". A divisão BGRE × critério próprio foi inferida pelo Claude a partir do manual e **aguarda confirmação**. Próximo passo: o usuário envia os casos reais para o piloto.

@@ -50,6 +50,21 @@ Calibrada pelo histórico de aprovações do usuário (ago–out/2026, ~510 QCs 
 | 🟡 **Ressalva — assina se corrigir ou justificar** | garantia (CP.7/16); prazo de entrega (CP.6); lista de exclusões (CP.14); SSMA/TST/ART conforme tipo e valor (CP.10–12); seguro abaixo da faixa (CP.19); cronograma e custos abertos (CP.13/15); índice de reajuste (CP.18) |
 | ⚪ **Observação** | melhoria sem risco de auditoria |
 
+## Origem de cada item: política da BGRE × critério do usuário
+
+O usuário avisou (2026-10-06) que **parte dos itens do formulário não é política da BGRE**: ele os criou para analisar as concorrências mais a fundo. A separação abaixo é **inferência do Claude** a partir de quais itens o manual `docs/manual-concorrencia.md` amarra a uma regra com fonte e quais não — **a confirmar com o usuário**.
+
+| Origem | Itens | Evidência |
+|---|---|---|
+| **Política BGRE** (tem fonte no manual) | CP.1 mínimo de propostas (PRO-004 6.3.d/i) · CP.2 preenchimento do QC (6.4.b) · CP.3 papel timbrado (6.3.c) · CP.18 índice de reajuste e CP.19 seguro (Matriz de Contratos) · CP.20–22 alçada (6.5.a) · CP.24 CAPEX · CP.25 exceções · CP.26 não divisão (6.3.e) | Regra e fonte citadas no manual |
+| **Critério do usuário** (sem fonte no manual) | CP.4 classificação · CP.5–CP.17: detalhamento, prazo de entrega, garantia, validade, metodologia, ART, SSMA, TST, custos abertos, exclusões, cronograma, garantia do serviço | Só "o que checar", sem regra nem fonte. Bate com o histórico: são justamente os itens que quase nunca causam recusa (1% a 6%) |
+
+**Consequências no desenho:**
+1. Todo achado sai com a etiqueta **[BGRE]** ou **[Critério próprio]**.
+2. Na devolutiva à administradora, **só item [BGRE] cita procedimento e item** (ex.: "PRO-004, 6.3.c"). Item [Critério próprio] é pedido como exigência da análise do síndico, **nunca atribuído à política do cliente**.
+3. Exposição de auditoria é diferente: dispensar um item [BGRE] precisa de justificativa registrada; dispensar um [Critério próprio] é decisão livre dele.
+4. O que for [Critério próprio] tende a ser 🟡 ressalva; o que for [BGRE] e falhar tende a ser 🔴 bloqueante. A tabela de severidade será recalibrada no piloto com essa divisão.
+
 ## Além do formulário (o que "análise completa" significa)
 
 Conferir o que o checklist não pergunta: soma, fórmulas e células escondidas do xlsx; unidade e quantidade entre propostas; frete e impostos incluídos ou não; marcas equivalentes; datas incoerentes (proposta posterior ao mapa, mapa muito depois da validade); mesmo CNPJ, endereço, telefone ou layout entre "concorrentes"; preço muito abaixo da concorrência (inexequível, risco trabalhista em serviço contínuo); escopo e exclusões desiguais; cláusulas da Matriz de Contratos (multa, vigência ≤ 36 meses, reajuste, foro); compra recorrente que deveria ser contrato; justificativa quando o vencedor não é o menor preço. Preço × custo-benefício × solução: o relatório mostra o vencedor por valor **e**, quando divergir, o vencedor por custo-benefício, com a diferença em R$.
