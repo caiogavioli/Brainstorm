@@ -22,7 +22,10 @@
 | CP.3 — a quem se aplica | Vale para todos os fornecedores, com **prioridade para a vencedora** | "o ideal é valer para todos os fornecedores, mas, vamos dar prioridade para a vencedora" |
 | CP.4 Produto ou Serviço — classificação errada no mapa | **Refaz o checklist pela classificação correta, aponta a divergência como ressalva e não devolve** | "Refaz pelo correto, ressalva e não devolve." |
 | CP.4 — regra de classificação | **Produto = Produto. Serviço + Produto = Serviço. Serviço = Serviço.** Ou seja, qualquer serviço no pacote classifica como Serviço | "Produto = Produto. Serviço+Produto = Serviço. Serviço = Serviço." |
+| CP.5 Detalhamento do Produto — modelo, marca ou especificação divergente | **Analisar se é equivalente.** O que importa é o produto e a funcionalidade, porque nem sempre há produtos idênticos. **Só em caso extremo devolve** (exemplo do usuário: sifão de plástico cotado por um fornecedor contra sifão de ferro cotado por outro, porque o custo varia demais). Equivalente = sem devolução | "analise se é equivalente, pois nem sempre vamos conseguir produtos idênticos (exemplo do sifão: o que importa é o produto em si, e sua funcionalidade). apenas em casos extremos devemos devolver (exemplo: um sifão de plástico cotado por um fornecedor contra um sifão de ferro cotado por outro fornecedor, pois isso vai variar demais o custo)." |
+| CP.5 — proposta sem especificação suficiente | **Analisar se dá para inferir pelo mapa e pelas propostas.** Nesse caso ser mais brando (tende a ressalva, não devolução) | "analisa se dá para inferir pelo mapa e pelas propostas. neste caso, podemos ser mais brandos." |
+| CP.5 — marca exigida e não cotada | **Não devolve.** Apontar que não é a mesma marca | "não, não devolver, mas apontar que não é a mesma marca" |
 
 ## Ainda por perguntar
 
-CP.5 a CP.19, CP.20 a CP.22 (alçada), CP.24, CP.25 e CP.26.
+CP.6 a CP.19, CP.20 a CP.22 (alçada), CP.24, CP.25 e CP.26.
