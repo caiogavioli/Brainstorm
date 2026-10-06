@@ -27,7 +27,12 @@
 | CP.5 — marca exigida e não cotada | **Não devolve.** Apontar que não é a mesma marca | "não, não devolver, mas apontar que não é a mesma marca" |
 | CP.6 Prazo de entrega — sem prazo, prazo longo ou incompatível, prazo diferente entre mapa e proposta | **Ressalva em todos os casos.** Não devolve. Inclui a divergência de prazo entre mapa e proposta (que na regra da S-003 era bloqueante) | "ressalva para todos estes itens do CP6" |
 | CP.7 Garantia do Produto — sem garantia, garantia diferente entre propostas, garantia diferente entre mapa e proposta | **Ressalva em todos os casos.** Não devolve | "ressalva para todos os itens do CP7" |
+| CP.8 Validade (produto) — vencida, sem reconfirmação | **Devolve sempre** | "1) sim, devolve sempre" |
+| CP.8 — vencida, com reconfirmação | **Analisar se a reconfirmação cobre valor e data.** Só devolve se não cobrir | "2) exatamente" |
+| CP.8 — proposta sem validade informada | **Ressalva.** O Compliance da BGRE confirmou por escrito que proposta sem validade pode ser considerada com **validade fictícia de 6 meses** a partir da data da proposta | "proposta sem validade: ressalva (temos uma confirmação do Compliance da BGRE por escrito que podemos considerar propostas sem validade com uma "validade ficticia" de 6 meses)" |
+| CP.8 — validade da proposta diferente da validade do mapa | **Analisar, tende a ressalva** (ex.: água, 04/10 na proposta × 24/10 no mapa) | "4) analisa, mas tende a ser ressalva" |
+| CP.8 — a quem se aplica | **Primeiro a vencedora.** Se a vencedora estiver em ordem, analisa as outras; se a vencedora estiver ok e as outras não, **ressalva** | "faça a analise para a vencedora. se ela de acordo, analise as outras. porém, se a vencedora estiver ok e as outras não, vamos de ressalva" |
 
 ## Ainda por perguntar
 
-CP.8 a CP.19, CP.20 a CP.22 (alçada), CP.24, CP.25 e CP.26.
+CP.9 a CP.19, CP.20 a CP.22 (alçada), CP.24, CP.25 e CP.26.
