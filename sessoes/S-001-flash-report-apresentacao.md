@@ -25,6 +25,8 @@
 
 > adorei. faça mais uma alteração: quero filtrar mensalmente, e depois o filtro semanal como você fez
 
+> vi que o TNU mandou o flash report. busque se o Panamerica mandou, e atualize a análise
+
 ## O que foi feito nesta sessão
 
 - Branch criado: `claude/flash-report-analises-semanais` (a partir de `main`).
@@ -43,3 +45,4 @@
 - Revisão de 06/10 no Outlook (7 condomínios com semanas em falta): chegaram Alphaville, Passeio Paulista e Parque Corporate (semana de 28/09, todos depois das 12h). Continuam sem report: Panamérica Park (6 semanas, desde 24/08, sem cobrança da BGRE por e-mail), TNU (3 segundas sem Flash desde 14/09, ainda sem cobrança da BGRE), Centenário Plaza (24/08, 31/08, 07/09), 17007 Nações (31/08, 07/09, 21/09) e Alphaville (16 a 22/08). Fatos só por e-mail anotados: bomba de incêndio do PNP travou em 28/08, interrupções de energia no Fórum Trabalhista do PNP, pedido da BGRE sobre água de ar condicionado no Passeio Paulista e aprovação de fornecedor único (Henkotech) pendente com o usuário desde 02/10.
 - Relatório redesenhado (versão 3 do artefato): manchetes curtas, anéis de cobertura e pontualidade, mapa de severidade, barras empilhadas por condomínio, gráfico de horário de chegada com a linha das 12h, contagem regressiva de datas críticas e, em cada semana, uma linha do tempo de 7 dias com ícones por tipo de ocorrência. Prioridades e temas agora têm número em destaque, três frases curtas e uma ação.
 - Filtro mensal (versão 4 do artefato): linha de meses no topo e, dentro de cada mês, a visão do mês (indicadores, mapa, destaques, gráficos, cobranças) e as semanas. Semana entra no mês em que cai a quinta-feira. Prioridades, temas e datas críticas ficam só na aba Tudo.
+- Atualização de 06/10 (17h40): o TNU mandou a semana de 28/09 a 04/10 às 15h43 (depois do prazo). O Panamérica Park não mandou: segue o consolidado de 10 a 23/08 como último report (6 semanas sem Flash, AVCB vence em 17/10). Por e-mail do PNP: bomba elétrica de incêndio travou em 27/08, Fórum Trabalhista cobra providência após queda em 14/09, válvula da Caixa 1 travada com pedido de R$ 8.520,00 (PP 3889/26) esperando aprovação do usuário. Artefato na versão 5; novo card "Aprovações esperando você" (Passeio Paulista e PNP).
