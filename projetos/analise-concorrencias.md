@@ -65,6 +65,16 @@ O usuário avisou (2026-10-06) que **parte dos itens do formulário não é pol�
 3. Exposição de auditoria é diferente: dispensar um item [BGRE] precisa de justificativa registrada; dispensar um [Critério próprio] é decisão livre dele.
 4. O que for [Critério próprio] tende a ser 🟡 ressalva; o que for [BGRE] e falhar tende a ser 🔴 bloqueante. A tabela de severidade será recalibrada no piloto com essa divisão.
 
+## Aprendizados do piloto (2026-10-06, `sessoes/S-003-piloto-seis-casos.md`)
+
+- **Alçada no iPMS:** corte de R$ 20 mil; até lá 4 etapas (Gestor, Regional, Síndico BackOffice, Síndico preposto), acima 5 (+ Diretor). O PRO-004 do manual usa R$ 5 mil e R$ 30 mil. O relatório lista os cargos de cada aprovação e diz qual régua aplicou.
+- **Arquivos do mapa:** o mapa do iPMS lista os arquivos orçamentários. A skill compara com o que recebeu e pede o que falta.
+- **Histórico:** a exportação do sistema de aprovações é insumo para CP.26 e para detectar o mesmo escopo aprovado antes. Anexar a cada lote até o registro no OneDrive existir.
+- **Nível por valor e por tipo:** commodity de preço unitário acima de R$ 30 mil vai para Padrão, não Profunda.
+- **Severidade por valor:** a falta de equalização é bloqueante em valores altos e ressalva em valores baixos; régua pendente do usuário.
+- **Achados novos que o checklist não pergunta:** validade do mapa × propostas, faturamento direto por terceiro, escopo menor na vencedora, valor da vencedora mudando no histórico, CNPJ ausente.
+- **Citação:** sempre a página do PDF; toda "inconsistência" é revisada contra o contexto antes de entrar no relatório.
+
 ## Além do formulário (o que "análise completa" significa)
 
 Conferir o que o checklist não pergunta: soma, fórmulas e células escondidas do xlsx; unidade e quantidade entre propostas; frete e impostos incluídos ou não; marcas equivalentes; datas incoerentes (proposta posterior ao mapa, mapa muito depois da validade); mesmo CNPJ, endereço, telefone ou layout entre "concorrentes"; preço muito abaixo da concorrência (inexequível, risco trabalhista em serviço contínuo); escopo e exclusões desiguais; cláusulas da Matriz de Contratos (multa, vigência ≤ 36 meses, reajuste, foro); compra recorrente que deveria ser contrato; justificativa quando o vencedor não é o menor preço. Preço × custo-benefício × solução: o relatório mostra o vencedor por valor **e**, quando divergir, o vencedor por custo-benefício, com a diferença em R$.
