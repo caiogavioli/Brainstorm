@@ -1,0 +1,33 @@
+# S-004 — Decisões da Rodada 2 (2026-10-06)
+
+## Respostas do usuário (palavras dele)
+
+> vai com a recomendação do time
+> por planilha
+> eles conhecem, mas não usam... eu que uso todo trimestre
+
+O usuário **delegou** as decisões D1–D5 de S-003 à recomendação do time (as três opções recomendadas eram as mesmas A de cada decisão, contra a discordância de Tomás em D1 e D2 e de Marina em D4). Não sobrou desacordo a devolver: vale a recomendação.
+
+## Decisões fechadas
+
+| # | Decisão | Alternativas descartadas |
+|---|---|---|
+| D1 | Pedido **mensal** (1º dia útil) dos itens medidos mês a mês + pedido **trimestral** do resto, com **rascunho de e-mail pronto** no Outlook para o usuário enviar | B (um pedido trimestral com lembrete no meio — Tomás); C (tudo mensal) |
+| D2 | **Pasta de evidências por condomínio** no OneDrive do usuário, compartilhada **só** com a administradora daquele condomínio, numa **árvore separada** da das planilhas de nota (a administradora nunca vê a nota antes de o usuário circular) | B (biblioteca SharePoint da DF — Tomás, fica como migração futura); C (só e-mail) |
+| D3 | Divisão de itens conforme S-003: administradora entrega na pasta (1.1, 2.3, 2.5, 2.6, 3.2, 4.1–4.3); lê-se no Action Log (2.2.1, 2.2.3, 2.4, 3.1); chega no e-mail do usuário (2.1, 2.2.2); só a BGRE (3.3, 3.4) | — |
+| D4 | O usuário **continua preenchendo à mão**; o Claude entrega **folha de apoio** por condomínio e, depois, **conferência** da planilha preenchida. A planilha da BGRE não é tocada | B (cópia preenchida por script — Marina; só depois de testar numa cópia) |
+| D5 | v1 = **Excel mestre + painel**; arquivar o PDF assinado e digitalizado na pasta do trimestre; PDF consolidado só a pedido da BGRE | — |
+| Recorte | **1 projeto**, `avaliacao-trimestral-bgre`, duas trilhas (administradora e sindicância), **sem software e sem repositório novo**; a trilha da sindicância não usa pasta compartilhada e calcula o item 3.4 a partir do controle | 2 projetos separados; script avulso |
+
+## Fatos novos
+
+- **≈ 2 h por planilha.** São até 18 planilhas por trimestre (9 administradoras + 9 sindicâncias) — a ordem de grandeza é de **dezenas de horas por trimestre**, não de 2 h. (A estimativa do tempo da sindicância, que costuma reaproveitar a evidência da administradora, não foi separada.)
+- **Os administradores conhecem o checklist e não o usam; quem o usa é o usuário, todo trimestre.** Logo o checklist **não é um instrumento novo para as administradoras**: o que muda é a **cadência mensal, o rascunho pronto, a pasta de entrega simples e o registro do que foi pedido e recebido**. Só entregar a lista de novo repetiria o que já não funciona.
+
+## Pendência levantada pelo time
+
+**Marina:** o que acontece quando a evidência não chega no prazo do mês? A regra da própria planilha ("33,33% para cada mês preenchido em conformidade") já dá um terço do item por mês; se o pedido mensal disser isso com todas as letras, cria consequência. Se o usuário continuar buscando a evidência por conta própria quando a administradora não entrega, o pedido vira só mais um e-mail ignorado. A resposta do usuário define o texto do rascunho.
+
+## Estado
+
+Rodada 2 **fechada em decisão**. Recorte aceito pela delegação. Falta: (1) a regra para evidência que não chega; (2) o usuário dizer "fecha o projeto" para gerar a spec (`projetos/avaliacao-trimestral-bgre.md`) — **não é gatilho** o fim da Rodada 2. Próximo passo já combinado, que não depende do fechamento: **mapa de lacunas do 3T26** (prazo 31/10/2026).
