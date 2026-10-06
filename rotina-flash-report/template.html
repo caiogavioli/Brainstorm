@@ -40,7 +40,7 @@ svg text{font-family:var(--f-mono)}
 .ico{width:16px;height:16px;flex:0 0 16px;display:inline-block;vertical-align:-3px}
 
 /* header + tabs */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--bg);margin-inline:-16px;padding:12px 16px 0;border-bottom:1px solid var(--line)}
+.top{position:static;z-index:10;background:var(--bg);margin-inline:-16px;padding:12px 16px 0;border-bottom:1px solid var(--line)}
 .top-in{max-width:1180px;margin-inline:auto}
 .brand{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-bottom:10px}
 .brand h1{font-size:22px;font-weight:800}
@@ -50,7 +50,7 @@ svg text{font-family:var(--f-mono)}
 .tab .t2{font-size:11px;color:var(--ink-3);font-family:var(--f-mono)}
 .tab:hover{color:var(--ink)}
 .tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
-.months{display:flex;gap:6px;overflow-x:auto;padding:0 0 10px;scrollbar-width:thin}
+.months{display:flex;flex-wrap:wrap;gap:6px;padding:0 0 10px}
 .mb{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 13px;cursor:pointer;font-size:13px;font-weight:500;white-space:nowrap;display:flex;gap:8px;align-items:center;color:var(--ink-2)}
 .mb:hover{color:var(--ink)}
 .mb[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:600}
@@ -58,19 +58,23 @@ svg text{font-family:var(--f-mono)}
 .mb .ct{font-size:11px;font-family:var(--f-mono);opacity:.85}
 .mb .al{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-family:var(--f-mono);padding:0 6px;border-radius:999px;background:var(--alta);color:#fff;line-height:1.5}
 .mb:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.condos{display:flex;gap:7px;overflow-x:auto;padding:1px 0 11px;scrollbar-width:thin;align-items:center}
-.cl{flex:0 0 auto;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600;padding-right:2px}
-.cc2{flex:0 0 auto;display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:4px 11px 4px 4px;cursor:pointer;font-size:13px;font-weight:500;color:var(--ink);white-space:nowrap;transition:border-color .15s,background .15s,box-shadow .15s}
-.cc2 .av{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-family:var(--f-mono);font-size:11px;font-weight:600;background:var(--accent-soft);color:var(--accent);transition:background .15s,color .15s}
-.cc2 .sd{width:8px;height:8px;border-radius:50%;background:transparent;border:1.5px solid var(--none)}
+.condos{display:flex;gap:12px;align-items:flex-start;padding:2px 0 12px}
+.cl{flex:0 0 78px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600;padding-top:9px;line-height:1.2}
+.cgrid{flex:1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;min-width:0}
+.cc2{display:flex;align-items:center;gap:8px;width:100%;min-width:0;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:4px 11px 4px 4px;cursor:pointer;font-size:13px;font-weight:500;color:var(--ink);transition:border-color .15s,background .15s,box-shadow .15s}
+.cc2 .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}
+.cc2 .av{flex:0 0 26px;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-family:var(--f-mono);font-size:11px;font-weight:600;background:var(--accent-soft);color:var(--accent);transition:background .15s,color .15s}
+.cc2 .sd{flex:0 0 8px;width:8px;height:8px;border-radius:50%;background:transparent;border:1.5px solid var(--none)}
 .cc2 .sd.alta{background:var(--alta);border-color:var(--alta)} .cc2 .sd.media{background:var(--media);border-color:var(--media)} .cc2 .sd.baixa{background:var(--baixa);border-color:var(--baixa)}
+@media (max-width:760px){.cgrid{grid-template-columns:repeat(3,minmax(0,1fr))}.cc2{font-size:12px;padding-right:8px;gap:6px}}
+@media (max-width:560px){.condos{flex-direction:column;gap:6px}.cl{flex:none;padding-top:0}.cgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.cc2{font-size:13px}}
 .cc2:hover{border-color:var(--accent)}
 .cc2[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent);font-weight:600}
 .cc2[aria-pressed="true"] .av{background:var(--accent);color:var(--on-accent)}
 .cc2 .n{font-family:var(--f-mono);font-size:11px;color:var(--ink-3)}
 .cc2.all .av{background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line)}
 .cc2.all[aria-pressed="true"] .av{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
-@media (max-width:700px){.top{position:static}}
+@media (min-width:760px) and (min-height:900px){.top{position:sticky;top:env(safe-area-inset-top,0px)}}
 @media (prefers-reduced-motion:reduce){.cc2,.cc2 .av{transition:none}}
 .cc2:focus-visible,.tab:focus-visible,.cell:focus-visible,.sq:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
 .tab .dots{display:flex;gap:2px;margin-top:1px}
@@ -282,10 +286,13 @@ const MN=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto"
 const monthOf = w => addDays(w,3).slice(0,7);
 const MONTHS = [...new Set(W.map(monthOf))];
 const mlabel = k => MN[+k.slice(5,7)-1][0].toUpperCase()+MN[+k.slice(5,7)-1].slice(1)+" de "+k.slice(0,4);
+const mchip = k => MN[+k.slice(5,7)-1][0].toUpperCase()+MN[+k.slice(5,7)-1].slice(1)+" "+k.slice(0,4);
 const weeksOf = k => W.filter(w=>monthOf(w)===k);
 let VW = W;   /* semanas do recorte em exibição */
 const TODAY = (()=>{const p=(DATA.geradoEm||"").split("/"); return p.length===3? p[2]+"-"+p[1]+"-"+p[0] : addDays(LAST,8);})();
 const pct=(a,b)=>b?Math.round(100*a/b):0;
+/* numeração das semanas: semana do ano (ISO 8601) */
+const isoWeek = iso => { const d=new Date(iso+"T12:00:00Z"); d.setUTCDate(d.getUTCDate()-((d.getUTCDay()+6)%7)+3); const j4=new Date(Date.UTC(d.getUTCFullYear(),0,4,12)); return 1+Math.round(((d-j4)/864e5-3+((j4.getUTCDay()+6)%7))/7); };
 const WD=["dom","seg","ter","qua","qui","sex","sáb"];
 
 /* ícones (24x24) */
@@ -345,7 +352,7 @@ function barChart(title,vals,iconKey,cls,note){
   s+=`<line class="gl" x1="${pl}" x2="${W_-pr}" y1="${H-pb}" y2="${H-pb}"/>`;
   vals.forEach((v,i)=>{
     const h=v/top*plot, x=pl+i*bw+bw*.18, w=bw*.64, y=H-pb-h;
-    if(v>0) s+=`<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="var(--${cls})"${v===max?"":' fill-opacity=".72"'}><title>Semana ${W.indexOf(VW[i])+1} (${dm(VW[i])}): ${v}</title></rect><text x="${(x+w/2).toFixed(1)}" y="${(y-3).toFixed(1)}" text-anchor="middle">${v}</text>`;
+    if(v>0) s+=`<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="var(--${cls})"${v===max?"":' fill-opacity=".72"'}><title>Semana ${isoWeek(VW[i])} (${dm(VW[i])}): ${v}</title></rect><text x="${(x+w/2).toFixed(1)}" y="${(y-3).toFixed(1)}" text-anchor="middle">${v}</text>`;
     s+=`<text x="${(x+w/2).toFixed(1)}" y="${H-5}" text-anchor="middle">${dm(VW[i]).replace("/","·")}</text>`;
   });
   return `<div class="mini"><h3><span style="color:var(--${cls})">${ic(iconKey)}</span>${esc(title)}</h3><div class="tot">${vals.reduce((a,b)=>a+b,0)} no período${note?` · ${esc(note)}`:""}</div>${s}</svg></div>`;
@@ -381,7 +388,7 @@ function renderTabs(cur){
   let m=`<button class="mb" role="tab" data-go="geral" aria-selected="${cur==="geral"}"><span>Tudo</span><span class="ct">${W.length} sem</span></button>`;
   MONTHS.forEach(k=>{
     const ws=weeksOf(k), al=ws.reduce((a,w)=>a+STATS[w].sev.alta,0);
-    m+=`<button class="mb${sc===k&&cur!=="m"+k?" parent":""}" role="tab" data-go="m${k}" aria-selected="${cur==="m"+k}"><span>${mlabel(k)}</span><span class="ct">${ws.length} sem</span>${al?`<span class="al" title="${al} semanas em severidade alta">▲ ${al}</span>`:""}</button>`;
+    m+=`<button class="mb${sc===k&&cur!=="m"+k?" parent":""}" role="tab" data-go="m${k}" aria-selected="${cur==="m"+k}"><span>${mchip(k)}</span><span class="ct">${ws.length} sem</span>${al?`<span class="al" title="${al} semanas em severidade alta">▲ ${al}</span>`:""}</button>`;
   });
   document.getElementById("months").innerHTML=m;
   const el=document.getElementById("tabs"), ws=sc?weeksOf(sc):W;
@@ -391,7 +398,7 @@ function renderTabs(cur){
   ws.forEach(w=>{
     const st=STATS[w], i=W.indexOf(w);
     const dots=["alta","media","baixa"].map(k=>st.sev[k]?`<i style="background:var(--${k})" title="${st.sev[k]} ${SEV[k].l}"></i>`.repeat(Math.min(st.sev[k],3)):"").join("");
-    h+=`<button class="tab" role="tab" data-go="${wid(w)}" aria-selected="${cur===wid(w)}"><span>Sem ${i+1}</span><span class="t2">${dm(w)}–${dm(addDays(w,6))}</span><span class="dots" aria-hidden="true">${dots}</span></button>`;
+    h+=`<button class="tab" role="tab" data-go="${wid(w)}" aria-selected="${cur===wid(w)}"><span>Sem ${isoWeek(w)}</span><span class="t2">${dm(w)}–${dm(addDays(w,6))}</span><span class="dots" aria-hidden="true">${dots}</span></button>`;
   });
   el.innerHTML=h;
 }
@@ -400,7 +407,7 @@ function renderTabs(cur){
 /* ---------- visão geral ---------- */
 function heatmap(){
   let h=`<div class="scroller"><table class="heat"><thead><tr><th></th>`;
-  VW.forEach(w=>h+=`<th>S${W.indexOf(w)+1}<br>${dm(w)}</th>`);
+  VW.forEach(w=>h+=`<th>S${isoWeek(w)}<br>${dm(w)}</th>`);
   h+=`</tr></thead><tbody>`;
   CS.forEach(c=>{
     h+=`<tr><th class="rowh" scope="row">${esc(c.nome)}<small>${esc(c.adm)}</small></th>`;
@@ -441,7 +448,7 @@ function datasLista(){
 function destaquesMes(ws){
   const rows=[]; ws.forEach(w=>CS.forEach(c=>{const s=state(c.slug,w); if(s.k==="ok"&&s.e.sev==="alta") rows.push({c,w,e:s.e});}));
   if(!rows.length) return `<p class="why">Nenhuma semana em severidade alta neste mês.</p>`;
-  return `<div class="prio">`+rows.map(r=>`<article class="pcard alta"><div class="pc-top"><div class="tags"><span class="tag">${esc(r.c.nome)}</span><span class="tag">semana de ${dm(r.w)}</span></div>${pill("alta")}</div><p class="head-line">${esc(r.e.motivo)}</p>${r.e.atencao.length?`<ul class="facts">${r.e.atencao.slice(0,2).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}<a href="#${wid(r.w)}" data-go="${wid(r.w)}" data-condo="${r.c.slug}" style="font-size:12.5px">Abrir a semana ${W.indexOf(r.w)+1}</a></article>`).join("")+`</div>`;
+  return `<div class="prio">`+rows.map(r=>`<article class="pcard alta"><div class="pc-top"><div class="tags"><span class="tag">${esc(r.c.nome)}</span><span class="tag">semana de ${dm(r.w)}</span></div>${pill("alta")}</div><p class="head-line">${esc(r.e.motivo)}</p>${r.e.atencao.length?`<ul class="facts">${r.e.atencao.slice(0,2).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}<a href="#${wid(r.w)}" data-go="${wid(r.w)}" data-condo="${r.c.slug}" style="font-size:12.5px">Abrir a semana ${isoWeek(r.w)}</a></article>`).join("")+`</div>`;
 }
 function renderGeral(mk){
   const full=!mk, ws=full?W:weeksOf(mk); VW=ws;
@@ -451,7 +458,7 @@ function renderGeral(mk){
   const due=tot.rec+tot.cons+tot.miss;
   const series=k=>ws.map(w=>STATS[w].ev[k]);
   let h="";
-  h+=`<section><div class="sec-h"><h2>${full?"Em resumo":esc(mlabel(mk))}</h2><span class="note">${SEL.size?`Filtro: ${esc(CS.map(short).join(", "))} · `:""}${full?`Semanas de ${dm(W[0])} a ${dmy(endIso)} · fonte: Flash Reports e respostas no Outlook de Caio`:`${ws.length} ${ws.length>1?"semanas":"semana"}, de ${dm(first)} a ${dmy(endIso)}. A semana entra no mês em que cai a quinta-feira`}</span></div>`+
+  h+=`<section><div class="sec-h"><h2>${full?"Em resumo":esc(mlabel(mk))}</h2><span class="note">${SEL.size?`Filtro: ${esc(CS.map(short).join(", "))} · `:""}${full?`Semanas de ${dm(W[0])} a ${dmy(endIso)}`:`${ws.length} ${ws.length>1?"semanas":"semana"}, de ${dm(first)} a ${dmy(endIso)}. A semana entra no mês em que cai a quinta-feira`}</span></div>`+
   (full&&!SEL.size?`<div class="news">`+(X.manchetes||[]).map(m=>`<div class="new"><span class="bd ${m.c}">${ic(m.ic)}</span><span>${m.t}</span></div>`).join("")+`</div>`:"")+`
   <div class="kpis">
    <div class="kpi">${ring(tot.rec+tot.cons,due,"var(--accent)",`Cobertura: ${tot.rec+tot.cons} de ${due} semanas`)}<div class="tx"><div class="l">Semanas cobertas</div><div class="v">${tot.rec+tot.cons}<small> de ${due}</small></div><div class="d">${tot.miss} sem report${tot.pend?` · ${tot.pend} a vencer`:""}</div></div></div>
@@ -512,10 +519,10 @@ function card(c,w,showWeek){
   const s=state(c.slug,w);
   if(s.k!=="ok"){
     let pl,msg;
-    if(s.k==="cons"){pl=`<span class="pill none">Consolidado</span>`;msg=`Sem report próprio. O conteúdo está no consolidado da semana de ${dm(s.to)}. <a href="#${wid(s.to)}" data-go="${wid(s.to)}">Abrir semana ${W.indexOf(s.to)+1}</a>.`;}
+    if(s.k==="cons"){pl=`<span class="pill none">Consolidado</span>`;msg=`Sem report próprio. O conteúdo está no consolidado da semana de ${dm(s.to)}. <a href="#${wid(s.to)}" data-go="${wid(s.to)}">Abrir semana ${isoWeek(s.to)}</a>.`;}
     else if(s.k==="pend"){pl=`<span class="pill none">A vencer</span>`;msg="O prazo é a próxima segunda, 12h. Ainda não chegou ao e-mail."}
     else {pl=`<span class="pill none">Sem report</span>`;msg="Nenhum Flash Report desta semana foi localizado no e-mail."}
-    return `<article class="card sev-none" id="c-${c.slug}"><div class="cc-head"><div><h3>${esc(c.nome)}</h3><div class="adm">${showWeek?`Semana ${W.indexOf(w)+1} · `:""}${esc(c.adm)}</div></div>${pl}</div><p class="why">${msg}</p></article>`;
+    return `<article class="card sev-none" id="c-${c.slug}"><div class="cc-head"><div><h3>${esc(c.nome)}</h3><div class="adm">${showWeek?`Semana ${isoWeek(w)} · `:""}${esc(c.adm)}</div></div>${pl}</div><p class="why">${msg}</p></article>`;
   }
   const e=s.e;
   const chips=CATS.filter(x=>nEv(e,x.k)).map(x=>`<span class="chip ${x.c}" title="${x.l}">${ic(x.ic)}<b>${nEv(e,x.k)}</b></span>`).join("");
@@ -527,7 +534,7 @@ function card(c,w,showWeek){
     list("energia","Energia")+list("elevadores","Elevadores")+list("seguranca","Segurança")+(e.n_medico?`<div class="why">+ ${e.n_medico} atendimento${e.n_medico>1?"s":""} médico${e.n_medico>1?"s":""} a pessoas no condomínio.</div>`:"")+list("chuvas","Chuva e infiltração")+
     (e.pend.length?`<h4>Pendências em aberto</h4><ul>${e.pend.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:"")+`</div>`;
   return `<article class="card sev-${e.sev}" id="c-${c.slug}">
-   <div class="cc-head"><div><h3>${esc(c.nome)}</h3><div class="adm">${showWeek?`Semana ${W.indexOf(w)+1} · `:""}${esc(c.adm)} · PDF de ${dm(e.ini)} a ${dm(e.fim)}</div></div>${pill(e.sev)}</div>
+   <div class="cc-head"><div><h3>${esc(c.nome)}</h3><div class="adm">${showWeek?`Semana ${isoWeek(w)} · `:""}${esc(c.adm)} · PDF de ${dm(e.ini)} a ${dm(e.fim)}</div></div>${pill(e.sev)}</div>
    <p class="head-line">${esc(headline)}</p>
    ${weekStrip(e,e.ini)}
    <div class="chips">${chips||'<span class="why">Sem ocorrências de energia, elevador, segurança ou chuva.</span>'}<span style="margin-left:auto">${arr}</span></div>
@@ -537,7 +544,7 @@ function card(c,w,showWeek){
 function renderWeek(w){
   const i=W.indexOf(w), st=STATS[w], prev=i>0?STATS[W[i-1]]:null;
   const delta=(a,b)=>prev==null?"":(a-b===0?"igual à anterior":(a>b?"+":"")+(a-b)+" vs. anterior");
-  let h=`<div class="wk-head"><span class="eyebrow">Semana ${i+1} de ${W.length} · ${esc(mlabel(monthOf(w)))}</span><h2>${dm(w)} a ${dmy(addDays(w,6))}</h2><p class="why">Reports devidos até 12h de ${dm(addDays(w,7))}. ${st.rec} de ${CS.length} condomínios com report próprio${st.cons?`, ${st.cons} em consolidado`:""}${st.miss?`, ${st.miss} sem report`:""}${st.pend?`, ${st.pend} a vencer`:""}.</p></div>`;
+  let h=`<div class="wk-head"><span class="eyebrow">Semana ${isoWeek(w)} do ano · ${esc(mlabel(monthOf(w)))}</span><h2>${dm(w)} a ${dmy(addDays(w,6))}</h2><p class="why">Reports devidos até 12h de ${dm(addDays(w,7))}. ${st.rec} de ${CS.length} condomínios com report próprio${st.cons?`, ${st.cons} em consolidado`:""}${st.miss?`, ${st.miss} sem report`:""}${st.pend?`, ${st.pend} a vencer`:""}.</p></div>`;
   h+=`<div class="kpis">
    <div class="kpi"><span class="ic" style="background:var(--alta)">${ic("alert")}</span><div class="tx"><div class="l">Severidade alta</div><div class="v">${st.sev.alta}<small> de ${st.rec}</small></div>${sevbar(st.sev,st.rec)}</div></div>
    <div class="kpi">${ring(st.ontime,st.rec,"var(--baixa)",`${st.ontime} de ${st.rec} até 12h`)}<div class="tx"><div class="l">Chegaram até 12h</div><div class="v">${st.ontime}<small> de ${st.rec}</small></div></div></div>`+
@@ -559,8 +566,9 @@ function renderWeek(w){
 function renderCondos(cur){
   const ws = cur==="geral"?W : cur[0]==="m"?weeksOf(cur.slice(1)) : [W.find(w=>wid(w)===cur)];
   const worst = c => { let b=null; ws.forEach(w=>{const s=state(c.slug,w); if(s.k==="ok" && (b===null || ORDER[s.e.sev]<ORDER[b])) b=s.e.sev;}); return b; };
-  let h=`<span class="cl">Condomínio</span><button class="cc2 all" data-sel="all" aria-pressed="${SEL.size===0}"><span class="av">${C.length}</span><span>Todos</span></button>`;
-  C.forEach(c=>{ const w=worst(c); h+=`<button class="cc2" data-sel="${c.slug}" aria-pressed="${SEL.has(c.slug)}" title="${esc(c.nome)}${w?` · pior severidade no recorte: ${SEV[w].l}`:" · sem report no recorte"}"><span class="av">${esc(sigla(c))}</span><span>${esc(short(c))}</span><span class="sd ${w||""}" aria-hidden="true"></span></button>`; });
+  let h=`<span class="cl">Condomínio</span><div class="cgrid"><button class="cc2 all" data-sel="all" aria-pressed="${SEL.size===0}"><span class="av">${C.length}</span><span class="nm">Todos</span></button>`;
+  C.forEach(c=>{ const w=worst(c); h+=`<button class="cc2" data-sel="${c.slug}" aria-pressed="${SEL.has(c.slug)}" title="${esc(c.nome)}${w?` · pior severidade no recorte: ${SEV[w].l}`:" · sem report no recorte"}"><span class="av">${esc(sigla(c))}</span><span class="nm">${esc(short(c))}</span><span class="sd ${w||""}" aria-hidden="true"></span></button>`; });
+  h+=`</div>`;
   document.getElementById("condos").innerHTML=h;
 }
 document.getElementById("condos").addEventListener("click",e=>{

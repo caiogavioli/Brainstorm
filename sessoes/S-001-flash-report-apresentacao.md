@@ -33,6 +33,12 @@
 
 > além disso, quero que você retire do relatório o item "Cobranças da BGRE sem resposta". não ficou legal expor isso ali
 
+> sim, reescreva esses cartões também
+> arrume a numeração das semanas: organize contando as semanas do ano
+> os botões dos condomínios ficaram bons, porém eles tem uma barra de rolagem que não ficou boa. faça um design dos botoes em duas linhas
+
+> outro ponto: retire onde está escrito fonte. não preicsamkos saber a fonte
+
 ## O que foi feito nesta sessão
 
 - Branch criado: `claude/flash-report-analises-semanais` (a partir de `main`).
@@ -55,3 +61,4 @@
 - Correção do usuário: o condomínio antes chamado "Parque Corporate" é **"O Parque - T07"**. Nome trocado no artefato (versão 6), no playbook e nas notas; o identificador interno `parque-corporate` ficou, porque os dados e a rotina dependem dele.
 - Filtro por condomínio (versão 7 do artefato): linha de botões abaixo das abas, com sigla, nome e ponto da pior severidade no recorte; seleção múltipla, combina com mês e semana. Com um condomínio só aparece a linha "Semana a semana" dele.
 - A seção "Cobranças da BGRE sem resposta" saiu do relatório a pedido do usuário, e as cobranças também deixaram de ser gravadas nos dados da página. Cartões de prioridade ainda citam pedidos da BGRE sem resposta no texto; perguntar se também devem ser reescritos.
+- Versão 8 do artefato: cartões de prioridade e textos das semanas reescritos sem referência a cobranças da BGRE sem resposta; semanas numeradas pela semana do ano (03/08 = semana 32); botões de condomínio em duas linhas (5 por linha, 2 colunas no celular) sem barra de rolagem; texto "fonte" e menções ao Outlook retirados da página. O cabeçalho só fica fixo em telas grandes e altas.

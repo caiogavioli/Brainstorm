@@ -28,6 +28,7 @@
    - `temas` (5 a 7): `{t, num, numl, p (uma frase), condos, good?: true}`. Mantenha o tema de pontualidade até 12h com os números novos e um tema "Avanços" com `good: true`.
    - `datas`: `{iso: AAAA-MM-DD, d: texto da data, aprox?: true, c: slug, o: o que vence, s: situação em uma frase}`. Tire o vencido e resolvido; vencido sem confirmação fica e aparece como "venceu há N dias". A barra e a contagem regressiva são calculadas a partir de `iso`.
    - `metodo`: mantenha o texto atual, atualizando só as datas.
+   Nenhum texto do relatório (manchetes, prioridades, temas, resumos, pontos de atenção, pendências) fala de cobranças da BGRE sem resposta: descreva o fato e a ação que falta, sem dizer quem cobrou. Não escreva "fonte" nem de onde os dados vieram.
    Escreva só o que está nos dados, com valores e datas como nos relatórios. Sem travessão em apostos nem frases de efeito.
 8. **Gerar de novo com o texto.** Repita o passo 6 com `--exec /tmp/exec.json`. Confira: o arquivo tem uma linha `const DATA = ` com JSON válido, tem menos de 2 MB, e a semana nova aparece em `weeks`. Opcional: um screenshot com Playwright (`/opt/pw-browsers/chromium`) para ver se a página abre sem erro.
 9. **Publicar.** `Artifact` publish do `/tmp/novo.html` com `url` = a URL acima (sem `icon`). Não mude o título.
@@ -53,8 +54,11 @@ O report de uma semana (segunda a domingo) está **no prazo** se chegou até **1
 ## Filtro mensal
 O artefato tem uma linha de meses no topo (Tudo, Agosto, Setembro, Outubro...) e, abaixo, a visão do mês e as semanas daquele mês. A semana pertence ao mês em que cai a quinta-feira (regra ISO), então 31/08 a 06/09 é de setembro e 28/09 a 04/10 é de outubro. O template cria o botão de um mês novo sozinho quando entra a primeira semana dele; não há nada a configurar na rotina. A visão de cada mês é calculada dos dados (indicadores, mapa, gráficos, destaques com as semanas em severidade alta). Prioridades, temas e datas críticas ficam só na aba "Tudo", porque descrevem a situação de hoje.
 
+## Numeração das semanas
+As semanas são numeradas pela semana do ano (ISO 8601): 03/08/2026 é a semana 32. O template calcula o número a partir da data; nada a configurar.
+
 ## Filtro por condomínio
-Abaixo das abas há uma linha de condomínios (Todos e um botão por condomínio, com sigla e um ponto da pior severidade no recorte). Dá para marcar um ou mais; o relatório inteiro (indicadores, mapa, gráficos, prioridades, temas, datas e cartões) passa a mostrar só os escolhidos, combinando com o mês e a semana. Com um condomínio só, aparece também a "Semana a semana" dele. O botão de um condomínio novo nasce de `DATA.condos`; a sigla vem de `SIG` no template (ou das iniciais do nome).
+Abaixo das abas há um bloco de condomínios em duas linhas, sem barra de rolagem (Todos e um botão por condomínio, com sigla e um ponto da pior severidade no recorte). Dá para marcar um ou mais; o relatório inteiro (indicadores, mapa, gráficos, prioridades, temas, datas e cartões) passa a mostrar só os escolhidos, combinando com o mês e a semana. Com um condomínio só, aparece também a "Semana a semana" dele. O botão de um condomínio novo nasce de `DATA.condos`; a sigla vem de `SIG` no template (ou das iniciais do nome).
 
 ## Cobranças da BGRE
 Por decisão do usuário (06/10/2026) o relatório **não mostra** a lista "Cobranças da BGRE sem resposta", e o `build.py` não guarda mais essas cobranças nos dados da página. Os agentes continuam lendo as respostas da BGRE para entender o contexto das semanas, mas isso não vira um item do relatório.

@@ -21,6 +21,7 @@ COMO TRABALHAR:
 6. Se o mesmo período aparece em mais de um e-mail (reenvio/versão atualizada), use a versão mais recente e anote.
 7. "no_prazo": regra da BGRE: o report da semana que termina no domingo D deve chegar até 12h00 da segunda D+1, horário de Brasília (a API devolve UTC, 3 horas a mais). Grave "recebido_em" exatamente como a API devolve; o script refaz o cálculo.
 8. Relatório que cobre mais de uma semana (consolidado): um único item em "semanas", com inicio e fim do período inteiro.
+9. Nos textos que vão para o relatório (resumo, motivo, pontos de atenção, pendências), descreva o fato e a ação que falta. Não escreva que a BGRE cobrou, pediu ou ficou sem resposta; as respostas da BGRE servem só para você entender o contexto.
 9. Compare o texto do Flash com as respostas da BGRE e com e-mails da mesma semana: se algo grave aparece só por e-mail e não no PDF, escreva isso em "pontos_de_atencao_para_diretoria".
 
 SEVERIDADE (julgamento seu, por semana): **alta** = risco real para operação, segurança de pessoas ou patrimônio, finanças ou reputação (incêndio, falta prolongada de energia, alagamento, CFTV/acesso inoperante, notificação de locatário, AVCB em risco); **media** = ocorrências com impacto limitado ou pendências relevantes; **baixa** = rotina, manutenção e melhorias.
