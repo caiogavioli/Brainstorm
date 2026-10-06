@@ -73,3 +73,14 @@ Conclusões de processo (sem dados de condomínio):
 - **A pesquisa de satisfação 2026 da BGRE está em fase de cadastro**; o bloco 4 segue como N/A (100% na planilha).
 - **O envio da avaliação libera o faturamento da taxa de performance da administradora**, além do índice de SLA: o efeito financeiro é duplo.
 - **Consequência para a v1:** o controle precisa de uma aba mensal (condomínio × item × mês × status × quem forneceu), que o mapa já traz pronta, e a fonte de cada item tem de ser decidida item a item com o usuário (e-mail, pasta, link, sistema).
+
+## Respostas do usuário sobre o mapa (2026-10-06, palavras dele)
+
+> tudo chega por e-mail ou por whatsapp
+> 3.3 e 3.4: eu preencho pelo meu controle
+
+Decisões:
+
+- **Itens 3.3 e 3.4 (compras e contratações):** o usuário preenche **pelo seu controle**, sem esperar o resultado do compliance da BGRE, que passa a servir só como conferência posterior. No mapa os dois itens saem de "Aguarda BGRE" para "Você confere". Os itens deixam de ser pedido às administradoras.
+- **Canal da evidência:** chega **por e-mail ou por WhatsApp**. O Claude só lê o e-mail da caixa conectada; o WhatsApp e os e-mails de outras pessoas da equipe ficam invisíveis ao mapa. Isso explica parte do "não localizado" e muda o desenho do pedido mensal (D1) e da pasta (D2): sem um canal único que o Claude consiga ler, o controle não enxerga o que foi entregue.
+- **Recomendação do time, aguardando confirmação do usuário:** o pedido mensal passa a pedir **e-mail ou pasta compartilhada**; WhatsApp serve como aviso de que o material foi enviado, não como evidência. A aba "Controle mensal" ganhou o campo "Canal" (e-mail, WhatsApp, pasta, link/drive, sistema) para medir quanto ainda chega por WhatsApp.
