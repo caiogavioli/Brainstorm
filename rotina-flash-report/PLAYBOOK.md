@@ -25,7 +25,7 @@
 7. **Reescrever o texto executivo.** Parta do `DATA.exec` atual (leia do `/tmp/base.html`) e salve um `/tmp/exec.json` atualizado, com as mesmas chaves:
    - `lead` (HTML curto, 5 a 6 frases): números de cobertura e pontualidade vindos das estatísticas, o maior risco aberto, o tema operacional que mais se repetiu.
    - `prioridades` (4 a 7, da mais urgente): `{sev: alta|media, condos: [slugs], t: título, why: o que aconteceu e por quê importa, act: ação sugerida}`. Remova o que foi resolvido, mantenha o que segue aberto com números atualizados, acrescente o novo.
-   - `temas` (4 a 6): `{t, p, condos}`: padrões entre condomínios (energia, chuva, AVCB, segurança, qualidade do Flash, boas notícias).
+   - `temas` (4 a 7): `{t, p, condos}`: padrões entre condomínios (energia, chuva, AVCB, segurança, pontualidade até 12h, qualidade do Flash, boas notícias). Mantenha o tema de pontualidade com os números novos por condomínio (cada um tem `Até 12h` x recebidos na tabela de cobertura).
    - `datas`: `{d, c, o, s}` em ordem cronológica; retire as vencidas e resolvidas; mantenha vencidas sem confirmação como "sem confirmação".
    - `metodo`: mantenha o texto atual, atualizando só as datas.
    Escreva só o que está nos dados. Cite valores e datas como aparecem nos relatórios. Não use travessão em apostos nem frases de efeito.
@@ -46,6 +46,9 @@
 | `tnu` | CBRE | assunto `TNU \| Flash Report Semanal (DD/MM/AAAA à DD/MM/AAAA)` |
 | `passeio-paulista` | Cushman & Wakefield | assunto `FLASH REPORT SEMANAL_DD/MM/AA à DD/MM/AA` (às vezes com prefixo PASSEIO PAULISTA) |
 | `panamerica-park` | CBRE | assunto `PNP_Flash Report - DD a DD/MM/AAAA` |
+
+## Regra de prazo (BGRE)
+O report de uma semana (segunda a domingo) está **no prazo** se chegou até **12h00 de segunda-feira, horário de Brasília**, da semana seguinte. Depois disso conta como atrasado, mesmo que tenha chegado na segunda. O `build.py` recalcula `no_prazo` de todos os reports a partir do horário de recebimento (`rec`, em UTC; Brasília = UTC-3), então não depende do que o agente marcou. No passo 7, os números do `lead` e do tema de pontualidade devem usar a contagem "até 12h" que o script imprime ("na segunda=N").
 
 ## Como o script encaixa os períodos
 - Report normal: vai para a semana (segunda a domingo) que contém o meio do período. Isso trata Alphaville (domingo a sábado) e Parque Corporate (terça a segunda).

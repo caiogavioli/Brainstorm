@@ -233,6 +233,11 @@ function sevbar(sev,total){
    ["alta","media","baixa"].map(k=>sev[k]?`<i style="background:var(--${k});flex:${sev[k]}"></i>`:"").join("")+`</div>`;
 }
 const pct=(a,b)=>b?Math.round(100*a/b):0;
+/* horário de chegada: `rec` vem em UTC ("AAAA-MM-DD HH:MM UTC"); Brasília = UTC-3 */
+const brtDate = rec => { const d=new Date(rec.slice(0,10)+"T"+rec.slice(11,16)+":00Z"); d.setUTCHours(d.getUTCHours()-3); return d; };
+const brtTxt = rec => { const d=brtDate(rec), p=n=>String(n).padStart(2,"0"); return p(d.getUTCDate())+"/"+p(d.getUTCMonth()+1)+" às "+p(d.getUTCHours())+"h"+p(d.getUTCMinutes()); };
+const brtClock = rec => { const d=brtDate(rec); return d.getUTCHours()*60+d.getUTCMinutes(); };
+const fmtClock = m => String(Math.floor(m/60)).padStart(2,"0")+"h"+String(Math.round(m%60)).padStart(2,"0");
 
 /* ---------- overview ---------- */
 function barChart(title,vals,note){
@@ -255,7 +260,7 @@ function heatmap(){
     h+=`<tr><th class="rowh" scope="row">${esc(c.nome)}<small>${esc(c.adm)}</small></th>`;
     W.forEach(w=>{
       const s=state(c.slug,w);
-      if(s.k==="ok") h+=`<td><button class="cell ${s.e.sev}" data-week="${wid(w)}" data-condo="${c.slug}" aria-label="${esc(c.nome)}, semana de ${dm(w)}: severidade ${SEV[s.e.sev].l}${s.e.no_prazo?"":", enviado com atraso"}"><span class="g" aria-hidden="true">${SEV[s.e.sev].g}</span>${SEV[s.e.sev].l}${s.e.no_prazo?"":'<span class="late" title="Enviado depois da segunda-feira">⏱</span>'}</button></td>`;
+      if(s.k==="ok") h+=`<td><button class="cell ${s.e.sev}" data-week="${wid(w)}" data-condo="${c.slug}" aria-label="${esc(c.nome)}, semana de ${dm(w)}: severidade ${SEV[s.e.sev].l}${s.e.no_prazo?"":", chegou depois das 12h da segunda"}"><span class="g" aria-hidden="true">${SEV[s.e.sev].g}</span>${SEV[s.e.sev].l}${s.e.no_prazo?"":`<span class="late" title="Chegou depois das 12h da segunda: ${brtTxt(s.e.rec)}">⏱</span>`}</button></td>`;
       else if(s.k==="cons") h+=`<td><button class="cell cons" data-week="${wid(s.to)}" data-condo="${c.slug}" title="Coberta pelo relatório consolidado da semana de ${dm(s.to)}">consol.</button></td>`;
       else if(s.k==="pend") h+=`<td><div class="cell pend" title="Prazo é hoje (05/10): ainda não chegou">hoje</div></td>`;
       else h+=`<td><div class="cell miss" title="Report não localizado no e-mail">sem report</div></td>`;
@@ -263,7 +268,7 @@ function heatmap(){
     h+=`</tr>`;
   });
   return h+`</tbody></table></div>
-  <div class="legend"><span><i class="sw" style="background:var(--alta)"></i>▲ Alta</span><span><i class="sw" style="background:var(--media)"></i>◆ Média</span><span><i class="sw" style="background:var(--baixa)"></i>● Baixa</span><span><i class="sw cons"></i>consolidado de 2 ou mais semanas</span><span><i class="sw miss"></i>report não localizado</span><span><i class="sw pend"></i>prazo é hoje</span><span>⏱ enviado depois da segunda</span></div>`;
+  <div class="legend"><span><i class="sw" style="background:var(--alta)"></i>▲ Alta</span><span><i class="sw" style="background:var(--media)"></i>◆ Média</span><span><i class="sw" style="background:var(--baixa)"></i>● Baixa</span><span><i class="sw cons"></i>consolidado de 2 ou mais semanas</span><span><i class="sw miss"></i>report não localizado</span><span><i class="sw pend"></i>prazo é hoje</span><span>⏱ chegou depois das 12h da segunda</span></div>`;
 }
 function renderGeral(){
   const tot={rec:0,ontime:0,late:0,miss:0,pend:0,cons:0,sev:{alta:0,media:0,baixa:0}};
@@ -275,7 +280,7 @@ function renderGeral(){
   <p class="lead">${X.lead}</p>
   <div class="kpis">
    <div class="kpi"><div class="l">Semanas cobertas por report</div><div class="v">${tot.rec+tot.cons}<small> de ${due}</small></div><div class="d">${pct(tot.rec+tot.cons,due)}% das semanas já vencidas</div></div>
-   <div class="kpi"><div class="l">Reports recebidos na segunda</div><div class="v">${tot.ontime}<small> de ${tot.rec}</small></div><div class="d">${tot.late} chegaram depois</div></div>
+   <div class="kpi"><div class="l">Reports recebidos até 12h da segunda</div><div class="v">${tot.ontime}<small> de ${tot.rec}</small></div><div class="d">${tot.late} chegaram depois das 12h</div></div>
    <div class="kpi"><div class="l">Semanas sem report localizado</div><div class="v">${tot.miss}</div><div class="d">+ ${tot.pend} com prazo hoje</div></div>
    <div class="kpi"><div class="l">Condomínio-semanas em severidade alta</div><div class="v">${tot.sev.alta}<small> de ${tot.rec}</small></div>${sevbar(tot.sev,tot.rec)}<div class="d">${tot.sev.alta} alta · ${tot.sev.media} média · ${tot.sev.baixa} baixa</div></div>
   </div></section>`;
@@ -303,9 +308,9 @@ function renderGeral(){
   h+=`<section><div class="sec-h"><h2>Cobranças da BGRE sem resposta localizada</h2><span class="note">${open.length} itens. A resposta pode ter ido por outro canal (reunião, telefone, Salesforce)</span></div><div class="scroller"><table class="t"><thead><tr><th>Data</th><th>Condomínio</th><th>Quem cobrou</th><th>O que foi pedido</th></tr></thead><tbody>`+
    open.map(f=>`<tr><td class="n">${dm(f.data)}</td><td>${esc(f.c.nome)}</td><td>${esc(f.de)}</td><td>${esc(f.pergunta)}</td></tr>`).join("")+`</tbody></table></div></section>`;
 
-  h+=`<section><div class="sec-h"><h2>Cobertura e pontualidade por condomínio</h2></div><div class="scroller"><table class="t"><thead><tr><th>Condomínio</th><th>Administradora</th><th class="n">Recebidos</th><th class="n">Na segunda</th><th class="n">Consolidados</th><th class="n">Sem report</th><th class="n">No padrão BGRE</th></tr></thead><tbody>`+
-   C.map(c=>{let r=0,o=0,cs=0,m=0,p=0,bg=0;W.forEach(w=>{const s=state(c.slug,w); if(s.k==="ok"){r++; if(s.e.no_prazo)o++; if(s.e.bgre)bg++;} else if(s.k==="cons")cs++; else if(s.k==="miss")m++; else p++;});
-    return `<tr><td>${esc(c.nome)}</td><td>${esc(c.adm)}</td><td class="n">${r}</td><td class="n">${o}</td><td class="n">${cs}</td><td class="n">${m}${p?` <span style="color:var(--ink-3)">(+${p} hoje)</span>`:""}</td><td class="n">${bg} de ${r}</td></tr>`;}).join("")+`</tbody></table></div></section>`;
+  h+=`<section><div class="sec-h"><h2>Cobertura e pontualidade por condomínio</h2></div><div class="scroller"><table class="t"><thead><tr><th>Condomínio</th><th>Administradora</th><th class="n">Recebidos</th><th class="n">Até 12h</th><th class="n">Chegada típica</th><th class="n">Consolidados</th><th class="n">Sem report</th><th class="n">No padrão BGRE</th></tr></thead><tbody>`+
+   C.map(c=>{let r=0,o=0,cs=0,m=0,p=0,bg=0,clk=[];W.forEach(w=>{const s=state(c.slug,w); if(s.k==="ok"){r++; if(s.e.no_prazo)o++; if(s.e.bgre)bg++; clk.push(brtClock(s.e.rec));} else if(s.k==="cons")cs++; else if(s.k==="miss")m++; else p++;});
+    return `<tr><td>${esc(c.nome)}</td><td>${esc(c.adm)}</td><td class="n">${r}</td><td class="n">${o}</td><td class="n">${clk.length?fmtClock(clk.sort((x,y)=>x-y)[Math.floor(clk.length/2)]):"-"}</td><td class="n">${cs}</td><td class="n">${m}${p?` <span style="color:var(--ink-3)">(+${p} hoje)</span>`:""}</td><td class="n">${bg} de ${r}</td></tr>`;}).join("")+`</tbody></table></div></section>`;
 
   h+=`<div class="foot">${X.metodo}</div>`;
   return h;
@@ -332,7 +337,7 @@ function card(c,w){
   if(e.pend.length) det.push(`<div class="ev"><span class="dt"></span><span class="k">Pendências em aberto</span></div>`+e.pend.map(x=>`<div class="ev"><span class="dt">·</span><span class="tx">${esc(x)}</span></div>`).join(""));
   const per=e.fim?`${dm(e.ini)} a ${dm(e.fim)}`:"";
   return `<article class="card sev-${e.sev} cc" id="c-${c.slug}">
-   <div class="cc-head"><div><h3>${esc(c.nome)}</h3><div class="adm">${esc(c.adm)} · período do PDF ${per}</div></div><div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">${pill(e.sev)}${e.no_prazo?"":`<span class="pill late" title="Recebido em ${esc(e.rec)}">⏱ atrasado</span>`}</div></div>
+   <div class="cc-head"><div><h3>${esc(c.nome)}</h3><div class="adm">${esc(c.adm)} · período do PDF ${per}</div></div><div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">${pill(e.sev)}${e.no_prazo?"":`<span class="pill late" title="Prazo: até 12h da segunda">⏱ chegou ${esc(brtTxt(e.rec))}</span>`}</div></div>
    <p>${esc(e.resumo)}</p>
    ${e.atencao.length?`<h4>Pontos de atenção</h4><ul class="bul">${e.atencao.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}
    <p class="why" style="font-size:12.5px;color:var(--ink-2)"><b>Por que ${SEV[e.sev].l.toLowerCase()}:</b> ${esc(e.motivo)}</p>
@@ -343,9 +348,10 @@ function card(c,w){
 function renderWeek(w){
   const i=W.indexOf(w), st=STATS[w], prev=i>0?STATS[W[i-1]]:null;
   const delta=(a,b)=>prev==null?"":(a-b===0?"igual à anterior":(a>b?"+":"")+(a-b)+" vs. anterior");
-  let h=`<div class="wk-head"><span class="eyebrow">Semana ${i+1} de ${W.length}</span><h2>${dm(w)} a ${dmy(addDays(w,6))}</h2><p class="lead" style="color:var(--ink-2);font-size:13px">Reports entregues na segunda ${dm(addDays(w,7))}${w===LAST?" (hoje)":""}. ${st.rec} de ${C.length} condomínios com report próprio${st.cons?`, ${st.cons} coberto${st.cons>1?"s":""} por consolidado`:""}${st.miss?`, ${st.miss} sem report localizado`:""}${st.pend?`, ${st.pend} com prazo hoje`:""}.</p></div>`;
+  let h=`<div class="wk-head"><span class="eyebrow">Semana ${i+1} de ${W.length}</span><h2>${dm(w)} a ${dmy(addDays(w,6))}</h2><p class="lead" style="color:var(--ink-2);font-size:13px">Reports devidos até 12h da segunda ${dm(addDays(w,7))}. ${st.rec} de ${C.length} condomínios com report próprio${st.cons?`, ${st.cons} coberto${st.cons>1?"s":""} por consolidado`:""}${st.miss?`, ${st.miss} sem report localizado`:""}${st.pend?`, ${st.pend} com prazo hoje`:""}.</p></div>`;
   h+=`<div class="kpis">
    <div class="kpi"><div class="l">Condomínios em severidade alta</div><div class="v">${st.sev.alta}<small> de ${st.rec}</small></div>${sevbar(st.sev,st.rec)}<div class="d">${st.sev.alta} alta · ${st.sev.media} média · ${st.sev.baixa} baixa</div></div>
+   <div class="kpi"><div class="l">Reports recebidos até 12h</div><div class="v">${st.ontime}<small> de ${st.rec}</small></div><div class="d">${st.late?st.late+" depois das 12h":"todos no prazo"}</div></div>
    <div class="kpi"><div class="l">Quedas e oscilações de energia</div><div class="v">${st.ev.energia}</div><div class="d">${delta(st.ev.energia,prev?prev.ev.energia:0)}</div></div>
    <div class="kpi"><div class="l">Ocorrências de elevador</div><div class="v">${st.ev.elevadores}</div><div class="d">${st.ev.retidos?st.ev.retidos+" com passageiro retido · ":""}${delta(st.ev.elevadores,prev?prev.ev.elevadores:0)}</div></div>
    <div class="kpi"><div class="l">Eventos de segurança</div><div class="v">${st.ev.seguranca}</div><div class="d">${st.ev.medico?st.ev.medico+(st.ev.medico>1?" atendimentos médicos":" atendimento médico")+" · ":""}${delta(st.ev.seguranca,prev?prev.ev.seguranca:0)}</div></div>

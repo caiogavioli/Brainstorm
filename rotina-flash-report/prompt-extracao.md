@@ -19,7 +19,7 @@ COMO TRABALHAR:
 4. Leia também as respostas/threads (RES:/RE:/ENC:/FW:) do Flash Report deste condomínio: as perguntas da BGRE (domínio bgre.com) e as respostas do condomínio entram em "followups_bgre". Ignore e-mails de triagem do próprio Caio ("[Triagem]" / "[Relatório de Triagem]").
 5. Não invente nada. Seção que não aparece no PDF fica com lista vazia ou null. Preserve números, datas, protocolos e valores como estão. Dados pessoais de colaboradores/atendidos: NÃO inclua nomes, apenas "colaborador" / "cliente" e o tipo de ocorrência.
 6. Se o mesmo período aparece em mais de um e-mail (reenvio/versão atualizada), use a versão mais recente e anote.
-7. "no_prazo": o report da semana que termina no domingo D deve chegar na segunda D+1 (fuso America/Sao_Paulo; a API devolve UTC, 3 horas a mais).
+7. "no_prazo": regra da BGRE: o report da semana que termina no domingo D deve chegar até 12h00 da segunda D+1, horário de Brasília (a API devolve UTC, 3 horas a mais). Grave "recebido_em" exatamente como a API devolve; o script refaz o cálculo.
 8. Relatório que cobre mais de uma semana (consolidado): um único item em "semanas", com inicio e fim do período inteiro.
 9. Compare o texto do Flash com as respostas da BGRE e com e-mails da mesma semana: se algo grave aparece só por e-mail e não no PDF, escreva isso em "pontos_de_atencao_para_diretoria".
 

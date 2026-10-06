@@ -18,6 +18,8 @@
 
 > otimo. já está funcionando? acho que o ideal é rodar a rotina às 12h00, por que a regra da BGRE é receber o Flash Report de manhã
 
+> sim, conta como no prazo só até as 12h
+
 ## O que foi feito nesta sessão
 
 - Branch criado: `claude/flash-report-analises-semanais` (a partir de `main`).
@@ -30,3 +32,5 @@
 - Pedido atendido direto (relatório executivo + dashboards por semana); as rodadas 1 e 2 do time de três ficam para quando o usuário quiser decidir se isso vira rotina/projeto.
 
 - Rotina semanal criada: segunda 12h00 (America/Sao_Paulo; começou 17h48, trocado a pedido do usuário), Routine `trig_016LpCwLxczWm1iVwAddguVz` na sessão original. A primeira execução agendada é segunda 12/10 às 12h00 e processa a semana de 05/10, além de procurar os reports atrasados das semanas anteriores. Arquivos em `rotina-flash-report/`.
+
+- Regra de prazo definida pelo usuário: o Flash Report só conta como no prazo se chegar **até as 12h da segunda-feira** (BGRE recebe de manhã). Com a regra, só 14 dos 58 reports (24%) ficaram no prazo nas 9 semanas; o Arquipeo cumpre 6 de 9 e Parque Corporate, Passeio Paulista e Panamérica Park nunca chegaram a tempo. Artefato republicado (versão 2) e `build.py` recalcula a regra a cada rodada.

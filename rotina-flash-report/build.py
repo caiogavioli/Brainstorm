@@ -4,10 +4,12 @@
 Uso:
   python3 build.py --base base.html --extracted /tmp/flash --week 2026-10-05 \
       [--exec exec.json] --out novo.html [--today 12/10/2026]
+  python3 build.py --base base.html --so-regras --out novo.html   # só reaplica regras e template
 
 - base.html: o artefato publicado (lido com Artifact read). Os dados vivem em `const DATA = {...};`.
 - extracted/<slug>.json: saída de cada agente de extração (esquema em prompt-extracao.md).
 - week: segunda-feira da semana processada (o período segunda a domingo que acabou de fechar).
+- Prazo: o report é "no prazo" se chegou até 12h00 (Brasília) da segunda seguinte à semana (regra da BGRE).
 - exec.json: opcional; substitui o bloco `exec` (lead, prioridades, temas, datas, metodo).
 Também refaz semanas antigas que estavam sem report e chegaram depois (back-fill).
 Imprime estatísticas para escrever o texto do bloco `exec`.
@@ -24,6 +26,15 @@ def cut(t, n=230):
     t = clean(t)
     if len(t) <= n: return t
     return t[:n].rsplit(' ', 1)[0].rstrip(',;:.') + '…'
+
+def recalc_prazo(data):
+    """Regra BGRE: o report da semana (segunda a domingo) deve chegar até 12h00 (America/Sao_Paulo) da segunda seguinte.
+    `rec` guarda o recebimento em UTC; Brasília = UTC-3."""
+    for ents in data['entries'].values():
+        for wk, e in ents.items():
+            rec = dt.datetime.strptime(e['rec'][:16], '%Y-%m-%d %H:%M') - dt.timedelta(hours=3)
+            limite = dt.datetime.combine(D(wk) + dt.timedelta(days=7), dt.time(12, 0))
+            e['no_prazo'] = rec <= limite
 
 def load_data(path):
     for line in open(path, encoding='utf-8'):
@@ -70,6 +81,7 @@ def main():
     ap.add_argument('--week'); ap.add_argument('--out')
     ap.add_argument('--exec'); ap.add_argument('--today')
     ap.add_argument('--faltas', action='store_true', help='lista as semanas sem report de cada condomínio e sai')
+    ap.add_argument('--so-regras', action='store_true', help='não lê extrações: reaplica regras (prazo) e o template sobre o base')
     a = ap.parse_args()
     data = load_data(a.base)
     if a.faltas:
@@ -78,14 +90,19 @@ def main():
         print(json.dumps({c['slug']: [w for w in data['weeks'] if w < lim and w not in data['entries'].get(c['slug'], {}) and w not in data['cobertos'].get(c['slug'], {})] for c in data['condos']}, ensure_ascii=False, indent=1))
         print('semanas antes de', lim, 'sem report e sem consolidado (procurar se chegaram depois)')
         return
-    if not (a.extracted and a.week and a.out): raise SystemExit('faltam --extracted, --week e --out')
+    if a.so_regras:
+        if not a.out: raise SystemExit('falta --out')
+        a.extracted = a.week = None
+    elif not (a.extracted and a.week and a.out): raise SystemExit('faltam --extracted, --week e --out')
     W = data['weeks']; first = W[0]
-    target = a.week
+    target = a.week or W[-1]
     if D(target).weekday() != 0: raise SystemExit('--week precisa ser uma segunda-feira')
     # acrescenta semanas até a alvo
     while W[-1] < target:
         W.append((D(W[-1]) + dt.timedelta(days=7)).isoformat())
     for c in data['condos']:
+        data['entries'].setdefault(c['slug'], {}); data['followups'].setdefault(c['slug'], []); data['cobertos'].setdefault(c['slug'], {})
+    for c in ([] if a.so_regras else data['condos']):
         slug = c['slug']; p = os.path.join(a.extracted, slug + '.json')
         data['entries'].setdefault(slug, {}); data['followups'].setdefault(slug, []); data['cobertos'].setdefault(slug, {})
         if not os.path.exists(p):
@@ -109,6 +126,7 @@ def main():
             else:  # atualiza status (ex.: passou a ter resposta)
                 for old in data['followups'][slug]:
                     if (old['data'], old['pergunta'][:60]) == (item['data'], item['pergunta'][:60]): old['status'] = item['status']
+    recalc_prazo(data)
     if a.exec: data['exec'] = json.load(open(a.exec, encoding='utf-8'))
     hoje = a.today or dt.date.today().strftime('%d/%m/%Y')
     data['geradoEm'] = hoje
