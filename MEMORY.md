@@ -2,7 +2,7 @@
 
 Estado vivo do brainstorming — visão do hub. Ler no início de **toda** sessão, seja qual for o branch, e atualizar ao fim de qualquer rodada ou decisão.
 
-**Última atualização:** 2026-10-05 (O Parque Torre 07)
+**Última atualização:** 2026-10-06 (Jacarandá)
 
 ---
 
@@ -77,6 +77,7 @@ _Cada branch de brainstorming mantém sua própria tabela de problemas em detalh
 - **17007 Nações 2027, rodada 1 (rev 6):** enviada à CBRE em 2026-10-01 (17 apontamentos). Após o `.xlsx`, **revisão 1** (23 apontamentos: 6 críticos, 8 moderados, 9 baixos) validada em 2026-10-02 e com os dois arquivos finais gerados; falta o usuário reenviar à CBRE. Convenção dispensada; materialidade sobre o total dos 5 centros.
 - **Passeio Paulista 2027, rodada 1:** analisada, validada em 2026-10-02 (22 apontamentos: 7 críticos, 7 moderados, 8 baixos) e com os dois arquivos finais gerados; falta o usuário enviar à administradora e confirmar o nome dela (Cushman & Wakefield a confirmar). Sem convenção.
 - **O Parque Torre 07 2027, rodada 1:** analisada, validada em 2026-10-05 (19 apontamentos: 4 críticos, 9 moderados, 6 baixos) e com os dois arquivos finais gerados; falta o usuário enviar à administradora e informar o nome dela (o relatório diz "a confirmar"). Sem convenção: base de área (BOMA × ABL) e fundo de reserva a esclarecer.
+- **Jacarandá 2027, rodada 1:** analisada, validada em 2026-10-06 (24 apontamentos: 8 críticos, 12 moderados, 4 baixos) e com os dois arquivos finais gerados; falta o usuário enviar à administradora e informar o nome dela (o relatório diz "Cushman & Wakefield (a confirmar)"). Sem convenção. Material: apresentação, previsão e fluxo do fundo de contingência.
 - **Atrium 2027, rodada 1:** enviada à Innova em 2026-10-01; aguardando a reapresentação da previsão.
 
 - Piloto de `analise-previsao-orcamentaria`: Atrium Santo André (setor Office), PO 2027, Innova, recebida em 29/09/2026. Casos **confirmados no arquivo real, com fórmulas** (8 de 9 + 8 novos, incluindo apresentação × planilha) em `docs/casos-piloto-atrium-2027.md` do repositório novo, commit `342f92d`. Falta virar verificador com teste.

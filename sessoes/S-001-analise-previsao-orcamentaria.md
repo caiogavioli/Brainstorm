@@ -367,3 +367,17 @@ Autorização explícita do usuário para escrever em `main` (as instruções da
 **Decisões minhas, a confirmar:** administradora registrada como "(a confirmar)"; base de área, rateio e fundo de reserva ficaram "a esclarecer" por falta de convenção; energia e água ("reembolsável") entraram como moderado por serem 12,5% do total.
 
 **Validação:** o usuário validou a rodada sem ajustes nem retiradas; versão final gerada sem marca de rascunho. **Pendente:** o envio à administradora é do usuário. `estado.json` e `achados.json` gravados em `O Parque Torre 07/2027` no OneDrive (`pronto_para_envio`).
+
+### Quinta análise: condomínio Jacarandá, PO 2027 — 2026-10-06
+
+> nova análise, condomínio Jacaranda, PO 2027
+
+> está validado, pode emitir a versao final
+
+**Roteamento:** prédio novo, análise independente das anteriores. Material: apresentação `.pptx` (25 slides), previsão `.xlsx` com fórmulas (11 abas, nenhuma oculta) e fluxo do fundo de contingência `.xlsx` (2 abas), anexados na conversa. Sem convenção. Administradora não identificada nos arquivos (os contratos de Fee e Equipe Administrativa citam C&W).
+
+**Resultado da rodada 1:** 24 apontamentos (8 críticos, 12 moderados, 4 baixos), materialidade sobre o total anual (R$ 6.761.555,99). Críticos: seguro (premissa de 13%) sem linha; saldos de 31/12/2025 da planilha × slide 10; receitas do fundo de contingência (R$ 35 mil por mês) × 2%; item 2 da pauta sem valor nem plano de 2027; total anual e CMQ com mais de um valor, e proposta sem o fundo de contingência; reajuste 9,93% × 9,90% com tabela de inclusões somando o valor total das linhas; justificativas dos slides 15 e 16 com linhas deslocadas; "Realizado 2026" sem período.
+
+**Decisões minhas, a confirmar:** seguro como crítico (pode estar no condomínio central); diferença de R$ 0,40 no total tratada como crítica pela regra de divergência no número deliberado; administradora como "(a confirmar)". Os gráficos do slide 7 foram lidos pelos dados, sem renderizar.
+
+**Validação:** o usuário validou sem ajustes nem retiradas; versão final gerada sem marca de rascunho. **Pendente:** o envio à administradora é do usuário. `estado.json` e `achados.json` gravados em `Jacaranda/2027` no OneDrive (`pronto_para_envio`).
