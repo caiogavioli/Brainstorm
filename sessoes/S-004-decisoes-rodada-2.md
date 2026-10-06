@@ -42,3 +42,21 @@ Consequências para o projeto:
 ## Estado
 
 Rodada 2 **fechada em decisão**. Recorte aceito pela delegação. Falta: o usuário dizer "fecha o projeto" para gerar a spec (`projetos/avaliacao-trimestral-bgre.md`) — **não é gatilho** o fim da Rodada 2. Próximo passo já combinado, que não depende do fechamento: **mapa de lacunas do 3T26** (prazo 31/10/2026).
+
+## Execução: estrutura de pastas no OneDrive (2026-10-06)
+
+Pedido do usuário: criar uma pasta por condomínio dentro das duas pastas de avaliação, usando como modelo a pasta já criada por ele para o Arquipeo. Depois, ajuste dele: dentro da pasta do ano, os trimestres se chamam só `Q1`…`Q4`.
+
+> pode deixar as pastas dos trimestres como Q1, Q2, Q3 e Q4, pois elas estão dentro da pasta do ano já
+
+Padrão adotado, nas duas árvores (`Operacional\Claude\Avaliação de Administradora BGRE` e `Operacional\Claude\Avaliação de Sindicância BGRE`):
+
+```
+<Condomínio>\<Ano>\Q1 | Q2 | Q3
+```
+
+- Condomínios (9): Alphaville, Arquipeo, CTN, JKB, PL Extrema, Panamerica Park, Passeio Paulista, TNU, 17007 Nações.
+- Anos: 2025 (Q1–Q4) e 2026 (Q1–Q3). O Q4 de 2026 ainda não existe: criar quando o trimestre começar.
+- Só estrutura de pastas; nenhum arquivo do usuário foi movido ou copiado.
+- A pasta `Arquipeo` da árvore de Administradora é do usuário e não foi alterada, exceto pela criação de `2026\Q3` vazia. Ela ainda usa `1T25…4T25` em 2025.
+- Esta é a árvore **interna** (planilhas e controle). A pasta compartilhada com as administradoras (D2) é uma árvore separada, ainda não criada.
