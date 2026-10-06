@@ -134,6 +134,8 @@ table.heat{border-collapse:separate;border-spacing:3px;width:100%;min-width:640p
 .cell.pend{background:transparent;color:var(--ink-3);border:1.5px dotted var(--ink-3);cursor:default}
 .cell.cons{background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
 .cell .late{font-size:9px;opacity:.9}
+.cell .part{font-size:9px;opacity:.9}
+.heat.compact .cell .part{position:absolute;bottom:0;left:2px;font-size:7px}
 table.heat.compact{border-spacing:1.5px;min-width:0}
 .heat.compact th{font-size:9px;padding:2px 0;letter-spacing:-.02em}
 .heat.compact .cell{height:26px;font-size:11px;border-radius:3px;gap:0}
@@ -143,6 +145,7 @@ table.heat.compact{border-spacing:1.5px;min-width:0}
 .heat.compact th.rowh{min-width:120px;font-size:12px}
 .heat.compact th.rowh small{display:none}
 .heat .mh{font-size:10px;font-weight:600;color:var(--ink-2);text-align:left;padding-left:2px;border-left:1px solid var(--line)}
+.why.lim{font-size:12px;color:var(--media);margin:2px 0 6px}
 .evo-col text{font-family:var(--f-mono);font-size:9px;fill:var(--ink-2)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .cell.baixa,:root:not([data-theme="light"]) .cell.alta{color:#0e141a}}
 :root[data-theme="dark"] .cell.baixa,:root[data-theme="dark"] .cell.alta{color:#0e141a}
@@ -427,7 +430,7 @@ function heatmap(){
     h+=`<tr><th class="rowh" scope="row">${esc(c.nome)}<small>${esc(c.adm)}</small></th>`;
     VW.forEach(w=>{
       const s=state(c.slug,w);
-      if(s.k==="ok") h+=`<td><button class="cell ${s.e.sev}" data-week="${wid(w)}" data-condo="${c.slug}" aria-label="${esc(c.nome)}, semana de ${dm(w)}: severidade ${SEV[s.e.sev].l}${s.e.no_prazo?"":", chegou depois das 12h da segunda"}"><span class="g" aria-hidden="true">${SEV[s.e.sev].g}</span><span class="tx">${SEV[s.e.sev].l}</span>${s.e.no_prazo?"":`<span class="late" title="Chegou depois das 12h da segunda: ${brtTxt(s.e.rec)}">⏱</span>`}</button></td>`;
+      if(s.k==="ok") h+=`<td><button class="cell ${s.e.sev}" data-week="${wid(w)}" data-condo="${c.slug}" aria-label="${esc(c.nome)}, semana de ${dm(w)}: severidade ${SEV[s.e.sev].l}${s.e.no_prazo?"":", chegou depois das 12h da segunda"}"><span class="g" aria-hidden="true">${SEV[s.e.sev].g}</span><span class="tx">${SEV[s.e.sev].l}</span>${s.e.lim?`<span class="part" title="Leitura parcial: ${esc(s.e.lim)}">◔</span>`:""}${s.e.no_prazo?"":`<span class="late" title="Chegou depois das 12h da segunda: ${brtTxt(s.e.rec)}">⏱</span>`}</button></td>`;
       else if(s.k==="cons") h+=`<td><button class="cell cons" data-week="${wid(s.to)}" data-condo="${c.slug}" title="Coberta pelo relatório consolidado da semana de ${dm(s.to)}">${cp?"c":"consol."}</button></td>`;
       else if(s.k==="pend") h+=`<td><div class="cell pend" title="Prazo é a próxima segunda, 12h">${cp?"":"a vencer"}</div></td>`;
       else h+=`<td><div class="cell miss" title="Report não localizado no e-mail">${cp?"":"sem report"}</div></td>`;
@@ -435,7 +438,7 @@ function heatmap(){
     h+=`</tr>`;
   });
   return h+`</tbody></table></div>
-  <div class="legend"><span><i class="sw" style="background:var(--alta)"></i>▲ Alta</span><span><i class="sw" style="background:var(--media)"></i>◆ Média</span><span><i class="sw" style="background:var(--baixa)"></i>● Baixa</span><span><i class="sw cons"></i>consolidado</span><span><i class="sw miss"></i>report não localizado</span><span><i class="sw pend"></i>a vencer</span><span>⏱ chegou depois das 12h da segunda</span></div>`;
+  <div class="legend"><span><i class="sw" style="background:var(--alta)"></i>▲ Alta</span><span><i class="sw" style="background:var(--media)"></i>◆ Média</span><span><i class="sw" style="background:var(--baixa)"></i>● Baixa</span><span><i class="sw cons"></i>consolidado</span><span><i class="sw miss"></i>report não localizado</span><span><i class="sw pend"></i>a vencer</span><span>⏱ chegou depois das 12h da segunda</span><span>◔ leitura parcial do anexo</span></div>`;
 }
 function coverageBars(){
   const rows=CS.map(c=>{let ok=0,late=0,cons=0,miss=0,pend=0; VW.forEach(w=>{const s=state(c.slug,w); if(s.k==="ok"){s.e.no_prazo?ok++:late++;} else if(s.k==="cons")cons++; else if(s.k==="pend")pend++; else miss++;}); return {c,ok,late,cons,miss,pend};});
@@ -477,7 +480,8 @@ function evolucaoMensal(){
     s+=`<text x="${(x+w/2).toFixed(1)}" y="${H-17}" text-anchor="middle">${MN[+r.k.slice(5,7)-1].slice(0,3)}</text>`;
     s+=`<text x="${(x+w/2).toFixed(1)}" y="${H-5}" text-anchor="middle" style="fill:var(--alta)">${r.alta?"▲ "+r.alta:""}</text>`;
   });
-  return legendCats()+s+`</svg><div class="legend" style="margin-top:2px"><span style="color:var(--alta)">▲ n</span><span>semanas em severidade alta no mês · o total acima de cada coluna soma as ocorrências dos reports recebidos</span></div>`;
+  const lead=rows.map(r=>{ let best=null,bv=0; CS.forEach(c=>{ const v=r.ws.reduce((a,w)=>{const st=state(c.slug,w); return a+(st.k==="ok"?CATS.reduce((q,x)=>q+nEv(st.e,x.k),0):0);},0); if(v>bv){bv=v;best=c;} }); return best&&r.tot>=20&&bv/r.tot>.4?`${esc(MN[+r.k.slice(5,7)-1].slice(0,3))}: ${esc(short(best))} responde por ${Math.round(100*bv/r.tot)}%`:null; }).filter(Boolean);
+  return legendCats()+s+`</svg><div class="legend" style="margin-top:2px"><span style="color:var(--alta)">▲ n</span><span>semanas em severidade alta no mês · o total acima de cada coluna soma as ocorrências dos reports recebidos</span></div>${lead.length&&CS.length>1?`<p class="why" style="margin-top:6px">Um só condomínio pode puxar o mês. ${lead.join(" · ")}.</p>`:""}`;
 }
 function renderGeral(mk){
   const full=!mk, ws=full?W:weeksOf(mk); VW=ws;
@@ -567,6 +571,7 @@ function card(c,w,showWeek){
   return `<article class="card sev-${e.sev}" id="c-${c.slug}">
    <div class="cc-head"><div><h3>${esc(c.nome)}</h3><div class="adm">${showWeek?`Semana ${isoWeek(w)} · `:""}${esc(c.adm)} · PDF de ${dm(e.ini)} a ${dm(e.fim)}</div></div>${pill(e.sev)}</div>
    <p class="head-line">${esc(headline)}</p>
+   ${e.lim?`<p class="why lim" title="${esc(e.lim)}">◔ Leitura parcial: ${esc(e.lim)}</p>`:""}
    ${weekStrip(e,e.ini)}
    <div class="chips">${chips||'<span class="why">Sem ocorrências de energia, elevador, segurança ou chuva.</span>'}<span style="margin-left:auto">${arr}</span></div>
    <details><summary>Resumo, pontos de atenção e ocorrências</summary>${det}</details>

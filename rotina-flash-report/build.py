@@ -57,7 +57,7 @@ def build_entry(s):
         energia=[dict(d=x.get('data') or '', t=cut(x.get('descricao'))) for x in (s.get('energia') or [])],
         elevadores=[el(x) for x in (s.get('elevadores') or [])],
         seguranca=[dict(d=x.get('data') or '', t=cut(x.get('descricao'))) for x in seg],
-        n_medico=nmed,
+        n_medico=nmed, lim=clean(s.get('limitacao') or ''),
         chuvas=[dict(d=x.get('data') or '', t=cut(x.get('descricao'))) for x in (s.get('chuvas_alagamento') or [])
                 if not noise.search(x.get('descricao') or '')],
     )
