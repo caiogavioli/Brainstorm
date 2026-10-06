@@ -18,17 +18,17 @@ _Apresentação (S-001) + leitura das planilhas (S-002). Rotina detalhada ainda 
 
 ## Frequência e volume
 - Acontece: trimestral (duas avaliações por trimestre).
-- Tempo gasto por vez: _a levantar_
+- Tempo gasto por vez: cerca de 2 horas para preencher (a confirmar se por planilha ou no total); o tempo vai em **juntar evidência**.
 - Volume: _a levantar (nº de condomínios/prédios e de administradoras a partir das planilhas)_
 
 ## Quem sofre
-O usuário. Quem mais participa/recebe a avaliação (BGRE, administradoras) _a levantar_.
+O usuário (único a mexer nas planilhas, no Windows). A DF se autoavalia na sindicância e avalia a administradora; a **BGRE valida**; a administradora **não contesta**. As notas alimentam o **índice de SLA**: abaixo de 90% há punição/retenção de valores nos contratos.
 
 ## O que já foi tentado
-_A levantar._
+Nada formal além das planilhas. A planilha é da BGRE e **não pode ser alterada**; a regra de "Não aplicável = 100%" é escolha do usuário para não derrubar a nota da administradora.
 
 ## Como saberíamos que resolveu
-Pedido inicial: o Claude **compila os dados** das duas planilhas (preenchidas à mão pelo usuário) e mantém um **controle** do projeto. Critério objetivo _a definir na Rodada 2_.
+Pedido inicial: o Claude **compila os dados** das duas planilhas (preenchidas à mão pelo usuário) e mantém um **controle** do projeto. Desejo explícito: uma lista do que as administradoras enviam (mensal/trimestral) e uma pasta compartilhada por condomínio com as evidências. Critério objetivo _a fechar com o usuário na Rodada 2 (S-003)_.
 
 ## Restrições conhecidas
 - O preenchimento das planilhas continua **manual**, feito pelo usuário; o Claude entra na compilação.
