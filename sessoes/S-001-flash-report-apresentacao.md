@@ -27,6 +27,8 @@
 
 > vi que o TNU mandou o flash report. busque se o Panamerica mandou, e atualize a análise
 
+> apenas corrigindo uma informação. "Parque Corporate" é o condomínio "O Parque - T07". faça essa alteração
+
 ## O que foi feito nesta sessão
 
 - Branch criado: `claude/flash-report-analises-semanais` (a partir de `main`).
@@ -40,9 +42,10 @@
 
 - Rotina semanal criada: segunda 12h00 (America/Sao_Paulo; começou 17h48, trocado a pedido do usuário), Routine `trig_016LpCwLxczWm1iVwAddguVz` na sessão original. A primeira execução agendada é segunda 12/10 às 12h00 e processa a semana de 05/10, além de procurar os reports atrasados das semanas anteriores. Arquivos em `rotina-flash-report/`.
 
-- Regra de prazo definida pelo usuário: o Flash Report só conta como no prazo se chegar **até as 12h da segunda-feira** (BGRE recebe de manhã). Com a regra, só 14 dos 58 reports (24%) ficaram no prazo nas 9 semanas; o Arquipeo cumpre 6 de 9 e Parque Corporate, Passeio Paulista e Panamérica Park nunca chegaram a tempo. Artefato republicado (versão 2) e `build.py` recalcula a regra a cada rodada.
+- Regra de prazo definida pelo usuário: o Flash Report só conta como no prazo se chegar **até as 12h da segunda-feira** (BGRE recebe de manhã). Com a regra, só 14 dos 58 reports (24%) ficaram no prazo nas 9 semanas; o Arquipeo cumpre 6 de 9 e O Parque - T07, Passeio Paulista e Panamérica Park nunca chegaram a tempo. Artefato republicado (versão 2) e `build.py` recalcula a regra a cada rodada.
 
-- Revisão de 06/10 no Outlook (7 condomínios com semanas em falta): chegaram Alphaville, Passeio Paulista e Parque Corporate (semana de 28/09, todos depois das 12h). Continuam sem report: Panamérica Park (6 semanas, desde 24/08, sem cobrança da BGRE por e-mail), TNU (3 segundas sem Flash desde 14/09, ainda sem cobrança da BGRE), Centenário Plaza (24/08, 31/08, 07/09), 17007 Nações (31/08, 07/09, 21/09) e Alphaville (16 a 22/08). Fatos só por e-mail anotados: bomba de incêndio do PNP travou em 28/08, interrupções de energia no Fórum Trabalhista do PNP, pedido da BGRE sobre água de ar condicionado no Passeio Paulista e aprovação de fornecedor único (Henkotech) pendente com o usuário desde 02/10.
+- Revisão de 06/10 no Outlook (7 condomínios com semanas em falta): chegaram Alphaville, Passeio Paulista e O Parque - T07 (semana de 28/09, todos depois das 12h). Continuam sem report: Panamérica Park (6 semanas, desde 24/08, sem cobrança da BGRE por e-mail), TNU (3 segundas sem Flash desde 14/09, ainda sem cobrança da BGRE), Centenário Plaza (24/08, 31/08, 07/09), 17007 Nações (31/08, 07/09, 21/09) e Alphaville (16 a 22/08). Fatos só por e-mail anotados: bomba de incêndio do PNP travou em 28/08, interrupções de energia no Fórum Trabalhista do PNP, pedido da BGRE sobre água de ar condicionado no Passeio Paulista e aprovação de fornecedor único (Henkotech) pendente com o usuário desde 02/10.
 - Relatório redesenhado (versão 3 do artefato): manchetes curtas, anéis de cobertura e pontualidade, mapa de severidade, barras empilhadas por condomínio, gráfico de horário de chegada com a linha das 12h, contagem regressiva de datas críticas e, em cada semana, uma linha do tempo de 7 dias com ícones por tipo de ocorrência. Prioridades e temas agora têm número em destaque, três frases curtas e uma ação.
 - Filtro mensal (versão 4 do artefato): linha de meses no topo e, dentro de cada mês, a visão do mês (indicadores, mapa, destaques, gráficos, cobranças) e as semanas. Semana entra no mês em que cai a quinta-feira. Prioridades, temas e datas críticas ficam só na aba Tudo.
 - Atualização de 06/10 (17h40): o TNU mandou a semana de 28/09 a 04/10 às 15h43 (depois do prazo). O Panamérica Park não mandou: segue o consolidado de 10 a 23/08 como último report (6 semanas sem Flash, AVCB vence em 17/10). Por e-mail do PNP: bomba elétrica de incêndio travou em 27/08, Fórum Trabalhista cobra providência após queda em 14/09, válvula da Caixa 1 travada com pedido de R$ 8.520,00 (PP 3889/26) esperando aprovação do usuário. Artefato na versão 5; novo card "Aprovações esperando você" (Passeio Paulista e PNP).
+- Correção do usuário: o condomínio antes chamado "Parque Corporate" é **"O Parque - T07"**. Nome trocado no artefato (versão 6), no playbook e nas notas; o identificador interno `parque-corporate` ficou, porque os dados e a rotina dependem dele.

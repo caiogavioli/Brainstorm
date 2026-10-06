@@ -10,7 +10,7 @@ Os reports chegam por e-mail (Outlook / Microsoft 365), em PDF ou PowerPoint ane
 
 ## Frequência e volume
 - Acontece: semanal (segunda-feira, cobrindo segunda a domingo anterior)
-- Volume: pelo menos 9 condomínios identificados na busca inicial (JKB, Arquipeo, Centenário Plaza, 17007 Nações, Parque Corporate, Alphaville Tower, TNU, Passeio Paulista, Panamérica Park)
+- Volume: pelo menos 9 condomínios identificados na busca inicial (JKB, Arquipeo, Centenário Plaza, 17007 Nações, O Parque - T07, Alphaville Tower, TNU, Passeio Paulista, Panamérica Park)
 - Tempo gasto por vez: a levantar
 
 ## Quem sofre

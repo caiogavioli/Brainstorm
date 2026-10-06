@@ -41,7 +41,7 @@
 | `arquipeo` | Cushman & Wakefield (cushwake.com) | assunto `Flash Report - Arquipeo`; há threads de perguntas da BGRE |
 | `centenario-plaza` | CBRE | assunto `Flash Report - DD/MM a DD/MM/AAAA - Condomínio Centenário Plaza` |
 | `17007-nacoes` | CBRE | assunto `\|17007 Nações\| Flash Report Semanal ...` |
-| `parque-corporate` | Innova (innova.net.br) | assunto `RELATÓRIO FLASH REPORT - SEMANA DE ...`; período de terça a segunda |
+| `parque-corporate` (nome no relatório: **O Parque - T07**) | Innova (innova.net.br) | assunto `RELATÓRIO FLASH REPORT - SEMANA DE ...`; período de terça a segunda |
 | `alphaville-tower` | CBRE | assunto `Flash Report semanal - Alphaville. DD.MM.AAAA até DD.MM.AAAA`; período de domingo a sábado |
 | `tnu` | CBRE | assunto `TNU \| Flash Report Semanal (DD/MM/AAAA à DD/MM/AAAA)` |
 | `passeio-paulista` | Cushman & Wakefield | assunto `FLASH REPORT SEMANAL_DD/MM/AA à DD/MM/AA` (às vezes com prefixo PASSEIO PAULISTA) |
@@ -54,7 +54,7 @@ O report de uma semana (segunda a domingo) está **no prazo** se chegou até **1
 O artefato tem uma linha de meses no topo (Tudo, Agosto, Setembro, Outubro...) e, abaixo, a visão do mês e as semanas daquele mês. A semana pertence ao mês em que cai a quinta-feira (regra ISO), então 31/08 a 06/09 é de setembro e 28/09 a 04/10 é de outubro. O template cria o botão de um mês novo sozinho quando entra a primeira semana dele; não há nada a configurar na rotina. A visão de cada mês é calculada dos dados (indicadores, mapa, gráficos, destaques com as semanas em severidade alta, cobranças do mês). Prioridades, temas e datas críticas ficam só na aba "Tudo", porque descrevem a situação de hoje.
 
 ## Como o script encaixa os períodos
-- Report normal: vai para a semana (segunda a domingo) que contém o meio do período. Isso trata Alphaville (domingo a sábado) e Parque Corporate (terça a segunda).
+- Report normal: vai para a semana (segunda a domingo) que contém o meio do período. Isso trata Alphaville (domingo a sábado) e O Parque - T07 (terça a segunda).
 - Consolidado de 13 dias ou mais: entra na última semana coberta; as anteriores aparecem no mapa como "consolidado".
 - "Sem report" significa que nada foi localizado no e-mail do Caio. A semana alvo da rotina vence na própria segunda, então os que ainda não chegaram ao meio-dia aparecem como "hoje" e viram "sem report" ou são preenchidos na rodada seguinte, pelo back-fill.
 
