@@ -130,13 +130,14 @@ def main():
     if a.exec: data['exec'] = json.load(open(a.exec, encoding='utf-8'))
     hoje = a.today or dt.date.today().strftime('%d/%m/%Y')
     data['geradoEm'] = hoje
+    hoje_iso = D('-'.join(reversed(hoje.split('/'))))
     tpl = open(os.path.join(HERE, 'template.html'), encoding='utf-8').read()
     js = json.dumps(data, ensure_ascii=False).replace('</', '<\\/')
     assert '\n' not in js
     open(a.out, 'w', encoding='utf-8').write(tpl.replace('__DATA__', js))
-    stats(data)
+    stats(data, hoje_iso)
 
-def stats(data):
+def stats(data, hoje):
     W = data['weeks']; last = W[-1]; C = data['condos']
     tot = dict(rec=0, ontime=0, cons=0, miss=0, pend=0); sev = {'alta': 0, 'media': 0, 'baixa': 0}; miss = {}
     for c in C:
@@ -144,7 +145,7 @@ def stats(data):
             e = data['entries'][c['slug']].get(w)
             if e: tot['rec'] += 1; tot['ontime'] += e['no_prazo']; sev[e['sev']] += 1
             elif w in data['cobertos'][c['slug']]: tot['cons'] += 1
-            elif w == last: tot['pend'] += 1
+            elif hoje <= D(w) + dt.timedelta(days=7): tot['pend'] += 1  # prazo é a segunda seguinte (12h)
             else: tot['miss'] += 1; miss.setdefault(c['nome'], []).append(w)
     due = tot['rec'] + tot['cons'] + tot['miss']
     print(f"SEMANAS: {len(W)} ({W[0]} a {last}) | CONDOMÍNIOS: {len(C)}")
