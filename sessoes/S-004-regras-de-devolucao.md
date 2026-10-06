@@ -26,7 +26,8 @@
 | CP.5 — proposta sem especificação suficiente | **Analisar se dá para inferir pelo mapa e pelas propostas.** Nesse caso ser mais brando (tende a ressalva, não devolução) | "analisa se dá para inferir pelo mapa e pelas propostas. neste caso, podemos ser mais brandos." |
 | CP.5 — marca exigida e não cotada | **Não devolve.** Apontar que não é a mesma marca | "não, não devolver, mas apontar que não é a mesma marca" |
 | CP.6 Prazo de entrega — sem prazo, prazo longo ou incompatível, prazo diferente entre mapa e proposta | **Ressalva em todos os casos.** Não devolve. Inclui a divergência de prazo entre mapa e proposta (que na regra da S-003 era bloqueante) | "ressalva para todos estes itens do CP6" |
+| CP.7 Garantia do Produto — sem garantia, garantia diferente entre propostas, garantia diferente entre mapa e proposta | **Ressalva em todos os casos.** Não devolve | "ressalva para todos os itens do CP7" |
 
 ## Ainda por perguntar
 
-CP.7 a CP.19, CP.20 a CP.22 (alçada), CP.24, CP.25 e CP.26.
+CP.8 a CP.19, CP.20 a CP.22 (alçada), CP.24, CP.25 e CP.26.
