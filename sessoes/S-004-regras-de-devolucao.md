@@ -44,6 +44,14 @@
 | CP.17 Validade da proposta (serviço) | **Mesmas regras do CP.8** (o manual diz "mesma lógica de CP.8"): vencida sem reconfirmação devolve; vencida com reconfirmação, analisa; sem validade vale 6 meses fictícios, ressalva; validade do mapa diferente da proposta, analisa e tende a ressalva; primeiro a vencedora. O Claude avisou o usuário e ele não discordou | (sem objeção) |
 | CP.18 Índice de reajuste | **Proposta do Claude aceita pelo usuário ("fica como está"):** (1) proposta com índice que não seja IGP-M nem IPCA (ex.: INCC) = **ressalva**, pede-se troca ou aprovação do Jurídico; (2) sem índice em serviço de execução curta (até uns 12 meses) = "Não se aplica"; (3) contrato com vigência acima de 12 meses sem índice previsto = ressalva, pede-se o índice; preço fixo declarado = "Sim"; (4) percentual fixo ou "a combinar" = ressalva, como o item 1; (5) vale para todas, com prioridade para a vencedora; o valor não muda a regra. Nunca devolve, mesmo sendo item da BGRE | "fica como está" |
 
+## Fonte conferida: Matriz de Contratos
+
+O usuário enviou a **Matriz de Contratos** (PDF de 4 páginas, arquivo-fonte "Matriz Contratos Condomínios (1-2023).pptx") em 2026-10-07 e confirmou: "de fato, está aí a regra". O PDF não vai para este repositório. Conferido:
+
+- **Seguro, p.2, linha "Seguro":** regra geral R$ 1.000.000,00 de LMI. Aplica-se a "obras e qualquer serviço que exija a presença de colaboradores do fornecedor no empreendimento, de forma habitual ou não", e pode ser contratado de forma pontual (só para o contrato com o condomínio) ou global (para todos os clientes do fornecedor). "Admite-se a redução do LMI": R$ 100 mil para contratos até R$ 10.000,00; R$ 300 mil de R$ 10.001,00 a R$ 50.000,00; R$ 500 mil de R$ 50.001,00 a R$ 100.000,00. Em obras, vale a mesma regra, exceto se o investimento ou projeto passar de R$ 1.000.000,00, quando o LMI deve ser igual ao valor do projeto ou investimento.
+- **Índice de correção, p.1:** regra geral IGP-M; "admite-se a substituição pelo IPCA".
+- O manual `manual-concorrencia.md` reproduz a tabela de seguro fielmente. Falta nele só a página: citar "Matriz de Contratos, p.2".
+
 ## Ainda por perguntar
 
 CP.19, CP.20 a CP.22 (alçada), CP.24, CP.25 e CP.26.
