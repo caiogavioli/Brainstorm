@@ -40,19 +40,28 @@ Só o usuário abre a análise (só ele tem Claude Code pago); a equipe consome 
 
 **Gatilhos que sobem o nível sozinhos:** cotação única acima de R$ 5 mil; divergência de valor/quantidade/modelo entre mapa e proposta; vencedor ≠ menor preço; CNPJ ou dado do fornecedor ilegível; suspeita de fatiamento (CP.26). O usuário força com "modo: profundo".
 
-## Severidade (regra decidida em 2026-10-06)
+## Regras de devolução, item a item (decididas em 2026-10-07, `sessoes/S-004-regras-de-devolucao.md`)
 
-O usuário mandou **simplificar**. A regra é uma só, independe do valor da compra:
+A regra simples da primeira versão ("BGRE com Não = bloqueante") foi **substituída**: o usuário achou dura demais e definiu, pergunta por pergunta, o que devolve, o que pede análise antes e o que é só ressalva. O texto exato, com as palavras dele, está na S-004. Resumo:
 
-| Classe | Quando |
-|---|---|
-| 🔴 **Bloqueante — devolver** | (a) item de política **BGRE** com resposta "Não"; ou (b) divergência entre o mapa e a proposta (valor, quantidade, unidade, modelo, fornecedor, validade) |
-| 🟡 **Ressalva — assina se corrigir ou justificar** | todo o resto que merece atenção: itens de critério **próprio** (CP.4–17) e achados além do formulário que não caem em (a) ou (b) |
-| ⚪ **Observação** | melhoria sem risco de auditoria |
+| Item | Devolve | Analisa antes | Ressalva (nunca devolve) |
+|---|---|---|---|
+| CP.1 Mínimo de propostas | Sem justificativa no mapa | Com justificativa: convence? | |
+| CP.2 Preenchimento do QC | Mapa sem itens que não dá para equalizar (suposição) | Campo vazio é crítico? Justificativa genérica? Dá para equalizar pelas propostas? | |
+| CP.3 Papel timbrado | CNPJ ausente em todo lugar | CNPJ pode estar no mapa | Endereço e telefone (site, redes e CNPJ bastam); timbre vale com dados do fornecedor |
+| CP.4 Produto ou Serviço | | | Classificação errada: refaz pelo correto (Serviço + Produto = Serviço) |
+| CP.5 Detalhe do produto | Caso extremo (ex.: sifão de plástico × de ferro) | Equivalência funcional; dá para inferir? | Marca diferente: só aponta |
+| CP.6 a CP.7 Prazo de entrega e garantia do produto | | | Todos os casos, inclusive divergência entre mapa e proposta |
+| CP.8 e CP.17 Validade | Vencida sem reconfirmação | Vencida com reconfirmação cobre valor e data? Validade do mapa diferente da proposta | Sem validade (vale 6 meses fictícios, confirmado pelo Compliance da BGRE); concorrente vencida com a vencedora ok |
+| CP.9 a CP.16 (metodologia, ART, SSMA, TST, custos abertos, exclusões, cronograma, garantia do serviço) | | | Sempre ressalva |
+| CP.18 Índice de reajuste | | | Fora de IGP-M e IPCA |
+| CP.19 Seguro (Matriz de Contratos, p.2) | Sem seguro, ou declara não contemplar | | Seguro citado sem LMI ou com LMI abaixo da faixa (suposição) |
+| CP.20 a CP.22 Alçada (régua do manual: R$ 5 mil e R$ 30 mil) | Etapa anterior à do usuário faltando; faixa de valor errada | | Cargo não identificável; fluxo em tramitação só informa |
+| CAPEX | | | Sempre: "solicitar aprovação da BGRE antes de seguir" |
+| Exceções (fornecedor exclusivo, emergencial) | Sem justificativa | | Sem aprovação prévia do Coordenador. Exclusividade por natureza: fornecedor já contratado pelo condomínio para o escopo, ou fabricante do sistema |
+| CP.26 Não divisão (janela de 30 dias) | Claramente manobra (mesmo fornecedor, escopo e local, vários pedidos) | Análise aprofundada | Em dúvida: ressalva, indicando a possibilidade e questionando a administradora |
 
-A origem de cada item (BGRE × próprio) está na seção seguinte e é o que define a classe. Cada achado traz a etiqueta `[BGRE]` ou `[PRÓPRIO]`.
-
-Como contexto, o histórico de aprovações (ago–out/2026, ~510 QCs reais) mostra que a recusa ocorre em **62% a 100% das alçadas incompletas (CP.21)**, 75% de QC mal preenchido (CP.2), 45% de falta de papel timbrado (CP.3), 14% de mínimo de propostas (CP.1) e de proposta vencida (CP.8), mas só 1–6% em garantia, prazo de entrega, exclusões, SSMA, TST e seguro.
+Itens que não estão acima ficam como ressalva ou observação. **Prioridade da análise: a proposta vencedora primeiro; se estiver em ordem, as concorrentes; se só as concorrentes falharem, ressalva.** O valor da compra nunca muda a regra. O relatório não menciona limitações de leitura (PDF, imagem, arquivo não lido): isso fica só no resumo do chat.
 
 ## Origem de cada item: política da BGRE × critério do usuário
 
@@ -78,7 +87,7 @@ O usuário avisou (2026-10-06) que **parte dos itens do formulário não é pol�
 - **Mérito em Profunda (aprovado):** o mérito preliminar fica mesmo quando há bloqueante.
 - **Onde ficam as análises:** OneDrive, pasta `Operacional\Claude\Análise de QCs`. Dados de condomínio e fornecedor nunca no GitHub.
 - **Limite do conector:** o `sharepoint_upload_file` recebe o PDF como texto base64, e a transcrição confiável pelo Claude fica em torno de 13 mil caracteres por chamada. Por isso o relatório sai dividido em `_relatorio` e `_anexos` (e em `_parte1`/`_parte2` nos casos Profunda). A skill deve gerar PDFs pequenos (ReportLab, fontes padrão) e, quando possível, gravar por uma ferramenta que aceite arquivo, não texto.
-- **Severidade:** sem régua por valor. Vale a regra simples (BGRE "Não" ou divergência mapa × proposta = bloqueante; o resto = ressalva). Decidido pelo usuário em 2026-10-06.
+- **Severidade:** sem régua por valor. A regra simples de 2026-10-06 foi substituída pelas regras item a item de 2026-10-07 (seção acima).
 - **Achados novos que o checklist não pergunta:** validade do mapa × propostas, faturamento direto por terceiro, escopo menor na vencedora, valor da vencedora mudando no histórico, CNPJ ausente.
 - **Citação:** sempre a página do PDF; toda "inconsistência" é revisada contra o contexto antes de entrar no relatório.
 
