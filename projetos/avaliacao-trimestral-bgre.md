@@ -133,4 +133,5 @@ OneDrive (Operacional\Claude)
 2. Modelo do pedido: `entregas/avaliacao-trimestral-bgre/pedido-evidencias-modelo.md`.
 3. OneDrive: `Operacional\Claude\Avaliação de Administradora BGRE` e `…\Avaliação de Sindicância BGRE`. O Excel de controle mais recente está em `Avaliação de Administradora BGRE` (ou na conversa, se a gravação direta falhou).
 4. Destinatários: `rotina-safetydocs/mapeamento-predios.md`, branch `claude/safetydocs-automation-4rq592` (confirmado pelo usuário em 11/08/2026).
-5. Antes de qualquer envio: o usuário revisa e envia; nada sai em nome dele sem isso.
+5. Painel de acompanhamento: artefato privado "Checklist Avaliações BGRE" (levantamento + checklist clicável; ver `sessoes/S-006-…`). Os dados vivem lá, não aqui.
+6. Antes de qualquer envio: o usuário revisa e envia; nada sai em nome dele sem isso.
