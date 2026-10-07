@@ -43,6 +43,7 @@
 | CP.16 Garantia do serviço | **Proposta do Claude aceita pelo usuário ("fica como está"):** (1) proposta sem garantia = **ressalva**, pede-se prazo e condições; (2) garantia curta ou condicional = ressalva, o relatório compara com as concorrentes e com a natureza do serviço (troca de motor, impermeabilização e fachada pedem garantia maior); (3) garantia diferente entre propostas ou entre o mapa e a proposta = ressalva, como no CP.7; (4) garantia do equipamento fornecido junto (motor, câmera) conta separada da do serviço, e o relatório mostra as duas; (5) vale para todas, com prioridade para a vencedora; o valor não muda a regra. Nunca devolve | "fica como está" |
 | CP.17 Validade da proposta (serviço) | **Mesmas regras do CP.8** (o manual diz "mesma lógica de CP.8"): vencida sem reconfirmação devolve; vencida com reconfirmação, analisa; sem validade vale 6 meses fictícios, ressalva; validade do mapa diferente da proposta, analisa e tende a ressalva; primeiro a vencedora. O Claude avisou o usuário e ele não discordou | (sem objeção) |
 | CP.18 Índice de reajuste | **Proposta do Claude aceita pelo usuário ("fica como está"):** (1) proposta com índice que não seja IGP-M nem IPCA (ex.: INCC) = **ressalva**, pede-se troca ou aprovação do Jurídico; (2) sem índice em serviço de execução curta (até uns 12 meses) = "Não se aplica"; (3) contrato com vigência acima de 12 meses sem índice previsto = ressalva, pede-se o índice; preço fixo declarado = "Sim"; (4) percentual fixo ou "a combinar" = ressalva, como o item 1; (5) vale para todas, com prioridade para a vencedora; o valor não muda a regra. Nunca devolve, mesmo sendo item da BGRE | "fica como está" |
+| CP.19 Seguro (Matriz de Contratos, p.2) | **Falta seguro = devolve. Falta só o LMI = ressalva.** Detalhe: (1) proposta sem nenhuma menção a seguro, em serviço com pessoas no local = **devolve**; (2) proposta que declara não contemplar seguro (como a G-Eletro) = **devolve**; (3) proposta que cita seguro mas sem informar o LMI = **ressalva**. **Suposições do Claude, a confirmar:** (a) LMI informado abaixo da faixa = ressalva, pela mesma lógica (há seguro, falta valor suficiente); (b) apólice global do fornecedor vale (a Matriz admite); (c) como nos outros itens, a análise vai primeiro à vencedora; se a vencedora está em ordem e as concorrentes não, ressalva | "devolve se faltar seguro, ressalva se só faltar o LMI" |
 
 ## Fonte conferida: Matriz de Contratos
 
@@ -54,4 +55,4 @@ O usuário enviou a **Matriz de Contratos** (PDF de 4 páginas, arquivo-fonte "M
 
 ## Ainda por perguntar
 
-CP.19, CP.20 a CP.22 (alçada), CP.24, CP.25 e CP.26.
+CP.20 a CP.22 (alçada), CP.24, CP.25 e CP.26.
