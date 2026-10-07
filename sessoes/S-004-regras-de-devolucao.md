@@ -60,12 +60,15 @@ O usuário enviou a **Matriz de Contratos** (PDF de 4 páginas, arquivo-fonte "M
 - **Índice de correção, p.1:** regra geral IGP-M; "admite-se a substituição pelo IPCA".
 - O manual `manual-concorrencia.md` reproduz a tabela de seguro fielmente. Falta nele só a página: citar "Matriz de Contratos, p.2".
 
-## Pontos a confirmar com o usuário (suposições do Claude)
+## Suposições do Claude confirmadas pelo usuário (2026-10-07)
+
+O usuário respondeu "confirmo as três suposições, pode seguir":
 
 - CP.2, mapa sem itens: se não dá para equalizar pelas propostas, devolve.
 - CP.8, proposta sem validade e sem data: ressalva e aviso, porque os 6 meses não têm de onde contar.
 - CP.19, LMI informado abaixo da faixa: ressalva; apólice global do fornecedor vale (a Matriz admite).
-- Efeito nos casos analisados: ver o fim da S-004 depois de regerar os relatórios.
+
+**Ainda não confirmado:** a data em que se avalia a validade. Hoje: na data da assinatura nos QCs já aprovados; na data da análise nos QCs em tramitação ou sem mapa.
 
 ## Efeito nos sete casos analisados (relatórios refeitos em 2026-10-07)
 

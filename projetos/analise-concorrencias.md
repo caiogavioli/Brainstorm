@@ -47,7 +47,7 @@ A regra simples da primeira versão ("BGRE com Não = bloqueante") foi **substit
 | Item | Devolve | Analisa antes | Ressalva (nunca devolve) |
 |---|---|---|---|
 | CP.1 Mínimo de propostas | Sem justificativa no mapa | Com justificativa: convence? | |
-| CP.2 Preenchimento do QC | Mapa sem itens que não dá para equalizar (suposição) | Campo vazio é crítico? Justificativa genérica? Dá para equalizar pelas propostas? | |
+| CP.2 Preenchimento do QC | Mapa sem itens que não dá para equalizar | Campo vazio é crítico? Justificativa genérica? Dá para equalizar pelas propostas? | |
 | CP.3 Papel timbrado | CNPJ ausente em todo lugar | CNPJ pode estar no mapa | Endereço e telefone (site, redes e CNPJ bastam); timbre vale com dados do fornecedor |
 | CP.4 Produto ou Serviço | | | Classificação errada: refaz pelo correto (Serviço + Produto = Serviço) |
 | CP.5 Detalhe do produto | Caso extremo (ex.: sifão de plástico × de ferro) | Equivalência funcional; dá para inferir? | Marca diferente: só aponta |
@@ -55,7 +55,7 @@ A regra simples da primeira versão ("BGRE com Não = bloqueante") foi **substit
 | CP.8 e CP.17 Validade | Vencida sem reconfirmação | Vencida com reconfirmação cobre valor e data? Validade do mapa diferente da proposta | Sem validade (vale 6 meses fictícios, confirmado pelo Compliance da BGRE); concorrente vencida com a vencedora ok |
 | CP.9 a CP.16 (metodologia, ART, SSMA, TST, custos abertos, exclusões, cronograma, garantia do serviço) | | | Sempre ressalva |
 | CP.18 Índice de reajuste | | | Fora de IGP-M e IPCA |
-| CP.19 Seguro (Matriz de Contratos, p.2) | Sem seguro, ou declara não contemplar | | Seguro citado sem LMI ou com LMI abaixo da faixa (suposição) |
+| CP.19 Seguro (Matriz de Contratos, p.2) | Sem seguro, ou declara não contemplar | | Seguro citado sem LMI ou com LMI abaixo da faixa; apólice global do fornecedor vale |
 | CP.20 a CP.22 Alçada (régua do manual: R$ 5 mil e R$ 30 mil) | Etapa anterior à do usuário faltando; faixa de valor errada | | Cargo não identificável; fluxo em tramitação só informa |
 | CAPEX | | | Sempre: "solicitar aprovação da BGRE antes de seguir" |
 | Exceções (fornecedor exclusivo, emergencial) | Sem justificativa | | Sem aprovação prévia do Coordenador. Exclusividade por natureza: fornecedor já contratado pelo condomínio para o escopo, ou fabricante do sistema |
