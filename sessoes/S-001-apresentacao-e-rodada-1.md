@@ -73,4 +73,31 @@ Anexo: `Action_Log_-_Atrium_Century_Plaza_-_2025.xlsx` (fica fora do repositóri
 
 ## Respostas do usuário
 
-_(aguardando)_
+Respondidas em 2026-10-07, com o anexo `Consolidado_Fornecedores___rede.xlsx` (fica fora do repositório). Transcrição literal:
+
+1. a administradora que preenche manualmente
+2. a celula é sobreescrita
+3. os dois, a administradora escreve a observcação, acompanha o tema, e a sindicância faz apontamentos ou inclui exigências
+4. Documentos são analisados pela data de vencimento após o primeiro preenchimento de todas as linhas, só atualiza aquilo que foi renovado. Inadimplência é atualizada no mínimo mensalmente, mas quando ocorre o pagamento de algum inadimplente, a administradora atualiza
+5. a lista de condomínio e suas administradoras está na planilha anexa
+6. a administradora (todos os funcionários: gerente, supervisor, assistente, etc.). eles devem preencher sempre que tem atualização de cada tema, porém o ActionLog é revisado semanalmente pela DF Sìndicos e precisa estar atualizado
+7. Administradora, sindicancia e proprietário
+8. Administradora alimenta, de acordo com os investimentos aprovados em assembleia. Ela gerencia a contratação e a execução dos serviços, faz os pagamentos, e atualiza a planilha com o andamento dos temas.
+9. O Forecast serve para a sindicância e a administradora analisarem o comportamento das contas do condomínio, se vai faltar ou sobrar dinheiro no final do ano ou em algum mÊs específico. Se vai ficar negativo, realizamos reunião em conjunto para discutir as ações.
+10. não, não tire nenhuma. ALguns condomínios possuem o Safetydocs (os da BGRE), mas os outros não tem.
+11. Estimo que 100 pessoas, da mesma forma que o Boletim Diário. A Administradora é quem vai preencher tudo, o conselho/proprietários vão entrar nele para acompanhar
+12. não gostaria de usar o monday, está muito caro. acho melhor desenvolver uma plataforma própria
+13. o app de boletim pode ser usado como uma ideia, uma base. mas esse deve ser um sistema apartado.
+14. não restrigem. seria bom funcionar no celular
+
+**Sem resposta direta:** tempo gasto por semana (6), teto de custo mensal (12), quem mantém o app de boletim e se está em produção (13).
+
+### O que o anexo mostra (sem e-mails nem telefones)
+
+Aba `Planilha1` — a carteira: 40 condomínios, com apelido, CNPJ, endereço, cliente/proprietário, **Responsável DF**, administradora, contatos (gerente regional e gerente predial) e os fornecedores por disciplina (segurança, recepção, limpeza, manutenção predial e de automação). Aba `Agenda Assembleia` — 10 assembleias de setembro/2026, por área (Office/Logistics) e administradora.
+
+- **Administradoras:** 13 valores distintos na coluna (CBRE 10, Innova 6, "BRPRA/CBRE" 5 — a confirmar se é a mesma CBRE —, Cushman & Wakefield 4, Hines 3, Colliers 2, Hersil 2, e 6 com 1 condomínio cada).
+- **Responsável DF:** Amanda 17, Caio 12, Denise 10 (1 em branco) — a revisão semanal da DF já é naturalmente dividida em três carteiras.
+- **Clientes/proprietários:** Brookfield/BGRE 11, Petros 6, XP 4, Carrefour 2, REC 2, BSP 2, mais 8 com 1 cada; 4 em branco.
+- **Geografia:** SP 29, RJ 5, MG 2, AM 2, 2 sem UF.
+- Os 100 usuários estimados batem com ~2,5 pessoas por condomínio (gerente predial + regional + conselho).

@@ -19,11 +19,11 @@ Arquivo de exemplo analisado: *Action Log – Atrium Century Plaza – 2025* (12
 
 ## Frequência e volume
 - Acontece: semanal (Action Log), mensal (Fluxo de Caixa, Posição Financeira), por evento (Investimentos, Documentos, Contratos).
-- Tempo gasto por vez: **a perguntar (Rodada 1)**.
-- Volume: um arquivo por condomínio — **quantos condomínios e quantas administradoras: a perguntar (Rodada 1)**.
+- Tempo gasto por vez: não informado.
+- Volume: um arquivo por condomínio — **40 condomínios, ~13 administradoras, 3 responsáveis da DF, ~100 usuários estimados** (Rodada 1).
 
 ## Quem sofre
-A equipe da DF Síndicos (quem preenche) e, indiretamente, administradoras e sindicâncias/proprietários que recebem o arquivo. **Quem lê e em que formato: a perguntar.**
+Quem **preenche** é a administradora (todos os funcionários do condomínio); a DF Síndicos **revisa toda semana** e precisa do log atualizado; **sindicância e proprietário** leem, e a sindicância faz apontamentos e inclui exigências. Hoje a célula é sobrescrita, sem histórico de quem mudou o quê.
 
 ## O que já foi tentado
 A própria planilha, já com 3 revisões de estrutura (jan/2024). Cada revisão corrigiu formatação e fórmulas, mas manteve o modelo de "um arquivo por condomínio, uma coluna por reunião".
