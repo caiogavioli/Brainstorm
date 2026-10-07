@@ -168,7 +168,8 @@ A sessão é efêmera: **a análise só conta como terminada depois que o relat�
 - [ ] Nenhuma divergência mapa × proposta passando nos casos do piloto.
 - [ ] Toda análise com relatório gravado e linha no registro.
 - [ ] Devolutivas aceitas pela administradora sem pedido de esclarecimento.
-- [x] Severidade simplificada e aprovada pelo usuário (2026-10-06).
+- [x] Regras de devolução definidas item a item e aprovadas pelo usuário (2026-10-07, `sessoes/S-004`).
+- [x] Piloto retrospectivo com sete casos reais rodado (3 Profunda de obra ou equipamento, 2 Padrão, 1 Rápida, mais exaustores sem mapa).
 
 ## Fora do escopo mas mapeado (v2+)
 
