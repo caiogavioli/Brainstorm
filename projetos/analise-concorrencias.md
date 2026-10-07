@@ -1,8 +1,8 @@
 # analise-concorrencias
 
 **Origem:** P-001 (branch `claude/zealous-davinci-3johdf`)
-**Status:** spec da v1 escrita (2026-10-06) — **repositório ainda não criado**; nasce quando o usuário disser "fecha o projeto". Antes disso, piloto com casos reais.
-**Repositório:** a definir (nome sugerido: `analise-concorrencias`, privado, sem nenhum dado de condomínio)
+**Status:** **fechado em 2026-10-07**. O usuário disse "fecha o projeto"; o repositório foi criado por ele e o esqueleto foi enviado. Piloto real com QCs novos, ainda sem a aprovação dele, a seguir. Os sete casos analisados no piloto retrospectivo são exemplos: nenhum vira registro nem arquivo no repositório.
+**Repositório:** [`caiogavioli/analise-concorrencias`](https://github.com/caiogavioli/analise-concorrencias) (privado, sem nenhum dado de condomínio)
 
 ## Problema que resolve
 
