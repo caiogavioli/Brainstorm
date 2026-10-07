@@ -32,3 +32,11 @@ Pedido do usuário: criar e preencher as planilhas dos trimestres fechados sem a
 - A busca no Outlook (3 agentes, somente leitura) achou evidência para poucos itens: SafetyDocs (2.1 e 2.2.2), compliance da BGRE (3.3 e 3.4) e alguns números de inadimplência e previsto × realizado. **Não** achou, por e-mail, nº de OS, % de TST nem RGM (o RGM é planilha online da Brookfield).
 - Regra adotada: preencher só com evidência. Item zerado por regra objetiva (documento vencido no SD, GAP de compliance, penalidade) vai em laranja, "confirmar". 4.1–4.3 repetidos do trimestre anterior vão em laranja. Sem evidência, a célula fica amarela e o comentário traz o que foi achado. Resultado por bloco e nota final só aparecem com o bloco completo, para não gerar nota parcial.
 - Os arquivos são rascunho. Nada foi gravado na OneDrive; foram entregues como zip para o usuário salvar nas pastas.
+
+## Item 1.1 do 2T26 pelo Raio X do IPMS (07/10/2026)
+
+O usuário trouxe o levantamento de OS por mês (planilha "Raio X IPMS"). O critério que bate com o que ele já usou no 1T26 (Panamerica 686/239, JKB 296/300) é: preventivas concluídas ÷ preventivas abertas, somadas nos 3 meses.
+
+- 2T26 preenchido no item 1.1: TNU, Alphaville, JKB e Panamerica (este em laranja, porque o usuário avisou que a equipe não conseguia usar o IPMS de jan a jun). O Centenário ficou em branco: o IPMS tinha OS duplicadas, e o número bruto não vale.
+- A conexão com a OneDrive não aceita gravar o xlsx por base64 desse tamanho (a tentativa foi cortada), então os arquivos foram entregues por download para o usuário substituir nas pastas.
+- Fora do alcance do levantamento: Q3/25, Q4/25 e 17007 (a planilha só traz 2026 e 5 condomínios).
