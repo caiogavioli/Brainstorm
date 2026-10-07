@@ -16,7 +16,7 @@ Entra:
 - **Pedido mensal de evidências às administradoras** (1º dia útil), em rascunho no Outlook para o usuário enviar, um por condomínio, a partir de um modelo genérico. No 3T26, pedido único de transição (evidências de jul–set, prazo interno 16/10).
 - **Evidência por e-mail ou pasta compartilhada**; WhatsApp só como aviso.
 - **Pasta de evidências por condomínio** no OneDrive do usuário, compartilhada só com a administradora daquele condomínio, numa árvore separada da das notas (a administradora nunca vê a nota antes de o usuário circular). *A criar; o compartilhamento com externos é um clique do usuário por pasta.*
-- **Árvore interna de pastas** `<Condomínio>\<Ano>\Q1…Q4` nas duas pastas de avaliação (administradora e sindicância). *Feita em 2026-10-06.*
+- **Árvore interna de pastas** `<Condomínio>\<Ano>\Q1…Q4` nas duas pastas de avaliação (administradora e sindicância). *Feita em 2026-10-06.* Tem pasta `2025` só nos 6 condomínios que já eram avaliados em 2025; **PL Extrema, Passeio Paulista e 17007 começaram a ser avaliados em 2026** e só têm `2026`.
 - **Excel mestre de controle**, com mapa por condomínio × item, aba mensal (condomínio × item × mês × status × quem forneceu × canal), resumo e regras de pontuação da planilha da BGRE. *Primeira versão feita em 2026-10-06.*
 - **Folha de apoio por condomínio** antes do preenchimento (item a item: evidência encontrada, nota sugerida, comentário no estilo do usuário) e **conferência da planilha preenchida** depois (nota digitada × marcação, média recalculada, N/A sinalizado). *A produzir a partir do fechamento do 3T26.*
 - **Trilha da sindicância:** mesma folha de apoio e conferência, sem pasta compartilhada (não há terceiro para cobrar), reaproveitando a evidência da administradora; o item 3.4 da sindicância ("realizar a avaliação da administradora") passa a ser **calculado** a partir do controle.
@@ -120,7 +120,7 @@ OneDrive (Operacional\Claude)
 
 ## Fora do escopo mas mapeado (v2+)
 
-- Painel da evolução por trimestre com **histórico retroativo** (1T25 em diante), lendo as planilhas antigas nas pastas dos condomínios.
+- Painel da evolução por trimestre com **histórico retroativo** (1T25 em diante), lendo as planilhas antigas nas pastas dos condomínios. A linha de base de PL Extrema, Passeio Paulista e 17007 começa em 2026.
 - **Alerta mensal de risco ao SLA** (nota projetada no meio do trimestre, semáforo de itens que podem zerar: documento vencido, compra fora da política, contrato vencido).
 - Preencher uma **cópia** da planilha por script (depois de teste), se o ganho compensar o risco.
 - Migrar a pasta compartilhada para um site SharePoint da DF, se a equipe crescer ou a conta pessoal virar problema.
