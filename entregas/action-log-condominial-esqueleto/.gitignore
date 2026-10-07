@@ -1,0 +1,16 @@
+node_modules/
+.next/
+out/
+dist/
+coverage/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+.vercel/
+# Dados reais de condomínio nunca entram no repositório
+*.xlsx
+*.xls
+*.csv
+dados/
