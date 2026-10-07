@@ -41,7 +41,9 @@ Idioma de trabalho: **português do Brasil** — chat, código de domínio (nome
 
 ## Pontos em aberto
 
-Ver o fim de `docs/spec.md` (escopo/migração sem "ok" explícito, proprietário comenta?, "BRPRA/CBRE" × "CBRE", limite de 7 dias, hospedagem e custo, catálogo de categorias de despesa).
+Ver o fim de `docs/spec.md` (limite de 7 dias para "atrasado", teto de custo mensal, catálogo de categorias de despesa).
+
+Já resolvido: escopo e migração aprovados; **proprietário só lê** na v1; "BRPRA/CBRE" é **CBRE** (um só cadastro); hospedagem **Vercel + Neon** (criar o banco direto em neon.tech, não pela aba Storage da Vercel; confirmar plano pago, pois o gratuito da Vercel costuma ser só para uso não comercial).
 
 ## Commits
 

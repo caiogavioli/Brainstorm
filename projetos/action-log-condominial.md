@@ -1,8 +1,8 @@
 # action-log-condominial (nome provisório)
 
 **Origem:** P-001 (branch `claude/dreamy-noether-ib9gbu`)
-**Status:** fechado em spec (2026-10-07) — em construção no repositório próprio
-**Repositório:** a preencher após a criação (`caiogavioli/action-log-condominial`, privado)
+**Status:** fechado em spec (2026-10-07); decisões em aberto resolvidas em 2026-10-07 — em construção no repositório próprio
+**Repositório:** [`caiogavioli/action-log-condominial`](https://github.com/caiogavioli/action-log-condominial) (privado)
 
 ## Problema que resolve
 
@@ -83,7 +83,7 @@ Migração das planilhas (script único, rodado por condomínio, com conferênci
 | Sessão | JWT (`jose`) em cookie httpOnly + bcrypt | "Da mesma forma que as do boletim"; sem dependência de provedor de identidade |
 | Planilhas | biblioteca de leitura/escrita de `.xlsx` (importação e exportação) | Migração e exportação para o Excel |
 | E-mail | serviço transacional de plano gratuito | Convite, redefinição, alerta de saldo negativo, resumo semanal |
-| Hospedagem | a decidir no primeiro deploy, entre **Vercel + Neon** e **VPS com Docker** (ambos já documentados no app de boletim) | Tomás: a mais burra que funciona; confirmar preço vigente antes de contratar — a expectativa é custo mensal baixo para ~100 usuários, mas não há número validado |
+| Hospedagem | **Vercel + Neon** (decisão do usuário, 2026-10-07). Criar o banco direto em neon.tech, não pela aba Storage da Vercel (lição do app de boletim) | Sem servidor para manter. Confirmar preço e termos vigentes antes de contratar: o plano gratuito da Vercel costuma ser restrito a uso não comercial, então este projeto provavelmente exige plano pago; não há teto de custo informado |
 
 ## Decisões e trade-offs
 
@@ -139,9 +139,13 @@ Migração das planilhas (script único, rodado por condomínio, com conferênci
 
 ## Pontos ainda em aberto (a fechar no repositório novo)
 
-- **Escopo e migração (decisão 6):** proposta mantida sem "ok" explícito do usuário.
-- Proprietário pode **comentar** ou só ler? (Spec: só ler na v1.)
-- "BRPRA/CBRE" é a mesma administradora que "CBRE"?
 - Limite de 7 dias para "atrasado": igual para todo condomínio?
-- Hospedagem e teto de custo mensal (o usuário não informou teto).
+- Teto de custo mensal (o usuário não informou; a hospedagem é Vercel + Neon, mas o plano exato depende dele).
 - Categorias de despesa: o catálogo padrão sai de um condomínio (13 categorias no Fundo Ordinário do Atrium); confirmar se serve a todos.
+
+## Resolvido depois do fechamento (2026-10-07)
+
+- **Escopo e migração (decisão 6):** o usuário concordou com a proposta.
+- **Proprietário só lê** na v1 (não comenta).
+- **"BRPRA/CBRE" = "CBRE"**: BRPRA é um setor da CBRE; o cadastro usa uma só administradora, CBRE.
+- **Hospedagem: Vercel + Neon.**

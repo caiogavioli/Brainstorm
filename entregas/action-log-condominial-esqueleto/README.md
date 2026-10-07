@@ -20,7 +20,7 @@ Fora da v1 (mapeado): Inadimplência, Documentos, Contratos, Auditoria.
 
 ## Stack
 
-Next.js 15 (App Router) + React 19 + TypeScript · Prisma + PostgreSQL · Tailwind CSS v4 · Zod · sessão JWT em cookie httpOnly + bcrypt. Hospedagem a decidir no primeiro deploy (Vercel + Neon ou VPS com Docker).
+Next.js 15 (App Router) + React 19 + TypeScript · Prisma + PostgreSQL · Tailwind CSS v4 · Zod · sessão JWT em cookie httpOnly + bcrypt. Hospedagem: Vercel + Neon.
 
 ## Estrutura de pastas
 
