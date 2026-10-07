@@ -106,3 +106,7 @@ Consequências:
 - As pastas `2025` (e os quatro trimestres dentro) que haviam sido criadas para esses três condomínios, nas duas árvores, foram **apagadas** (6 pastas `2025` e 24 trimestres, todos vazios, 0 bytes; foram para a lixeira do OneDrive, recuperáveis por 93 dias). Os três ficam só com `2026\Q1…Q3`.
 - A **linha de base** para o painel e para o histórico retroativo desses três começa em 2026; não há 2025 para ler.
 - Limite do conector observado: o Microsoft Graph recusou apagar a pasta `2025` enquanto ela tinha subpastas ("pode estar retida"), mas aceitou apagar as subpastas vazias uma a uma e depois a pasta-mãe. Vale como roteiro se for preciso apagar outra estrutura.
+
+> começou no 1T26, mantém Q1
+
+Confirmado: PL Extrema, Passeio Paulista e 17007 começaram a ser avaliados no **1T26**. As pastas `2026\Q1`, `Q2` e `Q3` desses três ficam como estão, e a linha de base do histórico deles é o 1T26.
