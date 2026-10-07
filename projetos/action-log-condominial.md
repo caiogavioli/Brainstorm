@@ -1,7 +1,7 @@
 # action-log-condominial (nome provisório)
 
 **Origem:** P-001 (branch `claude/dreamy-noether-ib9gbu`)
-**Status:** fechado; repositório criado em 2026-10-07 (commit inicial `3d14a8a`), spec ajustada no commit `9d14a5a` do repositório novo, sem código ainda
+**Status:** fechado; repositório criado em 2026-10-07 (commit inicial `3d14a8a`), spec ajustada até o commit `b8c0c87` do repositório novo, sem código ainda
 **Nota:** a spec viva está em `docs/spec.md` no repositório novo; esta cópia é o histórico da decisão.
 **Repositório:** [`caiogavioli/action-log-condominial`](https://github.com/caiogavioli/action-log-condominial) (privado)
 
@@ -118,7 +118,7 @@ Migração das planilhas (por condomínio, com conferência do usuário antes de
 - **Adesão das administradoras.** Hoje elas têm o Excel e já conhecem; ~13 empresas, várias pessoas cada. Mitigação: convite por condomínio, treino curto, "sem novidade" em um toque, a DF só revisa o que está no sistema.
 - **Qualidade dos números do Forecast** (digitados à mão, sem integração). Mitigação: validações (saldo, soma por categoria), marcação explícita de realizado × projetado, comparação com saldo informado e log de alterações.
 - **Migração suja e planilhas que divergem.** Filtro quebrado, `#REF!`, `#VALUE!`, ano ausente no Fluxo, status em branco, layout de Fluxo diferente por condomínio, Documentos/Contratos defasados. Mitigação: leitor tolerante que reporta o que não leu; conferência do usuário antes de virar fonte da verdade; no pior caso o Forecast recomeça no ano corrente.
-- **Hospedagem gratuita com dados reais.** O Hobby da Vercel não é para uso comercial (risco de suspensão do projeto) e o Neon gratuito tem só 6 h de restauração e 100 h de computação por mês (a computação suspende ao estourar). Mitigação: fase gratuita só com dados sintéticos; backup próprio com `pg_dump` agendado, independente do provedor; projeto portável para a VPS. Recomendação do Tomás de **sair do gratuito antes de entrarem dados reais** aguarda o ok do usuário (ver pontos em aberto).
+- **Hospedagem gratuita com dados reais.** O Hobby da Vercel não é para uso comercial (risco de suspensão do projeto) e o Neon gratuito tem só 6 h de restauração e 100 h de computação por mês (a computação suspende ao estourar). Mitigação: fase gratuita só com dados sintéticos; backup próprio com `pg_dump` agendado, independente do provedor; projeto portável para a VPS. Regra aprovada pelo usuário: **só dados sintéticos até sair do plano gratuito** (ver "Resolvido").
 - **Manutenção por uma pessoa só.** Mitigação: stack padrão já usada no boletim, `CLAUDE.md` próprio no repositório, backup agendado do banco.
 - **Dois acessos para as mesmas pessoas** (consequência da decisão de contas separadas). Aceito pelo usuário.
 
@@ -152,7 +152,7 @@ Migração das planilhas (por condomínio, com conferência do usuário antes de
 
 ## Pontos ainda em aberto (a fechar no repositório novo)
 
-- **Sair do plano gratuito antes de dados reais?** Recomendação do Tomás: a fase gratuita roda só com dados sintéticos; antes de entrarem dados reais e as administradoras, migrar para a VPS paga (já planejada pelo usuário) ou para a Vercel Pro. O usuário disse "a princípio vamos nos planos gratuitos" e ainda não opinou sobre este ponto.
+- **Quando sair do plano gratuito:** o usuário decidiu que, **até lá, só dados sintéticos** (ver "Resolvido"). Falta definir o gatilho da mudança para a VPS paga (ou Vercel Pro): por data, por etapa concluída (por exemplo, depois do teste de isolamento e do backup testado) ou quando as primeiras administradoras forem convidadas.
 - **Linha de despesa × Investimento:** na Faria Lima as linhas de despesa do Fundo de Reserva são nomes de projetos, as mesmas coisas dos Investimentos. Para não digitar duas vezes, vincular opcionalmente a categoria ou o lançamento a um Investimento e preencher o "pago" a partir do Forecast? A decidir na etapa 4.
 - **Planos de ação por origem** na v2 (proposta acima).
 - **Quem paga a hospedagem** (DF ou condomínios): sem resposta; só pesa na fase paga.
@@ -169,3 +169,4 @@ Migração das planilhas (por condomínio, com conferência do usuário antes de
 - **Limite de atraso (opção B):** 7 dias por padrão, parâmetro por condomínio; Stand by, Concluído e Cancelado ficam fora do cálculo.
 - **Hospedagem:** "a princípio vamos nos planos gratuitos, mas tenho a ideia de mudar para um VPS pago no futuro" — projeto portável desde o início.
 - **Categorias de despesa (opção B):** "as categorias devem ser inseridas pela propria administradora. cada uma tem uma nomenclatura diferente, e não temos como equalizar todas elas. faça campos com possibilidade de inclusão e exclusão de categorias."
+- **Só dados sintéticos até sair do plano gratuito:** "ok, só dados sintéticos até lá". Nenhum dado real de condomínio (planilhas, saldos, inadimplência, contatos) entra em ambiente hospedado nos planos gratuitos; a importação das planilhas reais só roda depois da migração para a VPS paga (ou Vercel Pro).

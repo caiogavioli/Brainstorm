@@ -57,11 +57,11 @@ Outros achados: JIT Park tem colunas extras em Investimentos (status das propost
 - Vercel Hobby (gratuito): restrito a **uso não comercial**; a definição de comercial inclui projeto usado para ganho financeiro de qualquer envolvido, até quem escreve o código.
 - Neon gratuito: 0,5 GB, 100 horas de computação por mês, 6 horas de histórico de restauração.
 
-Por isso o Tomás recomenda **sair do gratuito antes de entrarem dados reais**. **Aguarda ok do usuário**; até lá a spec e o `CLAUDE.md` do projeto só permitem dados sintéticos em ambiente hospedado.
+Por isso o Tomás recomendou **sair do gratuito antes de entrarem dados reais**. **Aprovado pelo usuário:** "ok, só dados sintéticos até lá". A spec e o `CLAUDE.md` do projeto agora proíbem dado real em ambiente hospedado gratuito (commit `b8c0c87` do repositório novo).
 
 ## Em aberto
 
-- Sair do plano gratuito antes de dados reais? (recomendação acima)
+- Gatilho para sair do plano gratuito (por data, por etapa concluída ou ao convidar as primeiras administradoras).
 - Linha de despesa do Fundo de Reserva × Investimento: vincular para não digitar duas vezes?
 - "Planos de ação por origem" na v2 (unifica Auditoria, Visita Operacional e SDAI).
 - Quem paga a hospedagem na fase paga.
