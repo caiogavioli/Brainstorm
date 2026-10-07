@@ -40,3 +40,23 @@ O usuário trouxe o levantamento de OS por mês (planilha "Raio X IPMS"). O crit
 - 2T26 preenchido no item 1.1: TNU, Alphaville, JKB e Panamerica (este em laranja, porque o usuário avisou que a equipe não conseguia usar o IPMS de jan a jun). O Centenário ficou em branco: o IPMS tinha OS duplicadas, e o número bruto não vale.
 - A conexão com a OneDrive não aceita gravar o xlsx por base64 desse tamanho (a tentativa foi cortada), então os arquivos foram entregues por download para o usuário substituir nas pastas.
 - Fora do alcance do levantamento: Q3/25, Q4/25 e 17007 (a planilha só traz 2026 e 5 condomínios).
+
+## Anexos de TST, SST e preventivas e rascunhos do 3T26 (07/10/2026)
+
+O usuário mandou prints do histórico de TST, relatórios gerenciais da Vilella (um mês por condomínio), o relatório de SST e a gestão à vista do PL Extrema, e as preventivas de Passeio. Pedido: usar tudo para preencher o que for possível.
+
+- O 3T26 já está encerrado (30/09), com prazo da BGRE em 31/10/2026; corrige a nota anterior que o tratava como em curso.
+- 1.1 do 3T26 pelo Raio X (jul–set), mesmo critério. Alphaville (setembro 21/46) e TNU (setembro 117/137) ficam em laranja: o Raio X foi gerado em início de outubro e setembro pode não estar baixado. Centenário segue em branco, por causa das OS duplicadas até julho. Passeio vem dos prints do sistema (percentuais convertidos em contagens inteiras) e vai em laranja.
+- 2.5 (TST): os relatórios da Vilella trazem só o mês corrente, sem histórico. Com um mês por condomínio, o item 2.5 do 3T26 não fecha (a regra é a média de 3 meses). Os valores disponíveis entram só no comentário. No 2T26 do 17007, a média de 3 meses dos prints (96,0%) foi lançada em laranja.
+- 8 rascunhos do 3T26 da Administradora (Arquipeo ficou de fora). O modelo é o mesmo dos rascunhos anteriores. Entregues por download.
+
+## Sindicância: levantamento para validar item a item (07/10/2026)
+
+Pedido: antes de preencher as planilhas da Sindicância faltantes, levantar os dados possíveis (usando as avaliações das administradoras e os e-mails) e montar um artefato para validar cada item com uma marcação.
+
+- As regras de cálculo vêm da aba "fonte dados_cálculos" da planilha da Sindicância: pesos 20/30/30/20; 1.1, 1.2 e 3.7 valem 33,33% por mês; 2.1 e 4.2 perdem 20% por penalidade; 3.5 perde 10% por documento vencido; 4.1 perde 20% por contrato vencido; os demais são sim/não.
+- O 3.4 (avaliar a administradora) é calculado a partir do estado das planilhas da administradora.
+- 8 agentes de leitura (Outlook, agenda e comentários das planilhas da administradora). Cada item sai com proposta, como se chegou nela, evidência, fonte e confiança. Quando a evidência é só a planilha da administradora, a confiança é marcada como baixa ou média: é inferência, não prova independente.
+- Achados que mudam o escopo: a BGRE emite a sindicância oficial (a do 1T26 do PL Extrema saiu em 14/05/2026, com 89,13% e penalização de 5%, depois suspensa); a do Passeio 1T26 já estava preenchida pelo usuário (97,25%); só 5 planilhas da Sindicância existem de fato (3 de 1T25, Passeio 1T26 e a oficial do Extrema 1T26). Compliance da BGRE sai cerca de 70 dias após o fim do trimestre.
+- Dúvidas de critério levantadas pelos agentes e ainda sem resposta: se GAP de compliance da administradora desconta na sindicância (2.1 e 4.2); se documentos mensais (CRF/FGTS) e contratos "em renovação" contam como vencidos (3.5 e 4.1); a frequência contratual das visitas (3.1); onde ficam as atas das reuniões mensais (3.6).
+- Artefato privado "Validação Sindicância BGRE": mapa condomínio × trimestre, matriz item × trimestre e cartões por item com caixa de validação, ajuste de valor e observação, salvos no banco. Os dados dos condomínios ficam só no artefato.
