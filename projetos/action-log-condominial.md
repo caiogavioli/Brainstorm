@@ -1,7 +1,7 @@
 # action-log-condominial (nome provisório)
 
 **Origem:** P-001 (branch `claude/dreamy-noether-ib9gbu`)
-**Status:** fechado em spec (2026-10-07); decisões em aberto resolvidas em 2026-10-07 — em construção no repositório próprio
+**Status:** fechado; repositório criado em 2026-10-07 (commit inicial `3d14a8a`), sem código ainda
 **Repositório:** [`caiogavioli/action-log-condominial`](https://github.com/caiogavioli/action-log-condominial) (privado)
 
 ## Problema que resolve
