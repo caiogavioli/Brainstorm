@@ -66,3 +66,19 @@ O usuário enviou a **Matriz de Contratos** (PDF de 4 páginas, arquivo-fonte "M
 - CP.8, proposta sem validade e sem data: ressalva e aviso, porque os 6 meses não têm de onde contar.
 - CP.19, LMI informado abaixo da faixa: ressalva; apólice global do fornecedor vale (a Matriz admite).
 - Efeito nos casos analisados: ver o fim da S-004 depois de regerar os relatórios.
+
+## Efeito nos sete casos analisados (relatórios refeitos em 2026-10-07)
+
+Pareceres sem dados de condomínio ou fornecedor além do necessário; os relatórios ficam no chat e fora do GitHub.
+
+| Caso | Antes (regra simples) | Agora (regras item a item) |
+|---|---|---|
+| Água, Nações (Padrão) | Devolver | Devolver: três pedidos do mesmo escopo e fornecedor (CP.26). A validade da vencedora virou ressalva |
+| FAT, Bombeiros (Padrão) | Devolver | Devolver só por seguro. A exceção de fornecedor único (consultora já contratada) se sustenta; falta a aprovação do Coordenador (ressalva) |
+| Fachada (Profunda) | Devolver, 2 bloqueantes | Devolver, 1 bloqueante: escopo não equalizável. O seguro sem LMI virou ressalva |
+| Hidráulica (Rápida) | Assinar com ressalvas | Assinar com ressalvas |
+| Telhado (Profunda) | Devolver, 2 bloqueantes | Devolver, 1 bloqueante: CNPJ da vencedora ausente. A validade das concorrentes virou ressalva |
+| CFTV Centenário (Profunda) | Assinar com ressalvas | Devolver: falta de seguro |
+| Exaustores (Profunda) | Devolver | Devolver: três propostas vencidas e falta de seguro |
+
+Critério de data: nos casos já aprovados no iPMS a validade é avaliada na data da assinatura; nos casos em tramitação ou sem mapa, na data da análise.
