@@ -2,7 +2,7 @@
 
 Estado vivo **deste branch**. O catálogo geral de branches fica no `MEMORY.md` de `main`.
 
-**Última atualização:** 2026-10-01
+**Última atualização:** 2026-10-08
 
 ## O que é
 
@@ -20,6 +20,7 @@ Análise e resposta da DF Síndicos Profissionais à concorrência do Einstein p
 |---|---|
 | S-001 | Análise das partes 1 e 2 do material: RFP, e-mails, workshop, carta de aceite, propostas comerciais e técnicas da DF |
 | S-002 | Resposta item a item aos 12 pedidos da Tami (29/09), com decisões do usuário |
+| S-003 | Apresentação técnica de 13/10: convite, análise dos e-mails, apresentação .pptx, relatório executivo e dossiê interno |
 
 ## Decisões
 
@@ -30,11 +31,14 @@ Análise e resposta da DF Síndicos Profissionais à concorrência do Einstein p
 | 2026-10-01 | Titular Denise; substitutos Amanda e Caio; retaguarda Marco Murilo (financeiro) e Cláudia De Santi (LGPD) | S-002, itens 1 e 12 |
 | 2026-10-01 | Preços mantidos (PG 24.900 / Pinheiros 15.900 / AA 10.500), preço único 36 meses, planilha fechada | S-002, itens 2 e 10 |
 | 2026-10-01 | Todo voto em assembleia exige autorização escrita do Einstein | S-002, item 11 |
+| 2026-10-08 | SLA equalizado à referência do Einstein (ordinária 1 dia útil; crítica com plano de ação em 4 h) | E-mail da Tami de 30/09; S-003 |
 | 2026-10-01 | Cases: SPHQ I (CRD), 17007 Nações (garagem), O Parque (Sírio-Libanês); apoio Passeio Paulista e Arquipeo | S-002, item 8 |
 
 ## Em aberto
 
-- Diagramar os textos de `entregas/` no modelo visual da DF e enviar à Tami (técnica + comercial + planilha + declaração + atestados + apólices).
+- **13/10/2026, 10h–12h (Teams): defesa técnica ao Einstein.** Material em `entregas/apresentacao-13-10/`.
+- Confirmar grafia: Marco Murilo × Marco Murino.
+- Após a reunião: enviar relatório executivo + formalizar ajuste de SLA à Tami.
 - Conferir se a planilha de cotação do Einstein exige campos por profissional (decisão do usuário: preço fechado).
 - Atualizar no deck institucional "mais de 20 empreendimentos" → "mais de 40 condomínios", se for reenviado.
 - Minuta contratual e respostas às dúvidas de 14/09 nunca foram recebidas — índice de reajuste e cláusula de rescisão não conferidos.

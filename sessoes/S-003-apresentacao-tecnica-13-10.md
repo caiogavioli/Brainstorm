@@ -43,4 +43,21 @@
 5. Texto do e-mail de 01/10 fala em "convocar e presidir assembleias" e "aprovar despesas"; a RFP diz que o subsíndico não substitui o Síndico Geral e que decisões são do Einstein — alinhar o discurso na apresentação.
 6. Concorrência com administradoras prediais → a independência (quem fiscaliza a administradora) é o principal argumento de venda.
 
-_Esqueleto da apresentação e do relatório executivo enviado ao usuário; aguardando decisões._
+## Decisões do usuário
+
+> pptx, os dois relatórios, pode corrigir o SLA, não mostrar preço, eu e a Denise falamos em conjunto toda a reunião, não sei os cargos mas assuma que é compras facilities e operações, sim foram enviadas
+
+- Formato: PowerPoint (.pptx) na identidade DF.
+- Dois relatórios: executivo para o Einstein + dossiê interno de preparação.
+- SLA corrigido: ordinária com primeira resposta em 1 dia útil; crítica com plano de ação em até 4 h.
+- Sem preço na apresentação.
+- Condução: Caio e Denise juntos, a reunião toda.
+- Público assumido: Compras, Facilities e Operações.
+- Comerciais foram enviadas (em outro e-mail).
+
+## Entregue (pasta `entregas/apresentacao-13-10/`)
+
+- `DF_Apresentacao_Einstein_13-10.pptx` (+ PDF) — 20 slides (18 de exposição + 2 de apoio), com notas do apresentador.
+- `DF_Relatorio_Executivo_Einstein.docx` (+ PDF) — para enviar à Tami após a reunião, formalizando o ajuste de SLA.
+- `DF_Dossie_Interno_Apresentacao_Einstein.docx` (+ PDF) — uso interno: roteiro, mensagens, pontos de atenção, 15 perguntas prováveis, checklist e pós-reunião.
+- Pendência: grafia do gerente financeiro — "Marco Murilo" (propostas) × "Marco Murino" (convite do Einstein). Usado "Murino".
