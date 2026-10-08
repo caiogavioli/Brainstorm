@@ -392,6 +392,6 @@ Autorização explícita do usuário para escrever em `main` (as instruções da
 
 **Resultado da rodada 1:** 22 apontamentos (10 críticos, 10 moderados, 2 baixos), materialidade sobre o total da apresentação (R$ 5.931.879,52), porque a planilha e a apresentação não são da mesma versão (planilha: R$ 5.762.196,03). Críticos: planilha × apresentação; total interno da planilha com quatro valores; CAPEX R$ 823.660,00 × R$ 602.497,90; fundos (contingência, reserva e Flat) sem definição; saldos do slide 11 fora da planilha; 13 slides com tabelas em imagem (Enviar); decomposição do reajuste de 13,94%; "Realizado 2026" com quatro meses de projeção (39%); utilidades × slide 9; pavimento (ordinária × CAPEX).
 
-**Decisões minhas, a confirmar:** administradora como "Hines (a confirmar)"; materialidade sobre o total da apresentação e não da planilha; planilha da versão da apresentação não recebida, a reconferir quando chegar.
+**Decisões minhas, a confirmar:** administradora como "Hines (a confirmar)" (confirmada depois pelo usuário: Hines; arquivos finais regenerados com o nome); materialidade sobre o total da apresentação e não da planilha; planilha da versão da apresentação não recebida, a reconferir quando chegar.
 
 **Validação:** o usuário validou sem ajustes nem retiradas (a mensagem chegou duas vezes); versão final gerada sem marca de rascunho. **Pendente:** o envio à administradora é do usuário. `estado.json` (`pronto_para_envio`) e `achados.json` gravados em `DP Cajamar/2027/Rodada-1` no OneDrive.
