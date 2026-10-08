@@ -60,3 +60,11 @@ Pedido: antes de preencher as planilhas da Sindicância faltantes, levantar os d
 - Achados que mudam o escopo: a BGRE emite a sindicância oficial (a do 1T26 do PL Extrema saiu em 14/05/2026, com 89,13% e penalização de 5%, depois suspensa); a do Passeio 1T26 já estava preenchida pelo usuário (97,25%); só 5 planilhas da Sindicância existem de fato (3 de 1T25, Passeio 1T26 e a oficial do Extrema 1T26). Compliance da BGRE sai cerca de 70 dias após o fim do trimestre.
 - Dúvidas de critério levantadas pelos agentes e ainda sem resposta: se GAP de compliance da administradora desconta na sindicância (2.1 e 4.2); se documentos mensais (CRF/FGTS) e contratos "em renovação" contam como vencidos (3.5 e 4.1); a frequência contratual das visitas (3.1); onde ficam as atas das reuniões mensais (3.6).
 - Artefato privado "Validação Sindicância BGRE": mapa condomínio × trimestre, matriz item × trimestre e cartões por item com caixa de validação, ajuste de valor e observação, salvos no banco. Os dados dos condomínios ficam só no artefato.
+
+## Fechamento da Sindicância (08/10/2026)
+
+- O usuário validou item a item as 46 planilhas no artefato e passou os textos padrão de comentário por item (1.1 e 1.2 por tipo de administradora; 3.1, 3.2, 3.3, 3.6, 3.7 e 3.8 fixos; 3.5 "OK, conforme sistema SD" quando sem apontamento, senão o apontamento; 4.1 e 4.2 idem).
+- Regra do compliance, dada pelo usuário: a BGRE audita por amostragem. Sem evidência de auditoria do condomínio no trimestre, considera-se que não houve e o item vale 100%. Aplicada aos itens 2.1, 4.1 e 4.2 sem evidência. Item com GAP ou penalidade encontrados mantém o apontamento.
+- As 46 planilhas foram geradas a partir do modelo oficial, com valores e comentários validados, e entregues por download (pastas Condomínio\Ano\Q#). Todas fecharam nota final; a menor ficou em 90%. Nada foi gravado na OneDrive.
+- Fora do conjunto: as 5 que já existiam (1T25 de Arquipeo, CTN e JKB; 1T26 do Passeio; oficial BGRE do PL Extrema 1T26).
+- Aberto: copiar as planilhas para `Avaliação de Sindicância BGRE`; 3T26 vence em 31/10/2026; Compliance do 3T26 da BGRE ainda não chegou; Arquipeo 3T26 da Administradora não tem rascunho.
