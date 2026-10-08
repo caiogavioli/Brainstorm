@@ -68,3 +68,12 @@ Pedido: antes de preencher as planilhas da Sindicância faltantes, levantar os d
 - As 46 planilhas foram geradas a partir do modelo oficial, com valores e comentários validados, e entregues por download (pastas Condomínio\Ano\Q#). Todas fecharam nota final; a menor ficou em 90%. Nada foi gravado na OneDrive.
 - Fora do conjunto: as 5 que já existiam (1T25 de Arquipeo, CTN e JKB; 1T26 do Passeio; oficial BGRE do PL Extrema 1T26).
 - Aberto: copiar as planilhas para `Avaliação de Sindicância BGRE`; 3T26 vence em 31/10/2026; Compliance do 3T26 da BGRE ainda não chegou; Arquipeo 3T26 da Administradora não tem rascunho.
+
+## Item 1.1 de 2025 pelo Raio X da CBRE (08/10/2026)
+
+O usuário recebeu da CBRE o Raio X de preventivas de jan a dez/2025 e o de jan a mar/2026 (5 condomínios; o 17007 só aparece nas abas de set a dez/2025).
+
+- Critério (preventivas finalizadas ÷ total, somadas nos 3 meses) conferido contra planilhas já fechadas: bate em 11 de 15 trimestres de 2025 e nos 4 do 1T26. Divergentes: JKB 2T25 (97,3% na planilha × 69,6%), Panamerica 1T25, TNU 1T25, TNU 4T25 e CTN 3T25.
+- Preenchido o 1.1 do 3T25: Alphaville 91,4%, JKB 100%, Panamerica 100%, TNU 99,6% (recorte mensal da CBRE; a aba refeita de setembro traz outro recorte para JKB e TNU, não usado). CTN 4T25: 98,0%, usando as 2.827 OS de outubro por decisão do usuário.
+- Decisão do usuário: JKB 2T25 passa a 69,6% (96/138). A planilha era cópia do 1T25 (inclusive o período no cabeçalho), então o 1.1 vai a Ruim, o bloco 1 a 69,6% e a nota final cai de 92,6% (Satisfatório) para 88,4% (Regular). Cabeçalho corrigido para abr a jun/25. Demais divergências: mantido o valor que estava.
+- Seis planilhas entregues por download para substituir na OneDrive; nada gravado lá. Os demais itens dos rascunhos do 3T25 e do CTN 4T25 seguem "A PREENCHER".
