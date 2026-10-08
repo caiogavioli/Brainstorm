@@ -7,7 +7,7 @@
 | Einstein | Tami Del Grego Favero (Compras Indiretas), Pedro Orlando Victor Galletta Filho, Mariana Cavalcante (contato da visita ao Parque Global), Samara dos Santos Ricardo, Viviane Gomes Lopes Fialho; cc Gislene Carine dos Santos |
 | Premissa sobre os cargos | Cargos não confirmados. Assumimos três públicos: Compras, Facilities e Operações |
 | DF | Denise Ferreira e Caio Gavioli conduzem juntos (Caio compartilha a tela); Amanda Tigre, Marco Murino, Cláudia De Santi e André Ferreira da Silva de apoio às perguntas |
-| Material | Apresentação PowerPoint (23 slides: 21 de exposição + 2 de apoio ocultos, que só aparecem se você navegar até eles); relatório executivo para enviar depois |
+| Material | Apresentação PowerPoint (25 slides: 23 de exposição + 2 de apoio ocultos, que só aparecem se você navegar até eles); relatório executivo para enviar depois |
 
 ## 2. As cinco mensagens que precisam ficar
 
@@ -35,9 +35,12 @@
 | 15 | Continuidade | Denise | 2 min |
 | 16–18 | Como a DF controla: Boletim, rotinas automáticas e relatórios técnicos | Caio | 6 min |
 | 19 | Escopo | Denise | 2 min |
-| 20–21 | Por que a DF e encerramento | Denise | 2 min |
-| — | **Total da exposição** | | **~47 min** |
-| — | Perguntas e saneamento de dúvidas | Todos | ~65 min |
+| 20 | Por que um subsíndico independente (comparativo de modelos) | Denise | 2 min |
+| 21 | Três unidades, três respostas — com prova | Caio | 2 min |
+| 22 | O que o Einstein ganha nos primeiros 90 dias | Denise | 2 min |
+| 23 | Encerramento | Denise | 1 min |
+| — | **Total da exposição** | | **~52 min** |
+| — | Perguntas e saneamento de dúvidas | Todos | ~60 min |
 
 ## 4. O que cada área quer ouvir
 
@@ -53,12 +56,13 @@
 - **Não falar de preço.** A proposta comercial já foi enviada; se perguntarem, responder que os valores estão na proposta comercial e que a DF está aberta à fase de equalização.
 - **Não usar "convocar e presidir assembleias" nem "aprovar despesas".** O e-mail de 01/10 usou essas expressões; a RFP diz que o subsíndico não substitui o Síndico Geral e que a decisão é sempre do Einstein.
 - **"Olhos do dono" → "olhos do Einstein".** Em Pinheiros o Einstein é locatário de um fundo; a expressão pode soar como defesa do proprietário.
+- **Slide 20 compara modelos, não empresas.** Tom de explicação, nunca de ataque — não citar nenhum participante da concorrência.
 - **Não citar administradoras pelo nome** nem atacar concorrentes. O argumento é estrutural: quem executa não deve fiscalizar a si mesmo.
 - **Nome do gerente financeiro: Marco Murino** (confirmado). As propostas técnicas de 01/10 grafaram "Murilo" — se surgir, corrigir verbalmente; o relatório executivo já está certo.
 - **Cases sem valor em R$.** Se pedirem números, responder qualitativamente e oferecer o contato de referência do cliente.
 - **Sírio-Libanês:** pode ser citado — a locação é pública.
 - **Slides 16–18 (controles DF):** não afirmar há quanto tempo estão em uso nem em quantos condomínios; não citar clientes nem prédios dos relatórios técnicos — o slide diz que é por sigilo. Se pedirem para ver, oferecer uma versão anonimizada após a contratação.
-- **Slides de apoio ocultos (22 e 23):** no modo de apresentação, digite o número do slide e Enter para mostrá-los.
+- **Slides de apoio ocultos (24 e 25):** no modo de apresentação, digite o número do slide e Enter para mostrá-los.
 - **Pagamento em 90 dias e reajuste anual:** já aceitos na carta de aceite da minuta; não reabrir.
 
 ## 6. Perguntas prováveis e respostas sugeridas
@@ -78,7 +82,7 @@
 | 11 | Têm algum conflito de interesse? | Nenhum vínculo com condomínios, administradoras, proprietários ou gestores das unidades — declaração assinada já entregue. Fornecedores serão verificados na mobilização. |
 | 12 | O dashboard é um sistema? | Não: é entregue como relatório gráfico mensal a partir de D+90, nos canais autorizados pelo Einstein (LGPD). |
 | 13 | Como fica a LGPD? | Diretora de LGPD dedicada; documentos do Einstein só pelos canais autorizados; acesso restrito ao time do contrato; incidentes comunicados de imediato. |
-| 14 | O que vocês precisam do Einstein para começar? | Ata de eleição e procurações, convenção, contratos, 12 meses de prestação de contas, contatos e as alçadas internas (slide de apoio 23, oculto). |
+| 14 | O que vocês precisam do Einstein para começar? | Ata de eleição e procurações, convenção, contratos, 12 meses de prestação de contas, contatos e as alçadas internas (slide de apoio 25, oculto). |
 | 15 | Qual o primeiro resultado concreto? | Primeiro relatório executivo em D+30 e, se a Previsão Orçamentária 2027 ainda não estiver aprovada, sua revisão com prioridade. |
 | 16 | O Einstein vai precisar usar o sistema de vocês? | Não. O Boletim e as rotinas são ferramentas da DF; o Einstein recebe os resultados nos relatórios e pareceres, pelos canais que autorizar. |
 | 17 | Esses sistemas são da DF ou de terceiros? | Desenvolvidos pela DF. |

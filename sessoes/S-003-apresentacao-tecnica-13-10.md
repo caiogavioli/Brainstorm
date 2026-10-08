@@ -81,3 +81,12 @@
 > Retire a informação de "em operação" dos sistemas
 
 - Removidos: etiqueta "EM OPERAÇÃO" (slide 16), "em operação desde agosto de 2026" e "9 semanas consecutivas" (slide 17), menções nas notas, no relatório executivo (seção 10) e no dossiê. Dossiê passa a orientar: não afirmar tempo de uso nem quantidade de condomínios.
+
+> Não gostei do slide  Por que a DF. Me dê mais sugestões para esse slide, para que eu aprove
+
+Cinco opções apresentadas (A riscos da RFP; B três unidades/três respostas; C ganhos em 90 dias; D comparativo de modelos; E frase + 3 números).
+
+> B+C+D
+
+- "Por que a DF" virou seção com 3 slides: 20 — Por que um subsíndico independente (comparativo de modelos, sem citar empresas); 21 — Três unidades, três respostas, com prova; 22 — O que o Einstein ganha nos primeiros 90 dias.
+- Apresentação: 25 slides (23 de exposição + 2 de apoio ocultos, 24 e 25). Dossiê: roteiro ~52 min.

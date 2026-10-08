@@ -485,22 +485,79 @@ async function icon(Comp, color, size = 256) {
   });
   s.addNotes("DENISE: responde o item 6 do e-mail de 30/09 (deslocamentos, especialistas externos, pareceres jurídicos especializados, laudos). Terceira coluna: reforça a separação governança × operação, sem atacar concorrentes. Se perguntarem de preço: a proposta comercial já foi enviada; não discutir valores nesta reunião.");
 
-  // ================= 17. POR QUE A DF =================
-  s = content("Escopo e premissas", "Por que a DF");
-  const pq = [[fa.FaBalanceScale, "Independência", "Não somos administradora: fiscalizamos quem executa, em nome do Einstein"], [fa.FaChartPie, "Rateio é o nosso forte", "Casos reais de subsídio cruzado corrigidos — inclusive por deliberação de assembleia"], [fa.FaHospital, "Hospital em condomínio multiuso", "Fazemos isso hoje no O Parque, com implantação em andamento"], [fa.FaUserCheck, "Governança à prova de risco", "Nenhum voto sem autorização escrita; SLAs iguais ou melhores que a referência"]];
-  for (let i = 0; i < 4; i++) {
-    const col = i % 2, row = Math.floor(i / 2);
-    const x = 0.6 + col * 6.15, y = 1.4 + row * 2.75;
-    card(s, x, y, 5.9, 2.5, row === 0 && col === 0 ? HEX.navy : HEX.light, "porque-" + i);
-    const dark = row === 0 && col === 0;
-    await circleIcon(s, pq[i][0], x + 0.35, y + 0.55, 0.75, dark ? HEX.gold : HEX.navy);
-    s.addText(pq[i][1], { x: x + 1.35, y: y + 0.55, w: 4.3, h: 0.55, fontSize: 21, bold: true, color: dark ? "FFFFFF" : HEX.navy, margin: 0, isTextBox: true });
-    s.addText(pq[i][2], { x: x + 1.35, y: y + 1.15, w: 4.3, h: 1.2, fontSize: 16, color: dark ? "FFFFFF" : HEX.ink, margin: 0, isTextBox: true, valign: "top" });
+  // ================= POR QUE A DF (3 slides) =================
+  sec("Por que a DF");
+  // --- D: modelo independente x acumulado ---
+  s = content("Por que a DF", "Por que um subsíndico independente");
+  kicker(s, "A diferença entre ter quem fiscalize a operação e deixar a operação se fiscalizar");
+  const cmpH = (t, fill, fg) => ({ text: t, options: { bold: true, color: fg, fill: { color: fill }, fontSize: 15, valign: "middle", align: "center" } });
+  const cmpRows = [
+    ["Quem fiscaliza a administradora", "A DF, em nome do Einstein", "Fica sem fiscalização independente"],
+    ["Conflito de interesse", "Nenhum — declarado por escrito", "A mesma empresa executa e avalia o próprio trabalho"],
+    ["A quem a análise de rateio e contratos serve", "Exclusivamente ao Einstein", "Também ao contrato da própria administradora"],
+    ["Voto e posicionamento", "Só com autorização escrita do Einstein", "Depende de como a função for contratada"],
+  ];
+  s.addTable([
+    [cmpH("", "FFFFFF", HEX.navy), cmpH("Subsíndico independente (DF)", HEX.navy, "FFFFFF"), cmpH("Administradora acumulando a função", "E5E7EB", HEX.ink)],
+    ...cmpRows.map((r, i) => {
+      const f = i % 2 ? "F6F7F9" : "FFFFFF";
+      return [
+        { text: r[0], options: { bold: true, color: HEX.navy, fill: { color: f } } },
+        { text: r[1], options: { bold: true, color: HEX.ink, fill: { color: "EEF1F6" } } },
+        { text: r[2], options: { color: HEX.muted, fill: { color: f } } },
+      ];
+    }),
+  ], { x: 0.6, y: 1.75, w: 12.15, colW: [3.55, 4.3, 4.3], fontSize: 15, fontFace: "Calibri", border: { type: "solid", pt: 0.75, color: "E5E7EB" }, rowH: [0.65, 0.85, 0.85, 0.85, 0.85], valign: "middle", margin: 0.12, objectName: "tabela-comparativo" });
+  card(s, 0.6, 6.0, 12.15, 0.78, HEX.sand, "nota-comparativo");
+  s.addText("Comparamos modelos de atuação, não empresas. A separação entre governança e operação é a premissa da própria RFP.", { x: 0.85, y: 6.03, w: 11.7, h: 0.72, fontSize: 13.5, italic: true, color: C.text2, margin: 0, isTextBox: true, valign: "middle" });
+  s.addNotes("DENISE: comparar MODELOS, nunca empresas — não citar nenhum concorrente nem administradora. Tom de explicação, não de ataque: 'quem executa não deve fiscalizar a si mesmo'. A RFP diz que o subsíndico deve acompanhar a atuação da administradora e avaliar processos e controles.");
+
+  // --- B: três unidades, três respostas ---
+  s = content("Por que a DF", "Três unidades, três respostas — com prova");
+  kicker(s, "Para cada desafio que identificamos, uma resposta que a DF já entregou em outro empreendimento");
+  const tr = [
+    [fa.FaCity, "Parque Global", "Governança setorial e segregação de despesas", "Rateio por subcondomínio e setor, com despesas comuns e específicas separadas", "SPHQ I", "Coeficiente de Rateio de Despesas aprovado em assembleia — cada subcondomínio paga só o que é seu"],
+    [fa.FaHospital, "Unidade Hospitalar Pinheiros", "Sistemas críticos e implantação", "Critério para os sistemas que o Einstein opera e que atendem outros setores; acompanhamento da implantação", "17007 Nações + O Parque", "Garagem deixou de subsidiar as torres; implantação de hospital em complexo multiuso"],
+    [fa.FaBuilding, "Artur de Azevedo", "Condômino minoritário", "Matriz de critérios e conferência mensal para que o Einstein pague só o que lhe cabe", "Metodologia DF", "Gatilho de ±5% e parecer a cada desvio relevante"],
+  ];
+  for (let i = 0; i < 3; i++) {
+    const [Ic, t, des, resp, prova, provaTxt] = tr[i];
+    const x = 0.6 + i * 4.1, y = 1.75;
+    card(s, x, y, 3.85, 3.3, HEX.light, "resposta-" + i);
+    await circleIcon(s, Ic, x + 0.3, y + 0.3, 0.6);
+    s.addText(t, { x: x + 1.05, y: y + 0.3, w: 2.65, h: 0.6, fontSize: 17, bold: true, color: C.text2, margin: 0, isTextBox: true, valign: "middle" });
+    s.addText(des.toUpperCase(), { x: x + 0.3, y: y + 1.1, w: 3.3, h: 0.5, fontSize: 11, bold: true, color: C.accent3, charSpacing: 1, margin: 0, isTextBox: true, valign: "top" });
+    s.addText(resp, { x: x + 0.3, y: y + 1.65, w: 3.3, h: 1.5, fontSize: 14, color: C.text1, margin: 0, isTextBox: true, valign: "top" });
+    card(s, x, 5.2, 3.85, 1.55, HEX.navy, "prova-" + i);
+    s.addText("PROVA: " + prova.toUpperCase(), { x: x + 0.3, y: 5.32, w: 3.3, h: 0.32, fontSize: 11.5, bold: true, color: C.accent2, charSpacing: 1, margin: 0, isTextBox: true });
+    s.addText(provaTxt, { x: x + 0.3, y: 5.66, w: 3.3, h: 1.0, fontSize: 13, color: "FFFFFF", margin: 0, isTextBox: true, valign: "top" });
   }
-  s.addNotes("DENISE fecha a parte expositiva com os quatro motivos. Pausa e passa para as perguntas.");
+  s.addNotes("CAIO: fecha o raciocínio aberto no slide 3. Para cada unidade, o desafio, a resposta e um caso real em que a DF já fez isso.");
+
+  // --- C: primeiros 90 dias ---
+  s = content("Por que a DF", "O que o Einstein ganha nos primeiros 90 dias");
+  kicker(s, "Resultados concretos, com data, desde o primeiro mês de contrato");
+  const g = [
+    ["Início", "Previsão Orçamentária 2027", "Revisada com prioridade, se ainda não aprovada em assembleia — o primeiro posicionamento técnico do Einstein", HEX.gold],
+    ["D+30", "Primeiro relatório executivo", "Situação financeira, rateio e riscos de cada unidade, na mesa do Einstein", HEX.navy],
+    ["D+60", "Diagnóstico do rateio", "Situação atual × situação correta, subsídios cruzados identificados, matriz de riscos e plano de ação", HEX.navy],
+    ["D+90", "Controle mensal completo", "Dashboard em relatório mensal e rotina de conferência rodando nas três unidades", HEX.navy],
+  ];
+  s.addShape(pres.shapes.LINE, { x: 1.0, y: 2.25, w: 11.3, h: 0, line: { color: HEX.line, width: 2 }, objectName: "linha-ganhos" });
+  g.forEach((m, i) => {
+    const x = 0.6 + i * 3.08;
+    s.addShape(pres.shapes.OVAL, { x: x + 0.15, y: 1.95, w: 0.6, h: 0.6, fill: { color: m[3] }, line: { color: "FFFFFF", width: 2 }, objectName: "marco-ganho-" + i });
+    s.addText(m[0], { x: x + 0.85, y: 1.95, w: i === 0 ? 1.0 : 0.95, h: 0.6, fontSize: 20, bold: true, color: i === 0 ? C.accent2 : C.text2, valign: "middle", align: "center", fill: { color: "FFFFFF" }, margin: 0, isTextBox: true });
+    card(s, x, 2.85, 2.85, 3.0, HEX.light, "ganho-" + i);
+    s.addText(m[1], { x: x + 0.25, y: 3.05, w: 2.4, h: 0.8, fontSize: 17, bold: true, color: C.text2, margin: 0, isTextBox: true, valign: "top" });
+    s.addText(m[2], { x: x + 0.25, y: 3.9, w: 2.4, h: 1.85, fontSize: 13.5, color: C.text1, margin: 0, isTextBox: true, valign: "top" });
+  });
+  card(s, 0.6, 6.05, 12.15, 0.72, HEX.navy, "fecho-ganhos");
+  s.addText([{ text: "Em 90 dias, o Einstein sabe exatamente quanto paga, por quê, e o que corrigir", options: { bold: true, color: "FFFFFF" } }, { text: " — nas três unidades.", options: { color: HEX.gold, bold: true } }], { x: 0.85, y: 6.08, w: 11.7, h: 0.66, fontSize: 16, margin: 0, isTextBox: true, valign: "middle" });
+  s.addNotes("DENISE fecha a exposição com o resultado: o que o Einstein tem em mãos em 90 dias. Pausa e passa para o slide de encerramento e as perguntas.");
 
   // ================= 18. ENCERRAMENTO =================
-  s = pres.addSlide({ masterName: "CAPA", sectionTitle: "Escopo e premissas" });
+  s = pres.addSlide({ masterName: "CAPA", sectionTitle: "Por que a DF" });
   s.addText("Obrigado", { x: 0.8, y: 2.3, w: 11, h: 1.0, fontSize: 48, bold: true, color: "FFFFFF", margin: 0, isTextBox: true });
   s.addText("Estamos à disposição para as dúvidas do Einstein", { x: 0.8, y: 3.3, w: 11, h: 0.5, fontSize: 20, color: "CBD5E4", margin: 0, isTextBox: true });
   s.addText([
