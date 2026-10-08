@@ -77,3 +77,12 @@ O usuário recebeu da CBRE o Raio X de preventivas de jan a dez/2025 e o de jan 
 - Preenchido o 1.1 do 3T25: Alphaville 91,4%, JKB 100%, Panamerica 100%, TNU 99,6% (recorte mensal da CBRE; a aba refeita de setembro traz outro recorte para JKB e TNU, não usado). CTN 4T25: 98,0%, usando as 2.827 OS de outubro por decisão do usuário.
 - Decisão do usuário: JKB 2T25 passa a 69,6% (96/138). A planilha era cópia do 1T25 (inclusive o período no cabeçalho), então o 1.1 vai a Ruim, o bloco 1 a 69,6% e a nota final cai de 92,6% (Satisfatório) para 88,4% (Regular). Cabeçalho corrigido para abr a jun/25. Demais divergências: mantido o valor que estava.
 - Seis planilhas entregues por download para substituir na OneDrive; nada gravado lá. Os demais itens dos rascunhos do 3T25 e do CTN 4T25 seguem "A PREENCHER".
+
+## Revisão de datas e atualização do checklist (08/10/2026)
+
+Pedido do usuário: após colar as planilhas ajustadas, atualizar o checklist (Administradora e Sindicância, sem tocar no JKB) e revisar as datas: arquivo × trimestre e itens internos (OS, Segurança do Trabalho etc.) × período.
+
+- 9 agentes de leitura (um por condomínio, somente leitura) conferiram nome do arquivo, pasta, "Período avaliado", data de modificação e os meses/datas citados em comentários e fórmulas. Resultado em planilha de revisão entregue ao usuário (fora do repositório).
+- Checklist atualizado para 88 trimestres (todos menos JKB, a pedido). Estado: Panamerica 3T25 e TNU 3T25 ainda rascunho (o usuário os está ajustando); CTN 4T25 voltou a "ausente" (o arquivo está numa subpasta "Substituir na OneDrive…", não em CTN/2025/Q4); PL Extrema Sindicância 1T26 com o PDF oficial na pasta.
+- 26 planilhas com algum problema de data. Os casos que mudam nota ou invalidam a planilha: Passeio Paulista adm 2T26 é cópia do 1T26 (período, OS 1164/1274, TST de jan–mar, Cummins); CTN adm 3T25 com cabeçalho "abr a jun/25"; Arquipeo adm 2T25 com "abr a jul/25"; Arquipeo adm 1T26 com TST de out–dez/25 copiado do 4T25; TNU adm 1T25 com 1.1 em 94,0% e comentário 468/518 (90,3%); Passeio sin 2T26 com 4.1 usando contratos vencidos de fev/mar.
+- Texto herdado "pesquisa não aplicada em 2024/2025" repete em Alphaville, Arquipeo e Panamerica (itens 4.1) em trimestres de outro ano.
