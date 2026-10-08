@@ -2,7 +2,7 @@
 
 Estado vivo do brainstorming — visão do hub. Ler no início de **toda** sessão, seja qual for o branch, e atualizar ao fim de qualquer rodada ou decisão.
 
-**Última atualização:** 2026-10-08 (DP Cajamar: rodada 1 validada, versão final emitida)
+**Última atualização:** 2026-10-08 (Avaliação trimestral BGRE: Sindicância levantada, validada e gerada; P-001: DP Cajamar, rodada 1 validada)
 
 ---
 
