@@ -60,4 +60,8 @@
 - `DF_Apresentacao_Einstein_13-10.pptx` (+ PDF) — 20 slides (18 de exposição + 2 de apoio), com notas do apresentador.
 - `DF_Relatorio_Executivo_Einstein.docx` (+ PDF) — para enviar à Tami após a reunião, formalizando o ajuste de SLA.
 - `DF_Dossie_Interno_Apresentacao_Einstein.docx` (+ PDF) — uso interno: roteiro, mensagens, pontos de atenção, 15 perguntas prováveis, checklist e pós-reunião.
-- Pendência: grafia do gerente financeiro — "Marco Murilo" (propostas) × "Marco Murino" (convite do Einstein). Usado "Murino".
+- Grafia do gerente financeiro confirmada: **Marco Murino**.
+
+> é Murino, eu compartilha a tela
+
+- Caio compartilha a tela; Denise acompanha as notas. Dossiê atualizado.

@@ -6,7 +6,7 @@
 | Objetivo, nas palavras do Einstein | "Apresentar, de forma estruturada, sua empresa e a solução proposta"; "defesa técnica da proposta"; "saneamento das dúvidas"; "alinhamento quanto ao escopo, modelo operacional e premissas da solução" |
 | Einstein | Tami Del Grego Favero (Compras Indiretas), Pedro Orlando Victor Galletta Filho, Mariana Cavalcante (contato da visita ao Parque Global), Samara dos Santos Ricardo, Viviane Gomes Lopes Fialho; cc Gislene Carine dos Santos |
 | Premissa sobre os cargos | Cargos não confirmados. Assumimos três públicos: Compras, Facilities e Operações |
-| DF | Denise Ferreira e Caio Gavioli conduzem juntos; Amanda Tigre, Marco Murino, Cláudia De Santi e André Ferreira da Silva de apoio às perguntas |
+| DF | Denise Ferreira e Caio Gavioli conduzem juntos (Caio compartilha a tela); Amanda Tigre, Marco Murino, Cláudia De Santi e André Ferreira da Silva de apoio às perguntas |
 | Material | Apresentação PowerPoint (20 slides, 18 de exposição + 2 de apoio); relatório executivo para enviar depois |
 
 ## 2. As cinco mensagens que precisam ficar
@@ -51,7 +51,7 @@
 - **Não usar "convocar e presidir assembleias" nem "aprovar despesas".** O e-mail de 01/10 usou essas expressões; a RFP diz que o subsíndico não substitui o Síndico Geral e que a decisão é sempre do Einstein.
 - **"Olhos do dono" → "olhos do Einstein".** Em Pinheiros o Einstein é locatário de um fundo; a expressão pode soar como defesa do proprietário.
 - **Não citar administradoras pelo nome** nem atacar concorrentes. O argumento é estrutural: quem executa não deve fiscalizar a si mesmo.
-- **Nome do gerente financeiro.** As propostas enviadas grafaram "Marco Murilo"; o convite traz "Marco Murino". Confirmar e, se for o caso, corrigir no relatório executivo antes de enviar.
+- **Nome do gerente financeiro: Marco Murino** (confirmado). As propostas técnicas de 01/10 grafaram "Murilo" — se surgir, corrigir verbalmente; o relatório executivo já está certo.
 - **Cases sem valor em R$.** Se pedirem números, responder qualitativamente e oferecer o contato de referência do cliente.
 - **Sírio-Libanês:** pode ser citado — a locação é pública.
 - **Pagamento em 90 dias e reajuste anual:** já aceitos na carta de aceite da minuta; não reabrir.
@@ -79,7 +79,7 @@
 ## 7. Checklist técnico do Teams
 
 - Entrar 10 minutos antes; testar áudio, câmera e compartilhamento de tela.
-- Quem compartilha a tela: definir entre Denise e Caio; o outro acompanha as notas do apresentador em outra tela.
+- **Caio compartilha a tela** e passa os slides; a Denise acompanha as notas do apresentador (PDF ou PowerPoint) em outra tela.
 - Abrir o PowerPoint em modo de apresentação; ter o PDF da apresentação aberto como reserva.
 - Câmeras ligadas; apoio (Amanda, Marco, Cláudia, André) com microfone mudo até ser chamado.
 - Ter abertos: propostas técnicas enviadas, carta de aceite, declaração de independência e o e-mail de 30/09 da Tami.

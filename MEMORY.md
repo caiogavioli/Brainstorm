@@ -28,7 +28,7 @@ Análise e resposta da DF Síndicos Profissionais à concorrência do Einstein p
 |---|---|---|
 | 2026-09-30 | Registrar em branch próprio, tudo em português | Pedido do usuário |
 | 2026-09-30 | PDFs originais não são commitados; só índice e fatos em `material/README.md` | Material confidencial do Einstein e da DF |
-| 2026-10-01 | Titular Denise; substitutos Amanda e Caio; retaguarda Marco Murilo (financeiro) e Cláudia De Santi (LGPD) | S-002, itens 1 e 12 |
+| 2026-10-01 | Titular Denise; substitutos Amanda e Caio; retaguarda Marco Murino (financeiro; grafado "Murilo" nas propostas de 01/10) e Cláudia De Santi (LGPD) | S-002, itens 1 e 12 |
 | 2026-10-01 | Preços mantidos (PG 24.900 / Pinheiros 15.900 / AA 10.500), preço único 36 meses, planilha fechada | S-002, itens 2 e 10 |
 | 2026-10-01 | Todo voto em assembleia exige autorização escrita do Einstein | S-002, item 11 |
 | 2026-10-08 | SLA equalizado à referência do Einstein (ordinária 1 dia útil; crítica com plano de ação em 4 h) | E-mail da Tami de 30/09; S-003 |
@@ -37,7 +37,6 @@ Análise e resposta da DF Síndicos Profissionais à concorrência do Einstein p
 ## Em aberto
 
 - **13/10/2026, 10h–12h (Teams): defesa técnica ao Einstein.** Material em `entregas/apresentacao-13-10/`.
-- Confirmar grafia: Marco Murilo × Marco Murino.
 - Após a reunião: enviar relatório executivo + formalizar ajuste de SLA à Tami.
 - Conferir se a planilha de cotação do Einstein exige campos por profissional (decisão do usuário: preço fechado).
 - Atualizar no deck institucional "mais de 20 empreendimentos" → "mais de 40 condomínios", se for reenviado.
