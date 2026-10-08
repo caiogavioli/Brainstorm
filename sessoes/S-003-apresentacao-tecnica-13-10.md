@@ -77,3 +77,7 @@
 - Todos marcados "em operação", conforme o usuário.
 - Fora: Sistema de Aprovações e Módulo de Orçamentos.
 - Apresentação agora com 23 slides (21 de exposição + 2 ocultos); relatório executivo ganhou a seção 10; dossiê com roteiro (~47 min), referências de slides e 2 perguntas novas.
+
+> Retire a informação de "em operação" dos sistemas
+
+- Removidos: etiqueta "EM OPERAÇÃO" (slide 16), "em operação desde agosto de 2026" e "9 semanas consecutivas" (slide 17), menções nas notas, no relatório executivo (seção 10) e no dossiê. Dossiê passa a orientar: não afirmar tempo de uso nem quantidade de condomínios.

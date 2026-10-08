@@ -397,15 +397,10 @@ async function icon(Comp, color, size = 256) {
 
   // ================= CONTROLES DF (3 slides) =================
   sec("Como a DF controla");
-  const tagOp = (sl, x, y) => {
-    sl.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w: 1.55, h: 0.38, rectRadius: 0.19, fill: { color: HEX.green }, line: { color: HEX.green }, objectName: "etiqueta-operacao" });
-    sl.addText("EM OPERAÇÃO", { x, y, w: 1.55, h: 0.38, fontSize: 10.5, bold: true, color: "FFFFFF", align: "center", valign: "middle", charSpacing: 1, margin: 0, isTextBox: true });
-  };
 
   // --- Boletim Diário ---
   s = content("Como a DF controla", "Boletim Diário de Operações: a rotina de cada prédio, medida");
   kicker(s, "Sistema próprio da DF: o checklist diário vira indicadores, alertas de SLA e relatório executivo");
-  tagOp(s, 11.2, 1.12);
   // celular ilustrativo
   s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 0.9, y: 1.75, w: 2.75, h: 5.0, rectRadius: 0.3, fill: { color: HEX.navy }, line: { color: HEX.navy }, objectName: "celular" });
   s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 1.05, y: 2.0, w: 2.45, h: 4.5, rectRadius: 0.15, fill: { color: "FFFFFF" }, line: { color: "FFFFFF" }, objectName: "tela" });
@@ -431,19 +426,19 @@ async function icon(Comp, color, size = 256) {
   }
   card(s, 4.15, 5.9, 8.4, 0.85, HEX.navy, "beneficio-boletim");
   s.addText([{ text: "Para o Einstein: ", options: { bold: true, color: HEX.gold } }, { text: "a DF chega às assembleias e às reuniões mensais com dados da operação, não com impressões." }], { x: 4.4, y: 5.95, w: 8.0, h: 0.75, fontSize: 14, color: "FFFFFF", margin: 0, isTextBox: true, valign: "middle" });
-  s.addNotes("CAIO: sistema desenvolvido pela DF e em operação. Mostrar que a fiscalização da administradora é feita com dados. Não é um sistema que o Einstein precisa usar — é a ferramenta da DF que alimenta os relatórios. Se perguntarem sobre LGPD: dados nos ambientes autorizados, acesso por usuário.");
+  s.addNotes("CAIO: sistema desenvolvido pela DF. Mostrar que a fiscalização da administradora é feita com dados. Não é um sistema que o Einstein precisa usar — é a ferramenta da DF que alimenta os relatórios. Se perguntarem sobre LGPD: dados nos ambientes autorizados, acesso por usuário.");
 
   // --- Rotinas automáticas ---
   s = content("Como a DF controla", "Rotinas automáticas: nenhum prazo esquecido");
   kicker(s, "Automações próprias que rodam todos os dias e todas as semanas, sem depender da memória de ninguém");
   const rot = [
-    [fa.FaInbox, "Triagem diária de demandas", "Todo dia, 7h30", ["Lê a caixa de e-mail e identifica pedidos e prazos do cliente", "Atualiza o quadro de acompanhamento das demandas", "Envia o resumo do dia com tudo o que está em aberto"], "Em operação desde agosto de 2026"],
-    [fa.FaFileSignature, "Cobrança de documentação", "Toda segunda-feira", ["Lê os relatórios de documentos a vencer e vencidos", "Separa por condomínio e envia uma cobrança para cada um", "Só envia a destinatários confirmados — na dúvida, não envia"], "9 semanas consecutivas de execução"],
+    [fa.FaInbox, "Triagem diária de demandas", "Todo dia, 7h30", ["Lê a caixa de e-mail e identifica pedidos e prazos do cliente", "Atualiza o quadro de acompanhamento das demandas", "Envia o resumo do dia com tudo o que está em aberto"]],
+    [fa.FaFileSignature, "Cobrança de documentação", "Toda segunda-feira", ["Lê os relatórios de documentos a vencer e vencidos", "Separa por condomínio e envia uma cobrança para cada um", "Só envia a destinatários confirmados — na dúvida, não envia"]],
   ];
   for (let k = 0; k < 2; k++) {
-    const [Ic, t, quando, passos, prova] = rot[k];
+    const [Ic, t, quando, passos] = rot[k];
     const x = 0.6 + k * 6.15, y = 1.75;
-    card(s, x, y, 5.9, 4.0, HEX.light, "rotina-" + k);
+    card(s, x, y, 5.9, 3.75, HEX.light, "rotina-" + k);
     await circleIcon(s, Ic, x + 0.3, y + 0.3, 0.7);
     s.addText(t, { x: x + 1.2, y: y + 0.3, w: 4.5, h: 0.4, fontSize: 19, bold: true, color: C.text2, margin: 0, isTextBox: true });
     s.addText(quando, { x: x + 1.2, y: y + 0.72, w: 4.5, h: 0.3, fontSize: 13, bold: true, color: C.accent2, margin: 0, isTextBox: true });
@@ -453,12 +448,10 @@ async function icon(Comp, color, size = 256) {
       s.addText(String(j + 1), { x: x + 0.35, y: yy, w: 0.42, h: 0.42, fontSize: 13, bold: true, color: C.text2, align: "center", valign: "middle", margin: 0, isTextBox: true });
       s.addText(passos[j], { x: x + 0.95, y: yy - 0.05, w: 4.7, h: 0.55, fontSize: 13.5, color: C.text1, valign: "middle", margin: 0, isTextBox: true });
     }
-    s.addImage({ data: await icon(fa.FaCheckCircle, HEX.green), x: x + 0.35, y: y + 3.47, w: 0.28, h: 0.28, objectName: "ok" });
-    s.addText(prova, { x: x + 0.75, y: y + 3.42, w: 4.9, h: 0.38, fontSize: 13, bold: true, color: C.accent6, valign: "middle", margin: 0, isTextBox: true });
   }
   card(s, 0.6, 5.95, 12.15, 0.8, HEX.navy, "beneficio-rotinas");
   s.addText([{ text: "Para o Einstein: ", options: { bold: true, color: HEX.gold } }, { text: "cada demanda do Einstein entra na triagem no mesmo dia — é o que sustenta os SLAs que propusemos." }], { x: 0.85, y: 6.0, w: 11.7, h: 0.7, fontSize: 14, color: "FFFFFF", margin: 0, isTextBox: true, valign: "middle" });
-  s.addNotes("CAIO: duas automações da DF em operação. A triagem diária garante que nenhuma demanda se perca entre e-mails; a cobrança semanal mantém a documentação legal dos prédios em dia. Ligar com o slide de SLA.");
+  s.addNotes("CAIO: duas automações da DF. A triagem diária garante que nenhuma demanda se perca entre e-mails; a cobrança semanal mantém a documentação legal dos prédios em dia. Ligar com o slide de SLA.");
 
   // --- Relatórios técnicos ---
   s = content("Como a DF controla", "Relatórios técnicos que sustentam decisões");

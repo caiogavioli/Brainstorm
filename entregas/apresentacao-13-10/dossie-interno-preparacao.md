@@ -16,7 +16,7 @@
 - **Rateio:** casos reais de subsídio cruzado corrigidos (SPHQ I, 17007).
 - **Governança à prova de risco:** nenhum voto sem autorização escrita; SLAs iguais ou melhores que a referência.
 - **Hospital em condomínio multiuso:** já fazemos isso hoje no O Parque.
-- **Controle com ferramentas próprias:** Boletim Diário, rotinas automáticas e relatórios técnicos — tudo em operação.
+- **Controle com ferramentas próprias:** Boletim Diário, rotinas automáticas e relatórios técnicos.
 
 ## 3. Roteiro e tempo
 
@@ -57,7 +57,7 @@
 - **Nome do gerente financeiro: Marco Murino** (confirmado). As propostas técnicas de 01/10 grafaram "Murilo" — se surgir, corrigir verbalmente; o relatório executivo já está certo.
 - **Cases sem valor em R$.** Se pedirem números, responder qualitativamente e oferecer o contato de referência do cliente.
 - **Sírio-Libanês:** pode ser citado — a locação é pública.
-- **Slides 16–18 (controles DF):** não citar clientes nem prédios dos relatórios técnicos — o slide diz que é por sigilo. Se pedirem para ver, oferecer uma versão anonimizada após a contratação.
+- **Slides 16–18 (controles DF):** não afirmar há quanto tempo estão em uso nem em quantos condomínios; não citar clientes nem prédios dos relatórios técnicos — o slide diz que é por sigilo. Se pedirem para ver, oferecer uma versão anonimizada após a contratação.
 - **Slides de apoio ocultos (22 e 23):** no modo de apresentação, digite o número do slide e Enter para mostrá-los.
 - **Pagamento em 90 dias e reajuste anual:** já aceitos na carta de aceite da minuta; não reabrir.
 
@@ -81,7 +81,7 @@
 | 14 | O que vocês precisam do Einstein para começar? | Ata de eleição e procurações, convenção, contratos, 12 meses de prestação de contas, contatos e as alçadas internas (slide de apoio 23, oculto). |
 | 15 | Qual o primeiro resultado concreto? | Primeiro relatório executivo em D+30 e, se a Previsão Orçamentária 2027 ainda não estiver aprovada, sua revisão com prioridade. |
 | 16 | O Einstein vai precisar usar o sistema de vocês? | Não. O Boletim e as rotinas são ferramentas da DF; o Einstein recebe os resultados nos relatórios e pareceres, pelos canais que autorizar. |
-| 17 | Esses sistemas são da DF ou de terceiros? | Desenvolvidos pela DF e em operação nos condomínios que administramos. |
+| 17 | Esses sistemas são da DF ou de terceiros? | Desenvolvidos pela DF. |
 
 ## 7. Checklist técnico do Teams
 

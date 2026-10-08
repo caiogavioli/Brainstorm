@@ -94,7 +94,7 @@ Mobilização: kick-off na semana 1, apresentação aos interlocutores e pedido 
 
 ## 10. Ferramentas de controle da DF
 
-Ferramentas próprias, em operação nos condomínios da DF, que sustentam a fiscalização e os SLAs propostos:
+Ferramentas próprias da DF que sustentam a fiscalização e os SLAs propostos:
 
 - **Boletim Diário de Operações:** checklist diário em etapas no celular do gerente predial, com painel de vários condomínios, indicadores, matriz de risco de SLA, registro de ocorrências e relatório executivo.
 - **Triagem diária de demandas:** rotina automática que, todos os dias às 7h30, identifica pedidos e prazos recebidos por e-mail, atualiza o quadro de acompanhamento e envia o resumo do que está em aberto.
