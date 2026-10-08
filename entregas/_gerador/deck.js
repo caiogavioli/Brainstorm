@@ -86,7 +86,7 @@ async function icon(Comp, color, size = 256) {
     ["01", "O que entendemos do Einstein", "As três unidades e o papel do subsíndico"],
     ["02", "Quem é a DF", "Números, equipe e cases semelhantes"],
     ["03", "Como vamos atuar", "Rateio, presença, SLAs e governança de voto"],
-    ["04", "O que o Einstein recebe", "Entregáveis, mobilização e continuidade"],
+    ["04", "O que o Einstein recebe", "Entregáveis, mobilização, continuidade e controles DF"],
     ["05", "Escopo e premissas", "O que está incluído e onde termina o nosso papel"],
     ["06", "Perguntas", "Saneamento das dúvidas"],
   ];
@@ -394,6 +394,91 @@ async function icon(Comp, color, size = 256) {
     s.addText(cont[i][2], { x: x + 0.3, y: y + 1.45, w: 3.3, h: 0.95, fontSize: 13, color: C.text1, margin: 0, isTextBox: true, valign: "top" });
   }
   s.addNotes("DENISE abre; CLÁUDIA pode falar 30 segundos sobre LGPD se a banca demonstrar interesse. Ponto-chave: o serviço não depende de uma pessoa só (exigência do item 10.1 da RFP).");
+
+  // ================= CONTROLES DF (3 slides) =================
+  sec("Como a DF controla");
+  const tagOp = (sl, x, y) => {
+    sl.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w: 1.55, h: 0.38, rectRadius: 0.19, fill: { color: HEX.green }, line: { color: HEX.green }, objectName: "etiqueta-operacao" });
+    sl.addText("EM OPERAÇÃO", { x, y, w: 1.55, h: 0.38, fontSize: 10.5, bold: true, color: "FFFFFF", align: "center", valign: "middle", charSpacing: 1, margin: 0, isTextBox: true });
+  };
+
+  // --- Boletim Diário ---
+  s = content("Como a DF controla", "Boletim Diário de Operações: a rotina de cada prédio, medida");
+  kicker(s, "Sistema próprio da DF: o checklist diário vira indicadores, alertas de SLA e relatório executivo");
+  tagOp(s, 11.2, 1.12);
+  // celular ilustrativo
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 0.9, y: 1.75, w: 2.75, h: 5.0, rectRadius: 0.3, fill: { color: HEX.navy }, line: { color: HEX.navy }, objectName: "celular" });
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 1.05, y: 2.0, w: 2.45, h: 4.5, rectRadius: 0.15, fill: { color: "FFFFFF" }, line: { color: "FFFFFF" }, objectName: "tela" });
+  s.addText("Boletim de hoje", { x: 1.2, y: 2.12, w: 2.2, h: 0.32, fontSize: 12, bold: true, color: C.text2, margin: 0, isTextBox: true });
+  const chk = [["Geradores", true], ["Elevadores", true], ["Reservatórios", true], ["SDAI / incêndio", true], ["Climatização", false], ["Limpeza e segurança", true]];
+  for (let k = 0; k < chk.length; k++) {
+    const yy = 2.55 + k * 0.5;
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 1.2, y: yy, w: 2.15, h: 0.4, rectRadius: 0.06, fill: { color: HEX.light }, line: { color: HEX.light }, objectName: "item-check" });
+    s.addImage({ data: await icon(chk[k][1] ? fa.FaCheckCircle : fa.FaExclamationTriangle, chk[k][1] ? HEX.green : HEX.gold), x: 1.28, y: yy + 0.09, w: 0.22, h: 0.22, objectName: "status" });
+    s.addText(chk[k][0], { x: 1.58, y: yy, w: 1.7, h: 0.4, fontSize: 11, color: C.text1, valign: "middle", margin: 0, isTextBox: true });
+  }
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 1.2, y: 5.65, w: 2.15, h: 0.45, rectRadius: 0.08, fill: { color: HEX.gold }, line: { color: HEX.gold }, objectName: "botao" });
+  s.addText("Enviar boletim", { x: 1.2, y: 5.65, w: 2.15, h: 0.45, fontSize: 11.5, bold: true, color: "FFFFFF", align: "center", valign: "middle", margin: 0, isTextBox: true });
+  s.addText("Ilustração", { x: 0.9, y: 6.78, w: 2.75, h: 0.22, fontSize: 9, italic: true, color: C.accent3, align: "center", margin: 0, isTextBox: true });
+  const bol = [[fa.FaMobileAlt, "Checklist no celular", "O gerente predial registra sistemas, ocorrências e pendências em etapas — substitui WhatsApp e planilhas"], [fa.FaChartLine, "Painel e indicadores", "Visão de vários condomínios com KPIs, gráficos e matriz de risco de SLA"], [fa.FaExclamationCircle, "Ocorrências e planos", "Cada ocorrência registrada vira acompanhamento até o encerramento"], [fa.FaFileAlt, "Relatório executivo", "Resumo gerencial gerado a partir dos dados do período; resumo pronto para os grupos de WhatsApp"]];
+  for (let k = 0; k < 4; k++) {
+    const col = k % 2, row = Math.floor(k / 2);
+    const x = 4.15 + col * 4.3, y = 1.75 + row * 2.05;
+    card(s, x, y, 4.1, 1.85, HEX.light, "boletim-" + k);
+    await circleIcon(s, bol[k][0], x + 0.25, y + 0.25, 0.55);
+    s.addText(bol[k][1], { x: x + 0.95, y: y + 0.25, w: 3.0, h: 0.4, fontSize: 15, bold: true, color: C.text2, margin: 0, isTextBox: true });
+    s.addText(bol[k][2], { x: x + 0.95, y: y + 0.68, w: 3.0, h: 1.1, fontSize: 12.5, color: C.text1, margin: 0, isTextBox: true, valign: "top" });
+  }
+  card(s, 4.15, 5.9, 8.4, 0.85, HEX.navy, "beneficio-boletim");
+  s.addText([{ text: "Para o Einstein: ", options: { bold: true, color: HEX.gold } }, { text: "a DF chega às assembleias e às reuniões mensais com dados da operação, não com impressões." }], { x: 4.4, y: 5.95, w: 8.0, h: 0.75, fontSize: 14, color: "FFFFFF", margin: 0, isTextBox: true, valign: "middle" });
+  s.addNotes("CAIO: sistema desenvolvido pela DF e em operação. Mostrar que a fiscalização da administradora é feita com dados. Não é um sistema que o Einstein precisa usar — é a ferramenta da DF que alimenta os relatórios. Se perguntarem sobre LGPD: dados nos ambientes autorizados, acesso por usuário.");
+
+  // --- Rotinas automáticas ---
+  s = content("Como a DF controla", "Rotinas automáticas: nenhum prazo esquecido");
+  kicker(s, "Automações próprias que rodam todos os dias e todas as semanas, sem depender da memória de ninguém");
+  const rot = [
+    [fa.FaInbox, "Triagem diária de demandas", "Todo dia, 7h30", ["Lê a caixa de e-mail e identifica pedidos e prazos do cliente", "Atualiza o quadro de acompanhamento das demandas", "Envia o resumo do dia com tudo o que está em aberto"], "Em operação desde agosto de 2026"],
+    [fa.FaFileSignature, "Cobrança de documentação", "Toda segunda-feira", ["Lê os relatórios de documentos a vencer e vencidos", "Separa por condomínio e envia uma cobrança para cada um", "Só envia a destinatários confirmados — na dúvida, não envia"], "9 semanas consecutivas de execução"],
+  ];
+  for (let k = 0; k < 2; k++) {
+    const [Ic, t, quando, passos, prova] = rot[k];
+    const x = 0.6 + k * 6.15, y = 1.75;
+    card(s, x, y, 5.9, 4.0, HEX.light, "rotina-" + k);
+    await circleIcon(s, Ic, x + 0.3, y + 0.3, 0.7);
+    s.addText(t, { x: x + 1.2, y: y + 0.3, w: 4.5, h: 0.4, fontSize: 19, bold: true, color: C.text2, margin: 0, isTextBox: true });
+    s.addText(quando, { x: x + 1.2, y: y + 0.72, w: 4.5, h: 0.3, fontSize: 13, bold: true, color: C.accent2, margin: 0, isTextBox: true });
+    for (let j = 0; j < 3; j++) {
+      const yy = y + 1.35 + j * 0.7;
+      s.addShape(pres.shapes.OVAL, { x: x + 0.35, y: yy, w: 0.42, h: 0.42, fill: { color: "FFFFFF" }, line: { color: HEX.navy, width: 1.5 }, objectName: "passo" });
+      s.addText(String(j + 1), { x: x + 0.35, y: yy, w: 0.42, h: 0.42, fontSize: 13, bold: true, color: C.text2, align: "center", valign: "middle", margin: 0, isTextBox: true });
+      s.addText(passos[j], { x: x + 0.95, y: yy - 0.05, w: 4.7, h: 0.55, fontSize: 13.5, color: C.text1, valign: "middle", margin: 0, isTextBox: true });
+    }
+    s.addImage({ data: await icon(fa.FaCheckCircle, HEX.green), x: x + 0.35, y: y + 3.47, w: 0.28, h: 0.28, objectName: "ok" });
+    s.addText(prova, { x: x + 0.75, y: y + 3.42, w: 4.9, h: 0.38, fontSize: 13, bold: true, color: C.accent6, valign: "middle", margin: 0, isTextBox: true });
+  }
+  card(s, 0.6, 5.95, 12.15, 0.8, HEX.navy, "beneficio-rotinas");
+  s.addText([{ text: "Para o Einstein: ", options: { bold: true, color: HEX.gold } }, { text: "cada demanda do Einstein entra na triagem no mesmo dia — é o que sustenta os SLAs que propusemos." }], { x: 0.85, y: 6.0, w: 11.7, h: 0.7, fontSize: 14, color: "FFFFFF", margin: 0, isTextBox: true, valign: "middle" });
+  s.addNotes("CAIO: duas automações da DF em operação. A triagem diária garante que nenhuma demanda se perca entre e-mails; a cobrança semanal mantém a documentação legal dos prédios em dia. Ligar com o slide de SLA.");
+
+  // --- Relatórios técnicos ---
+  s = content("Como a DF controla", "Relatórios técnicos que sustentam decisões");
+  kicker(s, "O padrão de análise que o Einstein recebe numa ocorrência crítica ou numa revisão de contrato");
+  const rel = [
+    [fa.FaSearchPlus, "Relatório de apuração de incidente", "Edifício AAA de uso misto — vazamento no sistema de geradores", ["Análise técnica e jurídica dos relatórios de cinco prestadores", "Cronologia completa do evento, com vistorias da DF no local", "Análise da cobertura das apólices de seguro de cada prestador", "Responsabilidades e plano de ação com responsáveis e prazos"]],
+    [fa.FaCalculator, "Auditoria e conciliação financeira", "Complexo multiuso com subsetores — contrato de administração predial", ["Apuração de questionamentos de condôminos sobre pagamentos à administradora", "39 notas fiscais de 20 meses conciliadas com os comprovantes", "Confronto entre proposta, ata de assembleia, contrato e aditivos", "Rateio entre subsetores e erro material de contrato identificados, com conclusão documentada"]],
+  ];
+  for (let k = 0; k < 2; k++) {
+    const [Ic, t, ctx, items] = rel[k];
+    const x = 0.6 + k * 6.15, y = 1.75;
+    card(s, x, y, 5.9, 4.0, HEX.light, "relatorio-" + k);
+    await circleIcon(s, Ic, x + 0.3, y + 0.3, 0.7);
+    s.addText(t, { x: x + 1.2, y: y + 0.28, w: 4.5, h: 0.45, fontSize: 19, bold: true, color: C.text2, margin: 0, isTextBox: true });
+    s.addText(ctx, { x: x + 1.2, y: y + 0.75, w: 4.5, h: 0.5, fontSize: 12.5, italic: true, color: C.accent3, margin: 0, isTextBox: true, valign: "top" });
+    s.addText(items.map((it, j) => ({ text: it, options: { bullet: true, breakLine: j < items.length - 1 } })), { x: x + 0.35, y: y + 1.45, w: 5.3, h: 2.4, fontSize: 14, color: C.text1, paraSpaceAfter: 7, margin: 0, isTextBox: true, valign: "top" });
+  }
+  card(s, 0.6, 5.95, 12.15, 0.8, HEX.navy, "beneficio-relatorios");
+  s.addText([{ text: "Sigilo: ", options: { bold: true, color: HEX.gold } }, { text: "apresentamos o método, não o cliente — o mesmo cuidado que teremos com as informações do Einstein." }], { x: 0.85, y: 6.0, w: 11.7, h: 0.7, fontSize: 14, color: "FFFFFF", margin: 0, isTextBox: true, valign: "middle" });
+  s.addNotes("DENISE e CAIO: relatórios elaborados pela DF no padrão que o Einstein receberia numa ocorrência crítica (apuração multi-prestador) e numa revisão de contrato (auditoria). Não citar os clientes nem os prédios — o próprio slide diz que é por sigilo. Se pedirem, oferecer mostrar uma versão anonimizada após a contratação.");
 
   // ================= 16. ESCOPO =================
   sec("Escopo e premissas");

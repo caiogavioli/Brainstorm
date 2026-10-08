@@ -65,3 +65,15 @@
 > é Murino, eu compartilha a tela
 
 - Caio compartilha a tela; Denise acompanha as notas. Dossiê atualizado.
+
+## Inclusão dos controles DF (09/10)
+
+> Por que esses 2 slides no final depois do obrigado? Quero inserir informações sobre nossos projetos e controles (tudo aquilo que já desenvolvi com você Claude para a DF). Liste nossos projetos, e me pergunte quais vou querer inserir. Aí você pega minha resposta e inclui os itens na apresentação, explicando cada um deles. Acho que isso vai ajudar a vender a DF síndicos.
+
+> 1. Conforme sua sugestão 2. Sim. Em operação 3. C
+
+- Explicado: slides finais são de apoio para perguntas. Decisão: **ocultar** (show="0").
+- Nova seção "Como a DF controla" (slides 16–18): Boletim Diário de Operações; rotinas automáticas (triagem diária 7h30 + cobrança semanal de documentação); relatórios técnicos (apuração de incidente multi-prestador + auditoria e conciliação financeira) — sem citar clientes.
+- Todos marcados "em operação", conforme o usuário.
+- Fora: Sistema de Aprovações e Módulo de Orçamentos.
+- Apresentação agora com 23 slides (21 de exposição + 2 ocultos); relatório executivo ganhou a seção 10; dossiê com roteiro (~47 min), referências de slides e 2 perguntas novas.

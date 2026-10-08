@@ -7,7 +7,7 @@
 | Einstein | Tami Del Grego Favero (Compras Indiretas), Pedro Orlando Victor Galletta Filho, Mariana Cavalcante (contato da visita ao Parque Global), Samara dos Santos Ricardo, Viviane Gomes Lopes Fialho; cc Gislene Carine dos Santos |
 | Premissa sobre os cargos | Cargos não confirmados. Assumimos três públicos: Compras, Facilities e Operações |
 | DF | Denise Ferreira e Caio Gavioli conduzem juntos (Caio compartilha a tela); Amanda Tigre, Marco Murino, Cláudia De Santi e André Ferreira da Silva de apoio às perguntas |
-| Material | Apresentação PowerPoint (20 slides, 18 de exposição + 2 de apoio); relatório executivo para enviar depois |
+| Material | Apresentação PowerPoint (23 slides: 21 de exposição + 2 de apoio ocultos, que só aparecem se você navegar até eles); relatório executivo para enviar depois |
 
 ## 2. As cinco mensagens que precisam ficar
 
@@ -16,6 +16,7 @@
 - **Rateio:** casos reais de subsídio cruzado corrigidos (SPHQ I, 17007).
 - **Governança à prova de risco:** nenhum voto sem autorização escrita; SLAs iguais ou melhores que a referência.
 - **Hospital em condomínio multiuso:** já fazemos isso hoje no O Parque.
+- **Controle com ferramentas próprias:** Boletim Diário, rotinas automáticas e relatórios técnicos — tudo em operação.
 
 ## 3. Roteiro e tempo
 
@@ -31,18 +32,20 @@
 | 11 | SLAs | Denise | 3 min |
 | 12 | Governança de voto | Denise | 3 min |
 | 13–14 | Entregáveis e mobilização | Caio | 4 min |
-| 15–16 | Continuidade e escopo | Denise | 4 min |
-| 17–18 | Por que a DF e encerramento | Denise | 2 min |
-| — | **Total da exposição** | | **~43 min** |
-| — | Perguntas e saneamento de dúvidas | Todos | ~70 min |
+| 15 | Continuidade | Denise | 2 min |
+| 16–18 | Como a DF controla: Boletim, rotinas automáticas e relatórios técnicos | Caio | 6 min |
+| 19 | Escopo | Denise | 2 min |
+| 20–21 | Por que a DF e encerramento | Denise | 2 min |
+| — | **Total da exposição** | | **~47 min** |
+| — | Perguntas e saneamento de dúvidas | Todos | ~65 min |
 
 ## 4. O que cada área quer ouvir
 
 | Área (presumida) | Preocupação provável | Onde respondemos |
 |---|---|---|
-| Compras | Equalização entre proponentes; premissas claras; nada fora da mensalidade; aceite integral da minuta e dos entregáveis | Slides 11, 13 e 16; carta de aceite já enviada |
-| Facilities | Resposta a crise 24x7; sistemas críticos; interface com a administradora; implantação de Pinheiros | Slides 3, 9, 11, 14 e 15 |
-| Operações | Rotina com as unidades; quem faz o quê; assembleias; relatórios | Slides 4, 10, 12 e 13 |
+| Compras | Equalização entre proponentes; premissas claras; nada fora da mensalidade; aceite integral da minuta e dos entregáveis | Slides 11, 13 e 19; carta de aceite já enviada |
+| Facilities | Resposta a crise 24x7; sistemas críticos; interface com a administradora; implantação de Pinheiros | Slides 3, 9, 11, 14, 15, 16 e 17 |
+| Operações | Rotina com as unidades; quem faz o quê; assembleias; relatórios | Slides 4, 10, 12, 13 e 18 |
 
 ## 5. Pontos de atenção
 
@@ -54,6 +57,8 @@
 - **Nome do gerente financeiro: Marco Murino** (confirmado). As propostas técnicas de 01/10 grafaram "Murilo" — se surgir, corrigir verbalmente; o relatório executivo já está certo.
 - **Cases sem valor em R$.** Se pedirem números, responder qualitativamente e oferecer o contato de referência do cliente.
 - **Sírio-Libanês:** pode ser citado — a locação é pública.
+- **Slides 16–18 (controles DF):** não citar clientes nem prédios dos relatórios técnicos — o slide diz que é por sigilo. Se pedirem para ver, oferecer uma versão anonimizada após a contratação.
+- **Slides de apoio ocultos (22 e 23):** no modo de apresentação, digite o número do slide e Enter para mostrá-los.
 - **Pagamento em 90 dias e reajuste anual:** já aceitos na carta de aceite da minuta; não reabrir.
 
 ## 6. Perguntas prováveis e respostas sugeridas
@@ -73,8 +78,10 @@
 | 11 | Têm algum conflito de interesse? | Nenhum vínculo com condomínios, administradoras, proprietários ou gestores das unidades — declaração assinada já entregue. Fornecedores serão verificados na mobilização. |
 | 12 | O dashboard é um sistema? | Não: é entregue como relatório gráfico mensal a partir de D+90, nos canais autorizados pelo Einstein (LGPD). |
 | 13 | Como fica a LGPD? | Diretora de LGPD dedicada; documentos do Einstein só pelos canais autorizados; acesso restrito ao time do contrato; incidentes comunicados de imediato. |
-| 14 | O que vocês precisam do Einstein para começar? | Ata de eleição e procurações, convenção, contratos, 12 meses de prestação de contas, contatos e as alçadas internas (slide de apoio 20). |
+| 14 | O que vocês precisam do Einstein para começar? | Ata de eleição e procurações, convenção, contratos, 12 meses de prestação de contas, contatos e as alçadas internas (slide de apoio 23, oculto). |
 | 15 | Qual o primeiro resultado concreto? | Primeiro relatório executivo em D+30 e, se a Previsão Orçamentária 2027 ainda não estiver aprovada, sua revisão com prioridade. |
+| 16 | O Einstein vai precisar usar o sistema de vocês? | Não. O Boletim e as rotinas são ferramentas da DF; o Einstein recebe os resultados nos relatórios e pareceres, pelos canais que autorizar. |
+| 17 | Esses sistemas são da DF ou de terceiros? | Desenvolvidos pela DF e em operação nos condomínios que administramos. |
 
 ## 7. Checklist técnico do Teams
 

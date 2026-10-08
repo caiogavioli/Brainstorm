@@ -92,13 +92,22 @@ Mobilização: kick-off na semana 1, apresentação aos interlocutores e pedido 
 - **17007 Nações** (São Paulo, duas torres + garagem + mall; DF síndica desde 2025): subcondomínio garagem pagava acima das despesas reais; rateio corrigido e diferença redistribuída entre as torres ocupantes.
 - **O Parque** (São Paulo, complexo multiuso com torre do Hospital Sírio-Libanês; DF síndica desde 2026): implantação de condomínio multiuso com operação hospitalar e sistemas críticos.
 
-## 10. Escopo e premissas
+## 10. Ferramentas de controle da DF
+
+Ferramentas próprias, em operação nos condomínios da DF, que sustentam a fiscalização e os SLAs propostos:
+
+- **Boletim Diário de Operações:** checklist diário em etapas no celular do gerente predial, com painel de vários condomínios, indicadores, matriz de risco de SLA, registro de ocorrências e relatório executivo.
+- **Triagem diária de demandas:** rotina automática que, todos os dias às 7h30, identifica pedidos e prazos recebidos por e-mail, atualiza o quadro de acompanhamento e envia o resumo do que está em aberto.
+- **Cobrança semanal de documentação:** rotina automática que separa, por condomínio, os documentos a vencer e vencidos e envia a cobrança somente a destinatários confirmados.
+- **Relatórios técnicos:** apuração de incidentes com múltiplos prestadores (análise técnica e jurídica, cronologia, cobertura de apólices e plano de ação) e auditoria e conciliação financeira de contratos de administração predial.
+
+## 11. Escopo e premissas
 
 - **Incluído na mensalidade:** equipe titular, substitutos e retaguarda; visitas; deslocamento, estacionamento e alimentação na Grande São Paulo; assembleias ordinárias e extraordinárias; plantão 24x7; todos os entregáveis; pareceres da equipe DF; seguro de RC profissional e geral; tributos.
 - **Somente com autorização prévia do Einstein, orçados à parte:** laudos e perícias de terceiros; escritórios externos e processos judiciais; auditoria independente; custas cartoriais; viagens fora da Grande São Paulo.
 - **Papel da administradora, não da DF:** operação diária, equipes, contas a pagar e receber, elaboração de balancetes e prestação de contas, compras e arquivo físico — processos que a DF analisa, valida e fiscaliza.
 
-## 11. Próximos passos
+## 12. Próximos passos
 
 - A DF permanece à disposição para a fase de equalização e para qualquer esclarecimento adicional.
 - Kick-off em até 5 dias úteis após a contratação.
