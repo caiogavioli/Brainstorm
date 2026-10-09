@@ -154,6 +154,16 @@ Verificado em produção em 01/09, nas duas:
   29/09 (quantidades revisadas, total igual); ND 015 vence 05/10 e o fundo deve pagar em
   08–09/10; seguro Chubb, IPAAM e a ART AM20260622407 sem desfecho nos e-mails. Nada foi
   enviado a ninguém.
+- **DP Cajamar — preparação da reunião de alinhamento com a Hines (09/10/2026):** análise
+  no Claude Doc https://claude.ai/code/artifact/4ddedaeb-9ce3-4008-9f36-02c6912f552c
+  (temas em andamento, o que cobrar, temas sem discussão, pauta). Pontos principais: a
+  aba consolidada do PO 2027 ainda diz "PREVISÃO 2026" e repete o Fundo de Contingência de
+  2026 (R$ 9.536,77/mês), com total R$ 40 mil abaixo da aba analítica; premissas de reforma
+  tributária e 6x1 não localizadas; relatórios mensais de Abr, Jun e Ago/Cajamar não
+  localizados; visita da DF cancelada duas vezes (14/09 e 08/10); Fundo de Contingência da
+  Harald sem desfecho. Pendências da DF: gerador, motobomba, limpeza dos reservatórios e
+  três equalizações (29/09 e 08/10). Corpos de vários e-mails da Suzana foram vistos só
+  pelo título. Nada foi enviado a ninguém.
 - **Pesquisa de Satisfação 2026 (BGRE), fase de contatos, prazo 02/09 (fechada em 28/09).** Sete cobranças enviadas
   em 31/08; só o Arquipeo tinha entregue. Como o Gabriel pediu resposta apenas
   para ele e para o Alex, "não respondeu" significa "não respondeu com o Caio
