@@ -2,7 +2,7 @@
 
 Estado vivo do brainstorming — visão do hub. Ler no início de **toda** sessão, seja qual for o branch, e atualizar ao fim de qualquer rodada ou decisão.
 
-**Última atualização:** 2026-10-08 (Avaliação trimestral BGRE: Sindicância levantada, validada e gerada; P-001: DP Cajamar, rodada 1 validada)
+**Última atualização:** 2026-10-09 (Framework: SWOT, GUT, SIPOC e Balanced Scorecard entram no processo; antes: 2026-10-08 — Avaliação trimestral BGRE: Sindicância levantada, validada e gerada; P-001: DP Cajamar, rodada 1 validada)
 
 ---
 
@@ -58,6 +58,7 @@ _Cada branch de brainstorming mantém sua própria tabela de problemas em detalh
 
 | Data | Decisão | Contexto |
 |---|---|---|
+| 2026-10-09 | Quatro ferramentas de análise entram no processo como skills próprias (`swot`, `matriz-gut`, `sipoc`, `balanced-scorecard`), cada uma num momento fixo: GUT na Apresentação (2+ problemas), SIPOC abrindo a Rodada 1, SWOT abrindo a Rodada 2, Balanced Scorecard fechando a Rodada 2 e a spec. GUT usa produto (G×U×T), não soma. Dosagem proporcional ao recorte, definida por Rafael. Projeto fechado ganha data de revisão dos indicadores (30 dias). Templates `problema.md` e `projeto.md` ganharam as seções; `sessao.md` é novo. | O usuário trouxe um infográfico com os quatro frameworks e pediu para usá-los para elevar a qualidade dos projetos. As quatro skills foram propagadas em 2026-10-09, a pedido, para os 22 branches `claude/*` existentes (só os caminhos de skills, sem sobrescrever nada). `CLAUDE.md` e templates **não** foram propagados: nos branches antigos as skills funcionam sob demanda (`/swot` etc.), mas os gatilhos automáticos só valem em branches criados a partir de `main` depois deste merge. |
 | 2026-08-12 | `main` passa a ser o tronco único do repositório. Cada problema ganha um branch próprio a partir dele; o conteúdo de cada branch não é puxado de volta — só uma entrada no catálogo acima. | O repositório tinha 6 branches divergentes, cada um começado do zero por uma sessão diferente, sem nunca se juntar — dois chegaram a numerar "P-001" para problemas diferentes, sem visibilidade um do outro. Pedido explícito do usuário: consolidar sem perder nem misturar o conteúdo de nenhum branch. |
 | 2026-08-09 | Repositório dedicado só é criado no **passo 5**, mediante pedido explícito do usuário. Fim da Rodada 2 não dispara criação. | O usuário perguntou em que momento o repo nasce; alternativa considerada era criar já no fim da Rodada 1, descartada por gerar repositório vazio com nome provisório. |
 | 2026-08-09 | Relação problema → repositório não é 1-para-1. O recorte sai da Rodada 2. | Problemas aparentemente separados costumam ser o mesmo sistema. |
