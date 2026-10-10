@@ -3,6 +3,7 @@
 **Data:** 2026-10-10
 **Fase:** 3 rodada 2
 **Problemas:** P-001
+**Artefato publicado:** https://claude.ai/artifact/MzfMH4jdWmgKQFEY127kXd (SWOT + as 3 decisões + o desacordo, no formato pedido pelo usuário)
 
 ## Ferramenta de abertura
 
