@@ -43,7 +43,7 @@ O conteúdo de um branch **não é puxado de volta** para `main` — evita mistu
 
 | # | Problema | Fase | Status |
 |---|---|---|---|
-| P-001 | App de vistorias de condomínios não está confiável — equipe não consegue sincronizar; usuário cogita manter fotos no OneDrive ou refazer o sistema | Rodada 1 | **Aberta** — perguntas feitas (`sessoes/S-002`), aguardando respostas do usuário |
+| P-001 | App de vistorias de condomínios não está confiável — fotos sem cópia de segurança, falha de sincronização invisível para a equipe | Spec | **Fechada (2026-10-10)** em `projetos/vistorias-condominios.md`. v1: fotos em tempo real no SharePoint/OneDrive (Graph API), aviso de falha fora do app, aba de conclusão do vistoriador. v2 (fora do escopo): migrar também o texto da vistoria para o SharePoint. Repositório ainda não criado — aguardando pedido explícito do usuário |
 
 ## Projetos fechados
 
