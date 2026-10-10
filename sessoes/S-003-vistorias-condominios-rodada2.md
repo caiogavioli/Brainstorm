@@ -66,10 +66,56 @@
 Os dois concordam que **ter cópia no OneDrive é a direção certa**; o desacordo é só sobre tempo real × periódico. Fica para o usuário decidir.
 
 ## Decisões
-<aguardando o usuário>
+
+Resposta do usuário, direto:
+
+> 1: fazer solução B
+> 2: de acordo com a recomendação
+> 3 estou de acordo
+> Desacordo: sobe em tempo real
+
+- **Decisão 1 (onde as fotos ficam):** **B** — todo o sistema migra para dentro do Microsoft 365 (SharePoint no lugar do banco atual), não só as fotos. Contra a recomendação de Marina (A); decisão explícita do usuário, registrada como o destino do projeto.
+- **Decisão 2 (aviso de falha):** **B**, conforme recomendado — aviso sai do app, chega ao usuário por e-mail/Teams.
+- **Decisão 3 (aba de conclusão do vistoriador):** confirmada — entra no projeto.
+- **Desacordo (tempo real × lote):** resolvido a favor de **Marina — tempo real**. Coerente com a Decisão 1: se o destino final é o SharePoint como sistema de registro, um caminho de escrita direto (tempo real, via Graph API) é mais nativo do que manter uma ponte de cópia em lote a partir de um banco que o projeto já decidiu abandonar.
+
+## GUT — ordem de entrega, v1 × v2
+
+O usuário escolheu o destino (B = tudo no SharePoint), mas migrar o texto da vistoria (que hoje já sincroniza bem) é um projeto maior que resolver o risco real (fotos sem cópia). GUT entre as quatro frentes decididas, para decidir o que entra primeiro:
+
+| # | Item | G | U | T | Score | Por quê (G / U / T) |
+|---|---|---|---|---|---|---|
+| 1 | Fotos com cópia em tempo real no OneDrive/SharePoint | 5 | 5 | 4 | 100 | G: foto perdida é dado que não volta, relatório sai incompleto pro cliente. U: o risco já existe agora, o banco pode estourar a qualquer momento. T: piora conforme mais vistorias se acumulam. |
+| 2 | Aviso de falha de sincronização fora do app | 3 | 3 | 3 | 27 | G: afeta a operação, não perde dado por si só. U: incômodo recorrente, não é incêndio hoje. T: sem correção, a falha invisível se repete a cada novo caso. |
+| 3 | Migração completa do dado de texto da vistoria para o SharePoint, descontinuando o banco atual | 3 | 2 | 3 | 18 | G: ganho arquitetural (menos dependência de serviço de terceiro pago), não resolve um risco imediato. U: essa parte não está quebrada hoje. T: enquanto não migrar, o sistema segue na cadeia GitHub Pages + Vercel + banco que já falhou uma vez. |
+| 4 | Aba de conclusão do vistoriador | 2 | 2 | 2 | 8 | G: melhoria de processo/qualidade, não resolve risco técnico. U: pode esperar. T: fica como está se não for feito. |
+
+**Atacar primeiro:** 1) fotos em tempo real, 2) aviso de falha fora do app, 3) migração completa para o SharePoint.
+**Fica para depois, mas não porque não importa:** a aba de conclusão (4) tem o score mais baixo, mas é uma mudança pequena e isolada (só interface) e já está aprovada — Rafael propõe entregá-la junto com a v1 mesmo assim, por ser barata e não competir por risco com o resto.
+**Desacordos:** nenhum — ordem construída sobre o que já foi decidido, sem distância de 2+ pontos entre as personas nesta rodada.
 
 ## Recorte proposto (fim da Rodada 2)
-<aguardando as decisões acima — a inclinação do time é "1 projeto de melhoria no sistema atual", não um sistema novo; fica proposto formalmente depois das decisões>
+
+**1 projeto, chamado `vistorias-condominios` (nome provisório), entregue em duas fases:**
+
+- **v1 — resolve o risco real, sem reescrever o que já funciona.** Fotos com cópia em tempo real no OneDrive/SharePoint (via Microsoft Graph API), aviso de falha de sincronização fora do app (e-mail/Teams), e a aba de conclusão do vistoriador. O texto da vistoria continua sincronizando pelo banco atual.
+- **v2 — completa a Decisão 1.** Migra o dado de texto da vistoria (notas, observações, checklist) do banco atual para dentro do SharePoint, descontinuando o banco de dados.
+
+Dosagem (Rafael): projeto com várias partes e decisão arquitetural em jogo → ferramentas completas (SIPOC, SWOT, GUT v1/v2, BSC), como já feito acima.
 
 ## Indicadores propostos (fim da Rodada 2)
-<depois do recorte>
+
+## Balanced Scorecard — vistorias-condominios
+
+**Objetivo do projeto (a "estratégia"):** garantir que nenhuma vistoria ou foto se perca e que uma falha de sincronização nunca mais passe despercebida, sem gastar com armazenamento de servidor.
+**Cadeia de causa e efeito:** usuário para de precisar vigiar manualmente (Aprendizado) → fotos sempre com cópia e falha sempre avisada (Processos) → relatório sempre completo entregue com confiança (Cliente) → zero custo adicional de armazenamento (Financeira).
+
+| Perspectiva | Objetivo | Indicador | Linha de base | Meta e prazo | Fonte / quem mede | Iniciativa |
+|---|---|---|---|---|---|---|
+| Financeira | Eliminar custo de armazenamento extra | Custo mensal de armazenamento de fotos | Não medido — hoje no plano gratuito do banco, perto do limite | R$ 0 adicional, confirmado em 30 dias após a entrega do v1 | Fatura do banco atual + uso do OneDrive (já pago, corporativo) | Mover fotos para o OneDrive/SharePoint |
+| Cliente | Relatório sempre completo, com todas as fotos | % de vistorias concluídas com todas as fotos presentes no relatório final | Não medido | 100%, revisado 30 dias após a entrega do v1 | Conferência do usuário nos primeiros relatórios pós-entrega | Fotos com cópia garantida no OneDrive em tempo real |
+| Processos internos | Nenhuma falha de sincronização passa despercebida | Tempo entre a falha acontecer e o usuário ser avisado | Hoje: indefinido (só descobre se checar manualmente ou alguém reclamar) | Até 24h da falha, a partir da entrega do v1 | Log/alerta automático do sistema (e-mail ou Teams) | Aviso de falha fora do app |
+| Aprendizado e crescimento | Reduzir a dependência do usuário como único ponto capaz de perceber problema | Nº de investigações manuais do usuário por mês para saber se alguém sincronizou | Não medido — hoje acontece toda vez que há dúvida | Zero por mês, 90 dias após a entrega do v1 | Registro informal do usuário / contagem de alertas recebidos | Alerta automático + instrumentação de diagnóstico já existente no servidor |
+
+**Revisão:** 30 dias e 90 dias após a entrega do v1, pelo usuário.
+**Sem linha de base ainda:** quantas vistorias/fotos estão hoje sob risco de perda (espaço do banco já ocupado) — primeira tarefa do projeto, antes de declarar a v1 pronta.
