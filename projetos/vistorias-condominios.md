@@ -3,6 +3,7 @@
 **Origem:** P-001 (`claude/vistorias-condominios-revisao`)
 **Status:** spec fechada — repositório ainda não criado (aguarda pedido explícito do usuário)
 **Repositório:** <a criar>
+**Artefato da spec:** https://claude.ai/artifact/JaArBCv7Cy8YbKtE1RozY6
 
 > Dosagem: projeto com várias partes e decisão arquitetural em jogo → ferramentas completas (SWOT, SIPOC, GUT, BSC).
 
