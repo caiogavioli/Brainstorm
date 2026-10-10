@@ -103,3 +103,7 @@ Cinco opções apresentadas (A riscos da RFP; B três unidades/três respostas; 
 - Design no Canva: https://www.canva.com/d/PxNtYyhnJ3vLYT6 (edição). Exportação PPTX e PDF feita pelo Canva; o ambiente bloqueia o download, então os arquivos não estão no repositório.
 - Pendências da versão Canva: fotos de banco de imagem nos slides 5, 6, 13, 16 e 23 (no slide 6 trocar pelas fotos reais da equipe); slides de apoio ocultos (critérios de criticidade e insumos) seguem só no .pptx anterior.
 - O .pptx gerado antes (`DF_Apresentacao_Einstein_13-10.pptx`) continua válido como versão alternativa.
+
+> nossa, achei horrivel esse novo modelo/design. esqueça ele, volte com o design antigo
+
+- Versão Canva descartada. A apresentação oficial volta a ser `DF_Apresentacao_Einstein_13-10.pptx` / `.pdf` (25 slides, 2 ocultos), sem alteração.
