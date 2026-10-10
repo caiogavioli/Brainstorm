@@ -2,7 +2,7 @@
 
 Estado vivo **deste branch**. O catálogo geral de branches fica no `MEMORY.md` de `main`.
 
-**Última atualização:** 2026-10-08
+**Última atualização:** 2026-10-10
 
 ## O que é
 
@@ -36,7 +36,7 @@ Análise e resposta da DF Síndicos Profissionais à concorrência do Einstein p
 
 ## Em aberto
 
-- **13/10/2026, 10h–12h (Teams): defesa técnica ao Einstein.** Material em `entregas/apresentacao-13-10/`.
+- **13/10/2026, 10h–12h (Teams): defesa técnica ao Einstein.** Material em `entregas/apresentacao-13-10/`. Versão Canva com kit de marca DF: https://www.canva.com/d/PxNtYyhnJ3vLYT6 (trocar fotos de banco, sobretudo a da equipe, antes da reunião).
 - Após a reunião: enviar relatório executivo + formalizar ajuste de SLA à Tami.
 - Conferir se a planilha de cotação do Einstein exige campos por profissional (decisão do usuário: preço fechado).
 - Atualizar no deck institucional "mais de 20 empreendimentos" → "mais de 40 condomínios", se for reenviado.

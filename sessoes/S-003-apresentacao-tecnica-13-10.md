@@ -90,3 +90,16 @@ Cinco opções apresentadas (A riscos da RFP; B três unidades/três respostas; 
 
 - "Por que a DF" virou seção com 3 slides: 20 — Por que um subsíndico independente (comparativo de modelos, sem citar empresas); 21 — Três unidades, três respostas, com prova; 22 — O que o Einstein ganha nos primeiros 90 dias.
 - Apresentação: 25 slides (23 de exposição + 2 de apoio ocultos, 24 e 25). Dossiê: roteiro ~52 min.
+
+## Versão no Canva com o kit de marca DF (10/10)
+
+> refaça este trabalho, pois eu instalei varias ferramentas novas. use todas as skills que isntalei
+
+> permite sempre as alterações nessa conversa
+
+- Ferramentas usadas: Canva (kit de marca "DF Síndicos Profissionais", id kAGcNJ4TT_Q) e o perfil de escrita do usuário (frases curtas, conclusão primeiro, sem travessão, sem exclamação).
+- Não se aplicam a este trabalho: Strix (segurança), Supabase, Vercel, HubSpot, Supermetrics, Windsor, monday. Figma está com assento só de visualização.
+- Roteiro de 23 páginas aprovado no Canva. A geração automática resumiu e genericizou o texto e errou fatos ("gestiona 40", "Hospital Pinheiros", PO 2027 "aprovada", fechamento em inglês). Todos os slides foram reescritos no Canva com o texto aprovado; fundos ciano trocados pelo navy/dourado da DF.
+- Design no Canva: https://www.canva.com/d/PxNtYyhnJ3vLYT6 (edição). Exportação PPTX e PDF feita pelo Canva; o ambiente bloqueia o download, então os arquivos não estão no repositório.
+- Pendências da versão Canva: fotos de banco de imagem nos slides 5, 6, 13, 16 e 23 (no slide 6 trocar pelas fotos reais da equipe); slides de apoio ocultos (critérios de criticidade e insumos) seguem só no .pptx anterior.
+- O .pptx gerado antes (`DF_Apresentacao_Einstein_13-10.pptx`) continua válido como versão alternativa.
