@@ -36,7 +36,7 @@ Análise e resposta da DF Síndicos Profissionais à concorrência do Einstein p
 
 ## Em aberto
 
-- **13/10/2026, 10h–12h (Teams): defesa técnica ao Einstein.** Material em `entregas/apresentacao-13-10/`. Apresentação oficial: `DF_Apresentacao_Einstein_13-10.pptx` (versão Canva descartada pelo usuário em 10/10).
+- **13/10/2026, 10h–12h (Teams): defesa técnica ao Einstein.** Material em `entregas/apresentacao-13-10/`. Apresentação oficial: `DF_Apresentacao_Einstein_13-10.pptx`, revisada em 10/10 (nova ordem, títulos-afirmação, mesmo design; versão Canva descartada).
 - Após a reunião: enviar relatório executivo + formalizar ajuste de SLA à Tami.
 - Conferir se a planilha de cotação do Einstein exige campos por profissional (decisão do usuário: preço fechado).
 - Atualizar no deck institucional "mais de 20 empreendimentos" → "mais de 40 condomínios", se for reenviado.

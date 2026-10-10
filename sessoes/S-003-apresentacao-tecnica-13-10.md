@@ -107,3 +107,54 @@ Cinco opções apresentadas (A riscos da RFP; B três unidades/três respostas; 
 > nossa, achei horrivel esse novo modelo/design. esqueça ele, volte com o design antigo
 
 - Versão Canva descartada. A apresentação oficial volta a ser `DF_Apresentacao_Einstein_13-10.pptx` / `.pdf` (25 slides, 2 ocultos), sem alteração.
+
+## Revisão de estrutura e texto, mantendo o design original (10/10)
+
+> É isso que eu quero. Eu quero que você faça uma revisão de toda a estrutura, todo o texto, use as skills novas, tudo que você pode usar de novo para melhorar, para fazer uma apresentação mais impactante, mas que você mantenha esse design que a gente definiu agora.
+
+Skills usadas: `swot` (para decidir a ordem e a ênfase), `no-ai-slop` e `my-writing-style` (texto), `pptx` (geração e validação). O design (cores, layouts, fotos, gráficos) ficou igual.
+
+### SWOT: posição da DF na defesa de 13/10, para decidir o que a apresentação enfatiza e em que ordem
+
+**Forças** (interno, ajuda)
+- Independência total: nenhum vínculo com condomínios, administradoras ou proprietários, com declaração assinada (S-002, item 12).
+- Dois casos reais de subsídio cruzado corrigidos: SPHQ I (CRD em assembleia) e 17007 (garagem) (S-002, item 8).
+- Hospital em condomínio multiuso já em gestão: O Parque, com a torre do Sírio-Libanês.
+- Jurídico, engenharia e financeiro na equipe do contrato; titular e dois substitutos.
+- Ferramentas próprias: Boletim Diário, rotinas automáticas e relatórios técnicos.
+
+**Fraquezas** (interno, atrapalha)
+- Cases sem valor em R$ do ajuste (dossiê, ponto de atenção).
+- A proposta técnica de 21/09 gerou 12 pedidos de revisão (P-001).
+- SLA da proposta enviada estava abaixo da referência do Einstein para a demanda ordinária (corrigido na apresentação).
+- Nada para provar há quanto tempo as ferramentas estão em uso (usuário pediu para retirar "em operação").
+
+**Oportunidades** (externo, ajuda)
+- A RFP prioriza alocação correta de custos e ausência de subsídio cruzado.
+- Em Pinheiros o Einstein opera sistemas críticos que também atendem o mall: subsídio cruzado provável.
+- A Previsão Orçamentária 2027 pode ainda não estar aprovada: primeira entrega concreta.
+- O Einstein mandou a referência de SLA em 30/09, o que permite mostrar "igual ou melhor" lado a lado.
+
+**Ameaças** (externo, atrapalha)
+- Concorrentes que sejam administradoras oferecendo acumular a subsindicância (hipótese).
+- Compras comparando preço entre proponentes (hipótese; a DF não discute preço na reunião).
+- Banca com três áreas e preocupações diferentes (premissa do dossiê).
+- O e-mail de 01/10 usou "convocar e presidir assembleias" e "aprovar despesas", o que contradiz a RFP.
+
+**Cruzamentos**
+- F×O: casos de rateio + prioridade da RFP → rateio vira o centro do bloco "como vamos atuar".
+- F×A: independência contra administradora acumulando → o comparativo de modelos sobe para logo depois de "quem fiscaliza a administradora?".
+- D×O: cases sem R$ → compensar com números que existem (horas por unidade, SLAs, 39 notas fiscais, gatilho de 5%).
+- D×A (risco crítico): SLA abaixo da referência diante de Compras → mostrar a referência e o compromisso DF lado a lado, com o título "iguais ou melhores".
+
+**O que isso muda na decisão**
+1. A abertura passa a ser o problema do Einstein, em três slides seguidos: três unidades, quem fiscaliza, comparativo de modelos.
+2. Todos os títulos viram afirmações. Lidos em sequência, contam a proposta inteira.
+3. Os controles da DF ficam logo depois dos entregáveis, como prova de que a entrega acontece.
+
+### O que mudou na apresentação
+- Nova ordem (25 slides, 23 de exposição e 2 de apoio ocultos): o comparativo "Quem executa não deve fiscalizar a si mesmo" saiu do slide 20 e virou o slide 5; os controles DF (15 a 17) vieram antes de mobilização e continuidade.
+- Seções: O desafio do Einstein, Quem é a DF, Como vamos atuar, Como entregamos e controlamos, Escopo e resultados.
+- Títulos reescritos como afirmações (exemplos: "O subsíndico fiscaliza. A administradora executa."; "40+ condomínios e R$ 24 mi de OPEX mensal sob gestão"; "Subsídio cruzado entre setores: já corrigimos duas vezes"; "SLAs iguais ou melhores que a referência do Einstein").
+- Sem travessões e sem construções "não X, mas Y" nos slides e nas notas; "~" trocado por "cerca de".
+- Dossiê: roteiro e referências de slides atualizados (~50 min). Relatório executivo: travessões retirados do texto. O rodapé padrão dos documentos Word da DF ficou como está, igual ao das propostas enviadas.

@@ -1,4 +1,4 @@
-// Apresentação de defesa técnica — DF Síndicos x Einstein (13/10/2026)
+// Apresentação de defesa técnica: DF Síndicos x Einstein (13/10/2026)
 const pptxgen = require("pptxgenjs");
 const React = require("react");
 const ReactDOMServer = require("react-dom/server");
@@ -33,11 +33,11 @@ async function icon(Comp, color, size = 256) {
   pres.layout = "LAYOUT_WIDE"; // 13.33 x 7.5
   pres.author = "DF Síndicos Profissionais";
   pres.company = "DF Síndicos Profissionais";
-  pres.title = "Defesa técnica — Representante Condominial Einstein";
+  pres.title = "Defesa técnica: Representante Condominial Einstein";
   pres.theme = { headFontFace: THEME.headFontFace, bodyFontFace: THEME.bodyFontFace };
   const C = pres.SchemeColor;
 
-  const FOOT = "DF Síndicos Profissionais  ·  Defesa técnica — Representante Condominial Einstein  ·  Confidencial";
+  const FOOT = "DF Síndicos Profissionais  ·  Defesa técnica  ·  Representante Condominial Einstein  ·  Confidencial";
 
   // ---------- layouts ----------
   pres.defineSlideMaster({
@@ -70,25 +70,25 @@ async function icon(Comp, color, size = 256) {
   // ================= 1. CAPA =================
   sec("Abertura");
   let s = pres.addSlide({ masterName: "CAPA", sectionTitle: "Abertura" });
-  s.addText("DEFESA TÉCNICA DA PROPOSTA", { x: 0.8, y: 2.35, w: 11, h: 0.4, fontSize: 14, bold: true, color: C.accent2, charSpacing: 4, margin: 0, isTextBox: true });
-  s.addText("Representante Condominial — Subsíndico Profissional", { x: 0.8, y: 2.8, w: 11.5, h: 1.5, fontSize: 42, bold: true, color: "FFFFFF", margin: 0, isTextBox: true, valign: "top" });
+  s.addText("DEFESA TÉCNICA  ·  REPRESENTANTE CONDOMINIAL", { x: 0.8, y: 2.35, w: 11, h: 0.4, fontSize: 14, bold: true, color: C.accent2, charSpacing: 4, margin: 0, isTextBox: true });
+  s.addText("Subsíndico profissional para o Einstein", { x: 0.8, y: 2.8, w: 11.5, h: 1.5, fontSize: 42, bold: true, color: "FFFFFF", margin: 0, isTextBox: true, valign: "top" });
   s.addText("Einstein  ·  Parque Global  ·  Unidade Hospitalar Pinheiros  ·  Espaço Einstein Artur de Azevedo", { x: 0.8, y: 4.35, w: 11.5, h: 0.4, fontSize: 18, color: "CBD5E4", margin: 0, isTextBox: true });
   s.addText([
     { text: "Denise Ferreira", options: { bold: true, color: "FFFFFF" } }, { text: "  CEO   ·   ", options: { color: "CBD5E4" } },
     { text: "Caio Gavioli", options: { bold: true, color: "FFFFFF" } }, { text: "  Diretor de Operações", options: { color: "CBD5E4" } },
   ], { x: 0.8, y: 6.15, w: 9, h: 0.4, fontSize: 15, margin: 0, isTextBox: true });
   s.addText("13 de outubro de 2026", { x: 9.3, y: 6.15, w: 3.2, h: 0.4, fontSize: 15, color: C.accent2, align: "right", margin: 0, isTextBox: true });
-  s.addNotes("DENISE abre: agradece o convite da Tami e do time, apresenta a si e ao Caio, e diz o objetivo: mostrar como a DF vai representar o Einstein nas três unidades e responder todas as dúvidas. Tempo: 1 min.");
+  s.addNotes("DENISE abre: agradece o convite da Tami e do time, apresenta a si e ao Caio e diz o objetivo em uma frase: mostrar como a DF vai representar e proteger o Einstein nas três unidades. Tempo: 1 min.");
 
   // ================= 2. AGENDA =================
   s = content("Abertura", "Agenda");
   const ag = [
-    ["01", "O que entendemos do Einstein", "As três unidades e o papel do subsíndico"],
-    ["02", "Quem é a DF", "Números, equipe e cases semelhantes"],
-    ["03", "Como vamos atuar", "Rateio, presença, SLAs e governança de voto"],
-    ["04", "O que o Einstein recebe", "Entregáveis, mobilização, continuidade e controles DF"],
-    ["05", "Escopo e premissas", "O que está incluído e onde termina o nosso papel"],
-    ["06", "Perguntas", "Saneamento das dúvidas"],
+    ["01", "O desafio do Einstein", "Três unidades e quem fiscaliza a operação"],
+    ["02", "Quem é a DF", "Números, equipe e cases já resolvidos"],
+    ["03", "Como vamos atuar", "Rateio, presença, SLAs e voto"],
+    ["04", "Como entregamos e controlamos", "Relatórios, ferramentas próprias e mobilização"],
+    ["05", "Escopo e resultados", "O que está incluído e o que o Einstein ganha em 90 dias"],
+    ["06", "Perguntas", "Todas as dúvidas do Einstein"],
   ];
   ag.forEach((a, i) => {
     const col = i % 3, row = Math.floor(i / 3);
@@ -99,16 +99,16 @@ async function icon(Comp, color, size = 256) {
     s.addText(a[2], { x: x + 0.3, y: y + 1.4, w: 3.3, h: 0.55, fontSize: 14, color: C.accent3, margin: 0, isTextBox: true, valign: "top" });
   });
   s.addText("Pela DF na reunião: Denise Ferreira · Caio Gavioli · Amanda Tigre · Marco Murino · Cláudia De Santi · André Ferreira da Silva", { x: 0.6, y: 6.55, w: 12, h: 0.35, fontSize: 12, color: C.accent3, italic: true, margin: 0, isTextBox: true });
-  s.addNotes("DENISE: ~40 minutos de apresentação e o restante para perguntas. Apresenta rapidamente quem está na sala pela DF e em que cada um pode ajudar nas perguntas (Amanda: jurídico/convenção; Marco: financeiro/rateio; Cláudia: LGPD).");
+  s.addNotes("DENISE: cerca de 50 minutos de apresentação e o restante para perguntas. Apresenta rapidamente quem está na sala pela DF e em que cada um pode ajudar nas perguntas (Amanda: jurídico/convenção; Marco: financeiro/rateio; Cláudia: LGPD).");
 
   // ================= 3. ENTENDIMENTO =================
-  sec("O que entendemos");
-  s = content("O que entendemos", "Três unidades, três desafios diferentes");
-  kicker(s, "Um único modelo não serve às três — por isso a dedicação e o foco mudam por unidade");
+  sec("O desafio do Einstein");
+  s = content("O desafio do Einstein", "Três unidades, três desafios: um modelo único não serve");
+  kicker(s, "A dedicação e o foco mudam conforme a posição do Einstein em cada condomínio");
   const un = [
-    [fa.FaCity, "Parque Global", "Complexo multiuso", ["Setores e subcondomínios com despesas comuns e específicas", "Múltiplos stakeholders e governança descentralizada", "Maior complexidade de governança das três"], "Foco: governança setorial e segregação de despesas"],
-    [fa.FaHospital, "Unidade Hospitalar Pinheiros", "Ocupante majoritário", ["Einstein com ~95% de ocupação; mall com ~5%", "Sistemas críticos operados diretamente pelo Einstein", "Entrega da obra out/2026, operação jan/2027"], "Foco: rateio dos sistemas críticos e implantação"],
-    [fa.FaBuilding, "Espaço Einstein Artur de Azevedo", "Condômino minoritário", ["~1.400 m² no térreo e 1º pavimento", "Edifício de terceiros, com outros usos", "Necessidades específicas de operação de saúde"], "Foco: pagar só o que é seu e defender a operação"],
+    [fa.FaCity, "Parque Global", "Complexo multiuso", ["Setores e subcondomínios com despesas comuns e específicas", "Vários condôminos e decisões distribuídas por setor", "Maior complexidade de governança das três"], "Foco: governança setorial e segregação de despesas"],
+    [fa.FaHospital, "Unidade Hospitalar Pinheiros", "Ocupante majoritário", ["Einstein com cerca de 95% da ocupação; mall com 5%", "Sistemas críticos operados diretamente pelo Einstein", "Entrega da obra out/2026, operação jan/2027"], "Foco: rateio dos sistemas críticos e implantação"],
+    [fa.FaBuilding, "Espaço Einstein Artur de Azevedo", "Condômino minoritário", ["Cerca de 1.400 m² no térreo e 1º pavimento", "Edifício de terceiros, com outros usos", "Necessidades específicas de operação de saúde"], "Foco: pagar só o que é seu e defender a operação"],
   ];
   for (let i = 0; i < 3; i++) {
     const [Ic, t, sub, items, foco] = un[i];
@@ -120,14 +120,14 @@ async function icon(Comp, color, size = 256) {
     s.addText(items.map((it, k) => ({ text: it, options: { bullet: true, breakLine: k < items.length - 1 } })), { x: x + 0.3, y: y + 2.2, w: 3.35, h: 1.75, fontSize: 14, color: C.text1, paraSpaceAfter: 6, margin: 0, isTextBox: true, valign: "top" });
     s.addText(foco, { x: x + 0.3, y: y + 4.05, w: 3.35, h: 0.65, fontSize: 13, bold: true, italic: true, color: C.text2, margin: 0, isTextBox: true, valign: "top" });
   }
-  s.addNotes("CAIO lidera (visitou o Parque Global em 24/09 e leu o workshop). Mensagem: lemos o material do Einstein e entendemos que são três situações diferentes. Pinheiros: o Einstein assumiu da administradora os sistemas críticos — isso tem efeito direto no rateio. Artur de Azevedo: posição defensiva. Parque Global: governança entre setores. Não citar nomes de administradoras.");
+  s.addNotes("CAIO lidera (visitou o Parque Global em 24/09 e leu o workshop). Mensagem: lemos o material do Einstein e entendemos que são três situações diferentes. Pinheiros: o Einstein assumiu da administradora os sistemas críticos, e isso afeta direto o rateio. Artur de Azevedo: posição defensiva. Parque Global: governança entre setores. Não citar nomes de administradoras.");
 
   // ================= 4. GOVERNANÇA x OPERAÇÃO =================
-  s = content("O que entendemos", "O subsíndico é governança — a operação é da administradora");
-  kicker(s, "Separar quem executa de quem fiscaliza é o que dá ao Einstein uma representação independente");
+  s = content("O desafio do Einstein", "O subsíndico fiscaliza. A administradora executa.");
+  kicker(s, "Separar quem executa de quem fiscaliza dá ao Einstein uma representação independente");
   const lanes = [
     ["EINSTEIN", "Decide", ["Aprova votos e posicionamentos", "Define alçadas e prioridades", "Recebe análises e recomendações"], HEX.navy, "FFFFFF"],
-    ["DF — SUBSÍNDICA", "Representa e fiscaliza", ["Representa o Einstein nas instâncias condominiais", "Analisa orçamento, rateio, contratos e contas", "Fiscaliza e cobra a administradora", "Recomenda — nunca vota sem autorização"], HEX.gold, "FFFFFF"],
+    ["DF  ·  SUBSÍNDICA", "Representa e fiscaliza", ["Representa o Einstein nas instâncias condominiais", "Analisa orçamento, rateio, contratos e contas", "Fiscaliza e cobra a administradora", "Recomenda e só vota com autorização"], HEX.gold, "FFFFFF"],
     ["ADMINISTRADORA", "Executa", ["Operação diária, equipes e fornecedores", "Contas a pagar e receber, boletos", "Elabora balancetes e prestação de contas"], HEX.light, HEX.ink],
   ];
   for (let i = 0; i < 3; i++) {
@@ -141,13 +141,38 @@ async function icon(Comp, color, size = 256) {
   }
   card(s, 10.75, 1.8, 2.0, 4.3, HEX.sand, "alerta");
   await circleIcon(s, fa.FaExclamation, 11.44, 2.05, 0.62, HEX.gold);
-  s.addText("Se a administradora ocupar também a subsindicância, quem fiscaliza a administradora?", { x: 10.9, y: 2.85, w: 1.7, h: 3.0, fontSize: 15, bold: true, italic: true, color: C.text2, margin: 0, isTextBox: true, valign: "top" });
+  s.addText("Se a administradora também ocupar a subsindicância, quem fiscaliza a administradora?", { x: 10.9, y: 2.85, w: 1.7, h: 3.0, fontSize: 15, bold: true, italic: true, color: C.text2, margin: 0, isTextBox: true, valign: "top" });
   s.addText("Subsíndico setorial, nos termos da convenção: não substitui o Síndico Geral e atua sempre dentro das alçadas definidas pelo Einstein.", { x: 0.6, y: 6.3, w: 12.1, h: 0.5, fontSize: 13, color: C.accent3, italic: true, margin: 0, isTextBox: true });
-  s.addNotes("DENISE: este é o argumento central da DF. A DF não é administradora predial e não concorre com ela — fiscaliza a administradora em nome do Einstein. Reforçar: subsíndico setorial, não substitui o Síndico Geral, não vota sem autorização. Evitar falar em 'convocar/presidir assembleias' ou 'aprovar despesas' — a decisão é sempre do Einstein.");
+  s.addNotes("DENISE: argumento central da DF. A DF fiscaliza a administradora em nome do Einstein e não concorre com ela. Reforçar: subsíndico setorial, não substitui o Síndico Geral, só vota com autorização. Deixar a pergunta do quadro no ar e passar para o próximo slide, que responde. Evitar 'convocar/presidir assembleias' e 'aprovar despesas': a decisão é sempre do Einstein.");
+
+  // --- D: modelo independente x acumulado ---
+  s = content("O desafio do Einstein", "Quem executa não deve fiscalizar a si mesmo");
+  kicker(s, "Dois modelos para a subsindicância, comparados ponto a ponto");
+  const cmpH = (t, fill, fg) => ({ text: t, options: { bold: true, color: fg, fill: { color: fill }, fontSize: 15, valign: "middle", align: "center" } });
+  const cmpRows = [
+    ["Quem fiscaliza a administradora", "A DF, em nome do Einstein", "Fica sem fiscalização independente"],
+    ["Conflito de interesse", "Nenhum, declarado por escrito", "A mesma empresa executa e avalia o próprio trabalho"],
+    ["A quem a análise de rateio e contratos serve", "Exclusivamente ao Einstein", "Também ao contrato da própria administradora"],
+    ["Voto e posicionamento", "Só com autorização escrita do Einstein", "Depende de como a função for contratada"],
+  ];
+  s.addTable([
+    [cmpH("", "FFFFFF", HEX.navy), cmpH("Subsíndico independente (DF)", HEX.navy, "FFFFFF"), cmpH("Administradora acumulando a função", "E5E7EB", HEX.ink)],
+    ...cmpRows.map((r, i) => {
+      const f = i % 2 ? "F6F7F9" : "FFFFFF";
+      return [
+        { text: r[0], options: { bold: true, color: HEX.navy, fill: { color: f } } },
+        { text: r[1], options: { bold: true, color: HEX.ink, fill: { color: "EEF1F6" } } },
+        { text: r[2], options: { color: HEX.muted, fill: { color: f } } },
+      ];
+    }),
+  ], { x: 0.6, y: 1.75, w: 12.15, colW: [3.55, 4.3, 4.3], fontSize: 15, fontFace: "Calibri", border: { type: "solid", pt: 0.75, color: "E5E7EB" }, rowH: [0.65, 0.85, 0.85, 0.85, 0.85], valign: "middle", margin: 0.12, objectName: "tabela-comparativo" });
+  card(s, 0.6, 6.0, 12.15, 0.78, HEX.sand, "nota-comparativo");
+  s.addText("A comparação é entre modelos de atuação e nenhuma empresa é citada. A própria RFP separa governança de operação.", { x: 0.85, y: 6.03, w: 11.7, h: 0.72, fontSize: 13.5, italic: true, color: C.text2, margin: 0, isTextBox: true, valign: "middle" });
+  s.addNotes("DENISE: responde a pergunta do slide anterior. Comparar MODELOS: não citar concorrente nem administradora. Tom de explicação. A RFP diz que o subsíndico deve acompanhar a atuação da administradora e avaliar processos e controles.");
 
   // ================= 5. DF EM NÚMEROS =================
   sec("Quem é a DF");
-  s = content("Quem é a DF", "A DF em números");
+  s = content("Quem é a DF", "40+ condomínios e R$ 24 mi de OPEX mensal sob gestão");
   kicker(s, "Sindicância profissional de empreendimentos corporativos, multiuso e logísticos em São Paulo e no Rio de Janeiro");
   const st = [["40+", "condomínios sob gestão"], ["2 mi m²", "de área locável sob gestão"], ["R$ 24 mi", "de OPEX mensal sob gestão"], ["R$ 35 mi", "de CAPEX por ano sob gestão"]];
   st.forEach((v, i) => {
@@ -163,11 +188,11 @@ async function icon(Comp, color, size = 256) {
     s.addText(fat[i][1], { x: x + 0.7, y: 5.3, w: 3.25, h: 0.45, fontSize: 15, bold: true, color: C.text2, margin: 0, isTextBox: true });
     s.addText(fat[i][2], { x: x + 0.7, y: 5.75, w: 3.25, h: 1.2, fontSize: 13, color: C.accent3, margin: 0, isTextBox: true, valign: "top" });
   }
-  s.addNotes("DENISE: números de porte. Destacar que a DF está do lado de quem precisa de uma representação técnica e independente: jurídico, engenharia e financeiro dentro de casa.");
+  s.addNotes("DENISE: números de porte. A DF tem jurídico, engenharia e financeiro dentro de casa para representar o cliente com independência.");
 
   // ================= 6. EQUIPE =================
-  s = content("Quem é a DF", "Equipe dedicada ao Einstein");
-  kicker(s, "Uma titular, dois substitutos qualificados e retaguarda especializada — o serviço não depende de uma pessoa só");
+  s = content("Quem é a DF", "Titular, dois substitutos e retaguarda: o serviço não para");
+  kicker(s, "Direito imobiliário, engenharia e finanças na equipe do contrato");
   const eq = [["denise.png", "Denise Ferreira", "TITULAR · CEO", "Advogada, pós em Direito Imobiliário (PUC-SP), síndica profissional desde 2000. Interlocutora oficial, assembleias e governança de voto."], ["amanda.png", "Amanda Tigre", "SUBSTITUTA · SÓCIA DIRETORA", "Advogada, pós em Direito Imobiliário (PUC-SP). Contratos, pareceres jurídicos e interpretação da convenção."], ["caio.png", "Caio Gavioli", "SUBSTITUTO · DIRETOR DE OPERAÇÕES", "Engenheiro eletricista (Mackenzie), pós em Segurança do Trabalho. Sistemas críticos, manutenção e custos de infraestrutura."]];
   eq.forEach((e, i) => {
     const x = 0.6 + i * 3.1;
@@ -179,15 +204,15 @@ async function icon(Comp, color, size = 256) {
   card(s, 9.95, 1.75, 2.8, 5.0, HEX.light, "retaguarda");
   s.addText("RETAGUARDA", { x: 10.2, y: 1.95, w: 2.4, h: 0.3, fontSize: 12, bold: true, color: C.accent2, charSpacing: 2, margin: 0, isTextBox: true });
   s.addText([
-    { text: "Marco Murino", options: { bold: true, color: C.text2, breakLine: true } }, { text: "Gerente Financeiro — balancetes, orçamento e rateio", options: { breakLine: true } }, { text: " ", options: { breakLine: true, fontSize: 6 } },
-    { text: "Cláudia De Santi", options: { bold: true, color: C.text2, breakLine: true } }, { text: "Diretora de LGPD — proteção de dados", options: { breakLine: true } }, { text: " ", options: { breakLine: true, fontSize: 6 } },
+    { text: "Marco Murino", options: { bold: true, color: C.text2, breakLine: true } }, { text: "Gerente Financeiro: balancetes, orçamento e rateio", options: { breakLine: true } }, { text: " ", options: { breakLine: true, fontSize: 6 } },
+    { text: "Cláudia De Santi", options: { bold: true, color: C.text2, breakLine: true } }, { text: "Diretora de LGPD: proteção de dados", options: { breakLine: true } }, { text: " ", options: { breakLine: true, fontSize: 6 } },
     { text: "Prepostos DF", options: { bold: true, color: C.text2, breakLine: true } }, { text: "Administradores, engenheiros e advogados", options: { breakLine: true } }, { text: " ", options: { breakLine: true, fontSize: 6 } },
     { text: "Parceiros de mercado", options: { bold: true, color: C.text2, breakLine: true } }, { text: "Jurídico, engenharia e consultoria, contratados por concorrência e com aprovação do Einstein" },
   ], { x: 10.2, y: 2.4, w: 2.4, h: 4.2, fontSize: 13, color: C.text1, margin: 0, isTextBox: true, valign: "top" });
-  s.addNotes("DENISE apresenta a equipe; pode pedir que Amanda, Marco e Cláudia se apresentem em 15 segundos cada. Atenção: a proposta enviada grafou 'Marco Murilo' — o nome correto no convite é Marco Murino.");
+  s.addNotes("DENISE apresenta a equipe; pode pedir que Amanda, Marco e Cláudia se apresentem em 15 segundos cada. Atenção: a proposta enviada grafou 'Marco Murilo'. O nome correto é Marco Murino.");
 
   // ================= 7. CASES DE RATEIO =================
-  s = content("Quem é a DF", "Cases de rateio: o subsídio cruzado que a RFP quer evitar");
+  s = content("Quem é a DF", "Subsídio cruzado entre setores: já corrigimos duas vezes");
   const cs = [
     ["SPHQ I", "São Paulo · 64 mil m² · condomínio geral + 3 subcondomínios · DF síndica desde 2014", "Convenção previa rateio único por fração ideal; subcondomínios pagavam despesas uns dos outros", "Levantamento de áreas, estruturas e equipamentos; criação de um Coeficiente de Rateio de Despesas (CRD) aprovado em assembleia", "Cada subcondomínio paga só o que é seu", "Semelhante ao Parque Global"],
     ["17007 Nações", "São Paulo · Torres Sigma e Alpha + garagem + mall · DF síndica desde 2025", "Rateio fora da convenção: o subcondomínio garagem pagava muito acima das suas despesas reais", "Diagnóstico de engenharia, financeiro e jurídico; revisão do rateio e reorganização da gestão com a administradora", "Garagem paga o real; diferença redistribuída entre as torres; mall não onerado", "Semelhante a Pinheiros"],
@@ -207,26 +232,26 @@ async function icon(Comp, color, size = 256) {
       s.addText(r[1], { x: x + 0.3, y: yy + 0.32, w: 5.3, h: 0.9, fontSize: k === 2 ? 15 : 14, bold: k === 2, color: C.text1, margin: 0, isTextBox: true, valign: "top" });
     });
   }
-  s.addNotes("DENISE conta o SPHQ I (correção por deliberação de assembleia, sem precisar reformar a convenção). CAIO conta o 17007 — a garagem é um paralelo direto com Pinheiros, onde o Einstein opera o estacionamento. Não temos o valor em R$ desses ajustes: se perguntarem, responder qualitativamente e oferecer o contato da referência.");
+  s.addNotes("DENISE conta o SPHQ I (correção por deliberação de assembleia, sem precisar reformar a convenção). CAIO conta o 17007: a garagem é um paralelo direto com Pinheiros, onde o Einstein opera o estacionamento. Não temos o valor em R$ desses ajustes: se perguntarem, responder qualitativamente e oferecer o contato da referência.");
 
   // ================= 8. CASE O PARQUE =================
-  s = content("Quem é a DF", "Hospital dentro de condomínio multiuso: já fazemos isso hoje");
+  s = content("Quem é a DF", "Hospital em condomínio multiuso: já fazemos isso hoje");
   card(s, 0.6, 1.3, 7.4, 5.45, HEX.light, "case-oparque");
   await circleIcon(s, fa.FaClinicMedical, 0.9, 1.55);
   s.addText("Complexo O Parque", { x: 1.7, y: 1.55, w: 5.2, h: 0.6, fontSize: 24, bold: true, color: C.text2, margin: 0, isTextBox: true, valign: "middle" });
-  s.addText("São Paulo (Brooklin) · torre de escritórios + torre do Hospital Sírio-Libanês (~10 mil m², 9 andares) + duas torres residenciais + varejo · DF síndica desde o início de 2026", { x: 0.9, y: 2.3, w: 6.8, h: 0.75, fontSize: 12.5, italic: true, color: C.accent3, margin: 0, isTextBox: true, valign: "top" });
+  s.addText("São Paulo (Brooklin) · torre de escritórios + torre do Hospital Sírio-Libanês (cerca de 10 mil m², 9 andares) + duas torres residenciais + varejo · DF síndica desde o início de 2026", { x: 0.9, y: 2.3, w: 6.8, h: 0.75, fontSize: 12.5, italic: true, color: C.accent3, margin: 0, isTextBox: true, valign: "top" });
   s.addText([
     { text: "Desafio", options: { bold: true, color: C.accent2, breakLine: true } },
     { text: "Implantação com o complexo ainda em obras e ocupantes entrando; sincronizar escritórios, hospital e moradores sensíveis a obras, ruído e horários.", options: { breakLine: true } },
     { text: " ", options: { breakLine: true, fontSize: 6 } },
     { text: "O que muda com o hospital", options: { bold: true, color: C.accent2, breakLine: true } },
-    { text: "Perfil do público, fluxo de pacientes e acompanhantes, estacionamento — e elevadores, geradores e água passam a ser operação crítica.", options: { breakLine: true } },
+    { text: "Muda o perfil do público, o fluxo de pacientes e acompanhantes e o estacionamento. Elevadores, geradores e água passam a ser operação crítica.", options: { breakLine: true } },
     { text: " ", options: { breakLine: true, fontSize: 6 } },
     { text: "O que a DF faz", options: { bold: true, color: C.accent2, breakLine: true } },
     { text: "Coordena a operação do complexo, compatibiliza as regras de cada segmento e estrutura a gestão dos sistemas críticos para a operação hospitalar." },
   ], { x: 0.9, y: 3.15, w: 6.8, h: 3.5, fontSize: 14, color: C.text1, margin: 0, isTextBox: true, valign: "top" });
   s.addText("TAMBÉM NA CARTEIRA", { x: 8.4, y: 1.35, w: 4.3, h: 0.3, fontSize: 12, bold: true, color: C.accent2, charSpacing: 2, margin: 0, isTextBox: true });
-  const ap = [["Passeio Paulista", "Uso misto AAA — torre corporativa, lojas e lofts residenciais. DF síndica desde 2025."], ["Arquipeo", "57 mil m² para um único grande ocupante (~4.000 pessoas). Planos de contingência. DF síndica desde 2024."]];
+  const ap = [["Passeio Paulista", "Uso misto AAA: torre corporativa, lojas e lofts residenciais. DF síndica desde 2025."], ["Arquipeo", "57 mil m² para um único grande ocupante (cerca de 4.000 pessoas). Planos de contingência. DF síndica desde 2024."]];
   ap.forEach((a, i) => {
     const y = 1.8 + i * 1.75;
     card(s, 8.4, y, 4.35, 1.55, HEX.sand, "apoio-" + i);
@@ -239,8 +264,8 @@ async function icon(Comp, color, size = 256) {
 
   // ================= 9. RATEIO =================
   sec("Como vamos atuar");
-  s = content("Como vamos atuar", "Metodologia de análise e validação de rateios");
-  kicker(s, "Prioridade da RFP: alocação correta de custos e nenhum subsídio cruzado entre setores");
+  s = content("Como vamos atuar", "Rateio: cada setor paga só o que é seu");
+  kicker(s, "Prioridade da RFP: alocação correta de custos, sem subsídio cruzado entre setores");
   const fases = [
     [fa.FaSearch, "1  Diagnóstico", "até D+60", ["Convenção, especificação, frações, contratos, orçamento e 12 balancetes", "Entrevistas e visita técnica: áreas, uso e medidores", "Matriz de critério por conta (fração, área, consumo, uso)", "Relatório: situação atual × situação correta"]],
     [fa.FaSyncAlt, "2  Rotina mensal", "todo mês", ["Revisão do balancete contra orçamento e contratos", "Conferência das pastas de prestação de contas por amostragem", "Gatilho: conta com desvio de ±5% → parecer com recomendação", "Resultados no relatório mensal e no dashboard"]],
@@ -256,11 +281,11 @@ async function icon(Comp, color, size = 256) {
     s.addText(items.map((it, k) => ({ text: it, options: { bullet: true, breakLine: k < items.length - 1 } })), { x: x + 0.3, y: y + 1.1, w: 3.3, h: 2.65, fontSize: 13, color: C.text1, paraSpaceAfter: 5, margin: 0, isTextBox: true, valign: "top" });
   }
   card(s, 0.6, 5.8, 12.15, 0.95, HEX.sand, "exemplo");
-  s.addText([{ text: "Exemplo do que procuramos: ", options: { bold: true, color: C.text2 } }, { text: "sistemas operados e pagos por um condômino — geradores, subestação, elevadores, estacionamento — que também atendem outros setores. Sem critério de reembolso, quem opera subsidia os demais." }], { x: 0.85, y: 5.85, w: 11.7, h: 0.85, fontSize: 14, color: C.text1, margin: 0, isTextBox: true, valign: "middle" });
-  s.addNotes("CAIO explica as três fases. Exemplo genérico (sem citar a administradora): em Pinheiros o Einstein opera sistemas que atendem também o mall — é exatamente o subsídio cruzado que a RFP quer evitar. Marco pode complementar a parte de balancete se perguntarem.");
+  s.addText([{ text: "Exemplo do que procuramos: ", options: { bold: true, color: C.text2 } }, { text: "geradores, subestação, elevadores e estacionamento operados e pagos por um condômino e que também atendem outros setores. Sem critério de reembolso, quem opera subsidia os demais." }], { x: 0.85, y: 5.85, w: 11.7, h: 0.85, fontSize: 14, color: C.text1, margin: 0, isTextBox: true, valign: "middle" });
+  s.addNotes("CAIO explica as três fases. Exemplo genérico (sem citar a administradora): em Pinheiros o Einstein opera sistemas que atendem também o mall. É o subsídio cruzado que a RFP quer evitar. Marco pode complementar a parte de balancete se perguntarem.");
 
   // ================= 10. PRESENÇA =================
-  s = content("Como vamos atuar", "Presença e dedicação por unidade");
+  s = content("Como vamos atuar", "Dedicação proporcional à complexidade de cada unidade");
   kicker(s, "Visitas presenciais de 6 horas, sempre com a titular; visitas técnicas do Diretor de Operações em paralelo");
   s.addChart(pres.charts.BAR, [
     { name: "Titular presencial", labels: ["Parque Global", "Pinheiros (até jun/27)", "Pinheiros (a partir de jul/27)", "Artur de Azevedo"], values: [24, 24, 12, 6] },
@@ -275,7 +300,7 @@ async function icon(Comp, color, size = 256) {
     valGridLine: { color: "E5E7EB", size: 0.5 }, catGridLine: { style: "none" },
     showTitle: true, title: "Horas dedicadas por mês", titleFontSize: 14, titleColor: HEX.navy, titleFontFace: "+mn-lt",
   });
-  const pr = [["Parque Global", "46 h/mês", "Semanal (4 visitas) + visita técnica mensal + todas as assembleias"], ["Pinheiros", "48 → 28 h/mês", "Semanal até jun/2027 (implantação), depois quinzenal; 2 visitas técnicas/mês na implantação"], ["Artur de Azevedo", "~14 h/mês", "Mensal + visita técnica trimestral + todas as assembleias"]];
+  const pr = [["Parque Global", "46 h/mês", "Semanal (4 visitas) + visita técnica mensal + todas as assembleias"], ["Pinheiros", "48 → 28 h/mês", "Semanal até jun/2027 (implantação), depois quinzenal; 2 visitas técnicas/mês na implantação"], ["Artur de Azevedo", "14 h/mês", "Mensal + visita técnica trimestral + todas as assembleias"]];
   pr.forEach((p, i) => {
     const y = 1.7 + i * 1.55;
     card(s, 8.15, y, 4.6, 1.35, HEX.light, "presenca-" + i);
@@ -287,8 +312,8 @@ async function icon(Comp, color, size = 256) {
   s.addNotes("DENISE: a Tami disse que não há mínimo de visitas e pediu a recomendação de cada proponente. Explicar a lógica: dedicação proporcional à complexidade; Pinheiros reforçado durante a implantação e o primeiro semestre de operação.");
 
   // ================= 11. SLAs =================
-  s = content("Como vamos atuar", "SLAs alinhados à referência do Einstein");
-  kicker(s, "Compromisso da DF igual ou melhor que a referência enviada pelo Einstein em 30/09");
+  s = content("Como vamos atuar", "SLAs iguais ou melhores que a referência do Einstein");
+  kicker(s, "Referência enviada pelo Einstein em 30/09, lado a lado com o compromisso da DF");
   const H = (t) => ({ text: t, options: { bold: true, color: "FFFFFF", fill: { color: HEX.navy }, fontSize: 13, valign: "middle" } });
   const ok = { text: "✓", options: { bold: true, color: HEX.green, align: "center", fontSize: 18, valign: "middle" } };
   const r = (n, ref1, ref2, d1, d2, fill) => [
@@ -298,13 +323,13 @@ async function icon(Comp, color, size = 256) {
     { ...ok, options: { ...ok.options, fill: { color: fill } } },
   ];
   s.addTable([
-    [H("Criticidade"), H("Einstein — resposta inicial"), H("Einstein — parecer / encaminhamento"), H("DF — resposta inicial"), H("DF — parecer / encaminhamento"), H("")],
+    [H("Criticidade"), H("Referência: resposta inicial"), H("Referência: parecer ou encaminhamento"), H("DF: resposta inicial"), H("DF: parecer ou encaminhamento"), H("")],
     r("Crítica", "até 1 hora", "até 4 horas ou plano de ação imediato", "até 30 min, por telefone, 24x7", "plano de ação em até 4 h; presença em até 6 h", "FFFFFF"),
     r("Urgente", "até 4 horas", "até 1 dia útil", "até 2 horas úteis, por telefone", "até 1 dia útil", "F6F7F9"),
     r("Ordinária", "até 1 dia útil", "até 5 dias úteis", "até 1 dia útil", "até 5 dias úteis", "FFFFFF"),
     r("Complexa", "até 2 dias úteis", "prazo acordado conforme escopo", "até 1 dia útil, com prazo proposto", "até 10 dias úteis, prévia em 5", "F6F7F9"),
   ], { x: 0.6, y: 1.7, w: 12.15, colW: [1.6, 2.1, 2.6, 2.45, 2.75, 0.65], fontSize: 13, fontFace: "Calibri", border: { type: "solid", pt: 0.75, color: "E5E7EB" }, rowH: [0.55, 0.75, 0.6, 0.6, 0.6], valign: "middle", margin: 0.08, objectName: "tabela-sla" });
-  const ex = [[fa.FaGavel, "Parecer para assembleia", "até 3 dias úteis após o edital e no mínimo 5 dias úteis antes da assembleia — tempo para as alçadas internas do Einstein"], [fa.FaPhoneAlt, "Plantão 24x7", "Denise → Amanda → Caio → prepostos da DF; horário comercial de segunda a sexta, das 8h às 18h"]];
+  const ex = [[fa.FaGavel, "Parecer para assembleia", "até 3 dias úteis após o edital e no mínimo 5 dias úteis antes da assembleia, para as alçadas internas do Einstein"], [fa.FaPhoneAlt, "Plantão 24x7", "Denise, Amanda, Caio e prepostos da DF, nessa ordem. Horário comercial de segunda a sexta, das 8h às 18h"]];
   for (let i = 0; i < 2; i++) {
     const x = 0.6 + i * 6.15;
     card(s, x, 5.35, 5.9, 1.4, HEX.sand, "sla-extra-" + i);
@@ -315,8 +340,8 @@ async function icon(Comp, color, size = 256) {
   s.addNotes("DENISE: aqui equalizamos os SLAs com a referência do e-mail de 30/09. Diferença em relação à proposta enviada: a primeira resposta da demanda ordinária passa de 2 dias úteis para 1 dia útil, e a crítica ganha 'plano de ação em até 4 horas'. Dizer explicitamente que a DF formaliza esse ajuste por escrito após a reunião.");
 
   // ================= 12. GOVERNANÇA DE VOTO =================
-  s = content("Como vamos atuar", "Governança: nenhum voto sem autorização escrita do Einstein");
-  kicker(s, "Inclusive em matérias de rotina — a DF analisa e recomenda; o Einstein decide");
+  s = content("Como vamos atuar", "Nenhum voto sem autorização escrita do Einstein");
+  kicker(s, "Vale também para matérias de rotina. A DF analisa e recomenda; o Einstein decide");
   const etapas = [["1", "Classificação", "Pauta classificada em rotina ou estratégica", "1 dia útil após o edital"], ["2", "Análise", "Nota (rotina) ou parecer completo (estratégica) com recomendação", "3 dias úteis após o edital"], ["3", "Alinhamento", "Reunião ou call com os representantes do Einstein", "antes da autorização"], ["4", "Autorização", "Orientação de voto por escrito, conforme alçadas; procuração quando necessária", "antes da assembleia"], ["5", "Assembleia", "A DF vota exatamente conforme autorizado", "na assembleia"], ["6", "Registro", "Deliberações e recomendações registradas e enviadas", "até 5 dias úteis após"]];
   etapas.forEach((e, i) => {
     const x = 0.6 + i * 2.05, y = 1.8;
@@ -329,13 +354,13 @@ async function icon(Comp, color, size = 256) {
   });
   card(s, 0.6, 5.35, 12.15, 1.4, HEX.sand, "imprevistos");
   await circleIcon(s, fa.FaShieldAlt, 0.85, 5.75, 0.6, HEX.gold);
-  s.addText([{ text: "Imprevistos em assembleia: ", options: { bold: true, color: C.text2 } }, { text: "tema fora da pauta ou proposta diferente da analisada — a DF não vota em nome do Einstein. Abstém-se, pede ressalva em ata ou adiamento, e comunica o Einstein no mesmo dia. Temas críticos seguem o escalonamento por telefone." }], { x: 1.65, y: 5.45, w: 10.9, h: 1.2, fontSize: 14, color: C.text1, margin: 0, isTextBox: true, valign: "middle" });
-  s.addNotes("DENISE (Amanda pode complementar a parte jurídica). Este slide responde ao maior receio da RFP — a regra aparece três vezes no edital. Conecta com o item 5 do e-mail de 30/09: preparação prévia, recomendação técnica, escalonamento, registro e comunicação estruturada.");
+  s.addText([{ text: "Imprevistos em assembleia: ", options: { bold: true, color: C.text2 } }, { text: "tema fora da pauta ou proposta diferente da analisada. A DF se abstém, pede ressalva em ata ou adiamento e comunica o Einstein no mesmo dia. Temas críticos seguem o escalonamento por telefone." }], { x: 1.65, y: 5.45, w: 10.9, h: 1.2, fontSize: 14, color: C.text1, margin: 0, isTextBox: true, valign: "middle" });
+  s.addNotes("DENISE (Amanda pode complementar a parte jurídica). Este slide responde ao maior receio da RFP: a regra aparece três vezes no edital. Conecta com o item 5 do e-mail de 30/09: preparação prévia, recomendação técnica, escalonamento, registro e comunicação estruturada.");
 
   // ================= 13. ENTREGÁVEIS (amostra) =================
-  sec("O que o Einstein recebe");
-  s = content("O que o Einstein recebe", "O que chega ao Einstein todo mês");
-  s.addText("EXEMPLO ILUSTRATIVO — DADOS FICTÍCIOS", { x: 0.6, y: 1.15, w: 6, h: 0.3, fontSize: 11, bold: true, color: C.accent2, charSpacing: 2, margin: 0, isTextBox: true });
+  sec("Como entregamos e controlamos");
+  s = content("Como entregamos e controlamos", "Todo mês, o Einstein recebe números e recomendações");
+  s.addText("EXEMPLO ILUSTRATIVO  ·  DADOS FICTÍCIOS", { x: 0.6, y: 1.15, w: 6, h: 0.3, fontSize: 11, bold: true, color: C.accent2, charSpacing: 2, margin: 0, isTextBox: true });
   card(s, 0.6, 1.55, 7.6, 5.2, HEX.light, "mock-dashboard");
   const kp = [["Orçado × realizado", "+2,1%", HEX.navy], ["Contas acima de ±5%", "3", HEX.gold], ["Pareceres no mês", "4", HEX.navy], ["Votos autorizados", "100%", HEX.green]];
   kp.forEach((k, i) => {
@@ -353,53 +378,22 @@ async function icon(Comp, color, size = 256) {
     catAxisLabelColor: HEX.muted, catAxisLabelFontSize: 11, catAxisLabelFontFace: "+mn-lt",
     valAxisLabelColor: HEX.muted, valAxisLabelFontSize: 10, valAxisLabelFontFace: "+mn-lt", valAxisMinVal: 380, valAxisMaxVal: 450,
     valGridLine: { color: "E5E7EB", size: 0.5 }, catGridLine: { style: "none" },
-    showTitle: true, title: "Despesa do setor — orçado × realizado (R$ mil)", titleFontSize: 13, titleColor: HEX.navy, titleFontFace: "+mn-lt",
+    showTitle: true, title: "Despesa do setor: orçado × realizado (R$ mil)", titleFontSize: 13, titleColor: HEX.navy, titleFontFace: "+mn-lt",
   });
   const ent = [["Relatório executivo mensal", "análise financeira, rateio e riscos", "D+30"], ["Dashboard orçamentário e de rateio", "em formato de relatório mensal", "D+90"], ["Pareceres técnicos", "contratos, extraordinárias, reajustes", "sob demanda"], ["Matriz de riscos e mitigação", "atualização trimestral", "D+60"], ["Registro de assembleias", "deliberações e recomendações", "5 dias úteis"], ["Plano de ação", "priorizado, acompanhado no relatório", "D+60"]];
-  s.addText("OS 6 ENTREGÁVEIS DA RFP — ACEITOS INTEGRALMENTE", { x: 8.5, y: 1.15, w: 4.3, h: 0.3, fontSize: 11, bold: true, color: C.accent2, charSpacing: 1, margin: 0, isTextBox: true });
+  s.addText("OS 6 ENTREGÁVEIS DA RFP, ACEITOS INTEGRALMENTE", { x: 8.5, y: 1.15, w: 4.3, h: 0.3, fontSize: 11, bold: true, color: C.accent2, charSpacing: 1, margin: 0, isTextBox: true });
   ent.forEach((e, i) => {
     const y = 1.55 + i * 0.87;
     s.addText(e[0], { x: 8.5, y, w: 3.15, h: 0.35, fontSize: 13.5, bold: true, color: C.text2, margin: 0, isTextBox: true });
     s.addText(e[1], { x: 8.5, y: y + 0.35, w: 3.15, h: 0.35, fontSize: 11.5, color: C.accent3, margin: 0, isTextBox: true });
     s.addText(e[2], { x: 11.65, y, w: 1.1, h: 0.35, fontSize: 12, bold: true, color: C.accent2, align: "right", margin: 0, isTextBox: true });
   });
-  s.addNotes("CAIO: mostra o formato do produto que o Einstein vai receber. Deixar claro que os números são fictícios. O dashboard é entregue como relatório mensal (não é um sistema online). Reforçar: os seis entregáveis da RFP foram aceitos formalmente na proposta.");
-
-  // ================= 14. MOBILIZAÇÃO =================
-  s = content("O que o Einstein recebe", "Plano de mobilização: 90 dias até a operação plena");
-  const mob = [["Semana 1", "Kick-off", "Interlocutores, canais, alçadas e temas que exigem autorização", "Ata + matriz de contatos e escalonamento"], ["Semanas 1–2", "Apresentação e acessos", "Apresentação à administradora, ao síndico geral e aos condôminos; pedido de documentos", "Lista de documentos solicitados × recebidos"], ["Semanas 2–4", "Imersão", "Primeira visita a cada unidade (titular + Diretor de Operações), entrevistas e leitura", "1º relatório executivo (D+30)"], ["Até D+60", "Diagnóstico", "Matriz de critérios, diagnóstico do rateio, matriz de riscos", "Relatório de diagnóstico + plano de ação"], ["D+90", "Operação plena", "Rotina mensal completa", "Dashboard em relatório mensal"]];
-  s.addShape(pres.shapes.LINE, { x: 0.9, y: 2.05, w: 11.6, h: 0, line: { color: HEX.line, width: 2 }, objectName: "linha-tempo" });
-  mob.forEach((m, i) => {
-    const x = 0.6 + i * 2.45;
-    s.addShape(pres.shapes.OVAL, { x: x + 0.2, y: 1.85, w: 0.4, h: 0.4, fill: { color: i === 4 ? HEX.gold : HEX.navy }, line: { color: "FFFFFF", width: 2 }, objectName: "marco-" + i });
-    s.addText(m[0], { x, y: 1.25, w: 2.3, h: 0.35, fontSize: 13, bold: true, color: C.accent2, margin: 0, isTextBox: true });
-    card(s, x, 2.5, 2.3, 3.25, HEX.light, "fase-mob-" + i);
-    s.addText(m[1], { x: x + 0.2, y: 2.65, w: 1.95, h: 0.45, fontSize: 16, bold: true, color: C.text2, margin: 0, isTextBox: true });
-    s.addText(m[2], { x: x + 0.2, y: 3.15, w: 1.95, h: 1.45, fontSize: 12.5, color: C.text1, margin: 0, isTextBox: true, valign: "top" });
-    s.addText(m[3], { x: x + 0.2, y: 4.65, w: 1.95, h: 0.95, fontSize: 12, bold: true, italic: true, color: C.text2, margin: 0, isTextBox: true, valign: "top" });
-  });
-  card(s, 0.6, 6.0, 12.15, 0.8, HEX.sand, "orcamento-2027");
-  s.addText([{ text: "Previsão Orçamentária 2027: ", options: { bold: true, color: C.text2 } }, { text: "se ainda não tiver sido aprovada em assembleia no início do contrato, a DF a revisa com prioridade — primeiro resultado concreto para o Einstein." }], { x: 0.85, y: 6.03, w: 11.7, h: 0.75, fontSize: 14, color: C.text1, margin: 0, isTextBox: true, valign: "middle" });
-  s.addNotes("CAIO: cronograma. Do Einstein, a DF precisa de: ata de eleição, procurações aplicáveis, contratos, convenção, pastas de prestação de contas e contatos da administradora e do síndico geral. A Previsão Orçamentária 2027 é a vitória rápida.");
-
-  // ================= 15. CONTINUIDADE =================
-  s = content("O que o Einstein recebe", "Continuidade, segurança da informação e independência");
-  const cont = [[fa.FaUserFriends, "Titular + 2 substitutos", "Substituição imediata em férias, afastamentos e emergências"], [fa.FaPhoneAlt, "Plantão 24x7", "Escalonamento telefônico para situações críticas, inclusive assembleias emergenciais"], [fa.FaCloud, "Histórico centralizado", "Documentos, pareceres e decisões em repositório corporativo (OneDrive / Microsoft 365) com acesso restrito"], [fa.FaLock, "LGPD", "Diretora de LGPD dedicada; documentos do Einstein só pelos canais autorizados; incidentes comunicados de imediato"], [fa.FaShieldAlt, "Seguro de RC", "Apólices de Responsabilidade Civil Profissional e Geral vigentes, sem custo ao Einstein"], [fa.FaBalanceScale, "Independência declarada", "Nenhum vínculo com condomínios, administradoras, proprietários ou gestores das unidades"]];
-  for (let i = 0; i < 6; i++) {
-    const col = i % 3, row = Math.floor(i / 3);
-    const x = 0.6 + col * 4.1, y = 1.4 + row * 2.75;
-    card(s, x, y, 3.85, 2.5, HEX.light, "continuidade-" + i);
-    await circleIcon(s, cont[i][0], x + 0.3, y + 0.3, 0.6);
-    s.addText(cont[i][1], { x: x + 0.3, y: y + 1.05, w: 3.3, h: 0.4, fontSize: 17, bold: true, color: C.text2, margin: 0, isTextBox: true });
-    s.addText(cont[i][2], { x: x + 0.3, y: y + 1.45, w: 3.3, h: 0.95, fontSize: 13, color: C.text1, margin: 0, isTextBox: true, valign: "top" });
-  }
-  s.addNotes("DENISE abre; CLÁUDIA pode falar 30 segundos sobre LGPD se a banca demonstrar interesse. Ponto-chave: o serviço não depende de uma pessoa só (exigência do item 10.1 da RFP).");
+  s.addNotes("CAIO: mostra o formato do produto que o Einstein vai receber. Deixar claro que os números são fictícios. O dashboard é entregue como relatório mensal, fora de sistema online. Reforçar: os seis entregáveis da RFP foram aceitos formalmente na proposta.");
 
   // ================= CONTROLES DF (3 slides) =================
-  sec("Como a DF controla");
 
   // --- Boletim Diário ---
-  s = content("Como a DF controla", "Boletim Diário de Operações: a rotina de cada prédio, medida");
+  s = content("Como entregamos e controlamos", "Boletim Diário de Operações: a rotina de cada prédio, medida");
   kicker(s, "Sistema próprio da DF: o checklist diário vira indicadores, alertas de SLA e relatório executivo");
   // celular ilustrativo
   s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 0.9, y: 1.75, w: 2.75, h: 5.0, rectRadius: 0.3, fill: { color: HEX.navy }, line: { color: HEX.navy }, objectName: "celular" });
@@ -415,7 +409,7 @@ async function icon(Comp, color, size = 256) {
   s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 1.2, y: 5.65, w: 2.15, h: 0.45, rectRadius: 0.08, fill: { color: HEX.gold }, line: { color: HEX.gold }, objectName: "botao" });
   s.addText("Enviar boletim", { x: 1.2, y: 5.65, w: 2.15, h: 0.45, fontSize: 11.5, bold: true, color: "FFFFFF", align: "center", valign: "middle", margin: 0, isTextBox: true });
   s.addText("Ilustração", { x: 0.9, y: 6.78, w: 2.75, h: 0.22, fontSize: 9, italic: true, color: C.accent3, align: "center", margin: 0, isTextBox: true });
-  const bol = [[fa.FaMobileAlt, "Checklist no celular", "O gerente predial registra sistemas, ocorrências e pendências em etapas — substitui WhatsApp e planilhas"], [fa.FaChartLine, "Painel e indicadores", "Visão de vários condomínios com KPIs, gráficos e matriz de risco de SLA"], [fa.FaExclamationCircle, "Ocorrências e planos", "Cada ocorrência registrada vira acompanhamento até o encerramento"], [fa.FaFileAlt, "Relatório executivo", "Resumo gerencial gerado a partir dos dados do período; resumo pronto para os grupos de WhatsApp"]];
+  const bol = [[fa.FaMobileAlt, "Checklist no celular", "O gerente predial registra sistemas, ocorrências e pendências em etapas, no lugar de WhatsApp e planilhas"], [fa.FaChartLine, "Painel e indicadores", "Visão de vários condomínios com KPIs, gráficos e matriz de risco de SLA"], [fa.FaExclamationCircle, "Ocorrências e planos", "Cada ocorrência registrada vira acompanhamento até o encerramento"], [fa.FaFileAlt, "Relatório executivo", "Resumo gerencial gerado a partir dos dados do período; resumo pronto para os grupos de WhatsApp"]];
   for (let k = 0; k < 4; k++) {
     const col = k % 2, row = Math.floor(k / 2);
     const x = 4.15 + col * 4.3, y = 1.75 + row * 2.05;
@@ -425,15 +419,15 @@ async function icon(Comp, color, size = 256) {
     s.addText(bol[k][2], { x: x + 0.95, y: y + 0.68, w: 3.0, h: 1.1, fontSize: 12.5, color: C.text1, margin: 0, isTextBox: true, valign: "top" });
   }
   card(s, 4.15, 5.9, 8.4, 0.85, HEX.navy, "beneficio-boletim");
-  s.addText([{ text: "Para o Einstein: ", options: { bold: true, color: HEX.gold } }, { text: "a DF chega às assembleias e às reuniões mensais com dados da operação, não com impressões." }], { x: 4.4, y: 5.95, w: 8.0, h: 0.75, fontSize: 14, color: "FFFFFF", margin: 0, isTextBox: true, valign: "middle" });
-  s.addNotes("CAIO: sistema desenvolvido pela DF. Mostrar que a fiscalização da administradora é feita com dados. Não é um sistema que o Einstein precisa usar — é a ferramenta da DF que alimenta os relatórios. Se perguntarem sobre LGPD: dados nos ambientes autorizados, acesso por usuário.");
+  s.addText([{ text: "Para o Einstein: ", options: { bold: true, color: HEX.gold } }, { text: "a DF chega às assembleias e às reuniões mensais com os dados da operação de cada prédio." }], { x: 4.4, y: 5.95, w: 8.0, h: 0.75, fontSize: 14, color: "FFFFFF", margin: 0, isTextBox: true, valign: "middle" });
+  s.addNotes("CAIO: sistema desenvolvido pela DF. Mostrar que a fiscalização da administradora é feita com dados. O Einstein não precisa usar o sistema. É a ferramenta da DF que alimenta os relatórios. Se perguntarem sobre LGPD: dados nos ambientes autorizados, acesso por usuário.");
 
   // --- Rotinas automáticas ---
-  s = content("Como a DF controla", "Rotinas automáticas: nenhum prazo esquecido");
-  kicker(s, "Automações próprias que rodam todos os dias e todas as semanas, sem depender da memória de ninguém");
+  s = content("Como entregamos e controlamos", "Rotinas automáticas: nenhum prazo esquecido");
+  kicker(s, "Automações próprias que rodam todo dia e toda semana, sem depender da memória de ninguém");
   const rot = [
     [fa.FaInbox, "Triagem diária de demandas", "Todo dia, 7h30", ["Lê a caixa de e-mail e identifica pedidos e prazos do cliente", "Atualiza o quadro de acompanhamento das demandas", "Envia o resumo do dia com tudo o que está em aberto"]],
-    [fa.FaFileSignature, "Cobrança de documentação", "Toda segunda-feira", ["Lê os relatórios de documentos a vencer e vencidos", "Separa por condomínio e envia uma cobrança para cada um", "Só envia a destinatários confirmados — na dúvida, não envia"]],
+    [fa.FaFileSignature, "Cobrança de documentação", "Toda segunda-feira", ["Lê os relatórios de documentos a vencer e vencidos", "Separa por condomínio e envia uma cobrança para cada um", "Só envia a destinatários confirmados. Na dúvida, não envia"]],
   ];
   for (let k = 0; k < 2; k++) {
     const [Ic, t, quando, passos] = rot[k];
@@ -450,15 +444,15 @@ async function icon(Comp, color, size = 256) {
     }
   }
   card(s, 0.6, 5.95, 12.15, 0.8, HEX.navy, "beneficio-rotinas");
-  s.addText([{ text: "Para o Einstein: ", options: { bold: true, color: HEX.gold } }, { text: "cada demanda do Einstein entra na triagem no mesmo dia — é o que sustenta os SLAs que propusemos." }], { x: 0.85, y: 6.0, w: 11.7, h: 0.7, fontSize: 14, color: "FFFFFF", margin: 0, isTextBox: true, valign: "middle" });
+  s.addText([{ text: "Para o Einstein: ", options: { bold: true, color: HEX.gold } }, { text: "cada demanda do Einstein entra na triagem no mesmo dia. Isso sustenta os SLAs que propusemos." }], { x: 0.85, y: 6.0, w: 11.7, h: 0.7, fontSize: 14, color: "FFFFFF", margin: 0, isTextBox: true, valign: "middle" });
   s.addNotes("CAIO: duas automações da DF. A triagem diária garante que nenhuma demanda se perca entre e-mails; a cobrança semanal mantém a documentação legal dos prédios em dia. Ligar com o slide de SLA.");
 
   // --- Relatórios técnicos ---
-  s = content("Como a DF controla", "Relatórios técnicos que sustentam decisões");
+  s = content("Como entregamos e controlamos", "Relatórios técnicos que sustentam decisões");
   kicker(s, "O padrão de análise que o Einstein recebe numa ocorrência crítica ou numa revisão de contrato");
   const rel = [
-    [fa.FaSearchPlus, "Relatório de apuração de incidente", "Edifício AAA de uso misto — vazamento no sistema de geradores", ["Análise técnica e jurídica dos relatórios de cinco prestadores", "Cronologia completa do evento, com vistorias da DF no local", "Análise da cobertura das apólices de seguro de cada prestador", "Responsabilidades e plano de ação com responsáveis e prazos"]],
-    [fa.FaCalculator, "Auditoria e conciliação financeira", "Complexo multiuso com subsetores — contrato de administração predial", ["Apuração de questionamentos de condôminos sobre pagamentos à administradora", "39 notas fiscais de 20 meses conciliadas com os comprovantes", "Confronto entre proposta, ata de assembleia, contrato e aditivos", "Rateio entre subsetores e erro material de contrato identificados, com conclusão documentada"]],
+    [fa.FaSearchPlus, "Relatório de apuração de incidente", "Edifício AAA de uso misto: vazamento no sistema de geradores", ["Análise técnica e jurídica dos relatórios de cinco prestadores", "Cronologia completa do evento, com vistorias da DF no local", "Análise da cobertura das apólices de seguro de cada prestador", "Responsabilidades e plano de ação com responsáveis e prazos"]],
+    [fa.FaCalculator, "Auditoria e conciliação financeira", "Complexo multiuso com subsetores: contrato de administração predial", ["Apuração de questionamentos de condôminos sobre pagamentos à administradora", "39 notas fiscais de 20 meses conciliadas com os comprovantes", "Confronto entre proposta, ata de assembleia, contrato e aditivos", "Rateio entre subsetores e erro material de contrato identificados, com conclusão documentada"]],
   ];
   for (let k = 0; k < 2; k++) {
     const [Ic, t, ctx, items] = rel[k];
@@ -470,13 +464,43 @@ async function icon(Comp, color, size = 256) {
     s.addText(items.map((it, j) => ({ text: it, options: { bullet: true, breakLine: j < items.length - 1 } })), { x: x + 0.35, y: y + 1.45, w: 5.3, h: 2.4, fontSize: 14, color: C.text1, paraSpaceAfter: 7, margin: 0, isTextBox: true, valign: "top" });
   }
   card(s, 0.6, 5.95, 12.15, 0.8, HEX.navy, "beneficio-relatorios");
-  s.addText([{ text: "Sigilo: ", options: { bold: true, color: HEX.gold } }, { text: "apresentamos o método, não o cliente — o mesmo cuidado que teremos com as informações do Einstein." }], { x: 0.85, y: 6.0, w: 11.7, h: 0.7, fontSize: 14, color: "FFFFFF", margin: 0, isTextBox: true, valign: "middle" });
-  s.addNotes("DENISE e CAIO: relatórios elaborados pela DF no padrão que o Einstein receberia numa ocorrência crítica (apuração multi-prestador) e numa revisão de contrato (auditoria). Não citar os clientes nem os prédios — o próprio slide diz que é por sigilo. Se pedirem, oferecer mostrar uma versão anonimizada após a contratação.");
+  s.addText([{ text: "Sigilo: ", options: { bold: true, color: HEX.gold } }, { text: "mostramos o método e preservamos o cliente, com o mesmo cuidado que teremos com as informações do Einstein." }], { x: 0.85, y: 6.0, w: 11.7, h: 0.7, fontSize: 14, color: "FFFFFF", margin: 0, isTextBox: true, valign: "middle" });
+  s.addNotes("DENISE e CAIO: relatórios elaborados pela DF no padrão que o Einstein receberia numa ocorrência crítica (apuração multi-prestador) e numa revisão de contrato (auditoria). Não citar os clientes nem os prédios: o próprio slide diz que é por sigilo. Se pedirem, oferecer mostrar uma versão anonimizada após a contratação.");
+
+  // ================= 14. MOBILIZAÇÃO =================
+  s = content("Como entregamos e controlamos", "Mobilização: operação plena em 90 dias");
+  const mob = [["Semana 1", "Kick-off", "Interlocutores, canais, alçadas e temas que exigem autorização", "Ata + matriz de contatos e escalonamento"], ["Semanas 1–2", "Apresentação e acessos", "Apresentação à administradora, ao síndico geral e aos condôminos; pedido de documentos", "Lista de documentos solicitados × recebidos"], ["Semanas 2–4", "Imersão", "Primeira visita a cada unidade (titular + Diretor de Operações), entrevistas e leitura", "1º relatório executivo (D+30)"], ["Até D+60", "Diagnóstico", "Matriz de critérios, diagnóstico do rateio, matriz de riscos", "Relatório de diagnóstico + plano de ação"], ["D+90", "Operação plena", "Rotina mensal completa", "Dashboard em relatório mensal"]];
+  s.addShape(pres.shapes.LINE, { x: 0.9, y: 2.05, w: 11.6, h: 0, line: { color: HEX.line, width: 2 }, objectName: "linha-tempo" });
+  mob.forEach((m, i) => {
+    const x = 0.6 + i * 2.45;
+    s.addShape(pres.shapes.OVAL, { x: x + 0.2, y: 1.85, w: 0.4, h: 0.4, fill: { color: i === 4 ? HEX.gold : HEX.navy }, line: { color: "FFFFFF", width: 2 }, objectName: "marco-" + i });
+    s.addText(m[0], { x, y: 1.25, w: 2.3, h: 0.35, fontSize: 13, bold: true, color: C.accent2, margin: 0, isTextBox: true });
+    card(s, x, 2.5, 2.3, 3.25, HEX.light, "fase-mob-" + i);
+    s.addText(m[1], { x: x + 0.2, y: 2.65, w: 1.95, h: 0.45, fontSize: 16, bold: true, color: C.text2, margin: 0, isTextBox: true });
+    s.addText(m[2], { x: x + 0.2, y: 3.15, w: 1.95, h: 1.45, fontSize: 12.5, color: C.text1, margin: 0, isTextBox: true, valign: "top" });
+    s.addText(m[3], { x: x + 0.2, y: 4.65, w: 1.95, h: 0.95, fontSize: 12, bold: true, italic: true, color: C.text2, margin: 0, isTextBox: true, valign: "top" });
+  });
+  card(s, 0.6, 6.0, 12.15, 0.8, HEX.sand, "orcamento-2027");
+  s.addText([{ text: "Previsão Orçamentária 2027: ", options: { bold: true, color: C.text2 } }, { text: "se ainda não tiver sido aprovada em assembleia no início do contrato, a DF a revisa com prioridade. É o primeiro resultado concreto para o Einstein." }], { x: 0.85, y: 6.03, w: 11.7, h: 0.75, fontSize: 14, color: C.text1, margin: 0, isTextBox: true, valign: "middle" });
+  s.addNotes("CAIO: cronograma. Do Einstein, a DF precisa de: ata de eleição, procurações aplicáveis, contratos, convenção, pastas de prestação de contas e contatos da administradora e do síndico geral. A Previsão Orçamentária 2027 é a vitória rápida.");
+
+  // ================= 15. CONTINUIDADE =================
+  s = content("Como entregamos e controlamos", "Continuidade, sigilo e independência desde o primeiro dia");
+  const cont = [[fa.FaUserFriends, "Titular + 2 substitutos", "Substituição imediata em férias, afastamentos e emergências"], [fa.FaPhoneAlt, "Plantão 24x7", "Escalonamento telefônico para situações críticas, inclusive assembleias emergenciais"], [fa.FaCloud, "Histórico centralizado", "Documentos, pareceres e decisões em repositório corporativo (OneDrive / Microsoft 365) com acesso restrito"], [fa.FaLock, "LGPD", "Diretora de LGPD dedicada; documentos do Einstein só pelos canais autorizados; incidentes comunicados de imediato"], [fa.FaShieldAlt, "Seguro de RC", "Apólices de Responsabilidade Civil Profissional e Geral vigentes, sem custo ao Einstein"], [fa.FaBalanceScale, "Independência declarada", "Nenhum vínculo com condomínios, administradoras, proprietários ou gestores das unidades"]];
+  for (let i = 0; i < 6; i++) {
+    const col = i % 3, row = Math.floor(i / 3);
+    const x = 0.6 + col * 4.1, y = 1.4 + row * 2.75;
+    card(s, x, y, 3.85, 2.5, HEX.light, "continuidade-" + i);
+    await circleIcon(s, cont[i][0], x + 0.3, y + 0.3, 0.6);
+    s.addText(cont[i][1], { x: x + 0.3, y: y + 1.05, w: 3.3, h: 0.4, fontSize: 17, bold: true, color: C.text2, margin: 0, isTextBox: true });
+    s.addText(cont[i][2], { x: x + 0.3, y: y + 1.45, w: 3.3, h: 0.95, fontSize: 13, color: C.text1, margin: 0, isTextBox: true, valign: "top" });
+  }
+  s.addNotes("DENISE abre; CLÁUDIA pode falar 30 segundos sobre LGPD se a banca demonstrar interesse. Ponto-chave: o serviço não depende de uma pessoa só (exigência do item 10.1 da RFP).");
 
   // ================= 16. ESCOPO =================
-  sec("Escopo e premissas");
-  s = content("Escopo e premissas", "Escopo claro, sem surpresas na fatura");
-  const col3 = [["Incluído na mensalidade", HEX.navy, "FFFFFF", ["Titular, substitutos e retaguarda", "Visitas presenciais e técnicas", "Deslocamento, estacionamento e alimentação na Grande SP", "Assembleias ordinárias e extraordinárias", "Plantão 24x7", "Relatórios, dashboard, matriz de riscos e plano de ação", "Pareceres da equipe DF", "Seguro de RC e tributos"]], ["Só com autorização prévia do Einstein", HEX.sand, HEX.ink, ["Laudos, perícias e ensaios de terceiros", "Escritórios externos e processos judiciais", "Auditoria contábil independente", "Custas cartoriais e registros", "Viagens fora da Grande SP", "Orçados à parte; não alteram a mensalidade"]], ["Papel da administradora — não da DF", HEX.light, HEX.ink, ["Equipe residente e operação diária", "Contas a pagar e a receber, boletos e cobrança", "Elaboração de balancetes e prestação de contas", "Compras, estoque e arquivo físico", "A DF analisa, valida e fiscaliza esses processos"]]];
+  sec("Escopo e resultados");
+  s = content("Escopo e resultados", "Escopo claro, sem surpresas na fatura");
+  const col3 = [["Incluído na mensalidade", HEX.navy, "FFFFFF", ["Titular, substitutos e retaguarda", "Visitas presenciais e técnicas", "Deslocamento, estacionamento e alimentação na Grande SP", "Assembleias ordinárias e extraordinárias", "Plantão 24x7", "Relatórios, dashboard, matriz de riscos e plano de ação", "Pareceres da equipe DF", "Seguro de RC e tributos"]], ["Só com autorização prévia do Einstein", HEX.sand, HEX.ink, ["Laudos, perícias e ensaios de terceiros", "Escritórios externos e processos judiciais", "Auditoria contábil independente", "Custas cartoriais e registros", "Viagens fora da Grande SP", "Orçados à parte; não alteram a mensalidade"]], ["Papel da administradora", HEX.light, HEX.ink, ["Equipe residente e operação diária", "Contas a pagar e a receber, boletos e cobrança", "Elaboração de balancetes e prestação de contas", "Compras, estoque e arquivo físico", "A DF analisa, valida e fiscaliza esses processos"]]];
   col3.forEach((c, i) => {
     const x = 0.6 + i * 4.1, y = 1.35;
     card(s, x, y, 3.85, 5.4, c[1], "escopo-" + i);
@@ -486,37 +510,11 @@ async function icon(Comp, color, size = 256) {
   s.addNotes("DENISE: responde o item 6 do e-mail de 30/09 (deslocamentos, especialistas externos, pareceres jurídicos especializados, laudos). Terceira coluna: reforça a separação governança × operação, sem atacar concorrentes. Se perguntarem de preço: a proposta comercial já foi enviada; não discutir valores nesta reunião.");
 
   // ================= POR QUE A DF (3 slides) =================
-  sec("Por que a DF");
-  // --- D: modelo independente x acumulado ---
-  s = content("Por que a DF", "Por que um subsíndico independente");
-  kicker(s, "A diferença entre ter quem fiscalize a operação e deixar a operação se fiscalizar");
-  const cmpH = (t, fill, fg) => ({ text: t, options: { bold: true, color: fg, fill: { color: fill }, fontSize: 15, valign: "middle", align: "center" } });
-  const cmpRows = [
-    ["Quem fiscaliza a administradora", "A DF, em nome do Einstein", "Fica sem fiscalização independente"],
-    ["Conflito de interesse", "Nenhum — declarado por escrito", "A mesma empresa executa e avalia o próprio trabalho"],
-    ["A quem a análise de rateio e contratos serve", "Exclusivamente ao Einstein", "Também ao contrato da própria administradora"],
-    ["Voto e posicionamento", "Só com autorização escrita do Einstein", "Depende de como a função for contratada"],
-  ];
-  s.addTable([
-    [cmpH("", "FFFFFF", HEX.navy), cmpH("Subsíndico independente (DF)", HEX.navy, "FFFFFF"), cmpH("Administradora acumulando a função", "E5E7EB", HEX.ink)],
-    ...cmpRows.map((r, i) => {
-      const f = i % 2 ? "F6F7F9" : "FFFFFF";
-      return [
-        { text: r[0], options: { bold: true, color: HEX.navy, fill: { color: f } } },
-        { text: r[1], options: { bold: true, color: HEX.ink, fill: { color: "EEF1F6" } } },
-        { text: r[2], options: { color: HEX.muted, fill: { color: f } } },
-      ];
-    }),
-  ], { x: 0.6, y: 1.75, w: 12.15, colW: [3.55, 4.3, 4.3], fontSize: 15, fontFace: "Calibri", border: { type: "solid", pt: 0.75, color: "E5E7EB" }, rowH: [0.65, 0.85, 0.85, 0.85, 0.85], valign: "middle", margin: 0.12, objectName: "tabela-comparativo" });
-  card(s, 0.6, 6.0, 12.15, 0.78, HEX.sand, "nota-comparativo");
-  s.addText("Comparamos modelos de atuação, não empresas. A separação entre governança e operação é a premissa da própria RFP.", { x: 0.85, y: 6.03, w: 11.7, h: 0.72, fontSize: 13.5, italic: true, color: C.text2, margin: 0, isTextBox: true, valign: "middle" });
-  s.addNotes("DENISE: comparar MODELOS, nunca empresas — não citar nenhum concorrente nem administradora. Tom de explicação, não de ataque: 'quem executa não deve fiscalizar a si mesmo'. A RFP diz que o subsíndico deve acompanhar a atuação da administradora e avaliar processos e controles.");
-
   // --- B: três unidades, três respostas ---
-  s = content("Por que a DF", "Três unidades, três respostas — com prova");
+  s = content("Escopo e resultados", "Três unidades, três respostas, cada uma com prova");
   kicker(s, "Para cada desafio que identificamos, uma resposta que a DF já entregou em outro empreendimento");
   const tr = [
-    [fa.FaCity, "Parque Global", "Governança setorial e segregação de despesas", "Rateio por subcondomínio e setor, com despesas comuns e específicas separadas", "SPHQ I", "Coeficiente de Rateio de Despesas aprovado em assembleia — cada subcondomínio paga só o que é seu"],
+    [fa.FaCity, "Parque Global", "Governança setorial e segregação de despesas", "Rateio por subcondomínio e setor, com despesas comuns e específicas separadas", "SPHQ I", "Coeficiente de Rateio de Despesas aprovado em assembleia. Cada subcondomínio paga só o que é seu"],
     [fa.FaHospital, "Unidade Hospitalar Pinheiros", "Sistemas críticos e implantação", "Critério para os sistemas que o Einstein opera e que atendem outros setores; acompanhamento da implantação", "17007 Nações + O Parque", "Garagem deixou de subsidiar as torres; implantação de hospital em complexo multiuso"],
     [fa.FaBuilding, "Artur de Azevedo", "Condômino minoritário", "Matriz de critérios e conferência mensal para que o Einstein pague só o que lhe cabe", "Metodologia DF", "Gatilho de ±5% e parecer a cada desvio relevante"],
   ];
@@ -532,13 +530,13 @@ async function icon(Comp, color, size = 256) {
     s.addText("PROVA: " + prova.toUpperCase(), { x: x + 0.3, y: 5.32, w: 3.3, h: 0.32, fontSize: 11.5, bold: true, color: C.accent2, charSpacing: 1, margin: 0, isTextBox: true });
     s.addText(provaTxt, { x: x + 0.3, y: 5.66, w: 3.3, h: 1.0, fontSize: 13, color: "FFFFFF", margin: 0, isTextBox: true, valign: "top" });
   }
-  s.addNotes("CAIO: fecha o raciocínio aberto no slide 3. Para cada unidade, o desafio, a resposta e um caso real em que a DF já fez isso.");
+  s.addNotes("CAIO: fecha o raciocínio aberto no slide 3. Para cada unidade: o desafio, a resposta e um caso real em que a DF já fez isso.");
 
   // --- C: primeiros 90 dias ---
-  s = content("Por que a DF", "O que o Einstein ganha nos primeiros 90 dias");
+  s = content("Escopo e resultados", "O que o Einstein ganha nos primeiros 90 dias");
   kicker(s, "Resultados concretos, com data, desde o primeiro mês de contrato");
   const g = [
-    ["Início", "Previsão Orçamentária 2027", "Revisada com prioridade, se ainda não aprovada em assembleia — o primeiro posicionamento técnico do Einstein", HEX.gold],
+    ["Início", "Previsão Orçamentária 2027", "Revisada com prioridade, se ainda não aprovada em assembleia. É o primeiro posicionamento técnico do Einstein", HEX.gold],
     ["D+30", "Primeiro relatório executivo", "Situação financeira, rateio e riscos de cada unidade, na mesa do Einstein", HEX.navy],
     ["D+60", "Diagnóstico do rateio", "Situação atual × situação correta, subsídios cruzados identificados, matriz de riscos e plano de ação", HEX.navy],
     ["D+90", "Controle mensal completo", "Dashboard em relatório mensal e rotina de conferência rodando nas três unidades", HEX.navy],
@@ -553,13 +551,13 @@ async function icon(Comp, color, size = 256) {
     s.addText(m[2], { x: x + 0.25, y: 3.9, w: 2.4, h: 1.85, fontSize: 13.5, color: C.text1, margin: 0, isTextBox: true, valign: "top" });
   });
   card(s, 0.6, 6.05, 12.15, 0.72, HEX.navy, "fecho-ganhos");
-  s.addText([{ text: "Em 90 dias, o Einstein sabe exatamente quanto paga, por quê, e o que corrigir", options: { bold: true, color: "FFFFFF" } }, { text: " — nas três unidades.", options: { color: HEX.gold, bold: true } }], { x: 0.85, y: 6.08, w: 11.7, h: 0.66, fontSize: 16, margin: 0, isTextBox: true, valign: "middle" });
+  s.addText([{ text: "Em 90 dias, o Einstein sabe quanto paga, por que paga e o que corrigir", options: { bold: true, color: "FFFFFF" } }, { text: " nas três unidades.", options: { color: HEX.gold, bold: true } }], { x: 0.85, y: 6.08, w: 11.7, h: 0.66, fontSize: 16, margin: 0, isTextBox: true, valign: "middle" });
   s.addNotes("DENISE fecha a exposição com o resultado: o que o Einstein tem em mãos em 90 dias. Pausa e passa para o slide de encerramento e as perguntas.");
 
   // ================= 18. ENCERRAMENTO =================
-  s = pres.addSlide({ masterName: "CAPA", sectionTitle: "Por que a DF" });
+  s = pres.addSlide({ masterName: "CAPA", sectionTitle: "Escopo e resultados" });
   s.addText("Obrigado", { x: 0.8, y: 2.3, w: 11, h: 1.0, fontSize: 48, bold: true, color: "FFFFFF", margin: 0, isTextBox: true });
-  s.addText("Estamos à disposição para as dúvidas do Einstein", { x: 0.8, y: 3.3, w: 11, h: 0.5, fontSize: 20, color: "CBD5E4", margin: 0, isTextBox: true });
+  s.addText("Agora, as dúvidas do Einstein", { x: 0.8, y: 3.3, w: 11, h: 0.5, fontSize: 20, color: "CBD5E4", margin: 0, isTextBox: true });
   s.addText([
     { text: "PRÓXIMOS PASSOS", options: { bold: true, color: HEX.gold, breakLine: true } },
     { text: "Formalizamos por escrito os ajustes de SLA apresentados", options: { bullet: true, breakLine: true } },
@@ -580,7 +578,7 @@ async function icon(Comp, color, size = 256) {
   s.addTable([[H("Nível"), H("Critério (e-mail do Einstein, 30/09)"), H("Como a DF atende")], ...crit.map((c, i) => { const f = i % 2 ? "F6F7F9" : "FFFFFF"; return [{ text: c[0], options: { bold: true, color: HEX.navy, fill: { color: f } } }, { text: c[1], options: { color: HEX.ink, fill: { color: f } } }, { text: c[2], options: { bold: true, color: HEX.ink, fill: { color: f } } }]; })], { x: 0.6, y: 1.4, w: 12.15, colW: [1.6, 6.6, 3.95], fontSize: 13, fontFace: "Calibri", border: { type: "solid", pt: 0.75, color: "E5E7EB" }, valign: "middle", margin: 0.1, rowH: [0.5, 1.0, 1.0, 0.8, 1.0], objectName: "tabela-criticidade" });
   s.addNotes("Usar se perguntarem como a DF classifica as demandas.");
 
-  s = content("Apoio para perguntas", "Apoio: insumos que a DF precisa do Einstein no início");
+  s = content("Apoio para perguntas", "Apoio: o que a DF precisa do Einstein para começar");
   const ins = [[fa.FaFileSignature, "Ata de eleição e procurações", "Para a DF representar o Einstein formalmente em cada unidade"], [fa.FaBook, "Convenção, especificação e regimento", "Base de todos os critérios de rateio"], [fa.FaFileContract, "Contratos vigentes", "Para validar critérios de rateio e mapear fornecedores (verificação de independência)"], [fa.FaFolderOpen, "Pastas de prestação de contas", "Últimos 12 meses, para o diagnóstico"], [fa.FaAddressBook, "Contatos", "Administradora, síndico geral e representantes designados pelo Einstein"], [fa.FaSitemap, "Alçadas internas", "Quem autoriza cada tipo de voto e posicionamento"]];
   for (let i = 0; i < 6; i++) {
     const col = i % 2, row = Math.floor(i / 2);

@@ -1,13 +1,13 @@
 ## 1. Síntese
 
-A DF Síndicos Profissionais propõe atuar como subsíndica profissional das três unidades do Einstein — Parque Global, Unidade Hospitalar Pinheiros e Espaço Einstein Artur de Azevedo — representando a Instituição nas instâncias condominiais com independência técnica, análise financeira e de rateio, e governança de voto que não admite manifestação sem autorização prévia e por escrito do Einstein.
+A DF Síndicos Profissionais propõe atuar como subsíndica profissional das três unidades do Einstein (Parque Global, Unidade Hospitalar Pinheiros e Espaço Einstein Artur de Azevedo), representando a Instituição nas instâncias condominiais com independência técnica, análise financeira e de rateio, e governança de voto que não admite manifestação sem autorização prévia e por escrito do Einstein.
 
 Este relatório resume a defesa técnica apresentada em 13/10/2026 e formaliza os compromissos assumidos na reunião, inclusive o alinhamento dos SLAs à referência enviada pelo Einstein em 30/09/2026.
 
 **Compromissos centrais:**
 - Titular dedicada (Denise Ferreira) com dois substitutos qualificados e retaguarda financeira, jurídica, de engenharia e de LGPD.
 - SLAs iguais ou melhores que a referência do Einstein em todos os níveis de criticidade.
-- Nenhum voto ou manifestação em nome do Einstein sem autorização escrita — inclusive em matérias de rotina.
+- Nenhum voto ou manifestação em nome do Einstein sem autorização escrita, inclusive em matérias de rotina.
 - Metodologia de rateio voltada a identificar e corrigir subsídios cruzados entre setores.
 - Aceite integral dos seis entregáveis previstos na RFP, com o primeiro relatório executivo em D+30.
 
@@ -29,10 +29,10 @@ Essa separação garante que quem fiscaliza não seja quem executa. A atuação 
 
 | Função | Profissional |
 |---|---|
-| Titular — interlocução, assembleias e governança | Denise Ferreira (CEO) |
-| Substituta — jurídico, contratos e convenção | Amanda Tigre (Sócia Diretora) |
-| Substituto — engenharia, operação e sistemas críticos | Caio Gavioli (Diretor de Operações) |
-| Financeiro — balancetes, orçamento e rateio | Marco Murino (Gerente Financeiro) |
+| Titular: interlocução, assembleias e governança | Denise Ferreira (CEO) |
+| Substituta: jurídico, contratos e convenção | Amanda Tigre (Sócia Diretora) |
+| Substituto: engenharia, operação e sistemas críticos | Caio Gavioli (Diretor de Operações) |
+| Financeiro: balancetes, orçamento e rateio | Marco Murino (Gerente Financeiro) |
 | Proteção de dados (LGPD) | Cláudia De Santi (Diretora de LGPD) |
 
 | Unidade | Dedicação | Presença |
@@ -65,7 +65,7 @@ Pareceres para assembleia: até 3 dias úteis após o edital e, no mínimo, 5 di
 | 5. Assembleia | Voto exatamente conforme autorizado | na assembleia |
 | 6. Registro | Deliberações e recomendações registradas | até 5 dias úteis após |
 
-Imprevistos em assembleia — tema fora de pauta ou proposta diferente da analisada: a DF não vota em nome do Einstein; abstém-se, pede ressalva em ata ou adiamento e comunica o Einstein no mesmo dia.
+Imprevistos em assembleia (tema fora de pauta ou proposta diferente da analisada): a DF se abstém, pede ressalva em ata ou adiamento e comunica o Einstein no mesmo dia.
 
 ## 7. Metodologia de rateio
 
@@ -88,7 +88,7 @@ Mobilização: kick-off na semana 1, apresentação aos interlocutores e pedido 
 
 ## 9. Experiência
 
-- **SPHQ I** (São Paulo, condomínio geral + três subcondomínios; DF síndica desde 2014): rateio único por fração ideal substituído por um Coeficiente de Rateio de Despesas aprovado em assembleia — cada subcondomínio passou a pagar só o que é seu.
+- **SPHQ I** (São Paulo, condomínio geral + três subcondomínios; DF síndica desde 2014): rateio único por fração ideal substituído por um Coeficiente de Rateio de Despesas aprovado em assembleia. Cada subcondomínio passou a pagar só o que é seu.
 - **17007 Nações** (São Paulo, duas torres + garagem + mall; DF síndica desde 2025): subcondomínio garagem pagava acima das despesas reais; rateio corrigido e diferença redistribuída entre as torres ocupantes.
 - **O Parque** (São Paulo, complexo multiuso com torre do Hospital Sírio-Libanês; DF síndica desde 2026): implantação de condomínio multiuso com operação hospitalar e sistemas críticos.
 
@@ -105,7 +105,7 @@ Ferramentas próprias da DF que sustentam a fiscalização e os SLAs propostos:
 
 - **Incluído na mensalidade:** equipe titular, substitutos e retaguarda; visitas; deslocamento, estacionamento e alimentação na Grande São Paulo; assembleias ordinárias e extraordinárias; plantão 24x7; todos os entregáveis; pareceres da equipe DF; seguro de RC profissional e geral; tributos.
 - **Somente com autorização prévia do Einstein, orçados à parte:** laudos e perícias de terceiros; escritórios externos e processos judiciais; auditoria independente; custas cartoriais; viagens fora da Grande São Paulo.
-- **Papel da administradora, não da DF:** operação diária, equipes, contas a pagar e receber, elaboração de balancetes e prestação de contas, compras e arquivo físico — processos que a DF analisa, valida e fiscaliza.
+- **Papel da administradora:** operação diária, equipes, contas a pagar e receber, elaboração de balancetes e prestação de contas, compras e arquivo físico. A DF analisa, valida e fiscaliza esses processos.
 
 ## 12. Próximos passos
 
