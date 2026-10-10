@@ -28,7 +28,24 @@ SIPOC do processo atual — ver `problemas/P-001-vistorias-condominios.md`, seç
 12. A empresa toda tem Microsoft 365/OneDrive corporativo, ou seria sua conta pessoal/da DF Síndicos guardando as fotos de todo mundo?
 
 ## Respostas do usuário
-<aguardando>
+
+> Ó, tem cerca de cinco vistoriadores e eles usam o celular deles, que é o iPhone ou o Samsung. O ideal é que logo depois que ele termine a, a vistoria, ele aperte o botão de finalizar a vistoria e faça a sincronização com o sistema que for. cada um faz uma vistoria e o outro não interfere. É, eu faço vistorias nos meus prédios, o André faz vistorias nos prédios dele. Nunca tem duas pessoas mexendo na mesma vistoria ao mesmo tempo. Não, o problema não era nem o erro de login. O erro de login foi corrigido, mas o problema maior era a sincronização dos arquivos e onde vão ficar as fotos. Mas agora acho que colocando no OneDrive ou no SharePoint, em algum lugar desse gênero, eu acho que é possível, porque todo mundo tem acesso à conta do Microsoft. Então, temos no máximo 40 condomínios, entre 35 e 40. O final é enviado para a administradora do condomínio e para o proprietário via e-mail em um PDF. não é revisado. O relatório ele vai depois que concluído, mas ele teve a revisão do vistoriador. Ele tem que ter uma aba de, de vistoria do de, de conclusão do vistoriador. Que nem a gente tem no boletim diário informativo. É, o pessoal preenche tudo, a última aba é um resumo que ele valida. Sobre a sincronização, esse é o problema. As pessoas não entendem de sincronização, não entendem de sistema. Elas só preenchem. Então, elas não conseguem ver que deu algum problema. Não, o que eu tenha testado, não vi nenhum outro problema. Nenhum outro problema, a não ser o sincronismo. É, mas eu queria que você estudasse e sugerisse melhoria, sugerisse modo, sugerisse é, é, tudo que eu posso fazer para melhorar o meu programa. Que eu tenha uma qualidade grande para entregar para o cliente cada vez mais, cada vez mais qualidade. Não, hoje é, é um problema. É, ninguém salva. As fotos vão direto para o sistema. E aí eu posso ter problema de perder as fotos ou de espaço. Eu queria que você sugerisse a melhor opção, considerando que eu não quero gastar dinheiro com o servidor para ter espaço, para guardar essas fotos, e que eu posso colocar no OneDrive de graça, porque eu já tenho na empresa o acesso ao OneDrive. Não, só eu mexo na parte técnica. Eu sou o único que consegue mexer, que tem conhecimento dessa parte. O Microsoft 365, ele é da empresa.
+
+**Mapeamento por número (para registro, não é edição da fala dele):**
+1. ~5 vistoriadores, aparelho pessoal (iPhone ou Samsung).
+2. Fluxo esperado: finalizar a vistoria → sincronizar na hora, no mesmo gesto.
+3. Nunca duas pessoas na mesma vistoria — cada um cuida dos próprios prédios (ex.: usuário e André, cada um nos seus). Sem cenário de conflito de edição concorrente na prática.
+4. Não houve só o erro de login — o problema maior é a sincronização dos **arquivos** (fotos) e onde elas ficam.
+5. Até 40 condomínios (35–40).
+6. Relatório final vai por e-mail em PDF para administradora **e** proprietário.
+7. Não há revisão interna antes de enviar — mas o usuário quer criar uma: uma aba de "conclusão do vistoriador" (resumo que ele valida antes de finalizar), no mesmo padrão do boletim diário informativo que a empresa já usa em outro sistema. **Pedido de melhoria, não só resposta.**
+8. Confirma o ponto mais crítico: os vistoriadores não entendem de sincronização/sistema, só preenchem — não têm como perceber que algo falhou.
+9. Nenhum outro problema identificado além do sincronismo.
+10. Não respondeu literalmente ao formato da pergunta (foto por vistoriador × arquivo final), mas deixou claro que quer **sem custo de servidor** para armazenar — o espaço do OneDrive corporativo já pago resolve, hoje as fotos vão direto pro sistema sem nenhuma cópia em lugar nenhum (risco de perda e de estourar espaço).
+11. Só o usuário mexe na parte técnica.
+12. Microsoft 365 é da empresa — toda a equipe tem acesso.
+
+**Além das respostas, pedido explícito mais amplo:** não é só "resolver o sincronismo" — é "estudar e sugerir tudo que dá para melhorar", com qualidade cada vez maior para entregar ao cliente.
 
 ## Desacordos do time levados ao usuário
 Nenhum ainda — Rodada 1 é levantamento, as propostas (e os desacordos, se houver) vêm na Rodada 2.
